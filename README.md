@@ -1,4 +1,5 @@
-# 🚗 Servio  
+# 🚗 Servio
+
 **Smart Maintenance, Safer Drives.**  
 Empowering vehicle owners through intelligent tracking and timely reminders.
 
@@ -28,85 +29,90 @@ It’s built to simplify car ownership by sending **intelligent notifications** 
 
 ## 🎯 Use Cases
 
-- Forgot your car’s **insurance renewal**? Servio reminds you automatically.  
-- Managing **multiple vehicles**? Track them all with detailed histories.  
-- Want to log your **oil changes or tire rotations**? Record them with one tap.  
+- Forgot your car’s **insurance renewal**? Servio reminds you automatically.
+- Managing **multiple vehicles**? Track them all with detailed histories.
+- Want to log your **oil changes or tire rotations**? Record them with one tap.
 - Need alerts for **license renewals** or **service intervals**? Get notified in advance.
 
 ---
 
 ## ✨ Key Features
 
-### 🚘 Multi-Vehicle Management  
+### 🚘 Multi-Vehicle Management
+
 Register and manage multiple cars with detailed info — model, license, service intervals, and more.
 
-### 🔔 Smart Notifications  
+### 🔔 Smart Notifications
+
 Receive scheduled alerts for **maintenance**, **insurance**, and **license** renewals using **Expo Notifications**.
 
-### 🔑 Secure Authentication  
+### 🔑 Secure Authentication
+
 Sign up and log in safely with **JWT** and **bcrypt** for password encryption.
 
-### 🧾 Maintenance History  
+### 🧾 Maintenance History
+
 Keep a digital record of every service, part change, and expense for easy reference.
 
-### 🌐 Bilingual Interface  
+### 🌐 Bilingual Interface
+
 Available in **Arabic** and **English** for seamless accessibility.
 
-### ✅ Form Validation  
+### ✅ Form Validation
+
 Enjoy reliable form handling with **Formik**, **Yup**, and **Joi** to prevent input errors.
 
 ---
 
 ## 🛠 Tech Stack
 
-| Layer | Technology | Description |
-|-------|-------------|-------------|
-| **UI/UX** | ![Figma](https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=figma&logoColor=white) | Modern design and prototyping |
-| **Frontend** | ![React Native](https://img.shields.io/badge/React_Native-20232A?style=flat&logo=react&logoColor=61DAFB) + ![Expo](https://img.shields.io/badge/Expo-000020?style=flat&logo=expo&logoColor=white) | Cross-platform mobile development |
-| **Backend/API** | ![Express.js](https://img.shields.io/badge/Express.js-404D59?style=flat) | RESTful API using Node.js |
-| **Database** | ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=flat&logo=mongodb&logoColor=white) | NoSQL database for scalable storage |
-| **Validation** | ![Joi](https://img.shields.io/badge/Joi-FFD43B?style=flat) ![Formik](https://img.shields.io/badge/Formik-FF6B6B?style=flat) ![Yup](https://img.shields.io/badge/Yup-2C3E50?style=flat) | Robust schema-based validation |
-| **Authentication** | ![JWT](https://img.shields.io/badge/JWT-black?style=flat&logo=jsonwebtokens) ![Bcrypt](https://img.shields.io/badge/Bcrypt-00599C?style=flat) | Secure login and user data protection |
-| **Notifications** | ![Expo Notifications](https://img.shields.io/badge/Expo_Notifications-3DDC84?style=flat&logo=android&logoColor=white) | Local and push alerts |
+| Layer              | Technology                                                                                                                                                                                        | Description                           |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| **UI/UX**          | ![Figma](https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=figma&logoColor=white)                                                                                                         | Modern design and prototyping         |
+| **Frontend**       | ![React Native](https://img.shields.io/badge/React_Native-20232A?style=flat&logo=react&logoColor=61DAFB) + ![Expo](https://img.shields.io/badge/Expo-000020?style=flat&logo=expo&logoColor=white) | Cross-platform mobile development     |
+| **Backend/API**    | ![Express.js](https://img.shields.io/badge/Express.js-404D59?style=flat)                                                                                                                          | RESTful API using Node.js             |
+| **Database**       | ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=flat&logo=mongodb&logoColor=white)                                                                                                   | NoSQL database for scalable storage   |
+| **Validation**     | ![Joi](https://img.shields.io/badge/Joi-FFD43B?style=flat) ![Formik](https://img.shields.io/badge/Formik-FF6B6B?style=flat) ![Yup](https://img.shields.io/badge/Yup-2C3E50?style=flat)            | Robust schema-based validation        |
+| **Authentication** | ![JWT](https://img.shields.io/badge/JWT-black?style=flat&logo=jsonwebtokens) ![Bcrypt](https://img.shields.io/badge/Bcrypt-00599C?style=flat)                                                     | Secure login and user data protection |
+| **Notifications**  | ![Expo Notifications](https://img.shields.io/badge/Expo_Notifications-3DDC84?style=flat&logo=android&logoColor=white)                                                                             | Local and push alerts                 |
 
 ---
 
 ## ⚙️ How It Works
 
-1. **Add Your Vehicle** – Enter your car details like model, license, and service intervals.  
-2. **Set Maintenance Reminders** – Choose intervals for oil, tires, filters, etc.  
-3. **Receive Alerts** – Get notified before any due date.  
-4. **Track History** – View completed services and previous alerts in one dashboard.  
+1. **Add Your Vehicle** – Enter your car details like model, license, and service intervals.
+2. **Set Maintenance Reminders** – Choose intervals for oil, tires, filters, etc.
+3. **Receive Alerts** – Get notified before any due date.
+4. **Track History** – View completed services and previous alerts in one dashboard.
 
 ---
 
 ## 🧱 Architecture Overview
 
-
-- **Frontend:** Handles user interface, input validation, and notifications.  
-- **Backend:** Provides secure APIs and manages authentication.  
+- **Frontend:** Handles user interface, input validation, and notifications.
+- **Backend:** Provides secure APIs and manages authentication.
 - **Database:** Stores user data, vehicles, and maintenance records.
 
 ---
 
 ## 🧭 Project Goals
 
-- Promote **timely maintenance** and **safer driving habits**.  
-- Reduce **manual tracking** through automation.  
-- Provide a **clean, bilingual, and user-friendly interface**.  
+- Promote **timely maintenance** and **safer driving habits**.
+- Reduce **manual tracking** through automation.
+- Provide a **clean, bilingual, and user-friendly interface**.
 - Ensure **data privacy and security** through token-based authentication.
 
 ---
 
 ## 📸 Screenshots
 
-> 🚧 Coming soon — sneak peeks of the CarCare dashboard, reminders page, and bilingual interface.
+> 🚧 Coming soon — sneak peeks of the Servio dashboard, reminders page, and bilingual interface.
 
 ---
 
 ## 🔒 Licensing & Usage
 
-CarCare is a **private academic project**.  
+Servio is a **private academic project**.  
 Redistribution, copying, or reuse of source code, assets, or designs is **strictly prohibited** without prior consent.
 
 ---
@@ -122,6 +128,4 @@ Front-End Engineer | UI/UX Designer | Mobile Developer
 ---
 
 **Smarter maintenance starts here.**  
-Keep your car cared for — with **CarCare**.
-
-
+Keep your car cared for — with **Servio**.
