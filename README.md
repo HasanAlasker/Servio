@@ -17,7 +17,7 @@
   <img src="https://img.shields.io/badge/Formik-FF6B6B?style=for-the-badge&logo=reacthookform&logoColor=white" alt="Formik Badge"/>
   <img src="https://img.shields.io/badge/Yup-2C3E50?style=for-the-badge" alt="Yup Badge"/>
   <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Figma Badge"/>
-  <!-- <img src="https://img.shields.io/badge/Expo_Notifications-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Expo Notifications Badge"/> -->
+  <img src="https://img.shields.io/badge/Expo_Notifications-000020?style=for-the-badge&logo=android&logoColor=white" alt="Expo Notifications Badge"/>
 </p>
 
 
