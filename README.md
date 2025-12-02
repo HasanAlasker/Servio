@@ -1,22 +1,26 @@
 # 🚗 Servio
 
-**Smart Maintenance, Safer Drives.**  
-Empowering vehicle owners through intelligent tracking and timely reminders.
+> **Smart Maintenance, Safer Drives.**  
+> Empowering vehicle owners through intelligent tracking and timely reminders.
 
 ---
 
 ## 🏷️ Badges
 
-![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Expo](https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white)
-![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
-![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=jsonwebtokens)
-![Bcrypt](https://img.shields.io/badge/Bcrypt-00599C?style=for-the-badge&logo=lock&logoColor=white)
-![Formik](https://img.shields.io/badge/Formik-FF6B6B?style=for-the-badge&logo=reacthookform&logoColor=white)
-![Yup](https://img.shields.io/badge/Yup-2C3E50?style=for-the-badge)
-![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
-![Expo Notifications](https://img.shields.io/badge/Expo_Notifications-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+<p align="center">
+  <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React Native Badge"/>
+  <img src="https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white" alt="Expo Badge"/>
+  <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge" alt="Express.js Badge"/>
+  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB Badge"/>
+  <img src="https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=jsonwebtokens" alt="JWT Badge"/>
+  <img src="https://img.shields.io/badge/Bcrypt-00599C?style=for-the-badge&logo=lock&logoColor=white" alt="Bcrypt Badge"/>
+  <img src="https://img.shields.io/badge/Formik-FF6B6B?style=for-the-badge&logo=reacthookform&logoColor=white" alt="Formik Badge"/>
+  <img src="https://img.shields.io/badge/Yup-2C3E50?style=for-the-badge" alt="Yup Badge"/>
+  <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Figma Badge"/>
+  <img src="https://img.shields.io/badge/Expo_Notifications-000020?style=for-the-badge&logo=android&logoColor=white" alt="Expo Notifications Badge"/>
+</p>
+
+
 
 ---
 
@@ -127,5 +131,5 @@ Front-End Engineer | UI/UX Designer | Mobile Developer
 
 ---
 
-**Smarter maintenance starts here.**  
-Keep your car cared for — with **Servio**.
+> **Smarter maintenance starts here.**  
+> Keep your car cared for — with **Servio**.
