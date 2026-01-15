@@ -28,6 +28,10 @@ const upcomingServiceSchema = new mongoose.Schema({
       min: 0,
     },
   },
+  status: {
+    type: String,
+    enum: ["not active", "soon", "over due"],
+  },
 });
 
 const UpcomingServiceModel = mongoose.model(
