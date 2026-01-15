@@ -81,9 +81,13 @@ userSchema.methods.generateAuthToken = function () {
 
 userSchema.methods.hashPassword = async function (password) {
   const salt = bcrypt.genSalt(10);
-  const hashedPassword = bcrypt.hash(password, salt)
+  const hashedPassword = bcrypt.hash(password, salt);
 
-  return hashedPassword
+  return hashedPassword;
+};
+
+postSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
 };
 
 const UserModel = mongoose.model("User", userSchema);
