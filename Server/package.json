@@ -14,8 +14,10 @@
   "type": "module",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "cloudinary": "^2.8.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
+    "expo-server-sdk": "^4.0.0",
     "express": "^5.2.1",
     "joi": "^18.0.2",
     "joi-objectid": "^4.0.2",
