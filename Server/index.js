@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import seedDatabase from "./seed/seedCarMakes.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ mongoose
   );
 
 app.use(express.json());
+// await seedDatabase()
 
 app.listen(port, () => {
   console.log(`Server running on ${port} 🌍`);
