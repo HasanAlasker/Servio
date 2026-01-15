@@ -2,6 +2,18 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+
+import users from "./routes/users.js";
+import cars from "./routes/cars.js";
+import shops from "./routes/shops.js";
+import appointments from "./routes/appointments.js";
+import upcomingServices from "./routes/upcomingServices.js";
+import parts from "./routes/parts.js";
+import reports from "./routes/reports.js";
+import suggestions from "./routes/suggestions.js";
+import { globalLimit } from "./middleware/limiter.js";
+import sanitize from "./middleware/sanitize.js";
+
 import seedDatabase from "./seed/seedCarMakes.js";
 
 dotenv.config();
@@ -23,6 +35,17 @@ mongoose
   );
 
 app.use(express.json());
+app.use(globalLimit);
+app.use(sanitize)
+
+app.use("/api/users", users);
+app.use("/api/cars", cars);
+app.use("/api/parts", parts);
+app.use("/api/shops", shops);
+app.use("/api/appointments", appointments);
+app.use("/api/upcomingServices", upcomingServices);
+app.use("/api/suggestions", suggestions);
+app.use("/api/reports", reports);
 // await seedDatabase()
 
 app.listen(port, () => {
