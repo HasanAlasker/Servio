@@ -58,10 +58,6 @@ Sign up and log in safely with **JWT** and **bcrypt** for password encryption.
 
 Keep a digital record of every service, part change, and expense for easy reference.
 
-### 🌐 Bilingual Interface
-
-Available in **Arabic** and **English** for seamless accessibility.
-
 ### ✅ Form Validation
 
 Enjoy reliable form handling with **Formik**, **Yup**, and **Joi** to prevent input errors.
