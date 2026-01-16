@@ -17,16 +17,24 @@ const appointmentSchema = new mongoose.Schema(
       ref: "Shop",
       required: true,
     },
-    services: [
+    serviceParts: [
       {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Part",
         required: true,
       },
     ],
     status: {
       type: String,
       lowercase: true,
-      enum: ["pending", "confirmed", "in-progress", "canceled", "completed", "no-show"],
+      enum: [
+        "pending",
+        "confirmed",
+        "in-progress",
+        "canceled",
+        "completed",
+        "no-show",
+      ],
       default: "pending",
     },
     scheduledDate: {
@@ -35,8 +43,8 @@ const appointmentSchema = new mongoose.Schema(
     },
     isRejected: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   { timestamps: true }
 );

@@ -83,6 +83,8 @@ router.post(
       const data = req.body;
       data.customer = req.user._id;
 
+      // i have to check if shop id is valid
+
       const appointment = new AppointmentModel(data);
       await appointment.save();
 
