@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
 const carMakeSchema = new mongoose.Schema({
-  name: {
+  make: {
     type: String,
     required: true,
     unique: true,
     trim: true,
     lowercase: true,
   },
-  models: [
+  name: [
     {
       type: String,
       required: true,

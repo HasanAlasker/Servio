@@ -1,0 +1,85 @@
+import Joi from 'joi';
+
+export const addCarSchema = Joi.object({
+  make: Joi.string()
+    .trim()
+    .required()
+    .messages({
+      'string.empty': 'Car make is required',
+      'any.required': 'Car make is required',
+    }),
+  
+  name: Joi.string()
+    .trim()
+    .required()
+    .messages({
+      'string.empty': 'Car model name is required',
+      'any.required': 'Car model name is required',
+    }),
+  
+  model: Joi.number()
+    .integer()
+    .min(1900)
+    .max(new Date().getFullYear() + 1)
+    .required()
+    .messages({
+      'number.base': 'Year must be a number',
+      'number.min': 'Year must be 1900 or later',
+      'number.max': 'Year cannot be in the future',
+      'any.required': 'Year is required',
+    }),
+  
+  plateNumber: Joi.string()
+    .trim()
+    .required()
+    .messages({
+      'string.empty': 'Plate number is required',
+      'any.required': 'Plate number is required',
+    }),
+  
+  mileage: Joi.number()
+    .min(0)
+    .required()
+    .messages({
+      'number.base': 'Mileage must be a number',
+      'number.min': 'Mileage cannot be negative',
+      'any.required': 'Mileage is required',
+    }),
+});
+
+export const editCarSchema = Joi.object({
+  make: Joi.string()
+    .trim()
+    .messages({
+      'string.empty': 'Car make cannot be empty',
+    }),
+  
+  name: Joi.string()
+    .trim()
+    .messages({
+      'string.empty': 'Car model name cannot be empty',
+    }),
+  
+  model: Joi.number()
+    .integer()
+    .min(1900)
+    .max(new Date().getFullYear() + 1)
+    .messages({
+      'number.base': 'Year must be a number',
+      'number.min': 'Year must be 1900 or later',
+      'number.max': 'Year cannot be in the future',
+    }),
+  
+  plateNumber: Joi.string()
+    .trim()
+    .messages({
+      'string.empty': 'Plate number cannot be empty',
+    }),
+  
+  mileage: Joi.number()
+    .min(0)
+    .messages({
+      'number.base': 'Mileage must be a number',
+      'number.min': 'Mileage cannot be negative',
+    }),
+}).min(1); // At least one field must be provided for update
