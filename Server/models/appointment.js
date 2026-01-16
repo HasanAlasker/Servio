@@ -26,13 +26,17 @@ const appointmentSchema = new mongoose.Schema(
     status: {
       type: String,
       lowercase: true,
-      enum: ["pending", "confirmed", "in-progress", "canceled", "completed"],
+      enum: ["pending", "confirmed", "in-progress", "canceled", "completed", "no-show"],
       default: "pending",
     },
     scheduledDate: {
       type: Date,
       required: true,
     },
+    isRejected: {
+      type: Boolean,
+      default: false
+    }
   },
   { timestamps: true }
 );

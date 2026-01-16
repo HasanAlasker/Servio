@@ -1,4 +1,4 @@
-const admin = (req, res, next) => {
+const shopOwner = (req, res, next) => {
   // Check if user exists (from auth middleware)
   if (!req.user) {
     return res.status(401).send("Unauthorized. Please login.");
@@ -12,4 +12,4 @@ const admin = (req, res, next) => {
   next();
 };
 
-export default admin;
+export default shopOwner;

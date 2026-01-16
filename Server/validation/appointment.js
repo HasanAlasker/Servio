@@ -66,9 +66,10 @@ export const editAppointmentSchema = Joi.object({
     }),
   
   status: Joi.string()
-    .valid('pending', 'confirmed', 'in-progress', 'canceled', 'completed')
+    .valid('pending', 'confirmed', 'in-progress', 'canceled', 'completed', 'no-show')
     .lowercase()
     .messages({
-      'any.only': 'Status must be one of: pending, confirmed, in-progress, canceled, completed',
+      'any.only': 'Status must be one of: pending, confirmed, in-progress, canceled, completed, no-show',
     }),
+
 }).min(1);
