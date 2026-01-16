@@ -4,6 +4,11 @@ import admin from "../middleware/admin.js";
 import auth from "../middleware/auth.js";
 import AppointmentModel from "../models/appointment.js";
 import shopOwner from "../middleware/shopOwner.js";
+import validate from "../middleware/joiValidation.js";
+import {
+  createAppointmentSchema,
+  editAppointmentSchema,
+} from "../validation/appointment.js";
 
 const router = express.Router();
 
@@ -70,63 +75,71 @@ router.get("/pending", auth, async (req, res) => {
 });
 
 // make appointment
-router.post("/book", auth, async (req, res) => {
-  try {
-    const data = req.body;
-    data.customer = req.user._id;
+router.post(
+  "/book",
+  [auth, validate(createAppointmentSchema)],
+  async (req, res) => {
+    try {
+      const data = req.body;
+      data.customer = req.user._id;
 
-    const appointment = new AppointmentModel(data);
-    await appointment.save();
+      const appointment = new AppointmentModel(data);
+      await appointment.save();
 
-    if (!appointment)
-      res
-        .status(400)
-        .json({ success: false, message: "Failed to make appointment" });
+      if (!appointment)
+        res
+          .status(400)
+          .json({ success: false, message: "Failed to make appointment" });
 
-    return res.status(201).json({ success: true, data: appointment });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
-
-// confirm appointment (shopOwner)
-router.put("/confirm/:id", shopOwner, async (req, res) => {
-  try {
-    const id = req.params.id;
-
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
+      return res.status(201).json({ success: true, data: appointment });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
         success: false,
-        message: "Invalid car ID",
+        message: "Server Error",
       });
     }
-
-    const confirmed = await AppointmentModel.findByIdAndUpdate(
-      id,
-      {
-        status: "confirmed",
-      },
-      { runValidators: true, new: true }
-    );
-
-    if (!confirmed)
-      res
-        .status(400)
-        .json({ success: false, message: "Failed to confirm appointment" });
-
-    return res.status(200).json({ success: true, data: confirmed });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
   }
-});
+);
+
+// confirm appointment (shopOwner)
+router.put(
+  "/confirm/:id",
+  [shopOwner, validate(editAppointmentSchema)],
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid car ID",
+        });
+      }
+
+      const confirmed = await AppointmentModel.findByIdAndUpdate(
+        id,
+        {
+          status: "confirmed",
+        },
+        { runValidators: true, new: true }
+      );
+
+      if (!confirmed)
+        res
+          .status(400)
+          .json({ success: false, message: "Failed to confirm appointment" });
+
+      return res.status(200).json({ success: true, data: confirmed });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  }
+);
 
 // reject appointment (shopOwner)
 router.put("/reject/:id", shopOwner, async (req, res) => {
@@ -164,108 +177,120 @@ router.put("/reject/:id", shopOwner, async (req, res) => {
 });
 
 // mark completed (shopOwner)
-router.put("/completed/:id", shopOwner, async (req, res) => {
-  try {
-    const id = req.params.id;
+router.put(
+  "/completed/:id",
+  [shopOwner, validate(editAppointmentSchema)],
+  async (req, res) => {
+    try {
+      const id = req.params.id;
 
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
+      if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid car ID",
+        });
+      }
+
+      const completed = await AppointmentModel.findByIdAndUpdate(
+        id,
+        {
+          status: "completed",
+        },
+        { runValidators: true, new: true }
+      );
+
+      if (!completed)
+        res
+          .status(400)
+          .json({ success: false, message: "Failed to confirm appointment" });
+
+      return res.status(200).json({ success: true, data: completed });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
         success: false,
-        message: "Invalid car ID",
+        message: "Server Error",
       });
     }
-
-    const completed = await AppointmentModel.findByIdAndUpdate(
-      id,
-      {
-        status: "completed",
-      },
-      { runValidators: true, new: true }
-    );
-
-    if (!completed)
-      res
-        .status(400)
-        .json({ success: false, message: "Failed to confirm appointment" });
-
-    return res.status(200).json({ success: true, data: completed });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
   }
-});
+);
 
 // mark no-show (shopOwner)
-router.put("/no-show/:id", shopOwner, async (req, res) => {
-  try {
-    const id = req.params.id;
+router.put(
+  "/no-show/:id",
+  [shopOwner, validate(editAppointmentSchema)],
+  async (req, res) => {
+    try {
+      const id = req.params.id;
 
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
+      if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid car ID",
+        });
+      }
+
+      const noShow = await AppointmentModel.findByIdAndUpdate(
+        id,
+        {
+          status: "no-show",
+        },
+        { runValidators: true, new: true }
+      );
+
+      if (!noShow)
+        res
+          .status(400)
+          .json({ success: false, message: "Failed to confirm appointment" });
+
+      return res.status(200).json({ success: true, data: noShow });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
         success: false,
-        message: "Invalid car ID",
+        message: "Server Error",
       });
     }
-
-    const noShow = await AppointmentModel.findByIdAndUpdate(
-      id,
-      {
-        status: "no-show",
-      },
-      { runValidators: true, new: true }
-    );
-
-    if (!noShow)
-      res
-        .status(400)
-        .json({ success: false, message: "Failed to confirm appointment" });
-
-    return res.status(200).json({ success: true, data: noShow });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
   }
-});
+);
 
 // cancel (shopOwner)
-router.put("/cancel/:id", shopOwner, async (req, res) => {
-  try {
-    const id = req.params.id;
+router.put(
+  "/cancel/:id",
+  [shopOwner, validate(editAppointmentSchema)],
+  async (req, res) => {
+    try {
+      const id = req.params.id;
 
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
+      if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid car ID",
+        });
+      }
+
+      const canceled = await AppointmentModel.findByIdAndUpdate(
+        id,
+        {
+          status: "canceled",
+        },
+        { runValidators: true, new: true }
+      );
+
+      if (!canceled)
+        res
+          .status(400)
+          .json({ success: false, message: "Failed to confirm appointment" });
+
+      return res.status(200).json({ success: true, data: canceled });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
         success: false,
-        message: "Invalid car ID",
+        message: "Server Error",
       });
     }
-
-    const canceled = await AppointmentModel.findByIdAndUpdate(
-      id,
-      {
-        status: "canceled",
-      },
-      { runValidators: true, new: true }
-    );
-
-    if (!canceled)
-      res
-        .status(400)
-        .json({ success: false, message: "Failed to confirm appointment" });
-
-    return res.status(200).json({ success: true, data: canceled });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
   }
-});
+);
 
 export default router;
