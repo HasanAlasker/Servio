@@ -27,7 +27,7 @@ router.get("/all", [auth, admin], async (req, res) => {
 router.get("/car-makes", auth, async (req, res) => {
   try {
     const carsData = await CarMakeModel.find()
-      .select("name models")
+      .select("make name")
       .sort({ name: 1 });
 
     if (!carsData || carsData.length === 0) {
@@ -109,15 +109,14 @@ router.get("/:id", auth, async (req, res) => {
 });
 
 // Add car
-router.post("/", [auth, validate(addCarSchema)], async (req, res) => {
+router.post("/add", [auth, validate(addCarSchema)], async (req, res) => {
   try {
     const data = req.body;
     data.owner = req.user._id;
 
     // Validate that make and model exist
     const carMake = await CarMakeModel.findOne({
-      name: data.make,
-      isActive: true,
+      make: data.make
     });
 
     if (!carMake) {
@@ -127,7 +126,7 @@ router.post("/", [auth, validate(addCarSchema)], async (req, res) => {
       });
     }
 
-    if (!carMake.models.includes(data.name)) {
+    if (!carMake.name.includes(data.name)) {
       return res.status(400).json({
         success: false,
         message: `${data.name} is not a valid model for ${data.make}`,
@@ -296,7 +295,7 @@ router.patch("/:id/mileage", auth, async (req, res) => {
 });
 
 // Delete car (soft delete)
-router.delete("/:id", auth, async (req, res) => {
+router.patch("/delete/:id", auth, async (req, res) => {
   try {
     const carId = req.params.id;
     const userId = req.user._id;

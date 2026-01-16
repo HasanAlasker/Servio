@@ -17,4 +17,6 @@ const router = express.Router();
 
 // edit shop
 
+// make user a shopOwner
+
 export default router;
