@@ -13,9 +13,9 @@ import {
 const router = express.Router();
 
 // get all users
-router.get("/all", admin, async (req, res) => {
+router.get("/all", [auth, admin], async (req, res) => {
   try {
-    const users = await UserModel.find("-isDeleted").sort("-createdAt");
+    const users = await UserModel.find({ isDeleted: false }).sort("-createdAt");
     return res.status(200).json({ success: true, data: users });
   } catch (error) {
     console.error(error);
@@ -27,9 +27,11 @@ router.get("/all", admin, async (req, res) => {
 });
 
 // get deleted users
-router.get("/deleted", admin, async (req, res) => {
+router.get("/deleted", [auth, admin], async (req, res) => {
   try {
-    const deletedUsers = await UserModel.find("isDeleted").sort("-createdAt");
+    const deletedUsers = await UserModel.find({ isDeleted: true }).sort(
+      "-createdAt"
+    );
     return res.status(200).json({ success: true, data: deletedUsers });
   } catch (error) {
     console.error(error);
