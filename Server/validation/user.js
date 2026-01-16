@@ -83,6 +83,19 @@ export const userUpdateSchema = Joi.object({
       "string.pattern.base": "Please enter a valid phone number",
     }),
 
+  password: Joi.string()
+    .min(8)
+    .max(128)
+    .pattern(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+    )
+    .messages({
+      "string.min": "Password must be at least 8 characters long",
+      "string.max": "Password can't be longer than 128 characters",
+      "string.pattern.base":
+        "Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character (@$!%*?&)",
+    }),
+
   pushNotificationTokens: Joi.array()
     .items(
       Joi.object({

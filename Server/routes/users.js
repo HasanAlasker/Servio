@@ -187,6 +187,12 @@ router.patch(
           .status(400)
           .json({ success: false, message: "You cant edit this user" });
 
+      if (data.password) {
+        const user = await UserModel.findById(id);
+        const hashedPassword = await user.hashPassword(data.password);
+        data.password = hashedPassword;
+      }
+
       const updatedUser = await UserModel.findByIdAndUpdate(id, data, {
         runValidators: true,
         new: true,
@@ -223,6 +229,42 @@ router.patch("/delete/:id", [auth, admin], async (req, res) => {
     const deletedUser = await UserModel.findByIdAndUpdate(
       id,
       { isDeleted: true },
+      {
+        runValidators: true,
+        new: true,
+      }
+    );
+
+    if (!deletedUser)
+      return res
+        .status(404)
+        .json({ success: false, message: "Failed to delete" });
+
+    return res.status(200).json({ success: true, data: deletedUser });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// un delete
+router.patch("/un-delete/:id", [auth, admin], async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid user ID",
+      });
+    }
+
+    const deletedUser = await UserModel.findByIdAndUpdate(
+      id,
+      { isDeleted: false },
       {
         runValidators: true,
         new: true,
