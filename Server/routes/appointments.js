@@ -13,7 +13,7 @@ import {
 const router = express.Router();
 
 // get all
-router.get("/all", admin, async (req, res) => {
+router.get("/all", [auth, admin], async (req, res) => {
   try {
     const appointments = await AppointmentModel.find();
     return res.status(200).json({ success: true, data: appointments });

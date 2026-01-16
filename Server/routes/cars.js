@@ -10,7 +10,7 @@ import { addCarSchema, editCarSchema } from "../validation/car.js";
 const router = express.Router();
 
 // Get all cars (admin only)
-router.get("/all", admin, async (req, res) => {
+router.get("/all", [auth, admin], async (req, res) => {
   try {
     const cars = await CarModel.find({ isDeleted: false });
     return res.status(200).json({ success: true, data: cars });
