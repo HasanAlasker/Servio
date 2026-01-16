@@ -98,6 +98,12 @@ router.post("/register", validate(userRegistrationSchema), async (req, res) => {
         .status(400)
         .json({ success: false, message: "User already registered" });
 
+    const usedPhone = await UserModel.findOne({ phone: data.phone });
+    if (usedPhone)
+      return res
+        .status(400)
+        .json({ success: false, message: "Phone number already used" });
+
     const newUser = new UserModel(data);
 
     newUser.password = await newUser.hashPassword(data.password);
@@ -116,6 +122,7 @@ router.post("/register", validate(userRegistrationSchema), async (req, res) => {
       .json({ success: true, message: "Registered successfully" });
   } catch (error) {
     console.error(error);
+
     return res.status(500).json({
       success: false,
       message: "Server Error",
