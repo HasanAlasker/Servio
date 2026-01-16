@@ -86,7 +86,7 @@ userSchema.methods.hashPassword = async function (password) {
   return hashedPassword;
 };
 
-postSchema.methods.comparePassword = async function (password) {
+userSchema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
