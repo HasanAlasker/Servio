@@ -15,7 +15,9 @@ const router = express.Router();
 // get all users
 router.get("/all", [auth, admin], async (req, res) => {
   try {
-    const users = await UserModel.find({ isDeleted: false }).sort("-createdAt");
+    const users = await UserModel.find({ isDeleted: false })
+      .sort("-createdAt")
+      .select("-password");
     return res.status(200).json({ success: true, data: users });
   } catch (error) {
     console.error(error);
@@ -29,9 +31,9 @@ router.get("/all", [auth, admin], async (req, res) => {
 // get deleted users
 router.get("/deleted", [auth, admin], async (req, res) => {
   try {
-    const deletedUsers = await UserModel.find({ isDeleted: true }).sort(
-      "-createdAt"
-    );
+    const deletedUsers = await UserModel.find({ isDeleted: true })
+      .sort("-createdAt")
+      .select("-password");
     return res.status(200).json({ success: true, data: deletedUsers });
   } catch (error) {
     console.error(error);
@@ -47,7 +49,7 @@ router.get("/me", auth, async (req, res) => {
   try {
     const id = req.user._id;
 
-    const user = await UserModel.findById(id);
+    const user = await UserModel.findById(id).select("-password");
     if (!user)
       res.status(404).json({ success: false, message: "User not found" });
 
@@ -73,7 +75,7 @@ router.get("/:id", admin, async (req, res) => {
       });
     }
 
-    const user = await UserModel.findById(id);
+    const user = await UserModel.findById(id).select("-password");
     if (!user)
       return res
         .status(404)
@@ -94,7 +96,9 @@ router.post("/register", validate(userRegistrationSchema), async (req, res) => {
   try {
     const data = req.body;
 
-    const existingUser = await UserModel.findOne({ email: data.email });
+    const existingUser = await UserModel.findOne({ email: data.email }).select(
+      "-password"
+    );
     if (existingUser)
       return res
         .status(400)
@@ -196,7 +200,7 @@ router.patch(
       const updatedUser = await UserModel.findByIdAndUpdate(id, data, {
         runValidators: true,
         new: true,
-      });
+      }).select("-password");
 
       if (!updatedUser)
         return res
@@ -233,7 +237,7 @@ router.patch("/delete/:id", [auth, admin], async (req, res) => {
         runValidators: true,
         new: true,
       }
-    );
+    ).select("-password");
 
     if (!deletedUser)
       return res
@@ -269,7 +273,7 @@ router.patch("/un-delete/:id", [auth, admin], async (req, res) => {
         runValidators: true,
         new: true,
       }
-    );
+    ).select("-password");
 
     if (!deletedUser)
       return res
