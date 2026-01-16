@@ -4,7 +4,11 @@ import admin from "../middleware/admin.js";
 import UserModel from "../models/user.js";
 import auth from "../middleware/auth.js";
 import validate from "../middleware/joiValidation.js";
-import { userLoginSchema, userRegistrationSchema } from "../validation/user.js";
+import {
+  userLoginSchema,
+  userRegistrationSchema,
+  userUpdateSchema,
+} from "../validation/user.js";
 
 const router = express.Router();
 
@@ -154,7 +158,83 @@ router.post("/login", validate(userLoginSchema), async (req, res) => {
 });
 
 // edit
+router.put(
+  "/edit/:id",
+  [auth, validate(userUpdateSchema)],
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+      const data = req.body;
 
-// delete
+      if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid user ID",
+        });
+      }
+
+      if (req.user.id !== id)
+        return res
+          .status(400)
+          .json({ success: false, message: "You cant edit this user" });
+
+      const updatedUser = await UserModel.findByIdAndUpdate(id, data, {
+        runValidators: true,
+        new: true,
+      });
+
+      if (!updatedUser)
+        return res
+          .status(404)
+          .json({ success: false, message: "Failed to update" });
+
+      return res.status(200).json({ success: true, data: updatedUser });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  }
+);
+
+// soft delete
+router.put("/delete/:id", admin, async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid user ID",
+      });
+    }
+
+    const deletedUser = await UserModel.findByIdAndUpdate(
+      id,
+      { isDeleted: true },
+      {
+        runValidators: true,
+        new: true,
+      }
+    );
+
+    if (!deletedUser)
+      return res
+        .status(404)
+        .json({ success: false, message: "Failed to delete" });
+
+    return res.status(200).json({ success: true, data: deletedUser });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// add push token
 
 export default router;
