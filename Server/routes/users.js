@@ -167,7 +167,7 @@ router.post("/login", validate(userLoginSchema), async (req, res) => {
 });
 
 // edit
-router.put(
+router.patch(
   "/edit/:id",
   [auth, validate(userUpdateSchema)],
   async (req, res) => {
@@ -182,7 +182,7 @@ router.put(
         });
       }
 
-      if (req.user.id !== id)
+      if (req.user._id !== id)
         return res
           .status(400)
           .json({ success: false, message: "You cant edit this user" });
@@ -209,7 +209,7 @@ router.put(
 );
 
 // soft delete
-router.put("/delete/:id", admin, async (req, res) => {
+router.patch("/delete/:id", [auth, admin], async (req, res) => {
   try {
     const id = req.params.id;
 
