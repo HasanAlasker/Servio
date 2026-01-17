@@ -255,15 +255,6 @@ router.patch("/verify/:id", [auth, admin], async (req, res) => {
   }
 });
 
-// todo: add this route adsf 
-
-// fix: fadfadf dfasdff afdsf 
-
-// enhance: fasdf adsfa asdf
-
-// note:  adsfasdf asdf asdf
-
-// update shop 
 // rate shop
 
 export default router;
