@@ -51,9 +51,12 @@ const partSchema = new mongoose.Schema(
       required: true,
       min: [0, "Mileage cannot be negative"],
     },
-    isDeleted: {},
+    isTracked: {
+      type: Boolean,
+      default: false,
+    },
   },
-  { timestamps }
+  { timestamps },
 );
 
 const PartModel = mongoose.model("Part", partSchema);

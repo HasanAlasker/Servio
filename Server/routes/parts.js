@@ -7,6 +7,8 @@ const router = express.Router();
 
 // get deleted
 
+// get by id
+
 // add part
 
 // edit part
