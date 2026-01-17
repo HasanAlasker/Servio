@@ -6,13 +6,17 @@ import ShopModel from "../models/shop.js";
 import shopOwner from "../middleware/shopOwner.js";
 import validate from "../middleware/joiValidation.js";
 import { addShopSchema, editShopSchema } from "../validation/shop.js";
+import UserModel from "../models/user.js";
 
 const router = express.Router();
 
 // get all verified shops
 router.get("/verified", [auth, admin], async (req, res) => {
   try {
-    const shops = await ShopModel.find({ isVerified: true }).sort("-createdAt");
+    const shops = await ShopModel.find({
+      isVerified: true,
+      isDeleted: false,
+    }).sort("-createdAt");
     return res.status(200).json({ success: true, data: shops });
   } catch (error) {
     console.error(error);
@@ -26,9 +30,10 @@ router.get("/verified", [auth, admin], async (req, res) => {
 // get all unverified shops
 router.get("/verified", [auth, admin], async (req, res) => {
   try {
-    const shops = await ShopModel.find({ isVerified: false }).sort(
-      "-createdAt"
-    );
+    const shops = await ShopModel.find({
+      isVerified: false,
+      isDeleted: false,
+    }).sort("-createdAt");
     return res.status(200).json({ success: true, data: shops });
   } catch (error) {
     console.error(error);
@@ -44,7 +49,11 @@ router.get("/mine", [auth, shopOwner], async (req, res) => {
   try {
     const userId = req.user._id;
 
-    const myShop = await ShopModel.find({ owner: userId, isVerified: true });
+    const myShop = await ShopModel.find({
+      owner: userId,
+      isVerified: true,
+      isDeleted: false,
+    });
     if (!myShop)
       return res
         .status(404)
@@ -174,7 +183,7 @@ router.patch("/delete/:id", [auth, admin], async (req, res) => {
 
     const deletedShop = await ShopModel.findByIdAndUpdate(
       id,
-      { isDeleted: true },
+      { isDeleted: true, isVerified: false },
       {
         runValidators: true,
         new: true,
@@ -196,10 +205,56 @@ router.patch("/delete/:id", [auth, admin], async (req, res) => {
   }
 });
 
-// verify shop
+// verify shop & make user shopOwner
+router.patch("/verify/:id", [auth, admin], async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid shop ID",
+      });
+    }
+
+    const shop = await ShopModel.findById(id);
+    if (!shop)
+      return res
+        .status(404)
+        .json({ success: false, message: "Shop not found" });
+
+    await UserModel.findByIdAndUpdate(
+      shop.owner,
+      {
+        role: "shopOwner",
+      },
+      { runValidators: true, new: true }
+    );
+
+    const verifiedShop = await ShopModel.findByIdAndUpdate(
+      id,
+      { isVerified: true },
+      {
+        runValidators: true,
+        new: true,
+      }
+    );
+
+    if (!verifiedShop)
+      return res
+        .status(404)
+        .json({ success: false, message: "Failed to verify shop" });
+
+    return res.status(200).json({ success: true, data: verifiedShop });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 
 // rate shop
-
-// make user a shopOwner
 
 export default router;
