@@ -17,7 +17,8 @@ export const createAppointmentSchema = Joi.object({
       'any.required': 'Shop ID is required',
     }),
   
-  services: Joi.array()
+  // fix this validation its a ref for the parts now
+  serviceParts: Joi.array()
     .items(Joi.string().trim().min(1))
     .min(1)
     .required()
@@ -50,7 +51,8 @@ export const editAppointmentSchema = Joi.object({
       'string.pattern.base': 'Invalid shop ID format',
     }),
   
-  services: Joi.array()
+  // fix this validation its a ref for the parts now
+  serviceParts: Joi.array()
     .items(Joi.string().trim().min(1))
     .min(1)
     .messages({

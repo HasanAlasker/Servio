@@ -107,7 +107,7 @@ router.post(
 // confirm appointment (shopOwner)
 router.put(
   "/confirm/:id",
-  [shopOwner, validate(editAppointmentSchema)],
+  [auth, shopOwner, validate(editAppointmentSchema)],
   async (req, res) => {
     try {
       const id = req.params.id;
@@ -181,7 +181,7 @@ router.put("/reject/:id", shopOwner, async (req, res) => {
 // mark completed (shopOwner)
 router.put(
   "/completed/:id",
-  [shopOwner, validate(editAppointmentSchema)],
+  [auth, shopOwner, validate(editAppointmentSchema)],
   async (req, res) => {
     try {
       const id = req.params.id;
@@ -220,7 +220,7 @@ router.put(
 // mark no-show (shopOwner)
 router.put(
   "/no-show/:id",
-  [shopOwner, validate(editAppointmentSchema)],
+  [auth, shopOwner, validate(editAppointmentSchema)],
   async (req, res) => {
     try {
       const id = req.params.id;
@@ -259,7 +259,7 @@ router.put(
 // cancel (shopOwner)
 router.put(
   "/cancel/:id",
-  [shopOwner, validate(editAppointmentSchema)],
+  [auth, shopOwner, validate(editAppointmentSchema)],
   async (req, res) => {
     try {
       const id = req.params.id;
