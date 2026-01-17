@@ -12,7 +12,6 @@ import parts from "./routes/parts.js";
 import reports from "./routes/reports.js";
 import suggestions from "./routes/suggestions.js";
 import { globalLimit } from "./middleware/limiter.js";
-import sanitize from "./middleware/sanitize.js";
 
 import seedDatabase from "./seed/seedCarMakes.js";
 
@@ -36,7 +35,6 @@ mongoose
 
 app.use(express.json());
 app.use(globalLimit);
-app.use(sanitize)
 
 app.use("/api/users", users);
 app.use("/api/cars", cars);
