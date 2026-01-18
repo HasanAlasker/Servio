@@ -96,6 +96,11 @@ router.post(
         });
       }
 
+      if (shop.isDeleted)
+        return res
+          .status(400)
+          .json({ success: false, message: "Shop was deleted" });
+
       const appointment = new AppointmentModel(data);
       await appointment.save();
 
