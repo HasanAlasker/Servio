@@ -26,13 +26,13 @@ router.get("/all", [auth, admin], async (req, res) => {
   }
 });
 
-// todo: these get appointments should get the ones spesific to the user requesting them! 
+// todo: these get appointments should get the ones spesific to the user requesting them!
 
 // get confiremd
 router.get("/confirmed", auth, async (req, res) => {
   try {
     const confimed = await AppointmentModel.find({ status: "confirmed" }).sort(
-      "-createdAt"
+      "-createdAt",
     );
     return res.status(200).json({ success: true, data: confimed });
   } catch (error) {
@@ -48,7 +48,7 @@ router.get("/confirmed", auth, async (req, res) => {
 router.get("/completed", auth, async (req, res) => {
   try {
     const completed = await AppointmentModel.find({ status: "completed" }).sort(
-      "-createdAt"
+      "-createdAt",
     );
     return res.status(200).json({ success: true, data: completed });
   } catch (error) {
@@ -64,7 +64,7 @@ router.get("/completed", auth, async (req, res) => {
 router.get("/pending", auth, async (req, res) => {
   try {
     const pending = await AppointmentModel.find({ status: "pending" }).sort(
-      "-createdAt"
+      "-createdAt",
     );
     return res.status(200).json({ success: true, data: pending });
   } catch (error) {
@@ -103,7 +103,7 @@ router.post(
         message: "Server Error",
       });
     }
-  }
+  },
 );
 
 // confirm appointment (shopOwner)
@@ -126,7 +126,7 @@ router.put(
         {
           status: "confirmed",
         },
-        { runValidators: true, new: true }
+        { runValidators: true, new: true },
       );
 
       if (!confirmed)
@@ -142,7 +142,7 @@ router.put(
         message: "Server Error",
       });
     }
-  }
+  },
 );
 
 // reject appointment (shopOwner)
@@ -162,7 +162,7 @@ router.put("/reject/:id", shopOwner, async (req, res) => {
       {
         isRejected: true,
       },
-      { runValidators: true, new: true }
+      { runValidators: true, new: true },
     );
 
     if (!rejected)
@@ -200,7 +200,7 @@ router.put(
         {
           status: "completed",
         },
-        { runValidators: true, new: true }
+        { runValidators: true, new: true },
       );
 
       if (!completed)
@@ -216,7 +216,7 @@ router.put(
         message: "Server Error",
       });
     }
-  }
+  },
 );
 
 // mark no-show (shopOwner)
@@ -239,7 +239,7 @@ router.put(
         {
           status: "no-show",
         },
-        { runValidators: true, new: true }
+        { runValidators: true, new: true },
       );
 
       if (!noShow)
@@ -255,13 +255,13 @@ router.put(
         message: "Server Error",
       });
     }
-  }
+  },
 );
 
-// cancel (shopOwner)
+// cancel (car owner if not accepted yet)
 router.put(
   "/cancel/:id",
-  [auth, shopOwner, validate(editAppointmentSchema)],
+  [auth, validate(editAppointmentSchema)],
   async (req, res) => {
     try {
       const id = req.params.id;
@@ -273,12 +273,27 @@ router.put(
         });
       }
 
+      const appointment = await AppointmentModel.findById(id);
+      if (!appointment) {
+        return res.status(404).json({
+          success: false,
+          message: "Appointment not found",
+        });
+      }
+
+      if (appointment.status !== "pending") {
+        return res.status(400).json({
+          success: false,
+          message: "You can't cancel an appointment unless it's pending",
+        });
+      }
+
       const canceled = await AppointmentModel.findByIdAndUpdate(
         id,
         {
           status: "canceled",
         },
-        { runValidators: true, new: true }
+        { runValidators: true, new: true },
       );
 
       if (!canceled)
@@ -294,7 +309,7 @@ router.put(
         message: "Server Error",
       });
     }
-  }
+  },
 );
 
 export default router;
