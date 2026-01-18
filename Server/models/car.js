@@ -23,6 +23,10 @@ const carSchema = new mongoose.Schema(
       max: [new Date().getFullYear() + 1, "Year cannot be in the future"],
       required: true,
     },
+    color: {
+      type: String,
+      trim: true,
+    },
     plateNumber: {
       type: String,
       unique: true,
@@ -39,7 +43,7 @@ const carSchema = new mongoose.Schema(
       default: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const CarModel = mongoose.model("Car", carSchema);
