@@ -14,7 +14,7 @@ const upcomingServiceSchema = new mongoose.Schema({
   parts: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Car",
+      ref: "Part",
       required: true,
     },
   ],
@@ -30,7 +30,7 @@ const upcomingServiceSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["not active", "soon", "over due"],
+    enum: ["not active", "soon", "due", "over due"],
   },
 });
 
