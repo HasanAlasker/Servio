@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import auth from "../middleware/auth.js";
 import PartModel from "../models/part.js";
 import validate from "../middleware/joiValidation.js";
-import { addPartSchema } from "../validation/part.js";
+import { addPartSchema, editPartSchema } from "../validation/part.js";
 
 const router = express.Router();
 
@@ -94,7 +94,7 @@ router.post("/add/:id", [auth, validate(addPartSchema)], async (req, res) => {
       });
     }
 
-    const newPart = new PartModel(data)
+    const newPart = new PartModel(data);
     if (!newPart) {
       return res.status(404).json({
         success: false,
@@ -102,7 +102,7 @@ router.post("/add/:id", [auth, validate(addPartSchema)], async (req, res) => {
       });
     }
 
-    newPart.save()
+    newPart.save();
 
     return res.status(201).json({ success: true, data: newPart });
   } catch (error) {
@@ -115,7 +115,94 @@ router.post("/add/:id", [auth, validate(addPartSchema)], async (req, res) => {
 });
 
 // edit part
+router.put("/edit/:id", [auth, validate(editPartSchema)], async (req, res) => {
+  try {
+    const partId = req.params.id;
+    const data = req.body;
 
-// delete part
+    if (!partId || !mongoose.Types.ObjectId.isValid(partId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid resource ID",
+      });
+    }
+
+    const part = await PartModel.findById(partId);
+    if (!part) {
+      return res.status(404).json({
+        success: false,
+        message: "Part not found",
+      });
+    }
+
+    const updatedPart = await PartModel.findByIdAndUpdate(partId, data, {
+      runValidators: true,
+      new: true,
+    });
+    if (!updatedPart) {
+      return res.status(404).json({
+        success: false,
+        message: "Failed to edit part",
+      });
+    }
+
+    return res.status(200).json({ success: true, data: updatedPart });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// untrack part
+router.put(
+  "/un-track/:id",
+  [auth, validate(editPartSchema)],
+  async (req, res) => {
+    try {
+      const partId = req.params.id;
+
+      if (!partId || !mongoose.Types.ObjectId.isValid(partId)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid resource ID",
+        });
+      }
+
+      const part = await PartModel.findById(partId);
+      if (!part) {
+        return res.status(404).json({
+          success: false,
+          message: "Part not found",
+        });
+      }
+
+      const updatedPart = await PartModel.findByIdAndUpdate(
+        partId,
+        { isTracked: false },
+        {
+          runValidators: true,
+          new: true,
+        },
+      );
+      if (!updatedPart) {
+        return res.status(404).json({
+          success: false,
+          message: "Failed to edit part",
+        });
+      }
+
+      return res.status(200).json({ success: true, data: updatedPart });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 export default router;
