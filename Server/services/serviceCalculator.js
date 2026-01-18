@@ -1,5 +1,5 @@
 // Calculate when a part needs service
-export const calculateNextService = async (part, currentCarMileage) => {
+export const calculateNextService = (part, currentCarMileage) => {
   const { lastChangeDate, lastChangeMileage, recommendedChangeInterval } = part;
 
   let nextServiceDate = null;
@@ -8,9 +8,15 @@ export const calculateNextService = async (part, currentCarMileage) => {
   // Calculate by date
   if (recommendedChangeInterval.months) {
     nextServiceDate = new Date(lastChangeDate);
-    nextServiceDate.setMonth(
-      nextServiceDate.getMonth() + recommendedChangeInterval.months,
-    );
+
+    // Get current values
+    const day = nextServiceDate.getDate();
+    const month = nextServiceDate.getMonth();
+    const year = nextServiceDate.getFullYear();
+
+    // Calculate new date
+    const newMonth = month + recommendedChangeInterval.months;
+    nextServiceDate = new Date(year, newMonth, day);
   }
 
   // Calculate by mileage
@@ -33,7 +39,7 @@ export const calculateNextService = async (part, currentCarMileage) => {
 };
 
 // Determine status based on due date/mileage
-export const getServiceStatus = async (daysUntilDue, milesUntilDue) => {
+export const getServiceStatus = (daysUntilDue, milesUntilDue) => {
   const isDueSoon =
     (daysUntilDue !== null && daysUntilDue <= 30) ||
     (milesUntilDue !== null && milesUntilDue <= 500);
@@ -51,7 +57,7 @@ export const getServiceStatus = async (daysUntilDue, milesUntilDue) => {
 };
 
 // Group parts that can be serviced together (within 7 days)
-export const groupServiceableParts = async (partServices) => {
+export const groupServiceableParts = (partServices) => {
   const groups = [];
   const sorted = [...partServices].sort((a, b) => {
     const dateA = a.nextServiceDate || new Date(9999, 0);

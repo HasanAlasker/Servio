@@ -53,7 +53,16 @@
 	"lastChangeDate": "12-2-2022",
 	"lastChangeMileage": 90000,
 	"recommendedChangeInterval": {
-		"months": 60
+		"months": 60,
 		"miles": 1000000
 	}
+}
+
+// add car
+{
+	"make": "ford",
+	"name": "mustang",
+	"model": 2019,
+	"plateNumber": "1-2000",
+	"mileage": 10000
 }

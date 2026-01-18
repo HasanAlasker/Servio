@@ -4,6 +4,7 @@ import auth from "../middleware/auth.js";
 import PartModel from "../models/part.js";
 import validate from "../middleware/joiValidation.js";
 import { addPartSchema, editPartSchema } from "../validation/part.js";
+import { updateServicesForCar } from "../services/upcomingServiceManager.js";
 
 const router = express.Router();
 
@@ -102,6 +103,8 @@ router.post("/add/:id", [auth, validate(addPartSchema)], async (req, res) => {
       });
     }
 
+    await updateServicesForCar(carId);
+
     newPart.save();
 
     return res.status(201).json({ success: true, data: newPart });
@@ -145,6 +148,8 @@ router.put("/edit/:id", [auth, validate(editPartSchema)], async (req, res) => {
         message: "Failed to edit part",
       });
     }
+
+    await updateServicesForCar(updatedPart.car);
 
     return res.status(200).json({ success: true, data: updatedPart });
   } catch (error) {
