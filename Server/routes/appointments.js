@@ -10,6 +10,7 @@ import {
   editAppointmentSchema,
 } from "../validation/appointment.js";
 import ShopModel from "../models/shop.js";
+import { date } from "joi";
 
 const router = express.Router();
 
@@ -27,16 +28,56 @@ router.get("/all", [auth, admin], async (req, res) => {
   }
 });
 
-// todo: these get appointments should get the ones spesific to the user requesting them!
-
-// get confiremd
-router.get("/confirmed", auth, async (req, res) => {
+// get upcoming
+router.get("/upcoming", auth, async (req, res) => {
   try {
     const userId = req.user._id;
 
-    const confimed = await AppointmentModel.find({ status: "confirmed" }).sort(
-      "-createdAt",
-    );
+    const upcoming = await AppointmentModel.find({
+      customer: userId,
+      scheduledDate: { $gte: new Date() },
+    }).sort({ scheduledDate: 1 });
+
+    return res.status(200).json({ success: true, data: upcoming });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// get past
+router.get("/past", auth, async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const past = await AppointmentModel.find({
+      customer: userId,
+      scheduledDate: { $lte: new Date() },
+    }).sort({ scheduledDate: 1 });
+
+    return res.status(200).json({ success: true, data: past });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// get confiremd
+router.get("/confirmed/:id", [auth, shopOwner], async (req, res) => {
+  try {
+    const shopId = req.params.id;
+
+    const confimed = await AppointmentModel.find({
+      shop: shopId,
+      status: "confirmed",
+    }).sort("-createdAt");
+
     return res.status(200).json({ success: true, data: confimed });
   } catch (error) {
     console.error(error);
@@ -48,11 +89,15 @@ router.get("/confirmed", auth, async (req, res) => {
 });
 
 // get comleted
-router.get("/completed", auth, async (req, res) => {
+router.get("/completed/:id", [auth, shopOwner], async (req, res) => {
   try {
-    const completed = await AppointmentModel.find({ status: "completed" }).sort(
-      "-createdAt",
-    );
+    const shopId = req.params.id;
+
+    const completed = await AppointmentModel.find({
+      shop: shopId,
+      status: "completed",
+    }).sort("-createdAt");
+    
     return res.status(200).json({ success: true, data: completed });
   } catch (error) {
     console.error(error);
@@ -64,11 +109,15 @@ router.get("/completed", auth, async (req, res) => {
 });
 
 // get pending
-router.get("/pending", auth, async (req, res) => {
+router.get("/pending/:id", [auth, shopOwner], async (req, res) => {
   try {
-    const pending = await AppointmentModel.find({ status: "pending" }).sort(
-      "-createdAt",
-    );
+    const shopId = req.params.id;
+
+    const pending = await AppointmentModel.find({
+      shop: shopId,
+      status: "pending",
+    }).sort("-createdAt");
+
     return res.status(200).json({ success: true, data: pending });
   } catch (error) {
     console.error(error);
