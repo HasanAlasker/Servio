@@ -6,6 +6,7 @@ import validate from "../middleware/joiValidation.js";
 import admin from "../middleware/admin.js";
 import auth from "../middleware/auth.js";
 import { addCarSchema, editCarSchema } from "../validation/car.js";
+import { updateServicesForCar } from "../services/upcomingServiceManager.js";
 
 const router = express.Router();
 
@@ -116,7 +117,7 @@ router.post("/add", [auth, validate(addCarSchema)], async (req, res) => {
 
     // Validate that make and model exist
     const carMake = await CarMakeModel.findOne({
-      make: data.make
+      make: data.make,
     });
 
     if (!carMake) {
@@ -201,6 +202,8 @@ router.patch("/:id", [auth, validate(editCarSchema)], async (req, res) => {
       });
     }
 
+    await updateServicesForCar(carId);
+
     return res.status(200).json({ success: true, data: updatedCar });
   } catch (error) {
     console.log(error);
@@ -274,7 +277,7 @@ router.patch("/:id/mileage", auth, async (req, res) => {
       {
         runValidators: true,
         new: true,
-      }
+      },
     );
 
     if (!updatedCar) {
@@ -283,6 +286,8 @@ router.patch("/:id/mileage", auth, async (req, res) => {
         message: "Car was not updated",
       });
     }
+
+    await updateServicesForCar(carId);
 
     return res.status(200).json({ success: true, data: updatedCar });
   } catch (error) {
@@ -332,7 +337,7 @@ router.patch("/delete/:id", auth, async (req, res) => {
       {
         runValidators: true,
         new: true,
-      }
+      },
     );
 
     if (!deletedCar) {
