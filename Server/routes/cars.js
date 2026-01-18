@@ -83,7 +83,7 @@ router.get("/:id", auth, async (req, res) => {
     const myCar = await CarModel.findOne({
       _id: id,
       isDeleted: false,
-    });
+    }).populate("owner", "name email phone");
 
     if (!myCar) {
       return res.status(404).json({
@@ -92,7 +92,10 @@ router.get("/:id", auth, async (req, res) => {
       });
     }
 
-    if (myCar.owner.toString() !== req.user._id.toString()) {
+    if (
+      myCar.owner._id.toString() !== req.user._id.toString() &&
+      req.user.role !== "admin"
+    ) {
       return res.status(403).json({
         success: false,
         message: "You don't have permission to view this car",
