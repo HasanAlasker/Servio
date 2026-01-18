@@ -1,5 +1,3 @@
-
-
 // Calculate when a part needs service
 export const calculateNextService = async (part, currentCarMileage) => {
   const { lastChangeDate, lastChangeMileage, recommendedChangeInterval } = part;

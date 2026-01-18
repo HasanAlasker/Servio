@@ -31,12 +31,16 @@ const upcomingServiceSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["not active", "soon", "due", "overdue"],
-    default: "not active"
+    default: "not active",
+  },
+  notifcationSent: {
+    type: Boolean,
+    default: false,
   },
 });
 
 const UpcomingServiceModel = mongoose.model(
   "UpcomingService",
-  upcomingServiceSchema
+  upcomingServiceSchema,
 );
 export default UpcomingServiceModel;
