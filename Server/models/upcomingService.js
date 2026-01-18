@@ -30,7 +30,8 @@ const upcomingServiceSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["not active", "soon", "due", "over due"],
+    enum: ["not active", "soon", "due", "overdue"],
+    default: "not active"
   },
 });
 
