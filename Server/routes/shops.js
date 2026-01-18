@@ -16,7 +16,9 @@ router.get("/verified", [auth, admin], async (req, res) => {
     const shops = await ShopModel.find({
       isVerified: true,
       isDeleted: false,
-    }).sort("-createdAt");
+    })
+      .sort("-createdAt")
+      .populate("owner", "name email phone role");
     return res.status(200).json({ success: true, data: shops });
   } catch (error) {
     console.error(error);
@@ -28,12 +30,14 @@ router.get("/verified", [auth, admin], async (req, res) => {
 });
 
 // get all unverified shops
-router.get("/verified", [auth, admin], async (req, res) => {
+router.get("/un-verified", [auth, admin], async (req, res) => {
   try {
     const shops = await ShopModel.find({
       isVerified: false,
       isDeleted: false,
-    }).sort("-createdAt");
+    })
+      .sort("-createdAt")
+      .populate("owner", "name email phone role");
     return res.status(200).json({ success: true, data: shops });
   } catch (error) {
     console.error(error);
@@ -81,7 +85,10 @@ router.get("/:id", auth, async (req, res) => {
       });
     }
 
-    const shop = await ShopModel.findById(id);
+    const shop = await ShopModel.findById(id).populate(
+      "owner",
+      "name email phone role",
+    );
     if (!shop)
       return res
         .status(404)
@@ -166,7 +173,7 @@ router.patch(
         message: "Server Error",
       });
     }
-  }
+  },
 );
 
 // delete shop
@@ -187,7 +194,7 @@ router.patch("/delete/:id", [auth, admin], async (req, res) => {
       {
         runValidators: true,
         new: true,
-      }
+      },
     );
 
     if (!deletedShop)
@@ -228,7 +235,7 @@ router.patch("/verify/:id", [auth, admin], async (req, res) => {
       {
         role: "shopOwner",
       },
-      { runValidators: true, new: true }
+      { runValidators: true, new: true },
     );
 
     const verifiedShop = await ShopModel.findByIdAndUpdate(
@@ -237,7 +244,7 @@ router.patch("/verify/:id", [auth, admin], async (req, res) => {
       {
         runValidators: true,
         new: true,
-      }
+      },
     );
 
     if (!verifiedShop)
