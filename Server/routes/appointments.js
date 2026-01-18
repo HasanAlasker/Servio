@@ -9,6 +9,7 @@ import {
   createAppointmentSchema,
   editAppointmentSchema,
 } from "../validation/appointment.js";
+import ShopModel from "../models/shop.js";
 
 const router = express.Router();
 
@@ -31,6 +32,8 @@ router.get("/all", [auth, admin], async (req, res) => {
 // get confiremd
 router.get("/confirmed", auth, async (req, res) => {
   try {
+    const userId = req.user._id;
+
     const confimed = await AppointmentModel.find({ status: "confirmed" }).sort(
       "-createdAt",
     );
@@ -85,7 +88,13 @@ router.post(
       const data = req.body;
       data.customer = req.user._id;
 
-      // i have to check if shop id is valid
+      const shop = await ShopModel.findById(data.shop);
+      if (!shop) {
+        return res.status(404).json({
+          success: false,
+          message: "Shop not found",
+        });
+      }
 
       const appointment = new AppointmentModel(data);
       await appointment.save();
