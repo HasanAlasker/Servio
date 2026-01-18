@@ -1,5 +1,5 @@
 // services/notificationService.js
-import UpcomingServiceModel from "../models/upcomingServiceModel.js";
+import UpcomingServiceModel from "../models/upcomingService.js";
 
 export const sendNotification = async (service) => {
 

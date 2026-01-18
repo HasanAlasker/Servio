@@ -14,6 +14,7 @@ import suggestions from "./routes/suggestions.js";
 import { globalLimit } from "./middleware/limiter.js";
 
 import seedDatabase from "./seed/seedCarMakes.js";
+import { startServiceScheduler } from "./jobs/serviceSchedular.js";
 
 dotenv.config();
 
@@ -45,6 +46,9 @@ app.use("/api/upcomingServices", upcomingServices);
 app.use("/api/suggestions", suggestions);
 app.use("/api/reports", reports);
 // await seedDatabase()
+
+startServiceScheduler()
+console.log("Service scheduler started 📆")
 
 app.listen(port, () => {
   console.log(`Server running on ${port} 🌍`);
