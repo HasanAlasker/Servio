@@ -56,7 +56,7 @@ const partSchema = new mongoose.Schema(
       default: false,
     },
   },
-  { timestamps },
+  { timestamps: true },
 );
 
 const PartModel = mongoose.model("Part", partSchema);

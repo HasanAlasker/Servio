@@ -26,6 +26,8 @@ router.get("/all", [auth, admin], async (req, res) => {
   }
 });
 
+// todo: these get appointments should get the ones spesific to the user requesting them! 
+
 // get confiremd
 router.get("/confirmed", auth, async (req, res) => {
   try {
