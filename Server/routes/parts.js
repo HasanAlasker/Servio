@@ -11,7 +11,7 @@ const router = express.Router();
 // get part by id
 router.get("/:id", auth, async (req, res) => {
   try {
-    const id = req.params._id;
+    const id = req.params.id;
 
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
@@ -20,7 +20,16 @@ router.get("/:id", auth, async (req, res) => {
       });
     }
 
-    const part = await PartModel.findById(id);
+    const part = await PartModel.findById(id).populate(
+      "car",
+      "owner make name model plateNumber mileage",
+    );
+    if (!part) {
+      return res.status(404).json({
+        success: false,
+        message: "Part not found",
+      });
+    }
 
     return res.status(200).json({ success: true, data: part });
   } catch (error) {
@@ -35,7 +44,7 @@ router.get("/:id", auth, async (req, res) => {
 // get tracked parts for a car
 router.get("/tracked/:id", auth, async (req, res) => {
   try {
-    const carId = req.params._id;
+    const carId = req.params.id;
 
     if (!carId || !mongoose.Types.ObjectId.isValid(carId)) {
       return res.status(400).json({
@@ -44,7 +53,10 @@ router.get("/tracked/:id", auth, async (req, res) => {
       });
     }
 
-    const parts = await PartModel.find({ car: carId, isTracked: true });
+    const parts = await PartModel.find({
+      car: carId,
+      isTracked: true,
+    }).populate("car", "owner make name model plateNumber mileage");
 
     return res.status(200).json({ success: true, data: parts });
   } catch (error) {
@@ -59,7 +71,7 @@ router.get("/tracked/:id", auth, async (req, res) => {
 // get my untracked parts
 router.get("/un-tracked/:id", auth, async (req, res) => {
   try {
-    const carId = req.params._id;
+    const carId = req.params.id;
 
     if (!carId || !mongoose.Types.ObjectId.isValid(carId)) {
       return res.status(400).json({
@@ -68,7 +80,10 @@ router.get("/un-tracked/:id", auth, async (req, res) => {
       });
     }
 
-    const parts = await PartModel.find({ car: carId, isTracked: false });
+    const parts = await PartModel.find({
+      car: carId,
+      isTracked: false,
+    }).populate("car", "owner make name model plateNumber mileage");
 
     return res.status(200).json({ success: true, data: parts });
   } catch (error) {
