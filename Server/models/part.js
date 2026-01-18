@@ -53,7 +53,7 @@ const partSchema = new mongoose.Schema(
     },
     isTracked: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   { timestamps: true },

@@ -2,56 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import auth from "../middleware/auth.js";
 import PartModel from "../models/part.js";
+import validate from "../middleware/joiValidation.js";
+import { addPartSchema } from "../validation/part.js";
 
 const router = express.Router();
-
-// get tracked parts for a car
-router.get("/tracked/:id", auth, async (req, res) => {
-  try {
-    const id = req.params._id;
-
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid resource ID",
-      });
-    }
-
-    const parts = await PartModel.find({ car: id, isTracked: true });
-
-    return res.status(200).json({ success: true, data: parts });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
-
-// get my untracked parts
-router.get("/un-tracked/:id", auth, async (req, res) => {
-  try {
-    const id = req.params._id;
-
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid resource ID",
-      });
-    }
-
-    const parts = await PartModel.find({ car: id, isTracked: false });
-
-    return res.status(200).json({ success: true, data: parts });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
 
 // get part by id
 router.get("/:id", auth, async (req, res) => {
@@ -77,7 +31,88 @@ router.get("/:id", auth, async (req, res) => {
   }
 });
 
+// get tracked parts for a car
+router.get("/tracked/:id", auth, async (req, res) => {
+  try {
+    const carId = req.params._id;
+
+    if (!carId || !mongoose.Types.ObjectId.isValid(carId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid resource ID",
+      });
+    }
+
+    const parts = await PartModel.find({ car: carId, isTracked: true });
+
+    return res.status(200).json({ success: true, data: parts });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// get my untracked parts
+router.get("/un-tracked/:id", auth, async (req, res) => {
+  try {
+    const carId = req.params._id;
+
+    if (!carId || !mongoose.Types.ObjectId.isValid(carId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid resource ID",
+      });
+    }
+
+    const parts = await PartModel.find({ car: carId, isTracked: false });
+
+    return res.status(200).json({ success: true, data: parts });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
 // add part
+router.post("/add/:id", [auth, validate(addPartSchema)], async (req, res) => {
+  try {
+    const carId = req.params.id;
+    const data = req.body;
+
+    data.car = carId;
+
+    if (!carId || !mongoose.Types.ObjectId.isValid(carId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid resource ID",
+      });
+    }
+
+    const newPart = new PartModel(data)
+    if (!newPart) {
+      return res.status(404).json({
+        success: false,
+        message: "Part not added",
+      });
+    }
+
+    newPart.save()
+
+    return res.status(201).json({ success: true, data: newPart });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 
 // edit part
 

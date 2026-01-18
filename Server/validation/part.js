@@ -16,13 +16,13 @@ const VALID_PART_NAMES = [
 ];
 
 export const addPartSchema = Joi.object({
-  car: Joi.string()
-    .pattern(/^[0-9a-fA-F]{24}$/)
-    .required()
-    .messages({
-      'string.pattern.base': 'Invalid car ID format',
-      'any.required': 'Car ID is required',
-    }),
+  // car: Joi.string()
+  //   .pattern(/^[0-9a-fA-F]{24}$/)
+  //   .required()
+  //   .messages({
+  //     'string.pattern.base': 'Invalid car ID format',
+  //     'any.required': 'Car ID is required',
+  //   }),
   
   name: Joi.string()
     .trim()
@@ -49,7 +49,7 @@ export const addPartSchema = Joi.object({
         'number.base': 'Miles must be a number',
         'number.min': 'Miles cannot be negative',
       }),
-  })
+  }).required()
     .or('months', 'miles')
     .messages({
       'object.missing': 'At least one of months or miles must be provided',
