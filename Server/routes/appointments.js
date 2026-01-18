@@ -10,7 +10,6 @@ import {
   editAppointmentSchema,
 } from "../validation/appointment.js";
 import ShopModel from "../models/shop.js";
-import { date } from "joi";
 
 const router = express.Router();
 
@@ -97,7 +96,7 @@ router.get("/completed/:id", [auth, shopOwner], async (req, res) => {
       shop: shopId,
       status: "completed",
     }).sort("-createdAt");
-    
+
     return res.status(200).json({ success: true, data: completed });
   } catch (error) {
     console.error(error);
