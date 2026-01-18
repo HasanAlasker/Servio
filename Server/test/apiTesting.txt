@@ -1,0 +1,59 @@
+// Note: these are jsons for testing api endpoints 
+
+// register
+{
+	"name": "Noah Alasker",
+	"email": "n@email.com",
+	"password": "Hasan2004!",
+	"phone": "0845478733"
+}
+
+// login
+{
+	"email": "n@email.com",
+	"password": "Hasan2004!",
+}
+
+// open shop
+{
+  "name": "CareCenter",
+  "services": [
+    { "name": "accessories" },
+    { "name": "upgrade parts" }
+  ],
+  "addresses": [
+    {
+      "city": "Amman",
+      "area": "Al-Bayader",
+      "street": "Alommal Road"
+    }
+  ],
+  "openHours": {
+    "sun": { "isOpen": true, "from": "09:00", "to": "18:00" },
+    "mon": { "isOpen": true, "from": "09:00", "to": "18:00" },
+    "tue": { "isOpen": true, "from": "09:00", "to": "18:00" },
+    "wed": { "isOpen": true, "from": "09:00", "to": "18:00" },
+    "thu": { "isOpen": true, "from": "09:00", "to": "18:00" },
+    "fri": { "isOpen": false },
+    "sat": { "isOpen": false }
+  }
+}
+
+// make appointment
+{
+	"car": "696a7ca51389dd6400f438aa",
+	"shop": "696b4baee15944bdb1445e9e",
+	"services": ["battery replacement"],
+	"scheduledDate": "10-12-2026"
+}
+
+// add part
+{
+	"name": "tires",
+	"lastChangeDate": "12-2-2022",
+	"lastChangeMileage": 90000,
+	"recommendedChangeInterval": {
+		"months": 60
+		"miles": 1000000
+	}
+}
