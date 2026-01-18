@@ -17,15 +17,20 @@ export const createAppointmentSchema = Joi.object({
       'any.required': 'Shop ID is required',
     }),
   
-  // fix this validation its a ref for the parts now
   serviceParts: Joi.array()
-    .items(Joi.string().trim().min(1))
+    .items(
+      Joi.string()
+        .pattern(/^[0-9a-fA-F]{24}$/)
+        .messages({
+          'string.pattern.base': 'Invalid part ID format',
+        })
+    )
     .min(1)
     .required()
     .messages({
-      'array.base': 'Services must be an array',
-      'array.min': 'At least one service is required',
-      'any.required': 'Services are required',
+      'array.base': 'Service parts must be an array',
+      'array.min': 'At least one service part is required',
+      'any.required': 'Service parts are required',
     }),
   
   scheduledDate: Joi.date()
@@ -51,13 +56,18 @@ export const editAppointmentSchema = Joi.object({
       'string.pattern.base': 'Invalid shop ID format',
     }),
   
-  // fix this validation its a ref for the parts now
   serviceParts: Joi.array()
-    .items(Joi.string().trim().min(1))
+    .items(
+      Joi.string()
+        .pattern(/^[0-9a-fA-F]{24}$/)
+        .messages({
+          'string.pattern.base': 'Invalid part ID format',
+        })
+    )
     .min(1)
     .messages({
-      'array.base': 'Services must be an array',
-      'array.min': 'At least one service is required',
+      'array.base': 'Service parts must be an array',
+      'array.min': 'At least one service part is required',
     }),
   
   scheduledDate: Joi.date()
