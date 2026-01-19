@@ -133,7 +133,7 @@ router.post("/add/:id", [auth, validate(addPartSchema)], async (req, res) => {
 });
 
 // edit part
-router.put("/edit/:id", [auth, validate(editPartSchema)], async (req, res) => {
+router.patch("/edit/:id", [auth, validate(editPartSchema)], async (req, res) => {
   try {
     const partId = req.params.id;
     const data = req.body;
@@ -177,7 +177,7 @@ router.put("/edit/:id", [auth, validate(editPartSchema)], async (req, res) => {
 });
 
 // untrack part
-router.put(
+router.patch(
   "/un-track/:id",
   [auth, validate(editPartSchema)],
   async (req, res) => {
