@@ -4,11 +4,11 @@ const endpoint = "/users";
 
 export const getAllUsers = () => apiClient.get(`${endpoint}/all`);
 
-export const getDeleted = () => apiClient.get(`${endpoint}/deleted`);
+export const getDeletedUsers = () => apiClient.get(`${endpoint}/deleted`);
 
 export const getMe = () => apiClient.get(`${endpoint}/me`);
 
-export const getById = (id) => apiClient.get(`${endpoint}/${id}`);
+export const getUserById = (id) => apiClient.get(`${endpoint}/${id}`);
 
 export const register = (data) => apiClient.post(`${endpoint}/register`, data);
 

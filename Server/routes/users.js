@@ -13,7 +13,7 @@ import {
 const router = express.Router();
 
 // get all users
-router.get("/all", async (req, res) => {
+router.get("/all", [auth, admin], async (req, res) => {
   try {
     const users = await UserModel.find({ isDeleted: false })
       .sort("-createdAt")

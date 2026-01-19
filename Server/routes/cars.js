@@ -161,7 +161,7 @@ router.post("/add", [auth, validate(addCarSchema)], async (req, res) => {
 });
 
 // Edit car
-router.patch("/:id", [auth, validate(editCarSchema)], async (req, res) => {
+router.patch("/edit/:id", [auth, validate(editCarSchema)], async (req, res) => {
   try {
     const carId = req.params.id;
     const userId = req.user._id;
@@ -227,11 +227,13 @@ router.patch("/:id", [auth, validate(editCarSchema)], async (req, res) => {
 });
 
 // Update mileage
-router.patch("/:id/mileage", auth, async (req, res) => {
+router.patch("/mileage/:id", auth, async (req, res) => {
   try {
     const carId = req.params.id;
     const userId = req.user._id;
-    const { mileage } = req.body;
+    const data = req.body;
+
+    const mileage = data.mileage;
 
     if (!carId || !mongoose.Types.ObjectId.isValid(carId)) {
       return res.status(400).json({
