@@ -8,19 +8,25 @@ import { getAllUsers } from "./api/user";
 import SafeScreen from "./components/general/SafeScreen";
 
 export default function App() {
-  const { data, request } = useApi(getAllUsers);
+  const { data, request, error, message, status } = useApi(getAllUsers);
   useEffect(() => {
     request();
   }, []);
 
-  const users = data.data;
-  const userList = users
-    ? users.map((user) => (
-        <Text key={user.id}>
-          {user.name}, {user.email}
-        </Text>
-      ))
-    : null;
+  const Message = <Text>{message}</Text>;
+
+  const users = data;
+
+  const userList =
+    users && data.length > 0
+      ? users.map((user) => (
+          <Text key={user._id}>
+            {user.name}, {user.email}
+          </Text>
+        ))
+      : Message;
+
+  if (status) console.log(status);
 
   return (
     <SafeAreaProvider>
