@@ -169,7 +169,7 @@ router.post(
 );
 
 // confirm appointment (shopOwner)
-router.put(
+router.patch(
   "/confirm/:id",
   [auth, shopOwner, validate(editAppointmentSchema)],
   async (req, res) => {
@@ -208,7 +208,7 @@ router.put(
 );
 
 // reject appointment (shopOwner)
-router.put("/reject/:id", shopOwner, async (req, res) => {
+router.patch("/reject/:id", shopOwner, async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -243,8 +243,8 @@ router.put("/reject/:id", shopOwner, async (req, res) => {
 });
 
 // mark completed (shopOwner)
-router.put(
-  "/completed/:id",
+router.patch(
+  "/mark-completed/:id",
   [auth, shopOwner, validate(editAppointmentSchema)],
   async (req, res) => {
     try {
@@ -282,7 +282,7 @@ router.put(
 );
 
 // mark no-show (shopOwner)
-router.put(
+router.patch(
   "/no-show/:id",
   [auth, shopOwner, validate(editAppointmentSchema)],
   async (req, res) => {
@@ -321,7 +321,7 @@ router.put(
 );
 
 // cancel (car owner if not accepted yet)
-router.put(
+router.patch(
   "/cancel/:id",
   [auth, validate(editAppointmentSchema)],
   async (req, res) => {
