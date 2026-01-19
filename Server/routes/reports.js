@@ -48,7 +48,7 @@ router.post("/create", [auth, validate(createReport)], async (req, res) => {
 });
 
 // close report
-router.put("/close/:id", [auth, admin], async (req, res) => {
+router.patch("/close/:id", [auth, admin], async (req, res) => {
   try {
     const id = req.params.id;
 
