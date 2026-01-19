@@ -8,7 +8,7 @@ import admin from "../middleware/admin.js";
 const router = express.Router();
 
 // get all suggestions (admin)
-router.get("/", [auth, admin], async (req, res) => {
+router.get("/all", [auth, admin], async (req, res) => {
   try {
     const suggestions = await SuggestionModel.find()
       .sort("-createdAt")
@@ -21,7 +21,7 @@ router.get("/", [auth, admin], async (req, res) => {
 });
 
 // create suggesion
-router.post("/", auth, async (req, res) => {
+router.post("/add", auth, async (req, res) => {
   try {
     const data = req.body;
     data.user = req.user._id;
