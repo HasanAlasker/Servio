@@ -38,6 +38,19 @@ export const UserProvider = ({ children }) => {
     TOKEN: "@servio_token",
   };
 
+  const loadUserData = async () => {
+    try {
+      const loadedUser = await AsyncStorage.getItem(STORAGE_KEYS.USER);
+      const loadedToken = await AsyncStorage.getItem(STORAGE_KEYS.TOKEN);
+      if (loadedUser && loadedToken) {
+        setUser(JSON.parse(loadedUser));
+        setToken(loadedToken);
+      }
+    } catch (error) {
+      console.error("Error loading stored user", error);
+    }
+  };
+
   const storeUserData = async (user, token) => {
     try {
       await AsyncStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
@@ -134,6 +147,7 @@ export const UserProvider = ({ children }) => {
     isAdmin,
     isUser,
     isShopOwner,
+    loadUserData,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
