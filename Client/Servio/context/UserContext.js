@@ -1,7 +1,7 @@
 import { useContext, createContext, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import useApi from "../hooks/useApi";
-import { getMe, loginUser } from "../api/user";
+import { getMe, loginUser, registerUser } from "../api/user";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const UserContext = createContext();
@@ -120,7 +120,52 @@ export const UserProvider = ({ children }) => {
   };
 
   const register = async () => {
-    // save token to asyncStorage
+    try {
+      setLoading(true);
+      setError(false);
+      setMessage(null);
+      setStatus(null);
+
+      const res = await registerUser(data);
+
+      const responseMessage = res.data.message;
+      const responseStatus = res.status;
+
+      if (!res.ok) {
+        setError(true);
+        return {
+          success: false,
+          error: error,
+          message: responseMessage,
+          status: responseStatus,
+        };
+      }
+
+      const userData = res.data.data;
+      const tokenData = res.headers["x-auth-token"];
+
+      setUser(userData);
+      setToken(tokenData);
+      setMessage(responseMessage);
+      setStatus(responseStatus);
+
+      await storeUserData(userData, tokenData);
+      return {
+        success: true,
+        message: responseMessage,
+        status: responseStatus,
+      };
+    } catch (error) {
+      console.error("Registration error:", error);
+      setError(true);
+      setMessage(error.message || "An error occurred during registration");
+      return {
+        success: false,
+        message: error.message || "An error occurred during registration",
+      };
+    } finally {
+      setLoading(false);
+    }
   };
 
   const logout = async () => {
