@@ -1,6 +1,4 @@
 import { useContext, createContext, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import useApi from "../hooks/useApi";
 import { editUser, getMe, loginUser, registerUser } from "../api/user";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -21,17 +19,6 @@ export const UserProvider = ({ children }) => {
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
-
-  const navigate = useNavigation();
-
-  const {
-    data: fetchedUser,
-    request: fetchUser,
-    message: resMsg,
-    error: resErr,
-    loading: resLoading,
-    status: resStatus,
-  } = useApi(getMe);
 
   const STORAGE_KEYS = {
     USER: "@servio_user",
@@ -68,7 +55,54 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const getMyProfile = async () => {};
+  const getMyProfile = async () => {
+    try {
+      setLoading(true);
+      setError(false);
+      setMessage(null);
+      setStatus(null);
+
+      const res = await getMe();
+
+      const responseMessage = res.data?.message;
+      const responseStatus = res.status;
+
+      if (!res.ok) {
+        setError(true);
+        setMessage(responseMessage);
+        setStatus(responseStatus);
+        return {
+          success: false,
+          message: responseMessage,
+          status: responseStatus,
+        };
+      }
+
+      const userData = res.data.data;
+
+      setUser(userData);
+      setMessage(responseMessage);
+      setStatus(responseStatus);
+
+      await storeUserData(userData, token);
+
+      return {
+        success: true,
+        message: responseMessage,
+        status: responseStatus,
+      };
+    } catch (error) {
+      console.error("User fetch error:", error);
+      setError(true);
+      setMessage(error.message || "An error occurred while fetching");
+      return {
+        success: false,
+        message: error.message || "An error occurred while fetching",
+      };
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const login = async (data) => {
     try {
