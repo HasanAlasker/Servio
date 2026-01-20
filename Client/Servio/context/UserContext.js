@@ -1,6 +1,7 @@
 import { useContext, createContext, useState } from "react";
 import { editUser, getMe, loginUser, registerUser } from "../api/user";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { isServerAwake } from "../api/upcomingService";
 
 export const UserContext = createContext();
 
@@ -19,6 +20,7 @@ export const UserProvider = ({ children }) => {
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
+  const [serverAwake, setServerAwake] = useState(false);
 
   const STORAGE_KEYS = {
     USER: "@servio_user",
@@ -52,6 +54,55 @@ export const UserProvider = ({ children }) => {
       await AsyncStorage.multiRemove([STORAGE_KEYS.USER, STORAGE_KEYS.TOKEN]);
     } catch (error) {
       console.error("Error removing user data", error);
+    }
+  };
+
+  const checkServerConnection = async () => {
+    try {
+      setLoading(true);
+      setError(false);
+      setMessage(null);
+      setStatus(null);
+      setServerAwake(false);
+
+      const res = await isServerAwake();
+
+      const responseMessage = res.data?.message;
+      const responseStatus = res.status;
+
+      if (!res.ok) {
+        setError(true);
+        setMessage(responseMessage);
+        setStatus(responseStatus);
+        return {
+          success: false,
+          message: responseMessage,
+          status: responseStatus,
+        };
+      }
+
+      setMessage(responseMessage);
+      setStatus(responseStatus);
+      setServerAwake(true);
+
+      return {
+        success: true,
+        message: responseMessage,
+        status: responseStatus,
+      };
+    } catch (error) {
+      console.error("Connection error:", error);
+      setError(true);
+      setMessage(
+        error.message || "An error occurred while connecting to the server",
+      );
+      return {
+        success: false,
+        message:
+          error.message || "An error occurred while connecting to the server",
+      };
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -278,6 +329,8 @@ export const UserProvider = ({ children }) => {
     isUser,
     isShopOwner,
     loadUserData,
+    serverAwake,
+    checkServerConnection
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
