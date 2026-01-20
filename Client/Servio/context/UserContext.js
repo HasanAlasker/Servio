@@ -124,7 +124,13 @@ export const UserProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    // remove token from asyncStorage
+    try {
+      setUser(null);
+      setToken(null);
+      await removeUserData();
+    } catch (error) {
+      console.error("Error logging out user", error);
+    }
   };
 
   const role = user?.role;
