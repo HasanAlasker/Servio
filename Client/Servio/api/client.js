@@ -8,7 +8,7 @@ export const apiClient = create({
 
 // Add auth token to all requests
 apiClient.addAsyncRequestTransform(async (request) => {
-  const token = await AsyncStorage.getItem("@servio_token"); // or whatever key you use
+  const token = await AsyncStorage.getItem("@servio_token");
   if (token) {
     request.headers["x-auth-token"] = token;
   }

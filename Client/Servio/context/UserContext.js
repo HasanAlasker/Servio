@@ -1,7 +1,8 @@
 import { useContext, createContext, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import useApi from "../hooks/useApi";
-import { getMe } from "../api/user";
+import { getMe, loginUser } from "../api/user";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const UserContext = createContext();
 
@@ -13,7 +14,7 @@ export const UseUser = () => {
   return context;
 };
 
-export const UserProvider = () => {
+export const UserProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [token, setToken] = useState(null);
   const [error, setError] = useState(false);
@@ -32,13 +33,86 @@ export const UserProvider = () => {
     status: resStatus,
   } = useApi(getMe);
 
-  const getMine = async () => {};
+  const STORAGE_KEYS = {
+    USER: "@servio_user",
+    TOKEN: "@servio_token",
+  };
 
-  const login = async () => {};
+  const storeUserData = async (user, token) => {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
+      await AsyncStorage.setItem(STORAGE_KEYS.TOKEN, token);
+    } catch (error) {
+      console.error("Error storing user data", error);
+    }
+  };
 
-  const register = async () => {};
+  const removeUserData = async () => {
+    try {
+      await AsyncStorage.multiRemove([STORAGE_KEYS.USER, STORAGE_KEYS.TOKEN]);
+    } catch (error) {
+      console.error("Error removing user data", error);
+    }
+  };
 
-  const logout = async () => {};
+  const getMyProfile = async () => {};
+
+  const login = async (data) => {
+    try {
+      setLoading(true);
+      setError(false);
+      setMessage(null);
+      setStatus(null);
+
+      const res = await loginUser(data);
+
+      const responseMessage = res.data.message;
+      const responseStatus = res.status;
+
+      if (!res.ok) {
+        setError(true);
+        return {
+          success: false,
+          error: error,
+          message: responseMessage,
+          status: responseStatus,
+        };
+      }
+
+      const userData = res.data.data;
+      const tokenData = res.headers["x-auth-token"];
+
+      setUser(userData);
+      setToken(tokenData);
+      setMessage(responseMessage);
+      setStatus(responseStatus);
+
+      await storeUserData(userData, tokenData);
+      return {
+        success: true,
+        message: responseMessage,
+        status: responseStatus,
+      };
+    } catch (error) {
+      console.error("Login error:", error);
+      setError(true);
+      setMessage(error.message || "An error occurred during login");
+      return {
+        success: false,
+        message: error.message || "An error occurred during login",
+      };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const register = async () => {
+    // save token to asyncStorage
+  };
+
+  const logout = async () => {
+    // remove token from asyncStorage
+  };
 
   const role = user?.role;
   const isAdmin = user?.role === "admin";
@@ -46,7 +120,13 @@ export const UserProvider = () => {
   const isShopOwner = user?.role === "shopOwner";
 
   const value = {
-    getMe,
+    user,
+    token,
+    loading,
+    error,
+    message,
+    status,
+    getMyProfile,
     login,
     register,
     logout,
@@ -56,5 +136,5 @@ export const UserProvider = () => {
     isShopOwner,
   };
 
-  return <UserContext.Provider value={value}>{childern}</UserContext.Provider>;
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

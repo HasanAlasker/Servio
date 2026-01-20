@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import _ from "lodash";
 import admin from "../middleware/admin.js";
 import UserModel from "../models/user.js";
 import auth from "../middleware/auth.js";
@@ -97,7 +98,7 @@ router.post("/register", validate(userRegistrationSchema), async (req, res) => {
     const data = req.body;
 
     const existingUser = await UserModel.findOne({ email: data.email }).select(
-      "-password"
+      "-password",
     );
     if (existingUser)
       return res
@@ -122,10 +123,13 @@ router.post("/register", validate(userRegistrationSchema), async (req, res) => {
         .status(404)
         .json({ success: false, message: "Failed to register" });
 
-    return res
-      .status(201)
-      .header("x-auth-token", token)
-      .json({ success: true, message: "Registered successfully" });
+    const response = _.omit(newUser.toObject(), ["password", "__v"]);
+
+    return res.status(201).header("x-auth-token", token).json({
+      success: true,
+      message: "Registered successfully",
+      data: response,
+    });
   } catch (error) {
     console.error(error);
 
@@ -156,10 +160,12 @@ router.post("/login", validate(userLoginSchema), async (req, res) => {
 
     const token = await user.generateAuthToken();
 
+    const response = _.omit(user.toObject(), ["password", "__v"]);
+
     return res
       .status(201)
       .header("x-auth-token", token)
-      .json({ success: true, message: "Login successful" })
+      .json({ success: true, message: "Login successful", data: response })
       .header();
   } catch (error) {
     console.error(error);
@@ -215,7 +221,7 @@ router.patch(
         message: "Server Error",
       });
     }
-  }
+  },
 );
 
 // soft delete
@@ -236,7 +242,7 @@ router.patch("/delete/:id", [auth, admin], async (req, res) => {
       {
         runValidators: true,
         new: true,
-      }
+      },
     ).select("-password");
 
     if (!deletedUser)
@@ -272,7 +278,7 @@ router.patch("/un-delete/:id", [auth, admin], async (req, res) => {
       {
         runValidators: true,
         new: true,
-      }
+      },
     ).select("-password");
 
     if (!deletedUser)

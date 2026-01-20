@@ -10,9 +10,9 @@ export const getMe = () => apiClient.get(`${endpoint}/me`);
 
 export const getUserById = (id) => apiClient.get(`${endpoint}/${id}`);
 
-export const register = (data) => apiClient.post(`${endpoint}/register`, data);
+export const registerUser = (data) => apiClient.post(`${endpoint}/register`, data);
 
-export const login = (data) => apiClient.post(`${endpoint}/login`, data);
+export const loginUser = (data) => apiClient.post(`${endpoint}/login`, data);
 
 export const editUser = (id, data) =>
   apiClient.patch(`${endpoint}/edit/${id}`, data);
