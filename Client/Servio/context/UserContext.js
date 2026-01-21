@@ -203,7 +203,7 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const register = async () => {
+  const register = async (data) => {
     try {
       setLoading(true);
       setError(false);

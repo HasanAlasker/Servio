@@ -1,37 +1,118 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text } from "react-native";
-import { ThemeProvider } from "./context/ThemeContext";
+import { StyleSheet } from "react-native";
+import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import useApi from "./hooks/useApi";
-import { useEffect } from "react";
-import { getAllUsers } from "./api/user";
 import SafeScreen from "./components/general/SafeScreen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { UserProvider, UseUser } from "./context/UserContext";
+import LoadingCircle from "./components/general/LoadingCircle";
+import { NavigationContainer } from "@react-navigation/native";
+import Home from "./screens/carOwner/Home";
+import Shops from "./screens/carOwner/Shops";
+import AddCar from "./screens/carOwner/AddCar";
+import Bookings from "./screens/carOwner/Bookings";
+import Service from "./screens/carOwner/Service";
+import Parts from "./screens/carOwner/Parts";
+import MyCars from "./screens/carOwner/MyCars";
+import Welcome from "./screens/login/Welcome";
+import Login from "./screens/login/Login";
+import Register from "./screens/login/Register";
+import Dash from "./screens/admin/Dash";
+import MyShop from "./screens/shopOwner/MyShop";
+
+const Stack = createNativeStackNavigator();
+
+const AdminStack = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName="Dash"
+      screenOptions={{ headerShown: false, animation: "none" }}
+    >
+      <Stack.Screen name="Dash" component={Dash} />
+    </Stack.Navigator>
+  );
+};
+
+const CarOwnerStack = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{ headerShown: false, animation: "none" }}
+    >
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Shops" component={Shops} />
+      <Stack.Screen name="AddCar" component={AddCar} />
+      <Stack.Screen name="Bookings" component={Bookings} />
+      <Stack.Screen name="Service" component={Service} />
+      <Stack.Screen name="Parts" component={Parts} />
+      <Stack.Screen name="MyCars" component={MyCars} />
+    </Stack.Navigator>
+  );
+};
+
+const ShopOwnerStack = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName="MyShop"
+      screenOptions={{ headerShown: false, animation: "none" }}
+    >
+      <Stack.Screen name="MyShop" component={MyShop} />
+    </Stack.Navigator>
+  );
+};
+
+const AuthStack = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName="Welcome"
+      screenOptions={{ headerShown: false, animation: "none" }}
+    >
+      <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Register} />
+    </Stack.Navigator>
+  );
+};
+
+const AppNavigator = () => {
+  const { loading, isUser, isShopOwner, isAdmin } = UseUser();
+  const { isDarkMode } = useTheme();
+
+  console.log(isUser, isAdmin, isShopOwner, loading);
+  console.log(
+    typeof isUser,
+    typeof isShopOwner,
+    typeof isAdmin,
+    typeof loading,
+  );
+
+  if (loading) return <LoadingCircle />;
+
+  return (
+    <>
+      <StatusBar style={isDarkMode ? "light" : "dark"} />
+      <NavigationContainer>
+        {isUser ? (
+          <CarOwnerStack />
+        ) : isShopOwner ? (
+          <ShopOwnerStack />
+        ) : isAdmin ? (
+          <AdminStack />
+        ) : (
+          <AuthStack />
+        )}
+      </NavigationContainer>
+    </>
+  );
+};
 
 export default function App() {
-  const { data, request, error, message, status } = useApi(getAllUsers);
-  useEffect(() => {
-    request();
-  }, []);
-
-  const Message = <Text>{message}</Text>;
-
-  const users = data;
-
-  const userList =
-    users && data.length > 0
-      ? users.map((user) => (
-          <Text key={user._id}>
-            {user.name}, {user.email}
-          </Text>
-        ))
-      : Message;
-
-  if (status) console.log(status);
-
   return (
     <SafeAreaProvider>
       <ThemeProvider>
-        <SafeScreen>{userList}</SafeScreen>
+        <UserProvider>
+          <AppNavigator />
+        </UserProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );
