@@ -1,13 +1,23 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from "react-native";
+import AppText from "../../config/AppText";
+import SafeScreen from "../../components/general/SafeScreen";
+import KeyboardScrollScreen from "../../components/general/KeyboardScrollScreen";
+import LogoAndMoto from "../../components/welcome/LogoAndMoto";
 
 function Login(props) {
   return (
-    <View style={styles.container}></View>
+    <SafeScreen>
+      <KeyboardScrollScreen>
+        <View style={styles.container}>
+          <LogoAndMoto />
+        </View>
+      </KeyboardScrollScreen>
+    </SafeScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  container:{},
-})
+  container: {},
+});
 
 export default Login;

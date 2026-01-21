@@ -1,13 +1,17 @@
 import { View, StyleSheet } from "react-native";
 import AppText from "../../config/AppText";
 import SafeScreen from "../../components/general/SafeScreen";
+import KeyboardScrollScreen from "../../components/general/KeyboardScrollScreen";
+import LogoAndMoto from "../../components/welcome/LogoAndMoto";
 
 function Register(props) {
   return (
     <SafeScreen>
-      <View style={styles.container}>
-        <AppText>Register</AppText>
-      </View>
+      <KeyboardScrollScreen>
+        <View style={styles.container}>
+          <LogoAndMoto />
+        </View>
+      </KeyboardScrollScreen>
     </SafeScreen>
   );
 }
