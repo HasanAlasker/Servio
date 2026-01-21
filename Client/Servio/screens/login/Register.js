@@ -1,14 +1,19 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from "react-native";
+import AppText from "../../config/AppText";
+import SafeScreen from "../../components/general/SafeScreen";
 
 function Register(props) {
   return (
-    <View style={styles.container}></View>
+    <SafeScreen>
+      <View style={styles.container}>
+        <AppText>Register</AppText>
+      </View>
+    </SafeScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  container:{},
-})
+  container: {},
+});
 
 export default Register;

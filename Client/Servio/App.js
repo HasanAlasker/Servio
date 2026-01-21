@@ -2,7 +2,6 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import SafeScreen from "./components/general/SafeScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { UserProvider, UseUser } from "./context/UserContext";
 import LoadingCircle from "./components/general/LoadingCircle";
@@ -77,14 +76,6 @@ const AuthStack = () => {
 const AppNavigator = () => {
   const { loading, isUser, isShopOwner, isAdmin } = UseUser();
   const { isDarkMode } = useTheme();
-
-  console.log(isUser, isAdmin, isShopOwner, loading);
-  console.log(
-    typeof isUser,
-    typeof isShopOwner,
-    typeof isAdmin,
-    typeof loading,
-  );
 
   if (loading) return <LoadingCircle />;
 
