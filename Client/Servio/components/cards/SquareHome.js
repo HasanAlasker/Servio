@@ -4,7 +4,7 @@ import SText from "../text/SText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 
-function SquareHome({ title, icon, color }) {
+function SquareHome({ title, icon, color, onPress }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
 
@@ -16,11 +16,10 @@ function SquareHome({ title, icon, color }) {
         styles.container,
         { backgroundColor: backColor, borderColor: theme[color] },
       ]}
+      onPress={onPress}
     >
       <MaterialCommunityIcons name={icon} color={theme[color]} size={40} />
-      <SText color={color} >
-        {title}
-      </SText>
+      <SText color={color}>{title}</SText>
     </TouchableOpacity>
   );
 }

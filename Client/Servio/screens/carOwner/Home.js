@@ -8,9 +8,11 @@ import LText from "../../components/text/LText";
 import CardLeftBorder from "../../components/cards/CardLeftBorder";
 import GapContainer from "../../components/general/GapContainer";
 import SquareHome from "../../components/cards/SquareHome";
+import { useNavigation } from "@react-navigation/native";
 
 function Home(props) {
   const { logout } = UseUser();
+  const navigaiton = useNavigation();
   const handlePress = async () => {
     await logout();
     console.log("pressed");
@@ -43,12 +45,20 @@ function Home(props) {
             title={"Add Car"}
             color={"lightBlue"}
             icon={"plus-circle-outline"}
+            onPress={() => navigaiton.navigate("AddCar")}
           />
-          <SquareHome title={"Shops"} color={"green"} icon={"wrench-outline"} />
+
+          <SquareHome
+            title={"Shops"}
+            color={"green"}
+            icon={"wrench-outline"}
+            onPress={() => navigaiton.navigate("Shops")}
+          />
           <SquareHome
             title={"History"}
             color={"pink"}
             icon={"folder-outline"}
+            onPress={() => navigaiton.navigate("Bookings")}
           />
         </GapContainer>
 
