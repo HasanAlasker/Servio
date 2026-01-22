@@ -32,7 +32,7 @@ const getStyles = (theme) =>
       color: theme.main_text,
     },
     faded: {
-      fontSize: 20,
+      fontSize: 18,
       textAlign: "center",
       color: theme.sec_text,
     },
