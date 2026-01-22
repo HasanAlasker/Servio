@@ -23,6 +23,7 @@ function Home(props) {
         <LText>Quick Actions</LText>
         <MText>Text</MText>
         <SText thin>Small</SText>
+        <PriBtn title={"logout"} onPress={handlePress}/>
       </ScrollScreen>
       <Navbar />
     </SafeScreen>
