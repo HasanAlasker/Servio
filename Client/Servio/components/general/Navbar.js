@@ -248,7 +248,7 @@ const getStyles = (theme) =>
       textAlign: "center",
     },
     active: {
-      color: theme.purple,
+      color: theme.blue,
     },
     bottom: {
       position: "absolute",

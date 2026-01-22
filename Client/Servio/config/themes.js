@@ -1,10 +1,12 @@
 export const lightTheme = {
+  blue: "#007bffff",
   purple: "#AC2FFF",
   background: "#ECECEC",
   post: "#ffffff",
   main_text: "#000000",
   sec_text: "#989898",
   light_gray: "#ECECEC",
+  faded: "#D5D5D5",
   loading: "#d3d3d3ff",
   darker_gray: "#575757",
   red: "#FF5959",
@@ -16,7 +18,6 @@ export const lightTheme = {
   green: "#09B700",
   ghost: "#ac2fff77",
   orange: "#FC7600",
-  blue: "#007bffff",
 
   card1: "#FFE188",
   card2: "#FF8888",
@@ -33,12 +34,14 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
+  blue: "#007bffff",
   purple: "#AC2FFF",
   background: "#262626",
   post: "#3C3C3C",
   main_text: "#FFFFFF",
   sec_text: "#989898",
   light_gray: "#676767ff",
+  faded: "#D5D5D5",
   loading: "#676767ff",
   darker_gray: "#D3D3D3",
   red: "#FF5959",
@@ -50,7 +53,6 @@ export const darkTheme = {
   green: "#09B700",
   ghost: "#ac2fff77",
   orange: "#FC7600",
-  blue: "#007bffff",
 
   card1: "#FFE188",
   card2: "#FF8888",

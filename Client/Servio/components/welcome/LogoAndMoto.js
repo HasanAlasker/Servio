@@ -3,16 +3,18 @@ import AppText from "../../config/AppText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 
-function LogoAndMoto(props) {
+function LogoAndMoto({ moto }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
 
   return (
     <View style={styles.container}>
       <AppText style={styles.big}>Servio</AppText>
-      <AppText style={styles.faded}>
-        You won't need to remember anything about your car
-      </AppText>
+      {moto && (
+        <AppText style={styles.faded}>
+          You won't need to remember anything about your car
+        </AppText>
+      )}
     </View>
   );
 }
@@ -22,7 +24,7 @@ const getStyles = (theme) =>
     container: {
       width: "90%",
       marginHorizontal: "auto",
-    //   marginVertical: "auto",
+      //   marginVertical: "auto",
       gap: 10,
     },
     big: {

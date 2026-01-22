@@ -10,6 +10,10 @@ import { useNavigation } from "@react-navigation/native";
 import { UseUser } from "../../context/UserContext";
 import FormikInput from "../../components/form/FormikInput";
 import { useState } from "react";
+import PriBtn from "../../components/general/PriBtn";
+import GapContainer from "../../components/general/GapContainer";
+import SeparatorComp from "../../components/general/SeparatorComp";
+import SecBtn from "../../components/general/SecBtn";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -36,29 +40,37 @@ function Login(props) {
   return (
     <SafeScreen>
       <KeyboardScrollScreen>
-        <LogoAndMoto />
-        <AppForm
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          <FormikInput
-            name={"email"}
-            placeholder={"Email"}
-            autoCapitalize={"none"}
-            icon={"mail"}
-            hasBeenSubmitted={hasBeenSubmitted}
-          />
+        <View style={styles.container}>
+          <LogoAndMoto />
+          <AppForm
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            <GapContainer style={{ marginTop: "40" }}>
+              <FormikInput
+                name={"email"}
+                placeholder={"Email"}
+                autoCapitalize={"none"}
+                icon={"mail"}
+                hasBeenSubmitted={hasBeenSubmitted}
+              />
 
-          <FormikInput
-            name={"password"}
-            placeholder={"Password"}
-            autoCapitalize={"none"}
-            icon={"lock"}
-            isPassword={true}
-            hasBeenSubmitted={hasBeenSubmitted}
-          />
-        </AppForm>
+              <FormikInput
+                name={"password"}
+                placeholder={"Password"}
+                autoCapitalize={"none"}
+                icon={"lock"}
+                isPassword={true}
+                hasBeenSubmitted={hasBeenSubmitted}
+              />
+
+              <PriBtn title={"Login"} />
+              <SeparatorComp children={"Or"} />
+              <SecBtn title={"Create Account"} />
+            </GapContainer>
+          </AppForm>
+        </View>
       </KeyboardScrollScreen>
     </SafeScreen>
   );
@@ -66,7 +78,9 @@ function Login(props) {
 
 const getStyles = (theme) =>
   StyleSheet.create({
-    container: {},
+    container: {
+      marginVertical:"auto"
+    },
   });
 
 export default Login;

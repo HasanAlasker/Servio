@@ -12,7 +12,7 @@ function Welcome(props) {
   return (
     <SafeScreen>
       <View style={styles.container}>
-        <LogoAndMoto />
+        <LogoAndMoto moto />
         <GapContainer>
           <PriBtn
             title={"Login"}

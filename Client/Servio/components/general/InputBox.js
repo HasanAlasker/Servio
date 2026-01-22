@@ -23,15 +23,15 @@ function InputBox({
 
   return (
     <View style={styles.container}>
-      {penOn && <Feather name="edit-3" size={24} color={theme.purple} />}
-      {icon && <Feather name={icon} size={24} color={theme.purple} />}
+      {penOn && <Feather name="edit-3" size={24} color={theme.blue} />}
+      {icon && <Feather name={icon} size={24} color={theme.blue} />}
       <TextInput
         style={[
           styles.text,
           isBox && { textAlignVertical: "top", paddingTop: 6 },
         ]}
         placeholder={placeholder}
-        placeholderTextColor={theme.purple}
+        placeholderTextColor={theme.blue}
         value={value}
         secureTextEntry={isHidden}
         {...rest}
@@ -41,7 +41,7 @@ function InputBox({
           <Feather
             name={isHidden ? "eye" : "eye-off"}
             size={24}
-            color={theme.purple}
+            color={theme.blue}
           />
         </TouchableOpacity>
       )}
@@ -53,20 +53,20 @@ const getStyles = (theme) =>
   StyleSheet.create({
     container: {
       flexDirection: "row",
-      borderRadius: 18,
-      borderColor: theme.purple,
-      borderWidth: 2,
+      borderRadius: 25,
+      borderColor: theme.faded,
+      borderWidth: 1,
       backgroundColor: theme.post,
-      paddingVertical: 5,
+      paddingVertical: 8,
       paddingHorizontal: 15,
       width: "90%",
       marginHorizontal: "auto",
-      marginTop: 20,
+      // marginTop: 20,
       gap: 10,
       minHeight: 40,
     },
     text: {
-      color: theme.purple,
+      color: theme.blue,
       fontWeight: "bold",
       fontSize: 16,
       flex: 1,
