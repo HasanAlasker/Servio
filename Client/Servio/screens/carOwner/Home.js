@@ -44,15 +44,11 @@ function Home(props) {
             color={"lightBlue"}
             icon={"plus-circle-outline"}
           />
+          <SquareHome title={"Shops"} color={"green"} icon={"wrench-outline"} />
           <SquareHome
-            title={"Shops"}
-            color={"green"}
-            icon={"plus-circle-outline"}
-          />
-          <SquareHome
-            title={"Bookings"}
+            title={"History"}
             color={"pink"}
-            icon={"plus-circle-outline"}
+            icon={"folder-outline"}
           />
         </GapContainer>
 
