@@ -1,14 +1,19 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import SafeScreen from "../../components/general/SafeScreen";
 
 function AddCar(props) {
   return (
-    <View style={styles.container}></View>
+    <SafeScreen>
+      <View style={styles.container}>
+        <Text></Text>
+      </View>
+    </SafeScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  container:{},
-})
+  container: {},
+});
 
 export default AddCar;

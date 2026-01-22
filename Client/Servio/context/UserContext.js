@@ -31,10 +31,10 @@ export const UserProvider = ({ children }) => {
 
   const loadUserData = async () => {
     setLoading(false);
-    setAppStart(false)
+    setAppStart(false);
     try {
       setLoading(true);
-      setAppStart(true)
+      setAppStart(true);
       const loadedUser = await AsyncStorage.getItem(STORAGE_KEYS.USER);
       const loadedToken = await AsyncStorage.getItem(STORAGE_KEYS.TOKEN);
       if (loadedUser && loadedToken) {
@@ -46,7 +46,7 @@ export const UserProvider = ({ children }) => {
       console.error("Error loading stored user", error);
     } finally {
       setLoading(false);
-      setAppStart(false)
+      setAppStart(false);
     }
   };
 
@@ -315,7 +315,7 @@ export const UserProvider = ({ children }) => {
     try {
       setUser(null);
       setToken(null);
-      setIsAuthenticated(false)
+      setIsAuthenticated(false);
 
       await removeUserData();
     } catch (error) {

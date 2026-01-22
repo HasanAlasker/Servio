@@ -1,14 +1,27 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React from "react";
+import { View, StyleSheet, Text } from "react-native";
+import SafeScreen from "../../components/general/SafeScreen";
+import PriBtn from "../../components/general/PriBtn";
+import { UseUser } from "../../context/UserContext";
 
 function Home(props) {
+  const { logout } = UseUser();
+  const handlePress = async () => {
+    await logout();
+    console.log("pressed");
+  };
   return (
-    <View style={styles.container}></View>
+    <SafeScreen>
+      <View style={styles.container}>
+        <Text>carOwner</Text>
+        <PriBtn title={"logout"} onPress={handlePress} />
+      </View>
+    </SafeScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  container:{},
-})
+  container: {},
+});
 
 export default Home;

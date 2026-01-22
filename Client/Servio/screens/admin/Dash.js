@@ -1,14 +1,27 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React from "react";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import SafeScreen from "../../components/general/SafeScreen";
+import { UseUser } from "../../context/UserContext";
+import PriBtn from "../../components/general/PriBtn";
 
 function Dash(props) {
+  const { logout } = UseUser();
+  const handlePress = async () => {
+    await logout();
+    console.log("pressed");
+  };
   return (
-    <View style={styles.container}></View>
+    <SafeScreen>
+      <View style={styles.container}>
+        <Text>Admin</Text>
+        <PriBtn title={"logout"} onPress={handlePress} />
+      </View>
+    </SafeScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  container:{},
-})
+  container: {},
+});
 
 export default Dash;
