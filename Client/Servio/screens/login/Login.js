@@ -31,6 +31,7 @@ const initialValues = {
 
 function Login(props) {
   const styles = useThemedStyles(getStyles);
+  const navigation = useNavigation();
 
   const {
     login,
@@ -53,7 +54,7 @@ function Login(props) {
         setLoginErr(true);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 
@@ -104,7 +105,10 @@ function Login(props) {
 
               <SeparatorComp children={"Or"} />
 
-              <SecBtn title={"Create Account"} />
+              <SecBtn
+                title={"Create Account?"}
+                onPress={() => navigation.navigate("Register")}
+              />
             </GapContainer>
           </AppForm>
         </View>
