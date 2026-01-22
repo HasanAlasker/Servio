@@ -1,14 +1,21 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import Navbar from "../../components/general/Navbar";
+import FullScreen from "../../components/general/FullScreen";
+import SafeScreen from "../../components/general/SafeScreen";
 
 function Bookings(props) {
   return (
-    <View style={styles.container}></View>
+    <SafeScreen>
+      <View style={styles.container}></View>
+      <FullScreen />
+      <Navbar />
+    </SafeScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  container:{},
-})
+  container: {},
+});
 
 export default Bookings;
