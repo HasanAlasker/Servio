@@ -1,5 +1,4 @@
 import { View, StyleSheet } from "react-native";
-import AppText from "../../config/AppText";
 import SafeScreen from "../../components/general/SafeScreen";
 import KeyboardScrollScreen from "../../components/general/KeyboardScrollScreen";
 import LogoAndMoto from "../../components/welcome/LogoAndMoto";
@@ -10,15 +9,17 @@ import { useNavigation } from "@react-navigation/native";
 import { UseUser } from "../../context/UserContext";
 import FormikInput from "../../components/form/FormikInput";
 import { useState } from "react";
-import PriBtn from "../../components/general/PriBtn";
 import GapContainer from "../../components/general/GapContainer";
 import SeparatorComp from "../../components/general/SeparatorComp";
 import SecBtn from "../../components/general/SecBtn";
+import ErrorMessage from "../../components/form/ErrorMessage";
+import SubmitBtn from "../../components/form/SubmitBtn";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Please enter a valid email address")
     .required("Email is required")
+    .lowercase()
     .trim(),
   password: Yup.string().required("Password is required").trim(),
 });
@@ -30,12 +31,31 @@ const initialValues = {
 
 function Login(props) {
   const styles = useThemedStyles(getStyles);
-  const navigation = useNavigation();
-  const { login, error, message, loading, status } = UseUser();
+
+  const {
+    login,
+    error,
+    message,
+    loading,
+    status,
+    checkServerConnection,
+    serverAwake,
+  } = UseUser();
 
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
+  const [loginErr, setLoginErr] = useState(false);
 
-  const handleSubmit = async () => {};
+  const handleSubmit = async (values, { setSubmitting }) => {
+    setHasBeenSubmited(true);
+    try {
+      const response = await login(values);
+      if (!response.success) {
+        setLoginErr(true);
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  };
 
   return (
     <SafeScreen>
@@ -65,8 +85,25 @@ function Login(props) {
                 hasBeenSubmitted={hasBeenSubmitted}
               />
 
-              <PriBtn title={"Login"} />
+              <SubmitBtn
+                disabled={loading}
+                defaultText="Login"
+                submittingText="Logging in..."
+                setHasBeenSubmitted={setHasBeenSubmited}
+              />
+
+              {loginErr && (
+                <ErrorMessage
+                  error={
+                    message === "Validation error"
+                      ? "Please enter valid credentials"
+                      : message
+                  }
+                />
+              )}
+
               <SeparatorComp children={"Or"} />
+
               <SecBtn title={"Create Account"} />
             </GapContainer>
           </AppForm>
@@ -79,7 +116,7 @@ function Login(props) {
 const getStyles = (theme) =>
   StyleSheet.create({
     container: {
-      marginVertical:"auto"
+      marginVertical: "auto",
     },
   });
 

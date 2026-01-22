@@ -11,7 +11,7 @@ function LoadingCircle(props) {
         { backgroundColor: isDarkMode ? "#262626" : "#ECECEC" },
       ]}
     >
-      <ActivityIndicator size="large" color={"#AC2FFF"} />
+      <ActivityIndicator size="large" color={"#007bffff"} />
     </View>
   );
 }

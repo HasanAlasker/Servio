@@ -19,8 +19,10 @@ export const UserProvider = ({ children }) => {
   const [error, setError] = useState(false);
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [appStart, setAppStart] = useState(false);
   const [status, setStatus] = useState(null);
   const [serverAwake, setServerAwake] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const STORAGE_KEYS = {
     USER: "@servio_user",
@@ -28,15 +30,23 @@ export const UserProvider = ({ children }) => {
   };
 
   const loadUserData = async () => {
+    setLoading(false);
+    setAppStart(false)
     try {
+      setLoading(true);
+      setAppStart(true)
       const loadedUser = await AsyncStorage.getItem(STORAGE_KEYS.USER);
       const loadedToken = await AsyncStorage.getItem(STORAGE_KEYS.TOKEN);
       if (loadedUser && loadedToken) {
         setUser(JSON.parse(loadedUser));
         setToken(loadedToken);
+        setIsAuthenticated(true);
       }
     } catch (error) {
       console.error("Error loading stored user", error);
+    } finally {
+      setLoading(false);
+      setAppStart(false)
     }
   };
 
@@ -169,6 +179,8 @@ export const UserProvider = ({ children }) => {
 
       if (!res.ok) {
         setError(true);
+        setMessage(responseMessage); // Don't clear user/token here
+        setStatus(responseStatus);
         return {
           success: false,
           message: responseMessage,
@@ -183,6 +195,7 @@ export const UserProvider = ({ children }) => {
       setToken(tokenData);
       setMessage(responseMessage);
       setStatus(responseStatus);
+      setIsAuthenticated(true);
 
       await storeUserData(userData, tokenData);
       return {
@@ -231,6 +244,7 @@ export const UserProvider = ({ children }) => {
       setToken(tokenData);
       setMessage(responseMessage);
       setStatus(responseStatus);
+      setIsAuthenticated(true);
 
       await storeUserData(userData, tokenData);
       return {
@@ -301,6 +315,8 @@ export const UserProvider = ({ children }) => {
     try {
       setUser(null);
       setToken(null);
+      setIsAuthenticated(false)
+
       await removeUserData();
     } catch (error) {
       console.error("Error logging out user", error);
@@ -315,7 +331,9 @@ export const UserProvider = ({ children }) => {
   const value = {
     user,
     token,
+    isAuthenticated,
     loading,
+    appStart,
     error,
     message,
     status,
@@ -330,7 +348,7 @@ export const UserProvider = ({ children }) => {
     isShopOwner,
     loadUserData,
     serverAwake,
-    checkServerConnection
+    checkServerConnection,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

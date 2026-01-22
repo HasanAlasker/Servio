@@ -18,6 +18,7 @@ import Login from "./screens/login/Login";
 import Register from "./screens/login/Register";
 import Dash from "./screens/admin/Dash";
 import MyShop from "./screens/shopOwner/MyShop";
+import { useEffect } from "react";
 
 const Stack = createNativeStackNavigator();
 
@@ -74,23 +75,36 @@ const AuthStack = () => {
 };
 
 const AppNavigator = () => {
-  const { loading, isUser, isShopOwner, isAdmin } = UseUser();
+  const {
+    appStart,
+    isUser,
+    isShopOwner,
+    isAdmin,
+    isAuthenticated,
+    loadUserData,
+  } = UseUser();
   const { isDarkMode } = useTheme();
 
-  if (loading) return <LoadingCircle />;
+  useEffect(() => {
+    loadUserData();
+  }, []);
+
+  if (appStart) return <LoadingCircle />;
 
   return (
     <>
       <StatusBar style={isDarkMode ? "light" : "dark"} />
       <NavigationContainer>
-        {isUser ? (
+        {!isAuthenticated ? (
+          <AuthStack />
+        ) : isUser ? (
           <CarOwnerStack />
         ) : isShopOwner ? (
           <ShopOwnerStack />
         ) : isAdmin ? (
           <AdminStack />
         ) : (
-          <AuthStack />
+          <CarOwnerStack />
         )}
       </NavigationContainer>
     </>

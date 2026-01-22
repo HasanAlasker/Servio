@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useFormikContext } from 'formik';
 import ErrorMessage from './ErrorMessage';
 import InputBox from '../general/InputBox';
@@ -9,7 +9,7 @@ function FormikInput({name, placeholder, penOn=false, keyboardType, autoCapitali
 
 
   return (
-    <>
+    <View>
       <InputBox
         placeholder={placeholder}
         penOn={penOn}
@@ -24,7 +24,7 @@ function FormikInput({name, placeholder, penOn=false, keyboardType, autoCapitali
         {...other}
       />
       {shouldShowError && <ErrorMessage error={errors[name]} />}
-    </>
+    </View>
   );
 }
 

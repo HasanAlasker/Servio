@@ -1,17 +1,23 @@
 import { StyleSheet } from "react-native";
-import FormBtn from "../FormBtn";
 import { useFormikContext } from "formik";
+import PriBtn from "../general/PriBtn";
 
-function SubmitBtn({ submittingText='Submitting...', defaultText='Submit', setHasBeenSubmitted, disabled, style, ...otherProps }) {
-
+function SubmitBtn({
+  submittingText = "Submitting...",
+  defaultText = "Submit",
+  setHasBeenSubmitted,
+  disabled,
+  style,
+  ...otherProps
+}) {
   const { handleSubmit, isSubmitting, isValid } = useFormikContext();
 
   return (
-    <FormBtn
+    <PriBtn
       title={isSubmitting ? submittingText : defaultText}
       onPress={() => {
-        if(setHasBeenSubmitted){
-           setHasBeenSubmitted(true); 
+        if (setHasBeenSubmitted) {
+          setHasBeenSubmitted(true);
         }
         handleSubmit();
       }}
