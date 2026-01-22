@@ -48,7 +48,7 @@ function Navbar(props) {
             style={[
               styles.text,
               route.name === "MyCars" && styles.active,
-              { bottom: 6 },
+              { bottom: 4 },
             ]}
           >
             Garage
