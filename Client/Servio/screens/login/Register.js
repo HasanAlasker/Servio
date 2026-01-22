@@ -95,7 +95,7 @@ const initialValues = {
 
 function Register(props) {
   const {
-    login,
+    register,
     error,
     message,
     loading,
@@ -112,7 +112,7 @@ function Register(props) {
   const handleSubmit = async (values, { setSubmitting }) => {
     setHasBeenSubmited(true);
     try {
-      const response = await login(values);
+      const response = await register(values);
       if (!response.success) {
         setRegErr(true);
       }
@@ -133,10 +133,26 @@ function Register(props) {
           >
             <GapContainer style={{ marginTop: "40" }}>
               <FormikInput
+                name={"name"}
+                placeholder={"Name"}
+                autoCapitalize={"none"}
+                icon={"user"}
+                hasBeenSubmitted={hasBeenSubmitted}
+              />
+
+              <FormikInput
                 name={"email"}
                 placeholder={"Email"}
                 autoCapitalize={"none"}
                 icon={"mail"}
+                hasBeenSubmitted={hasBeenSubmitted}
+              />
+
+              <FormikInput
+                name={"phone"}
+                placeholder={"Phone"}
+                autoCapitalize={"none"}
+                icon={"phone"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />
 
@@ -146,6 +162,15 @@ function Register(props) {
                 autoCapitalize={"none"}
                 icon={"lock"}
                 isPassword={true}
+                hasBeenSubmitted={hasBeenSubmitted}
+              />
+
+              <FormikInput
+                name={"confirmPassword"}
+                placeholder={"Confirm password"}
+                autoCapitalize={"none"}
+                icon={"lock"}
+                isPassword
                 hasBeenSubmitted={hasBeenSubmitted}
               />
 

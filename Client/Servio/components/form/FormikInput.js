@@ -1,12 +1,22 @@
-import { StyleSheet, View } from 'react-native';
-import { useFormikContext } from 'formik';
-import ErrorMessage from './ErrorMessage';
-import InputBox from '../general/InputBox';
+import { StyleSheet, View } from "react-native";
+import { useFormikContext } from "formik";
+import ErrorMessage from "./ErrorMessage";
+import InputBox from "../general/InputBox";
 
-function FormikInput({name, placeholder, penOn=false, keyboardType, autoCapitalize, hasBeenSubmitted=false, icon ,isBox, isPassword, ...other}) {
-  const {values, errors, handleBlur, handleChange} = useFormikContext()
+function FormikInput({
+  name,
+  placeholder,
+  penOn = false,
+  keyboardType,
+  autoCapitalize,
+  hasBeenSubmitted = false,
+  icon,
+  isBox,
+  isPassword = false,
+  ...other
+}) {
+  const { values, errors, handleBlur, handleChange } = useFormikContext();
   const shouldShowError = hasBeenSubmitted && errors[name];
-
 
   return (
     <View>
@@ -29,7 +39,7 @@ function FormikInput({name, placeholder, penOn=false, keyboardType, autoCapitali
 }
 
 const styles = StyleSheet.create({
-  container:{},
-})
+  container: {},
+});
 
 export default FormikInput;
