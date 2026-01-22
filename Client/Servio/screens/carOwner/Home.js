@@ -6,6 +6,9 @@ import { UseUser } from "../../context/UserContext";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import FullScreen from "../../components/general/FullScreen";
 import Navbar from "../../components/general/Navbar";
+import LText from "../../components/text/LText";
+import MText from "../../components/text/MText";
+import SText from "../../components/text/SText";
 
 function Home(props) {
   const { logout } = UseUser();
@@ -16,7 +19,10 @@ function Home(props) {
   return (
     <SafeScreen>
       <ScrollScreen>
-        <FullScreen></FullScreen>
+        <LText>Quick Peek</LText>
+        <LText>Quick Actions</LText>
+        <MText>Text</MText>
+        <SText thin>Small</SText>
       </ScrollScreen>
       <Navbar />
     </SafeScreen>

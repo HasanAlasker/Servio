@@ -3,8 +3,6 @@ import { View, Text, TouchableOpacity } from "react-native";
 import {
   Feather,
   Ionicons,
-  MaterialCommunityIcons,
-  MaterialIcons,
 } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
@@ -46,7 +44,13 @@ function Navbar(props) {
             size={38}
             style={[styles.icon, route.name === "MyCars" && styles.active]}
           />
-          <Text style={[styles.text, route.name === "MyCars" && styles.active, {bottom:6}]}>
+          <Text
+            style={[
+              styles.text,
+              route.name === "MyCars" && styles.active,
+              { bottom: 6 },
+            ]}
+          >
             Garage
           </Text>
         </TouchableOpacity>
@@ -85,7 +89,7 @@ function Navbar(props) {
 
         <TouchableOpacity
           style={styles.navbarBtn}
-          onPress={() => navigation.navigate("Profile")}
+          onPress={() => setIsMenu(!isMenu)}
         >
           <Feather
             name="settings"
@@ -114,7 +118,7 @@ const getStyles = (theme) =>
       height: 73,
       width: "100%",
       zIndex: 100,
-      alignItems:'center'
+      alignItems: "center",
     },
     navbarBtn: {
       display: "flex",
