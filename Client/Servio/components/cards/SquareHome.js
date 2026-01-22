@@ -1,0 +1,40 @@
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import SText from "../text/SText";
+import useThemedStyles from "../../hooks/useThemedStyles";
+import { useTheme } from "../../context/ThemeContext";
+
+function SquareHome({ title, icon, color }) {
+  const styles = useThemedStyles(getStyles);
+  const { theme } = useTheme();
+
+  const backColor = theme[color] + "15";
+
+  return (
+    <TouchableOpacity
+      style={[
+        styles.container,
+        { backgroundColor: backColor, borderColor: theme[color] },
+      ]}
+    >
+      <MaterialCommunityIcons name={icon} color={theme[color]} size={40} />
+      <SText color={color} >
+        {title}
+      </SText>
+    </TouchableOpacity>
+  );
+}
+
+const getStyles = (theme) =>
+  StyleSheet.create({
+    container: {
+      alignItems: "center",
+      aspectRatio: 1,
+      width: "28%",
+      borderRadius: 18,
+      justifyContent: "center",
+      borderWidth: 2,
+    },
+  });
+
+export default SquareHome;

@@ -7,6 +7,7 @@ import Navbar from "../../components/general/Navbar";
 import LText from "../../components/text/LText";
 import CardLeftBorder from "../../components/cards/CardLeftBorder";
 import GapContainer from "../../components/general/GapContainer";
+import SquareHome from "../../components/cards/SquareHome";
 
 function Home(props) {
   const { logout } = UseUser();
@@ -37,11 +38,25 @@ function Home(props) {
         </GapContainer>
 
         <LText>Quick Actions</LText>
-        <GapContainer style={styles.container}>
-          
+        <GapContainer style={[styles.container, styles.row]}>
+          <SquareHome
+            title={"Add Car"}
+            color={"lightBlue"}
+            icon={"plus-circle-outline"}
+          />
+          <SquareHome
+            title={"Shops"}
+            color={"green"}
+            icon={"plus-circle-outline"}
+          />
+          <SquareHome
+            title={"Bookings"}
+            color={"pink"}
+            icon={"plus-circle-outline"}
+          />
         </GapContainer>
 
-        <PriBtn title={"logout"} onPress={handlePress} />
+        {/* <PriBtn title={"logout"} onPress={handlePress} /> */}
       </ScrollScreen>
       <Navbar />
     </SafeScreen>
@@ -51,6 +66,10 @@ function Home(props) {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 30,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 
