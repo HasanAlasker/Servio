@@ -5,7 +5,7 @@ function ScrollScreen({ children, ...other }) {
     <ScrollView
       style={styles.container}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: 40 }}
+      contentContainerStyle={{ paddingBottom: 40, paddingTop: 20 }}
       {...other}
     >
       {children}
