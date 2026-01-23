@@ -1,13 +1,11 @@
 import { StyleSheet } from "react-native";
 import { View, Text, TouchableOpacity } from "react-native";
-import {
-  Feather,
-  Ionicons,
-} from "@expo/vector-icons";
+import { Feather, Ionicons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { UseUser } from "../../context/UserContext";
+import SettingsMenu from "./SettingsMenu";
 
 function Navbar(props) {
   const navigation = useNavigation();
@@ -19,7 +17,7 @@ function Navbar(props) {
 
   return (
     <>
-      {/* <SettingsMenu isVisible={isMenu} onClose={() => setIsMenu(false)} /> */}
+      <SettingsMenu isVisible={isMenu} onClose={() => setIsMenu(false)} />
       <View style={styles.navbar}>
         <TouchableOpacity
           style={styles.navbarBtn}

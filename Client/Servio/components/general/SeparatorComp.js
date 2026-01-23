@@ -2,13 +2,13 @@ import { StyleSheet, Text, View } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 
-function SeparatorComp({ children, color = "darker_gray", style }) {
+function SeparatorComp({ children, color = "darker_gray", full, style }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
 
   const thingcolors = theme[color] || color;
   return (
-    <View style={[styles.sep_cont, style]}>
+    <View style={[styles.sep_cont, style, { width: full ? "100%" : "90%" }]}>
       <View style={[styles.line, { backgroundColor: thingcolors }]}></View>
       {children && (
         <Text style={[styles.text, { color: thingcolors }]}>{children}</Text>
@@ -36,8 +36,8 @@ const getStyles = (theme) =>
       alignContent: "center",
       columnGap: 10,
       overflow: "hidden",
-    //   marginTop: 30,
-    //   marginBottom: 10,
+      //   marginTop: 30,
+      //   marginBottom: 10,
     },
     text: {
       flexWrap: "nowrap",
