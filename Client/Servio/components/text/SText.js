@@ -3,7 +3,7 @@ import AppText from "../../config/AppText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 
-function SText({ children, color, thin }) {
+function SText({ children, color, thin, style, }) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getStyles);
   return (
@@ -12,6 +12,7 @@ function SText({ children, color, thin }) {
         styles.text,
         { color: theme[color] || theme["main_text"] },
         { fontWeight: thin || "bold" },
+        style,
       ]}
     >
       {children}

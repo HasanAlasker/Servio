@@ -7,6 +7,8 @@ const carSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    image: { type: String },
+    publicImageId: { type: String },
     make: {
       type: String,
       required: true,

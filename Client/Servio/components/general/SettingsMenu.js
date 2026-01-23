@@ -15,7 +15,7 @@ function SettingsMenu({ isVisible, onClose }) {
   const styles = useThemedStyles(getStyles);
   const { toggleTheme, isDarkMode } = useTheme();
   const { logout } = UseUser();
-  const navigate = useNavigation()
+  const navigate = useNavigation();
 
   if (!isVisible) return null;
   return (
@@ -26,7 +26,7 @@ function SettingsMenu({ isVisible, onClose }) {
 
       <View style={styles.container}>
         <MenuBackBtn onClose={onClose} />
-        <GapContainer style={{ gap: 10 }}>
+        <GapContainer gap={10}>
           <MenuOption
             text={isDarkMode ? "Light mode" : "Dark mode"}
             icon={"circle-half-full"}
@@ -37,7 +37,7 @@ function SettingsMenu({ isVisible, onClose }) {
           <MenuOption
             text={"My Profile"}
             icon={"account-circle-outline"}
-            onPress={()=> navigate.navigate('Profile')}
+            onPress={() => navigate.navigate("Profile")}
           />
           <SeparatorComp full />
 

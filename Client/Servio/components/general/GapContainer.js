@@ -1,7 +1,9 @@
 import { View, StyleSheet } from "react-native";
 
-function GapContainer({ children, style }) {
-  return <View style={[styles.container, style]}>{children}</View>;
+function GapContainer({ children, gap, style }) {
+  return (
+    <View style={[styles.container, style, { gap: gap ? gap : 25 }]}>{children}</View>
+  );
 }
 
 const styles = StyleSheet.create({

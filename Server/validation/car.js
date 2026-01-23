@@ -11,6 +11,8 @@ export const addCarSchema = Joi.object({
     "any.required": "Car model name is required",
   }),
 
+  image: Joi.string().allow(""),
+
   model: Joi.number()
     .integer()
     .min(1900)
@@ -45,6 +47,8 @@ export const editCarSchema = Joi.object({
   name: Joi.string().trim().messages({
     "string.empty": "Car model name cannot be empty",
   }),
+
+  image: Joi.string().allow(""),
 
   model: Joi.number()
     .integer()
