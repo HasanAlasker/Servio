@@ -8,16 +8,18 @@ import SquareInfo from "./SquareInfo";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 
 function CarCard({ image, make, name, model, plateNumber, color, mileage }) {
-
   return (
     <CardComp style={styles.container}>
-      {image && <Image src={image} />}
+      {image && <Image style={styles.image} source={{ uri: image }} />}
       <View style={styles.textCont}>
         <RowCont>
           <MText>{capFirstLetter(make)}</MText>
           <MText>{capFirstLetter(name)}</MText>
         </RowCont>
         <SText color={"sec_text"}>{plateNumber}</SText>
+        {/* <MText thin style={{ marginVertical: 10 }}>
+          {model}
+        </MText> */}
         <RowCont gap={25} style={{ marginTop: 20 }}>
           <SquareInfo
             icon={"gauge"}
@@ -31,7 +33,7 @@ function CarCard({ image, make, name, model, plateNumber, color, mileage }) {
             icon={"palette-outline"}
             color={"pink"}
             title={"Color"}
-            text={color}
+            text={capFirstLetter(color)}
             fliped
           />
         </RowCont>
@@ -44,10 +46,16 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 0,
     paddingHorizontal: 0,
+    overflow: "hidden",
   },
   textCont: {
     paddingHorizontal: 22,
     paddingVertical: 25,
+  },
+  image: {
+    width: "100%",
+    height: 240,
+    objectFit: "cover",
   },
 });
 
