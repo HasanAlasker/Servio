@@ -6,6 +6,7 @@ import RowCont from "../general/RowCont";
 import GapContainer from "../general/GapContainer";
 import SText from "../text/SText";
 import MText from "../text/MText";
+import TText from "../text/TText";
 
 function SquareInfo({ icon, color, title, text, fliped = false, style }) {
   const styles = useThemedStyles(getStyles);
@@ -14,7 +15,7 @@ function SquareInfo({ icon, color, title, text, fliped = false, style }) {
   const backColor = theme[color] + "15";
 
   return (
-    <RowCont>
+    <RowCont >
       <View
         style={[
           styles.container,
@@ -24,12 +25,24 @@ function SquareInfo({ icon, color, title, text, fliped = false, style }) {
         <MaterialCommunityIcons name={icon} color={theme[color]} size={36} />
       </View>
       <GapContainer gap={1}>
-        <SText thin={fliped} color={fliped ? "sec_text" : "main_text"}>
-          {title}
-        </SText>
-        <SText thin={!fliped} color={fliped ? "main_text" : "sec_text"}>
-          {text}
-        </SText>
+        {!fliped ? (
+          <SText thin={fliped} color={fliped ? "sec_text" : "main_text"}>
+            {title}
+          </SText>
+        ) : (
+          <TText thin={fliped} color={fliped ? "sec_text" : "main_text"}>
+            {title}
+          </TText>
+        )}
+        {!fliped ? (
+          <TText thin={!fliped} color={fliped ? "main_text" : "sec_text"}>
+            {text}
+          </TText>
+        ) : (
+          <SText thin={!fliped} color={fliped ? "main_text" : "sec_text"}>
+            {text}
+          </SText>
+        )}
       </GapContainer>
     </RowCont>
   );
