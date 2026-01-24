@@ -11,6 +11,7 @@ function FormikDropBox({
   penOn = false,
   hasBeenSubmitted = false,
   icon,
+  onSelectItem,
   ...other
 }) {
   const { values, errors, touched, setFieldTouched, setFieldValue, setStatus } =
@@ -27,9 +28,11 @@ function FormikDropBox({
         selectedValue={values[name]}
         onSelectItem={(value) => {
           setFieldValue(name, value);
-          // Don't set field as touched immediately to avoid showing errors
           if (setStatus) {
             setStatus(null);
+          }
+          if (onSelectItem) {
+            onSelectItem(value);
           }
         }}
         disabled={disabled}

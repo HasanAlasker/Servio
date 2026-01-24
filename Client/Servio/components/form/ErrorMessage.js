@@ -19,7 +19,6 @@ const getStyles = (theme) => StyleSheet.create({
   container: {
     width: "90%",
     marginHorizontal:'auto',
-    marginTop: 0,
   },
   text: {
     color: theme.red,

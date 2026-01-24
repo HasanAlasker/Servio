@@ -51,8 +51,8 @@ const initialValues = {
 function AddCar(props) {
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
   const [cars, setCars] = useState([]);
-  const [make, setMake] = useState();
-  const [names, setNames] = useState([]);
+  const [selectedMake, setSelectedMake] = useState(null);
+  const [namesList, setNamesList] = useState([]);
 
   const {
     data: fetchedCars,
@@ -73,6 +73,26 @@ function AddCar(props) {
     label: capFirstLetter(car.make),
     value: car.make,
   }));
+
+  const getCarNames = () => {
+    let selectedCar = cars.find((car) => car.make === selectedMake);
+    const namesList = selectedCar.name;
+    if (selectedCar && namesList) {
+      const list = namesList.map((name) => ({
+        label: capFirstLetter(name),
+        value: name,
+      }));
+      setNamesList(list);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedMake) {
+      getCarNames();
+    } else {
+      setNamesList([]);
+    }
+  }, [selectedMake, cars]);
 
   const handleSubmit = async (values) => {};
 
@@ -101,7 +121,27 @@ function AddCar(props) {
                 placeholder={"Make"}
                 items={makesList}
                 icon={"package"}
+                hasBeenSubmitted={hasBeenSubmitted}
+                onSelectItem={(value) => {
+                  setSelectedMake(value);
+                  setFieldValue("make", value);
+                  // Reset model when make changes
+                  setFieldValue("name", "");
+                }}
               />
+
+              {selectedMake && (
+                <FormikDropBox
+                  name={"name"}
+                  placeholder={"Name"}
+                  items={namesList}
+                  icon={"truck"}
+                  hasBeenSubmitted={hasBeenSubmitted}
+                  onSelectItem={(value) => {
+                    setFieldValue("name", value);
+                  }}
+                />
+              )}
 
               <FormikInput
                 name={"model"}
