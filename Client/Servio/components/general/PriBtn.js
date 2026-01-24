@@ -10,7 +10,7 @@ function PriBtn({ title, onPress, disabled, style }) {
     <TouchableOpacity
       disabled={disabled}
       onPress={onPress}
-      style={[styles.container, disabled && styles.disabled]}
+      style={[styles.container, disabled && styles.disabled, style]}
     >
       <AppText style={styles.text}>{title || "Press"}</AppText>
     </TouchableOpacity>

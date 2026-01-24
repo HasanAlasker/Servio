@@ -6,10 +6,38 @@ import SText from "../text/SText";
 import RowCont from "../general/RowCont";
 import SquareInfo from "./SquareInfo";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
+import { useNavigation } from "@react-navigation/native";
 
-function CarCard({ image, make, name, model, plateNumber, color, mileage }) {
+function CarCard({
+  id,
+  image,
+  make,
+  name,
+  model,
+  plateNumber,
+  color,
+  mileage,
+}) {
+  const navigate = useNavigation();
+
+  const passToEdit = {
+    id,
+    image,
+    make,
+    name,
+    model,
+    plateNumber,
+    color,
+    mileage,
+  };
+
   return (
-    <CardComp style={styles.container}>
+    <CardComp
+      style={styles.container}
+      onPress={() => {
+        navigate.navigate("AddCar", passToEdit);
+      }}
+    >
       {image && <Image style={styles.image} source={{ uri: image }} />}
       <View style={styles.textCont}>
         <RowCont>

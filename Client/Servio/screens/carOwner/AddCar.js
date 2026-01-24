@@ -10,10 +10,12 @@ import { useEffect, useState } from "react";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import AddImageBtn from "../../components/form/AddImageBtn";
 import FormikDropBox from "../../components/form/FormikDropBox";
-import { addCar, getMakeAndModels } from "../../api/car";
+import { addCar, deleteCar, editCar, getMakeAndModels } from "../../api/car";
 import useApi from "../../hooks/useApi";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import PriBtn from "../../components/general/PriBtn";
+import useThemedStyles from "../../hooks/useThemedStyles";
 
 export const validationSchema = Yup.object({
   make: Yup.string().trim().required("Car make is required"),
@@ -39,23 +41,37 @@ export const validationSchema = Yup.object({
     .typeError("Mileage must be a number"),
 });
 
-const initialValues = {
-  name: "",
-  make: "",
-  model: "",
-  color: "",
-  plateNumber: "",
-  mileage: "",
-  image: "",
-};
-
 function AddCar(props) {
+  const styles = useThemedStyles(getStyles);
+
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
   const [cars, setCars] = useState([]);
   const [selectedMake, setSelectedMake] = useState(null);
   const [namesList, setNamesList] = useState([]);
+  const [isEdit, setIsEdit] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigation();
+  const route = useRoute();
+
+  const params = route?.params;
+  useEffect(() => {
+    if (params) {
+      setIsEdit(true);
+      setSelectedMake(params.make);
+    }
+  }, []);
+
+  const initialValues = {
+    make: params?.make || "",
+    name: params?.name || "",
+    model: params?.model?.toString() || "",
+    color: params?.color || "",
+    plateNumber: params?.plateNumber || "",
+    mileage: params?.mileage?.toString() || "",
+    image: params?.image || "",
+  };
 
   const {
     data: fetchedCars,
@@ -79,7 +95,7 @@ function AddCar(props) {
 
   const getCarNames = () => {
     let selectedCar = cars.find((car) => car.make === selectedMake);
-    const namesList = selectedCar.name;
+    const namesList = selectedCar?.name;
     if (selectedCar && namesList) {
       const list = namesList.map((name) => ({
         label: capFirstLetter(name),
@@ -98,6 +114,7 @@ function AddCar(props) {
   }, [selectedMake, cars]);
 
   const handleSubmit = async (values) => {
+    setIsSubmitting(true);
     try {
       const response = await addCar(values);
       if (response.ok) {
@@ -105,6 +122,36 @@ function AddCar(props) {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleEdit = async (values) => {
+    setIsSubmitting(true);
+    try {
+      const response = await editCar(params.id, values);
+      if (response.ok) {
+        navigate.navigate("MyCars");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleDelete = async (values) => {
+    try {
+      setIsDeleting(true);
+      const response = await deleteCar(params.id);
+      if (response.ok) {
+        navigate.navigate("MyCars");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -114,7 +161,7 @@ function AddCar(props) {
         <AppForm
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}
+          onSubmit={!isEdit ? handleSubmit : handleEdit}
         >
           {({ values, errors, setFieldValue, setStatus }) => (
             <GapContainer gap={15}>
@@ -155,6 +202,19 @@ function AddCar(props) {
                 />
               )}
 
+              {/* {isEdit && (
+                <FormikDropBox
+                  name={"name"}
+                  placeholder={"Name"}
+                  items={namesList}
+                  icon={"truck"}
+                  hasBeenSubmitted={hasBeenSubmitted}
+                  onSelectItem={(value) => {
+                    setFieldValue("name", value);
+                  }}
+                />
+              )} */}
+
               <FormikInput
                 name={"model"}
                 placeholder={"Model"}
@@ -190,11 +250,20 @@ function AddCar(props) {
               />
 
               <SubmitBtn
-                defaultText="Add Car"
-                submittingText="Adding Car..."
+                defaultText={!isEdit ? "Add Car" : "Edit Car"}
+                submittingText={!isEdit ? "Adding Car..." : "Editing Car..."}
                 disabled={loading}
                 setHasBeenSubmitted={setHasBeenSubmited}
               />
+
+              {isEdit && (
+                <PriBtn
+                  title={!isDeleting ? "Delete Car" : "Deleting Car..."}
+                  style={styles.delete}
+                  disabled={loading || isDeleting || isSubmitting}
+                  onPress={handleDelete}
+                />
+              )}
             </GapContainer>
           )}
         </AppForm>
@@ -204,8 +273,12 @@ function AddCar(props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {},
-});
+const getStyles = (theme) =>
+  StyleSheet.create({
+    delete: {
+      backgroundColor: theme.red,
+      borderColor: theme.red,
+    },
+  });
 
 export default AddCar;
