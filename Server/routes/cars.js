@@ -7,6 +7,11 @@ import admin from "../middleware/admin.js";
 import auth from "../middleware/auth.js";
 import { addCarSchema, editCarSchema } from "../validation/car.js";
 import { updateServicesForCar } from "../services/upcomingServiceManager.js";
+import {
+  deleteImageFromCloudinary,
+  upload,
+  uploadToCloudinary,
+} from "../utils/cloudinary.js";
 
 const router = express.Router();
 
@@ -113,118 +118,154 @@ router.get("/:id", auth, async (req, res) => {
 });
 
 // Add car
-router.post("/add", [auth, validate(addCarSchema)], async (req, res) => {
-  try {
-    const data = req.body;
-    data.owner = req.user._id;
+router.post(
+  "/add",
+  upload.single("image"),
+  [auth, validate(addCarSchema)],
+  async (req, res) => {
+    let uploadedImage = null;
 
-    // Validate that make and model exist
-    const carMake = await CarMakeModel.findOne({
-      make: data.make,
-    });
+    try {
+      const data = req.body;
+      data.owner = req.user._id;
 
-    if (!carMake) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid car make",
+      // Validate that make and model exist
+      const carMake = await CarMakeModel.findOne({
+        make: data.make,
       });
-    }
 
-    if (!carMake.name.includes(data.name)) {
-      return res.status(400).json({
-        success: false,
-        message: `${data.name} is not a valid model for ${data.make}`,
-      });
-    }
+      if (!carMake) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid car make",
+        });
+      }
 
-    const newCar = new CarModel(data);
+      if (!carMake.name.includes(data.name)) {
+        return res.status(400).json({
+          success: false,
+          message: `${data.name} is not a valid model for ${data.make}`,
+        });
+      }
 
-    await newCar.save();
+      if (req.file) {
+        uploadedImage = await uploadToCloudinary(req.file.buffer);
+        data.image = uploadedImage.secure_url;
+        data.imagePublicId = uploadedImage.public_id;
+      }
 
-    return res.status(201).json({ success: true, data: newCar });
-  } catch (error) {
-    console.log(error);
+      const newCar = new CarModel(data);
 
-    // Handle duplicate plate number error
-    if (error.code === 11000) {
-      return res.status(400).json({
-        success: false,
-        message: "Plate number already exists",
-      });
-    }
+      await newCar.save();
 
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+      return res.status(201).json({ success: true, data: newCar });
+    } catch (error) {
+      console.log(error);
 
-// Edit car
-router.patch("/edit/:id", [auth, validate(editCarSchema)], async (req, res) => {
-  try {
-    const carId = req.params.id;
-    const userId = req.user._id;
-    const data = req.body;
+      // If post creation fails and image was uploaded, delete it from Cloudinary
+      if (uploadedImage && uploadedImage.public_id) {
+        await deleteImageFromCloudinary(uploadedImage.public_id);
+      }
 
-    if (!carId || !mongoose.Types.ObjectId.isValid(carId)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid car ID",
-      });
-    }
+      // Handle duplicate plate number error
+      if (error.code === 11000) {
+        return res.status(400).json({
+          success: false,
+          message: "Plate number already exists",
+        });
+      }
 
-    const car = await CarModel.findOne({
-      _id: carId,
-      isDeleted: false,
-    });
-
-    if (!car) {
-      return res.status(404).json({
-        success: false,
-        message: "Car not found",
-      });
-    }
-
-    if (car.owner.toString() !== userId.toString()) {
-      return res.status(403).json({
-        success: false,
-        message: "You can only edit your cars",
-      });
-    }
-
-    const updatedCar = await CarModel.findByIdAndUpdate(carId, data, {
-      runValidators: true,
-      new: true,
-    });
-
-    if (!updatedCar) {
       return res.status(500).json({
         success: false,
-        message: "Car was not updated",
+        message: "Server Error",
       });
     }
+  },
+);
 
-    await updateServicesForCar(carId);
+// Edit car
+router.patch(
+  "/edit/:id",
+  upload.single("image"),
+  [auth, validate(editCarSchema)],
+  async (req, res) => {
+    let uploadedImage = null;
 
-    return res.status(200).json({ success: true, data: updatedCar });
-  } catch (error) {
-    console.log(error);
+    try {
+      const carId = req.params.id;
+      const userId = req.user._id;
+      const data = req.body;
 
-    // Handle duplicate plate number error
-    if (error.code === 11000) {
-      return res.status(400).json({
+      if (!carId || !mongoose.Types.ObjectId.isValid(carId)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid car ID",
+        });
+      }
+
+      const car = await CarModel.findOne({
+        _id: carId,
+        isDeleted: false,
+      });
+
+      if (!car) {
+        return res.status(404).json({
+          success: false,
+          message: "Car not found",
+        });
+      }
+
+      if (car.owner.toString() !== userId.toString()) {
+        return res.status(403).json({
+          success: false,
+          message: "You can only edit your cars",
+        });
+      }
+
+      if (req.file) {
+        uploadedImage = await uploadToCloudinary(req.file.buffer);
+        data.image = uploadedImage.secure_url;
+        data.imagePublicId = uploadedImage.public_id;
+      }
+
+      const updatedCar = await CarModel.findByIdAndUpdate(carId, data, {
+        runValidators: true,
+        new: true,
+      });
+
+      if (!updatedCar) {
+        return res.status(500).json({
+          success: false,
+          message: "Car was not updated",
+        });
+      }
+
+      await updateServicesForCar(carId);
+
+      return res.status(200).json({ success: true, data: updatedCar });
+    } catch (error) {
+      console.log(error);
+
+      // If post creation fails and image was uploaded, delete it from Cloudinary
+      if (uploadedImage && uploadedImage.public_id) {
+        await deleteImageFromCloudinary(uploadedImage.public_id);
+      }
+
+      // Handle duplicate plate number error
+      if (error.code === 11000) {
+        return res.status(400).json({
+          success: false,
+          message: "Plate number already exists",
+        });
+      }
+
+      return res.status(500).json({
         success: false,
-        message: "Plate number already exists",
+        message: "Server Error",
       });
     }
-
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+  },
+);
 
 // Update mileage
 router.patch("/mileage/:id", auth, async (req, res) => {
