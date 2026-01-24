@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 240,
+    aspectRatio: 31 / 20,
     objectFit: "cover",
   },
 });

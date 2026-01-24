@@ -8,6 +8,7 @@ import FormikInput from "../../components/form/FormikInput";
 import GapContainer from "../../components/general/GapContainer";
 import { useState } from "react";
 import SubmitBtn from "../../components/form/SubmitBtn";
+import AddImageBtn from "../../components/form/AddImageBtn";
 
 export const validationSchema = Yup.object({
   make: Yup.string().trim().required("Car make is required"),
@@ -56,47 +57,59 @@ function AddCar(props) {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          <GapContainer gap={15}>
-            <FormikInput
-              name={"model"}
-              placeholder={"Model"}
-              icon={"hash"}
-              autoCapitalize={"none"}
-              keyboardType={"numeric"}
-              hasBeenSubmitted={hasBeenSubmitted}
-            />
+          {({ values, errors, setFieldValue, setStatus }) => (
+            <GapContainer gap={15}>
+              <AddImageBtn
+                image={values.image}
+                onImageChange={(imageUri) => {
+                  setFieldValue("image", imageUri);
+                  setStatus(null);
+                }}
+                error={hasBeenSubmitted && errors.image}
+                errorMessage={errors.image}
+              />
 
-            <FormikInput
-              name={"plateNumber"}
-              placeholder={"Plate number"}
-              icon={"credit-card"}
-              autoCapitalize={"none"}
-              hasBeenSubmitted={hasBeenSubmitted}
-            />
+              <FormikInput
+                name={"model"}
+                placeholder={"Model"}
+                icon={"hash"}
+                autoCapitalize={"none"}
+                keyboardType={"numeric"}
+                hasBeenSubmitted={hasBeenSubmitted}
+              />
 
-            <FormikInput
-              name={"mileage"}
-              placeholder={"Mileage"}
-              icon={"disc"}
-              autoCapitalize={"none"}
-              keyboardType={"numeric"}
-              hasBeenSubmitted={hasBeenSubmitted}
-            />
+              <FormikInput
+                name={"plateNumber"}
+                placeholder={"Plate number"}
+                icon={"credit-card"}
+                autoCapitalize={"none"}
+                hasBeenSubmitted={hasBeenSubmitted}
+              />
 
-            <FormikInput
-              name={"color"}
-              placeholder={"Color"}
-              icon={"droplet"}
-              autoCapitalize={"none"}
-              hasBeenSubmitted={hasBeenSubmitted}
-            />
+              <FormikInput
+                name={"mileage"}
+                placeholder={"Mileage"}
+                icon={"disc"}
+                autoCapitalize={"none"}
+                keyboardType={"numeric"}
+                hasBeenSubmitted={hasBeenSubmitted}
+              />
 
-            <SubmitBtn
-              defaultText="Add Car"
-              submittingText="Adding Car..."
-              setHasBeenSubmitted={setHasBeenSubmited}
-            />
-          </GapContainer>
+              <FormikInput
+                name={"color"}
+                placeholder={"Color"}
+                icon={"droplet"}
+                autoCapitalize={"none"}
+                hasBeenSubmitted={hasBeenSubmitted}
+              />
+
+              <SubmitBtn
+                defaultText="Add Car"
+                submittingText="Adding Car..."
+                setHasBeenSubmitted={setHasBeenSubmited}
+              />
+            </GapContainer>
+          )}
         </AppForm>
       </KeyboardScrollScreen>
       <Navbar />
