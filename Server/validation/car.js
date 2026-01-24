@@ -13,6 +13,8 @@ export const addCarSchema = Joi.object({
 
   image: Joi.string().allow(""),
 
+  imagePublicId: Joi.string().allow(""),
+
   model: Joi.number()
     .integer()
     .min(1900)
@@ -49,6 +51,8 @@ export const editCarSchema = Joi.object({
   }),
 
   image: Joi.string().allow(""),
+
+  imagePublicId: Joi.string().allow(""),
 
   model: Joi.number()
     .integer()

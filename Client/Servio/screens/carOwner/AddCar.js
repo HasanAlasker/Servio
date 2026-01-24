@@ -10,9 +10,10 @@ import { useEffect, useState } from "react";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import AddImageBtn from "../../components/form/AddImageBtn";
 import FormikDropBox from "../../components/form/FormikDropBox";
-import { getMakeAndModels } from "../../api/car";
+import { addCar, getMakeAndModels } from "../../api/car";
 import useApi from "../../hooks/useApi";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
+import { useNavigation } from "@react-navigation/native";
 
 export const validationSchema = Yup.object({
   make: Yup.string().trim().required("Car make is required"),
@@ -28,7 +29,7 @@ export const validationSchema = Yup.object({
     .required("Year is required")
     .typeError("Year must be a number"),
 
-  color: Yup.string().trim(),
+  color: Yup.string().trim().required("Color is required"),
 
   plateNumber: Yup.string().trim().required("Plate number is required"),
 
@@ -53,6 +54,8 @@ function AddCar(props) {
   const [cars, setCars] = useState([]);
   const [selectedMake, setSelectedMake] = useState(null);
   const [namesList, setNamesList] = useState([]);
+
+  const navigate = useNavigation();
 
   const {
     data: fetchedCars,
@@ -94,7 +97,19 @@ function AddCar(props) {
     }
   }, [selectedMake, cars]);
 
-  const handleSubmit = async (values) => {};
+  const handleSubmit = async (
+    values,
+    { resetForm, setSubmitting, setStatus },
+  ) => {
+    try {
+      const response = await addCar(values);
+      if (response.ok) {
+        navigate.navigate("MyCars");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <SafeScreen>
@@ -180,6 +195,7 @@ function AddCar(props) {
               <SubmitBtn
                 defaultText="Add Car"
                 submittingText="Adding Car..."
+                disabled={loading}
                 setHasBeenSubmitted={setHasBeenSubmited}
               />
             </GapContainer>
