@@ -35,7 +35,12 @@ router.get("/upcoming", auth, async (req, res) => {
     const upcoming = await AppointmentModel.find({
       customer: userId,
       scheduledDate: { $gte: new Date() },
-    }).sort({ scheduledDate: 1 });
+    })
+      .sort({ scheduledDate: 1 })
+      .populate("car", "make name model plateNumber mileage color")
+      .populate("customer", "name phone")
+      .populate("shop", "owner name services addresses rating ratingCount")
+      .populate("serviceParts");
 
     return res.status(200).json({ success: true, data: upcoming });
   } catch (error) {
@@ -55,7 +60,12 @@ router.get("/past", auth, async (req, res) => {
     const past = await AppointmentModel.find({
       customer: userId,
       scheduledDate: { $lte: new Date() },
-    }).sort({ scheduledDate: 1 });
+    })
+      .sort({ scheduledDate: 1 })
+      .populate("car", "make name model plateNumber mileage color")
+      .populate("customer", "name phone")
+      .populate("shop", "owner name services addresses rating ratingCount")
+      .populate("serviceParts");
 
     return res.status(200).json({ success: true, data: past });
   } catch (error) {
@@ -75,7 +85,12 @@ router.get("/confirmed/:id", [auth, shopOwner], async (req, res) => {
     const confimed = await AppointmentModel.find({
       shop: shopId,
       status: "confirmed",
-    }).sort("-createdAt");
+    })
+      .sort("-createdAt")
+      .populate("car", "make name model plateNumber mileage color")
+      .populate("customer", "name phone")
+      .populate("shop", "owner name services addresses rating ratingCount")
+      .populate("serviceParts");
 
     return res.status(200).json({ success: true, data: confimed });
   } catch (error) {
@@ -95,7 +110,12 @@ router.get("/completed/:id", [auth, shopOwner], async (req, res) => {
     const completed = await AppointmentModel.find({
       shop: shopId,
       status: "completed",
-    }).sort("-createdAt");
+    })
+      .sort("-createdAt")
+      .populate("car", "make name model plateNumber mileage color")
+      .populate("customer", "name phone")
+      .populate("shop", "owner name services addresses rating ratingCount")
+      .populate("serviceParts");
 
     return res.status(200).json({ success: true, data: completed });
   } catch (error) {
@@ -115,7 +135,12 @@ router.get("/pending/:id", [auth, shopOwner], async (req, res) => {
     const pending = await AppointmentModel.find({
       shop: shopId,
       status: "pending",
-    }).sort("-createdAt");
+    })
+      .sort("-createdAt")
+      .populate("car", "make name model plateNumber mileage color")
+      .populate("customer", "name phone")
+      .populate("shop", "owner name services addresses rating ratingCount")
+      .populate("serviceParts");
 
     return res.status(200).json({ success: true, data: pending });
   } catch (error) {
