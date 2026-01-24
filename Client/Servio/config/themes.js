@@ -20,6 +20,7 @@ export const lightTheme = {
   orange: "#FC7600",
   lightBlue: "#00AAFF",
   pink: "#C953FF",
+  darkPink: "#FF0051",
 };
 
 export const darkTheme = {
@@ -44,4 +45,5 @@ export const darkTheme = {
   orange: "#FC7600",
   lightBlue: "#00AAFF",
   pink: "#C953FF",
+  darkPink: "#FF0051",
 };

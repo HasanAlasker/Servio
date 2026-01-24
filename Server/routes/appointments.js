@@ -65,7 +65,7 @@ router.get("/past", auth, async (req, res) => {
       .populate("car", "make name model plateNumber mileage color")
       .populate("customer", "name phone")
       .populate("shop", "owner name services address rating ratingCount")
-      .populate("serviceParts");
+      .populate("serviceParts", "name");
 
     return res.status(200).json({ success: true, data: past });
   } catch (error) {

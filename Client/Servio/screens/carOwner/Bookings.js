@@ -43,6 +43,7 @@ function Bookings(props) {
       key={appointment._id}
       car={appointment.car}
       shop={appointment.shop}
+      serviceParts={appointment.serviceParts}
     />
   ));
 
