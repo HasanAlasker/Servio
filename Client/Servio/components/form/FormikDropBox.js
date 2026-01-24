@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useFormikContext } from "formik";
 import ErrorMessage from "./ErrorMessage";
 import DropBox from "../general/DropBox";
@@ -19,7 +19,7 @@ function FormikDropBox({
   const shouldShowError = hasBeenSubmitted && errors[name];
 
   return (
-    <>
+    <View>
       <DropBox
         placeholder={placeholder}
         penOn={penOn}
@@ -39,7 +39,7 @@ function FormikDropBox({
         {...other}
       />
       {shouldShowError && <ErrorMessage error={errors[name]}></ErrorMessage>}
-    </>
+    </View>
   );
 }
 
