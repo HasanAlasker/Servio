@@ -23,22 +23,20 @@ const shopSchema = new mongoose.Schema(
         },
       },
     ],
-    addresses: [
-      {
-        city: {
-          type: String,
-          required: true,
-        },
-        area: {
-          type: String,
-          required: true,
-        },
-        street: {
-          type: String,
-          required: true,
-        },
+    address: {
+      city: {
+        type: String,
+        required: true,
       },
-    ],
+      area: {
+        type: String,
+        required: true,
+      },
+      street: {
+        type: String,
+        required: true,
+      },
+    },
     openHours: {
       sun: { isOpen: Boolean, from: String, to: String },
       mon: { isOpen: Boolean, from: String, to: String },
@@ -68,7 +66,7 @@ const shopSchema = new mongoose.Schema(
       default: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const ShopModel = mongoose.model("Shop", shopSchema);

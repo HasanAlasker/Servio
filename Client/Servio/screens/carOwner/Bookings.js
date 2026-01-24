@@ -8,6 +8,9 @@ import {
   getPastAppointments,
   getUpcomingAppointments,
 } from "../../api/appointment";
+import ScrollScreen from "../../components/general/ScrollScreen";
+import AppointmentCard from "../../components/cards/AppointmentCard";
+import GapContainer from "../../components/general/GapContainer";
 
 function Bookings(props) {
   const [upcoming, setUpcoming] = useState([]);
@@ -35,10 +38,19 @@ function Bookings(props) {
     setPast(fetchedPast);
   }, [fetchUpcoming, fetchedPast]);
 
+  const RenderAppointments = upcoming.map((appointment) => (
+    <AppointmentCard
+      key={appointment._id}
+      car={appointment.car}
+      shop={appointment.shop}
+    />
+  ));
+
   return (
     <SafeScreen>
-      <View style={styles.container}></View>
-      <FullScreen />
+      <ScrollScreen>
+        <GapContainer>{RenderAppointments}</GapContainer>
+      </ScrollScreen>
       <Navbar />
     </SafeScreen>
   );
