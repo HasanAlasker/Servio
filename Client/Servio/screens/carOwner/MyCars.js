@@ -47,8 +47,6 @@ function MyCars(props) {
     <SafeScreen>
       <ScrollScreen>
         <GapContainer>
-          <AddCarCard />
-          {loading && <LText>loading...</LText>}
           {carsList.length > 0 ? (
             carsList
           ) : (
@@ -56,6 +54,8 @@ function MyCars(props) {
               You haven't added any cars yet
             </SText>
           )}
+          <AddCarCard />
+          {loading && <LText>loading...</LText>}
         </GapContainer>
       </ScrollScreen>
       <Navbar />

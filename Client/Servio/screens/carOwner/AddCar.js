@@ -97,10 +97,7 @@ function AddCar(props) {
     }
   }, [selectedMake, cars]);
 
-  const handleSubmit = async (
-    values,
-    { resetForm, setSubmitting, setStatus },
-  ) => {
+  const handleSubmit = async (values) => {
     try {
       const response = await addCar(values);
       if (response.ok) {
