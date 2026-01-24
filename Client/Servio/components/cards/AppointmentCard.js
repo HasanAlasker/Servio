@@ -5,15 +5,19 @@ import SquareInfo from "./SquareInfo";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import SeparatorComp from "../general/SeparatorComp";
 import SText from "../text/SText";
+import StatusLabel from "../general/StatusLabel";
 
 function AppointmentCard({ scheuledAt, status, car, shop, serviceParts }) {
   const partsList = serviceParts?.map((part) => (
-    <SText thin>{capFirstLetter(part.name)}</SText>
+    <SText key={part._id} thin>
+      {capFirstLetter(part.name)}
+    </SText>
   ));
   console.log(partsList);
   return (
     <CardComp>
-      <GapContainer gap={12}>
+      <GapContainer gap={20}>
+        <StatusLabel status={status} />
         <SquareInfo
           color={"lightBlue"}
           icon={"car-outline"}

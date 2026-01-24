@@ -44,6 +44,7 @@ function Bookings(props) {
       car={appointment.car}
       shop={appointment.shop}
       serviceParts={appointment.serviceParts}
+      status={appointment.status}
     />
   ));
 
