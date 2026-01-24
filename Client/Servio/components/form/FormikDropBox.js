@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { useFormikContext } from "formik";
-import DropBox from '../DropBox'
 import ErrorMessage from "./ErrorMessage";
+import DropBox from "../general/DropBox";
 
 function FormikDropBox({
   name,
@@ -10,7 +10,7 @@ function FormikDropBox({
   disabled = false,
   penOn = false,
   hasBeenSubmitted = false,
-  userPlan,
+  icon,
   ...other
 }) {
   const { values, errors, touched, setFieldTouched, setFieldValue, setStatus } =
@@ -23,6 +23,7 @@ function FormikDropBox({
         placeholder={placeholder}
         penOn={penOn}
         items={items}
+        icon={icon}
         selectedValue={values[name]}
         onSelectItem={(value) => {
           setFieldValue(name, value);
@@ -32,7 +33,6 @@ function FormikDropBox({
           }
         }}
         disabled={disabled}
-        userPlan={userPlan}
         {...other}
       />
       {shouldShowError && <ErrorMessage error={errors[name]}></ErrorMessage>}

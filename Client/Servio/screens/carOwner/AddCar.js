@@ -6,9 +6,13 @@ import AppForm from "../../components/form/AppForm";
 import KeyboardScrollScreen from "../../components/general/KeyboardScrollScreen";
 import FormikInput from "../../components/form/FormikInput";
 import GapContainer from "../../components/general/GapContainer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import AddImageBtn from "../../components/form/AddImageBtn";
+import FormikDropBox from "../../components/form/FormikDropBox";
+import { getMakeAndModels } from "../../api/car";
+import useApi from "../../hooks/useApi";
+import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 
 export const validationSchema = Yup.object({
   make: Yup.string().trim().required("Car make is required"),
@@ -46,6 +50,29 @@ const initialValues = {
 
 function AddCar(props) {
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
+  const [cars, setCars] = useState([]);
+  const [make, setMake] = useState();
+  const [names, setNames] = useState([]);
+
+  const {
+    data: fetchedCars,
+    request: fetchCars,
+    loading,
+    error,
+  } = useApi(getMakeAndModels);
+
+  useEffect(() => {
+    fetchCars();
+  }, []);
+
+  useEffect(() => {
+    setCars(fetchedCars);
+  }, [fetchedCars]);
+
+  const makesList = cars.map((car) => ({
+    label: capFirstLetter(car.make),
+    value: car.make,
+  }));
 
   const handleSubmit = async (values) => {};
 
@@ -67,6 +94,13 @@ function AddCar(props) {
                 }}
                 error={hasBeenSubmitted && errors.image}
                 errorMessage={errors.image}
+              />
+
+              <FormikDropBox
+                name={"make"}
+                placeholder={"Make"}
+                items={makesList}
+                icon={"package"}
               />
 
               <FormikInput
