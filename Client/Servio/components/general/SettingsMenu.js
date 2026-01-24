@@ -44,7 +44,6 @@ function SettingsMenu({ isVisible, onClose }) {
           <MenuOption
             text={"Suggestions"}
             icon={"chat-outline"}
-            color={"green"}
             onPress={toggleTheme}
           />
           <SeparatorComp full />
