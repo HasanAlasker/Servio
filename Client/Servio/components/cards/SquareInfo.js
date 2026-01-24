@@ -22,7 +22,7 @@ function SquareInfo({ icon, color, title, text, fliped = false, style }) {
           { backgroundColor: backColor, borderColor: theme[color] },
         ]}
       >
-        <MaterialCommunityIcons name={icon} color={theme[color]} size={36} />
+        <MaterialCommunityIcons name={icon} color={theme[color]} size={30} />
       </View>
       <GapContainer gap={1}>
         {!fliped ? (
