@@ -48,7 +48,7 @@ function CarCard({
         {/* <MText thin style={{ marginVertical: 10 }}>
           {model}
         </MText> */}
-        <RowCont gap={25} style={{ marginTop: 20 }}>
+        <RowCont gap={25} style={{ marginTop: 20, flexWrap: 'wrap' }}>
           <SquareInfo
             icon={"gauge"}
             color={"lightBlue"}

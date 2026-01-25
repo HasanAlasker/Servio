@@ -40,7 +40,9 @@ function CardLeftBorder({ title, data, status, parts }) {
   }
 
   const RenderParts = parts?.map((part) => (
-    <SText thin>{capFirstLetter(part.name)}</SText>
+    <SText key={part._id} thin>
+      {capFirstLetter(part.name)}
+    </SText>
   ));
 
   return (
@@ -51,6 +53,7 @@ function CardLeftBorder({ title, data, status, parts }) {
           backgroundColor: backColor,
           borderColor: theme[color],
           paddingVertical: status ? 15 : 25,
+          paddingHorizontal: status ? 14 : 22,
         },
       ]}
     >
@@ -70,7 +73,7 @@ function CardLeftBorder({ title, data, status, parts }) {
         </GapContainer>
       )}
       {title && <MText color={color}>{title}</MText>}
-      {text && <MText color={color}>{data}</MText>}
+      {data && <MText color={color}>{data}</MText>}
     </View>
   );
 }

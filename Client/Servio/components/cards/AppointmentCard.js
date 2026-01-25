@@ -21,18 +21,6 @@ function AppointmentCard({ scheuledAt, status, car, shop, serviceParts }) {
   return (
     <CardComp>
       <GapContainer gap={20}>
-        <View>
-          <IconTextLabel
-            icon={"calendar-blank-outline"}
-            text={formatDate(scheuledAt)}
-          />
-          <IconTextLabel
-            icon={"clock-outline"}
-            text={getTimeFromDate(scheuledAt)}
-          />
-        </View>
-
-        <StatusLabel status={status} />
         <SquareInfo
           color={"lightBlue"}
           icon={"car-outline"}
@@ -45,6 +33,20 @@ function AppointmentCard({ scheuledAt, status, car, shop, serviceParts }) {
           title={capFirstLetter(shop?.name)}
           text={shop?.address.area + " " + shop?.address.street}
         />
+        
+        <View>
+          <IconTextLabel
+            icon={"calendar-blank-outline"}
+            text={formatDate(scheuledAt)}
+          />
+          <IconTextLabel
+            icon={"clock-outline"}
+            text={getTimeFromDate(scheuledAt)}
+          />
+        </View>
+
+        <StatusLabel status={status} />
+
         <View>
           <SeparatorComp children={"Service Parts"} full color="sec_text" />
           {partsList}

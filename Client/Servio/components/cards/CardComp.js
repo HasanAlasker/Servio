@@ -1,12 +1,12 @@
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 
 function CardComp({ children, style, onPress }) {
   const styles = useThemedStyles(getStyles);
   return (
-    <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
+    <Pressable style={[styles.container, style]} onPress={onPress}>
       {children}
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 

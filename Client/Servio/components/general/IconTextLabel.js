@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View, StyleSheet } from "react-native";
 import { useTheme } from "../../context/ThemeContext";
-import MText from "../text/MText";
+import SText from "../text/SText";
 import RowCont from "./RowCont";
 
 function IconTextLabel({ icon, text }) {
@@ -9,8 +9,8 @@ function IconTextLabel({ icon, text }) {
 
   return (
     <RowCont gap={5} style={styles.container}>
-      <MaterialCommunityIcons name={icon} size={32} color={theme.main_text} />
-      <MText>{text}</MText>
+      <MaterialCommunityIcons name={icon} size={28} color={theme.main_text} />
+      <SText>{text}</SText>
     </RowCont>
   );
 }

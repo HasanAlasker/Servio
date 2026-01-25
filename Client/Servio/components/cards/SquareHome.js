@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Pressable } from "react-native";
 import SText from "../text/SText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
@@ -11,7 +11,7 @@ function SquareHome({ title, icon, color, onPress }) {
   const backColor = theme[color] + "15";
 
   return (
-    <TouchableOpacity
+    <Pressable
       style={[
         styles.container,
         { backgroundColor: backColor, borderColor: theme[color] },
@@ -20,7 +20,7 @@ function SquareHome({ title, icon, color, onPress }) {
     >
       <MaterialCommunityIcons name={icon} color={theme[color]} size={40} />
       <SText color={color}>{title}</SText>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 
