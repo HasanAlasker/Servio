@@ -40,16 +40,28 @@ function Bookings(props) {
     setPast(fetchedPast);
   }, [fetchUpcoming, fetchedPast]);
 
-  const RenderAppointments = upcoming.map((appointment) => (
-    <AppointmentCard
-      key={appointment._id}
-      car={appointment.car}
-      shop={appointment.shop}
-      serviceParts={appointment.serviceParts}
-      status={appointment.status}
-      scheuledAt={appointment.scheduledDate}
-    />
-  ));
+  const RenderAppointments =
+    activeTab === "upcoming"
+      ? upcoming.map((appointment) => (
+          <AppointmentCard
+            key={appointment._id}
+            car={appointment.car}
+            shop={appointment.shop}
+            serviceParts={appointment.serviceParts}
+            status={appointment.status}
+            scheuledAt={appointment.scheduledDate}
+          />
+        ))
+      : past.map((appointment) => (
+          <AppointmentCard
+            key={appointment._id}
+            car={appointment.car}
+            shop={appointment.shop}
+            serviceParts={appointment.serviceParts}
+            status={appointment.status}
+            scheuledAt={appointment.scheduledDate}
+          />
+        ));
 
   const onTabChange = () => {
     let changeTo = activeTab === "upcoming" ? "past" : "upcoming";

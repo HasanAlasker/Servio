@@ -62,7 +62,10 @@ router.get("/past", auth, async (req, res) => {
 
     const past = await AppointmentModel.find({
       customer: userId,
-      $or: [{ scheduledDate: { $lte: new Date() } }, { status: "completed" }],
+      $or: [
+        { scheduledDate: { $lte: new Date() } },
+        { status: { $in: ["completed", "no-show", "canceled"] } },
+      ],
     })
       .sort({ scheduledDate: 1 })
       .populate("car", "make name model plateNumber mileage color")
