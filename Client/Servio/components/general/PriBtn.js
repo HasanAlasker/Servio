@@ -3,14 +3,19 @@ import AppText from "../../config/AppText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "@react-navigation/native";
 
-function PriBtn({ title, onPress, disabled, style }) {
+function PriBtn({ title, onPress, disabled, full, style }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
   return (
     <TouchableOpacity
       disabled={disabled}
       onPress={onPress}
-      style={[styles.container, disabled && styles.disabled, style]}
+      style={[
+        styles.container,
+        disabled && styles.disabled,
+        style,
+        { width: full ? "100%" : "90%" },
+      ]}
     >
       <AppText style={styles.text}>{title || "Press"}</AppText>
     </TouchableOpacity>
@@ -31,7 +36,7 @@ const getStyles = (theme) =>
     text: {
       color: theme.always_white,
       fontWeight: "bold",
-      fontSize: 20,
+      fontSize: 18,
       textAlign: "center",
     },
     disabled: {
