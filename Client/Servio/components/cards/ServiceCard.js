@@ -6,6 +6,7 @@ import IconTextLabel from "../general/IconTextLabel";
 import { formatDate } from "../../functions/formatDate";
 import GapContainer from "../general/GapContainer";
 import PriBtn from "../general/PriBtn";
+import CardLeftBorder from "./CardLeftBorder";
 
 function ServiceCard({ car, dueBy, parts, status }) {
   return (
@@ -25,6 +26,8 @@ function ServiceCard({ car, dueBy, parts, status }) {
           />
           <IconTextLabel icon={"gauge"} text={dueBy.mileage + " Km"} />
         </View>
+
+        <CardLeftBorder status={status} parts={parts}/>
 
         <PriBtn full title={"Book Appointment"}/>
       </GapContainer>

@@ -21,17 +21,14 @@ function Home(props) {
           <CardLeftBorder
             title={"Number of cars: "}
             data={2}
-            textColor={"blue"}
           />
           <CardLeftBorder
             title={"Appointments: "}
             data={1}
-            textColor={"blue"}
           />
           <CardLeftBorder
             title={"Due services: "}
             data={2}
-            textColor={"blue"}
           />
         </GapContainer>
 
