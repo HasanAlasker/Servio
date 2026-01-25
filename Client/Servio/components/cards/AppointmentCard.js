@@ -6,6 +6,10 @@ import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import SeparatorComp from "../general/SeparatorComp";
 import SText from "../text/SText";
 import StatusLabel from "../general/StatusLabel";
+import { formatDateTime } from "../../functions/formatDateTime";
+import { getTimeFromDate } from "../../functions/fromatTime";
+import IconTextLabel from "../general/IconTextLabel";
+import { formatDate } from "../../functions/formatDate";
 
 function AppointmentCard({ scheuledAt, status, car, shop, serviceParts }) {
   const partsList = serviceParts?.map((part) => (
@@ -17,6 +21,17 @@ function AppointmentCard({ scheuledAt, status, car, shop, serviceParts }) {
   return (
     <CardComp>
       <GapContainer gap={20}>
+        <View>
+          <IconTextLabel
+            icon={"calendar-blank-outline"}
+            text={formatDate(scheuledAt)}
+          />
+          <IconTextLabel
+            icon={"clock-outline"}
+            text={getTimeFromDate(scheuledAt)}
+          />
+        </View>
+
         <StatusLabel status={status} />
         <SquareInfo
           color={"lightBlue"}

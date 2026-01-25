@@ -45,6 +45,7 @@ function Bookings(props) {
       shop={appointment.shop}
       serviceParts={appointment.serviceParts}
       status={appointment.status}
+      scheuledAt={appointment.scheduledDate}
     />
   ));
 
