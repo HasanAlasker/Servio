@@ -11,10 +11,12 @@ import {
 import ScrollScreen from "../../components/general/ScrollScreen";
 import AppointmentCard from "../../components/cards/AppointmentCard";
 import GapContainer from "../../components/general/GapContainer";
+import TabNav from "../../components/general/TabNav";
 
 function Bookings(props) {
   const [upcoming, setUpcoming] = useState([]);
   const [past, setPast] = useState([]);
+  const [activeTab, setTab] = useState("upcoming");
 
   const {
     data: fetchedUpcoming,
@@ -49,10 +51,18 @@ function Bookings(props) {
     />
   ));
 
+  const onTabChange = () => {
+    let changeTo = activeTab === "upcoming" ? "past" : "upcoming";
+    setTab(changeTo);
+  };
+
   return (
     <SafeScreen>
       <ScrollScreen>
-        <GapContainer>{RenderAppointments}</GapContainer>
+        <GapContainer>
+          <TabNav active={activeTab} onTabChange={onTabChange} />
+          {RenderAppointments}
+        </GapContainer>
       </ScrollScreen>
       <Navbar />
     </SafeScreen>

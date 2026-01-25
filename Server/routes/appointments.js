@@ -36,7 +36,7 @@ router.get("/upcoming", auth, async (req, res) => {
       customer: userId,
       $and: [
         { scheduledDate: { $gte: new Date() } },
-        { status: { $nin: ["completed"] } },
+        { status: { $nin: ["completed", "canceled"] } },
       ],
     })
       .sort({ scheduledDate: 1 })
