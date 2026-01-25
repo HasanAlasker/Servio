@@ -20,6 +20,7 @@ import Dash from "./screens/admin/Dash";
 import MyShop from "./screens/shopOwner/MyShop";
 import { useEffect } from "react";
 import Profile from "./screens/carOwner/Profile";
+import Suggestions from "./screens/shared/Suggestions";
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +49,7 @@ const CarOwnerStack = () => {
       <Stack.Screen name="Parts" component={Parts} />
       <Stack.Screen name="MyCars" component={MyCars} />
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Suggestions" component={Suggestions} />
     </Stack.Navigator>
   );
 };
@@ -59,6 +61,7 @@ const ShopOwnerStack = () => {
       screenOptions={{ headerShown: false, animation: "none" }}
     >
       <Stack.Screen name="MyShop" component={MyShop} />
+      <Stack.Screen name="Suggestions" component={Suggestions} />
     </Stack.Navigator>
   );
 };
