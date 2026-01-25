@@ -34,7 +34,10 @@ router.get("/upcoming", auth, async (req, res) => {
 
     const upcoming = await AppointmentModel.find({
       customer: userId,
-      scheduledDate: { $gte: new Date() },
+      $and: [
+        { scheduledDate: { $gte: new Date() } },
+        { status: { $nin: ["completed"] } },
+      ],
     })
       .sort({ scheduledDate: 1 })
       .populate("car", "make name model plateNumber mileage color")
@@ -59,7 +62,7 @@ router.get("/past", auth, async (req, res) => {
 
     const past = await AppointmentModel.find({
       customer: userId,
-      scheduledDate: { $lte: new Date() },
+      $or: [{ scheduledDate: { $lte: new Date() } }, { status: "completed" }],
     })
       .sort({ scheduledDate: 1 })
       .populate("car", "make name model plateNumber mileage color")
