@@ -29,7 +29,7 @@ function ServiceCard({ car, dueBy, parts, status }) {
 
         <CardLeftBorder status={status} parts={parts}/>
 
-        <PriBtn full title={"Book Appointment"}/>
+        <PriBtn full square title={"Book Appointment"}/>
       </GapContainer>
     </CardComp>
   );

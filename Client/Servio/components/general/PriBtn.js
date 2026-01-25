@@ -3,7 +3,7 @@ import AppText from "../../config/AppText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "@react-navigation/native";
 
-function PriBtn({ title, onPress, disabled, full, style }) {
+function PriBtn({ title, onPress, disabled, full, style, square }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
   return (
@@ -14,7 +14,7 @@ function PriBtn({ title, onPress, disabled, full, style }) {
         styles.container,
         disabled && styles.disabled,
         style,
-        { width: full ? "100%" : "90%" },
+        { width: full ? "100%" : "90%", borderRadius: square ? 15 : 25 },
       ]}
     >
       <AppText style={styles.text}>{title || "Press"}</AppText>
