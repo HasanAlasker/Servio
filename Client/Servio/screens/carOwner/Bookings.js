@@ -12,11 +12,19 @@ import ScrollScreen from "../../components/general/ScrollScreen";
 import AppointmentCard from "../../components/cards/AppointmentCard";
 import GapContainer from "../../components/general/GapContainer";
 import TabNav from "../../components/general/TabNav";
+import { useRoute } from "@react-navigation/native";
 
 function Bookings(props) {
   const [upcoming, setUpcoming] = useState([]);
   const [past, setPast] = useState([]);
   const [activeTab, setTab] = useState("upcoming");
+
+  const route = useRoute();
+  const params = route.params;
+
+  useEffect(() => {
+    if (params) setTab(params.active);
+  }, []);
 
   const {
     data: fetchedUpcoming,

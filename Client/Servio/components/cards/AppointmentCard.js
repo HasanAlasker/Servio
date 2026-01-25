@@ -17,7 +17,7 @@ function AppointmentCard({ scheuledAt, status, car, shop, serviceParts }) {
       {capFirstLetter(part.name)}
     </SText>
   ));
-  console.log(partsList);
+
   return (
     <CardComp>
       <GapContainer gap={20}>

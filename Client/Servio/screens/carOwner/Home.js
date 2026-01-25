@@ -11,12 +11,8 @@ import SquareHome from "../../components/cards/SquareHome";
 import { useNavigation } from "@react-navigation/native";
 
 function Home(props) {
-  const { logout } = UseUser();
   const navigaiton = useNavigation();
-  const handlePress = async () => {
-    await logout();
-    console.log("pressed");
-  };
+
   return (
     <SafeScreen>
       <ScrollScreen>
@@ -58,7 +54,7 @@ function Home(props) {
             title={"History"}
             color={"pink"}
             icon={"folder-outline"}
-            onPress={() => navigaiton.navigate("Bookings")}
+            onPress={() => navigaiton.navigate("Bookings", { active: "past" })}
           />
         </GapContainer>
 
