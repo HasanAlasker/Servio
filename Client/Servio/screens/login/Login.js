@@ -8,12 +8,14 @@ import useThemedStyles from "../../hooks/useThemedStyles";
 import { useNavigation } from "@react-navigation/native";
 import { UseUser } from "../../context/UserContext";
 import FormikInput from "../../components/form/FormikInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GapContainer from "../../components/general/GapContainer";
 import SeparatorComp from "../../components/general/SeparatorComp";
 import SecBtn from "../../components/general/SecBtn";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import SubmitBtn from "../../components/form/SubmitBtn";
+import useApi from "../../hooks/useApi";
+import { isServerAwake } from "../../api/upcomingService";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -33,18 +35,24 @@ function Login(props) {
   const styles = useThemedStyles(getStyles);
   const navigation = useNavigation();
 
+  const { login, error, message, loading, status } = UseUser();
+
   const {
-    login,
-    error,
-    message,
-    loading,
-    status,
-    checkServerConnection,
-    serverAwake,
-  } = UseUser();
+    message: connectionMsg,
+    request: connectToServer,
+    loading: connecting,
+    error: connectionError,
+    success,
+  } = useApi(isServerAwake);
 
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
   const [loginErr, setLoginErr] = useState(false);
+
+  useEffect(() => {
+    connectToServer();
+  }, [hasBeenSubmitted]);
+
+  const isButtonDisabled = loading || connecting || !success || connectionError;
 
   const handleSubmit = async (values, { setSubmitting }) => {
     setHasBeenSubmited(true);
@@ -87,8 +95,14 @@ function Login(props) {
               />
 
               <SubmitBtn
-                disabled={loading}
-                defaultText="Login"
+                disabled={isButtonDisabled}
+                defaultText={
+                  connecting
+                    ? "Connecting..."
+                    : !success
+                      ? "Connection Failed"
+                      : "Login"
+                }
                 submittingText="Logging in..."
                 setHasBeenSubmitted={setHasBeenSubmited}
               />
@@ -102,6 +116,9 @@ function Login(props) {
                   }
                 />
               )}
+              {/* {!success && (
+                <ErrorMessage error={"Trying to connect to server"} />
+              )} */}
 
               <SeparatorComp children={"Or"} />
 

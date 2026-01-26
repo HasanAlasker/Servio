@@ -11,10 +11,12 @@ import { ErrorMessage } from "formik";
 import * as Yup from "yup";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { UseUser } from "../../context/UserContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SeparatorComp from "../../components/general/SeparatorComp";
 import SecBtn from "../../components/general/SecBtn";
 import { useNavigation } from "@react-navigation/native";
+import useApi from "../../hooks/useApi";
+import { isServerAwake } from "../../api/upcomingService";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -106,8 +108,22 @@ function Register(props) {
 
   const navigation = useNavigation();
 
+  const {
+    message: connectionMsg,
+    request: connectToServer,
+    loading: connecting,
+    error: connectionError,
+    success,
+  } = useApi(isServerAwake);
+
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
   const [regErr, setRegErr] = useState(false);
+
+  useEffect(() => {
+    connectToServer();
+  }, [hasBeenSubmitted]);
+
+  const isButtonDisabled = loading || connecting || !success || connectionError;
 
   const handleSubmit = async (values, { setSubmitting }) => {
     setHasBeenSubmited(true);
@@ -175,8 +191,14 @@ function Register(props) {
               />
 
               <SubmitBtn
-                disabled={loading}
-                defaultText="Register"
+                disabled={isButtonDisabled}
+                defaultText={
+                  connecting
+                    ? "Connecting..."
+                    : !success
+                      ? "Connection Failed"
+                      : "Register"
+                }
                 submittingText="Registering..."
                 setHasBeenSubmitted={setHasBeenSubmited}
               />

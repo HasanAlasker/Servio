@@ -6,10 +6,12 @@ const useApi = (apiFunc) => {
   const [message, setMessage] = useState(null);
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const request = async (...arg) => {
     setLoading(true);
-    setMessage(null)
+    setMessage(null);
+    setSuccess(false);
     const response = await apiFunc(...arg);
 
     setStatus(response.status);
@@ -21,10 +23,11 @@ const useApi = (apiFunc) => {
     }
 
     setError(false);
+    setSuccess(response.data.success);
     setData(response.data.data);
   };
 
-  return { error, loading, data, request, message, status };
+  return { error, loading, data, request, message, status, success };
 };
 
 export default useApi;
