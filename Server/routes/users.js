@@ -10,6 +10,9 @@ import {
   userRegistrationSchema,
   userUpdateSchema,
 } from "../validation/user.js";
+import CarModel from "../models/car.js";
+import AppointmentModel from "../models/appointment.js";
+import UpcomingServiceModel from "../models/upcomingService.js";
 
 const router = express.Router();
 
@@ -55,6 +58,35 @@ router.get("/me", auth, async (req, res) => {
       res.status(404).json({ success: false, message: "User not found" });
 
     return res.status(200).json({ success: true, data: user });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// count docs
+router.get("/count", auth, async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const numOfCars = await CarModel.countDocuments({ owner: userId });
+    const numOfAppointments = await AppointmentModel.countDocuments({
+      customer: userId,
+    });
+    const numOfServices = await UpcomingServiceModel.countDocuments({
+      $and: [{ customer: userId }, { status: { $in: ["due", "overdue"] } }],
+    });
+
+    const response = {
+      cars: numOfCars,
+      appointments: numOfAppointments,
+      services: numOfServices,
+    };
+
+    return res.status(200).json({ success: true, data: response });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
