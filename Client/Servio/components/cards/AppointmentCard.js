@@ -64,13 +64,13 @@ function AppointmentCard({
           <SeparatorComp children={"Service Parts"} full color="sec_text" />
           {partsList}
         </View>
-        {status === "pending" && type === "upcoming" && (
+        {status === "pending" && (
           <PriBtn
             square
             full
             style={{ backgroundColor: theme.red, borderColor: theme.red }}
             title={"Cancel"}
-            onPress={() => onCancel(id)}
+            onPress={() => onCancel(id, type)}
           />
         )}
       </GapContainer>

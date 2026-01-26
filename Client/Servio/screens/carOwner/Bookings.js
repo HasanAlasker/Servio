@@ -49,12 +49,20 @@ function Bookings(props) {
     setPast(fetchedPast);
   }, [fetchedUpcoming, fetchedPast]);
 
-  const handleCancel = async (id) => {
+  const handleCancel = async (id, type) => {
     await cancelAppointment(id);
-    const canceledApp = upcoming.find((app) => app._id === id);
-    canceledApp.status = "canceled"
-    setUpcoming((prev) => prev.filter((app) => app._id !== id));
-    setPast((prev) => [canceledApp, ...prev]);
+
+    if (type === "upcoming") {
+      const canceledApp = upcoming.find((app) => app._id === id);
+      canceledApp.status = "canceled";
+      setUpcoming((prev) => prev.filter((app) => app._id !== id));
+      setPast((prev) => [canceledApp, ...prev]);
+    } else {
+      const canceledApp = past.find((app) => app._id === id);
+      canceledApp.status = "canceled";
+      setPast((prev) => prev.filter((app) => app._id !== id));
+      setPast((prev) => [canceledApp, ...prev]);
+    }
   };
 
   const RenderAppointments =
