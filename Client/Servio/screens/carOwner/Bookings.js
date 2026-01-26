@@ -5,6 +5,7 @@ import FullScreen from "../../components/general/FullScreen";
 import SafeScreen from "../../components/general/SafeScreen";
 import useApi from "../../hooks/useApi";
 import {
+  cancelAppointment,
   getPastAppointments,
   getUpcomingAppointments,
 } from "../../api/appointment";
@@ -48,26 +49,36 @@ function Bookings(props) {
     setPast(fetchedPast);
   }, [fetchUpcoming, fetchedPast]);
 
+  const handleCancel = async (id) => {
+    await cancelAppointment(id);
+  };
+
   const RenderAppointments =
     activeTab === "upcoming"
       ? upcoming.map((appointment) => (
           <AppointmentCard
             key={appointment._id}
+            id={appointment._id}
             car={appointment.car}
             shop={appointment.shop}
             serviceParts={appointment.serviceParts}
             status={appointment.status}
             scheuledAt={appointment.scheduledDate}
+            type={"upcoming"}
+            onCancel={handleCancel}
           />
         ))
       : past.map((appointment) => (
           <AppointmentCard
             key={appointment._id}
+            id={appointment._id}
             car={appointment.car}
             shop={appointment.shop}
             serviceParts={appointment.serviceParts}
             status={appointment.status}
             scheuledAt={appointment.scheduledDate}
+            type={"past"}
+            onCancel={handleCancel}
           />
         ));
 

@@ -6,12 +6,22 @@ import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import SeparatorComp from "../general/SeparatorComp";
 import SText from "../text/SText";
 import StatusLabel from "../general/StatusLabel";
-import { formatDateTime } from "../../functions/formatDateTime";
 import { getTimeFromDate } from "../../functions/fromatTime";
 import IconTextLabel from "../general/IconTextLabel";
 import { formatDate } from "../../functions/formatDate";
+import PriBtn from "../general/PriBtn";
+import { cancelAppointment } from "../../api/appointment";
 
-function AppointmentCard({ scheuledAt, status, car, shop, serviceParts }) {
+function AppointmentCard({
+  id,
+  scheuledAt,
+  status,
+  car,
+  shop,
+  serviceParts,
+  type,
+  onCancel,
+}) {
   const partsList = serviceParts?.map((part) => (
     <SText key={part._id} thin>
       {capFirstLetter(part.name)}
@@ -33,7 +43,7 @@ function AppointmentCard({ scheuledAt, status, car, shop, serviceParts }) {
           title={capFirstLetter(shop?.name)}
           text={shop?.address.area + " " + shop?.address.street}
         />
-        
+
         <View>
           <IconTextLabel
             icon={"calendar-blank-outline"}
@@ -51,6 +61,15 @@ function AppointmentCard({ scheuledAt, status, car, shop, serviceParts }) {
           <SeparatorComp children={"Service Parts"} full color="sec_text" />
           {partsList}
         </View>
+        {status === "pending" && type === "upcoming" && (
+          <PriBtn
+            square
+            full
+            isRed
+            title={"Cancel"}
+            onPress={() => onCancel(id)}
+          />
+        )}
       </GapContainer>
     </CardComp>
   );

@@ -352,57 +352,53 @@ router.patch(
 );
 
 // cancel (car owner if not accepted yet)
-router.patch(
-  "/cancel/:id",
-  [auth, validate(editAppointmentSchema)],
-  async (req, res) => {
-    try {
-      const id = req.params.id;
+router.patch("/cancel/:id", auth, async (req, res) => {
+  try {
+    const id = req.params.id;
 
-      if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({
-          success: false,
-          message: "Invalid car ID",
-        });
-      }
-
-      const appointment = await AppointmentModel.findById(id);
-      if (!appointment) {
-        return res.status(404).json({
-          success: false,
-          message: "Appointment not found",
-        });
-      }
-
-      if (appointment.status !== "pending") {
-        return res.status(400).json({
-          success: false,
-          message: "You can't cancel an appointment unless it's pending",
-        });
-      }
-
-      const canceled = await AppointmentModel.findByIdAndUpdate(
-        id,
-        {
-          status: "canceled",
-        },
-        { runValidators: true, new: true },
-      );
-
-      if (!canceled)
-        res
-          .status(400)
-          .json({ success: false, message: "Failed to confirm appointment" });
-
-      return res.status(200).json({ success: true, data: canceled });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
         success: false,
-        message: "Server Error",
+        message: "Invalid appointment ID",
       });
     }
-  },
-);
+
+    const appointment = await AppointmentModel.findById(id);
+    if (!appointment) {
+      return res.status(404).json({
+        success: false,
+        message: "Appointment not found",
+      });
+    }
+
+    if (appointment.status !== "pending") {
+      return res.status(400).json({
+        success: false,
+        message: "You can't cancel an appointment unless it's pending",
+      });
+    }
+
+    const canceled = await AppointmentModel.findByIdAndUpdate(
+      id,
+      {
+        status: "canceled",
+      },
+      { runValidators: true, new: true },
+    );
+
+    if (!canceled)
+      res
+        .status(400)
+        .json({ success: false, message: "Failed to confirm appointment" });
+
+    return res.status(200).json({ success: true, data: canceled });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 
 export default router;
