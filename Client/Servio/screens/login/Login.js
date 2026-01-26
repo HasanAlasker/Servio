@@ -43,6 +43,7 @@ function Login(props) {
     loading: connecting,
     error: connectionError,
     success,
+    status: connectionStatus,
   } = useApi(isServerAwake);
 
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
@@ -116,9 +117,9 @@ function Login(props) {
                   }
                 />
               )}
-              {/* {!success && (
-                <ErrorMessage error={"Trying to connect to server"} />
-              )} */}
+              {(connectionStatus === 429 || status === 429) && (
+                <ErrorMessage error={"Too many requests"} />
+              )}
 
               <SeparatorComp children={"Or"} />
 

@@ -102,8 +102,6 @@ function Register(props) {
     message,
     loading,
     status,
-    checkServerConnection,
-    serverAwake,
   } = UseUser();
 
   const navigation = useNavigation();
@@ -114,6 +112,7 @@ function Register(props) {
     loading: connecting,
     error: connectionError,
     success,
+    status: connectionStatus,
   } = useApi(isServerAwake);
 
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
@@ -211,6 +210,10 @@ function Register(props) {
                       : message
                   }
                 />
+              )}
+
+              {(connectionStatus === 429 || status === 429) && (
+                <ErrorMessage error={"Too many requests"} />
               )}
 
               <SeparatorComp children={"Or"} />

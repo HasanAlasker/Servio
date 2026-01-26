@@ -11,9 +11,11 @@ import useApi from "../../hooks/useApi";
 import { countDocs } from "../../api/user";
 import { useEffect } from "react";
 import OfflineModal from "../../components/general/OfflineModal";
+import { UseUser } from "../../context/UserContext";
 
 function Home(props) {
   const navigaiton = useNavigation();
+  const { user } = UseUser;
 
   const {
     data: fetchedDocs,
@@ -24,7 +26,7 @@ function Home(props) {
 
   useEffect(() => {
     fetchDocs();
-  }, []);
+  }, [user, error]);
 
   const data = fetchedDocs;
 
