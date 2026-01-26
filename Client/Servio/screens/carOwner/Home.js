@@ -26,6 +26,7 @@ function Home(props) {
 
   useEffect(() => {
     fetchDocs();
+    console.log("refetch")
   }, [user, error]);
 
   const data = fetchedDocs;
