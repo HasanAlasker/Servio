@@ -8,17 +8,19 @@ export const getDeletedUsers = () => apiClient.get(`${endpoint}/deleted`);
 
 export const getMe = () => apiClient.get(`${endpoint}/me`);
 
+export const countDocs = () => apiClient.get(`${endpoint}/count`);
+
 export const getUserById = (id) => apiClient.get(`${endpoint}/${id}`);
 
-export const registerUser = (data) => apiClient.post(`${endpoint}/register`, data);
+export const registerUser = (data) =>
+  apiClient.post(`${endpoint}/register`, data);
 
 export const loginUser = (data) => apiClient.post(`${endpoint}/login`, data);
 
 export const editUser = (id, data) =>
   apiClient.patch(`${endpoint}/edit/${id}`, data);
 
-export const deleteUser = (id) =>
-  apiClient.patch(`${endpoint}/delete/${id}`);
+export const deleteUser = (id) => apiClient.patch(`${endpoint}/delete/${id}`);
 
 export const undeleteUser = (id) =>
   apiClient.patch(`${endpoint}/un-delete/${id}`);
