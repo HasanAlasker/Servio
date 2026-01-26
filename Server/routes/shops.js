@@ -11,7 +11,7 @@ import UserModel from "../models/user.js";
 const router = express.Router();
 
 // get all verified shops
-router.get("/verified", [auth, admin], async (req, res) => {
+router.get("/verified", auth, async (req, res) => {
   try {
     const shops = await ShopModel.find({
       isVerified: true,

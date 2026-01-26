@@ -15,6 +15,19 @@ const shopSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    
+    image: String,
+
+    imagePublicId: String,
+
+    description: {
+      type: String,
+      minLength: [10, "Description must be at least 2 characters long"],
+      maxLength: [50, "Description can't be longer than 50 characters"],
+      match: [/^[a-zA-Z\s'-]+$/, "Please enter a valid description"],
+      required: true,
+      trim: true,
+    },
     services: [
       {
         name: {

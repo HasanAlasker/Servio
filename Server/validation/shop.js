@@ -69,6 +69,24 @@ export const addShopSchema = Joi.object({
       "any.required": "Shop name is required",
     }),
 
+  description: Joi.string()
+    .trim()
+    .min(10)
+    .max(50)
+    .pattern(/^[a-zA-Z\s'-]+$/)
+    .required()
+    .messages({
+      "string.empty": "Shop description is required",
+      "string.min": "Description must be at least 10 characters long",
+      "string.max": "Description can't be longer than 50 characters",
+      "string.pattern.base": "Please enter a valid description",
+      "any.required": "Shop description is required",
+    }),
+
+  image: Joi.string().allow(""),
+
+  imagePublicId: Joi.string().allow(""),
+
   services: Joi.array()
     .items(
       Joi.object({
@@ -113,6 +131,24 @@ export const editShopSchema = Joi.object({
       "string.min": "Name must be at least 2 characters long",
       "string.max": "Name can't be longer than 25 characters",
       "string.pattern.base": "Please enter a valid name",
+    }),
+
+  image: Joi.string().allow(""),
+
+  imagePublicId: Joi.string().allow(""),
+
+  description: Joi.string()
+    .trim()
+    .min(10)
+    .max(50)
+    .pattern(/^[a-zA-Z\s'-]+$/)
+    .required()
+    .messages({
+      "string.empty": "Shop description is required",
+      "string.min": "Description must be at least 10 characters long",
+      "string.max": "Description can't be longer than 50 characters",
+      "string.pattern.base": "Please enter a valid description",
+      "any.required": "Shop description is required",
     }),
 
   services: Joi.array()
