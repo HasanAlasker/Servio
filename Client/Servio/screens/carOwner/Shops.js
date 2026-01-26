@@ -1,16 +1,21 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
-import FullScreen from "../../components/general/FullScreen";
 import Navbar from "../../components/general/Navbar";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import ShopCard from "../../components/cards/ShopCard";
+import useApi from "../../hooks/useApi";
 
 function Shops(props) {
+  const {} = useApi()
   return (
     <SafeScreen>
       <ScrollScreen>
-        <ShopCard description={"Hello World"} name={"Cars2"} address={"Albayader"} openHours={"fasd"}/>
+        <ShopCard
+          description={"Hello World"}
+          name={"Cars2"}
+          address={"Albayader"}
+          openHours={"fasd"}
+        />
       </ScrollScreen>
       <Navbar />
     </SafeScreen>
