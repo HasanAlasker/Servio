@@ -1,9 +1,9 @@
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import AppText from "../../config/AppText";
 import useThemedStyles from "../../hooks/useThemedStyles";
-import { useTheme } from "../../context/ThemeContext";
+import { useTheme } from "@react-navigation/native";
 
-function PriBtn({ title, onPress, disabled, full, style, square, isRed }) {
+function PriBtn({ title, onPress, disabled, full, style, square }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
   return (
@@ -14,12 +14,7 @@ function PriBtn({ title, onPress, disabled, full, style, square, isRed }) {
         styles.container,
         disabled && styles.disabled,
         style,
-        {
-          width: full ? "100%" : "90%",
-          borderRadius: square ? 15 : 25,
-          backgroundColor: isRed ? theme.red : theme.blue,
-          borderBlockColor: isRed ? theme.red : theme.blue,
-        },
+        { width: full ? "100%" : "90%", borderRadius: square ? 15 : 25 },
       ]}
     >
       <AppText style={styles.text}>{title || "Press"}</AppText>

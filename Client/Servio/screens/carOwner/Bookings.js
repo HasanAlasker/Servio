@@ -47,10 +47,14 @@ function Bookings(props) {
   useEffect(() => {
     setUpcoming(fetchedUpcoming);
     setPast(fetchedPast);
-  }, [fetchUpcoming, fetchedPast]);
+  }, [fetchedUpcoming, fetchedPast]);
 
   const handleCancel = async (id) => {
     await cancelAppointment(id);
+    const canceledApp = upcoming.find((app) => app._id === id);
+    canceledApp.status = "canceled"
+    setUpcoming((prev) => prev.filter((app) => app._id !== id));
+    setPast((prev) => [canceledApp, ...prev]);
   };
 
   const RenderAppointments =

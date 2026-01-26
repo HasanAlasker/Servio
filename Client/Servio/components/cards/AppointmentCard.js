@@ -11,6 +11,7 @@ import IconTextLabel from "../general/IconTextLabel";
 import { formatDate } from "../../functions/formatDate";
 import PriBtn from "../general/PriBtn";
 import { cancelAppointment } from "../../api/appointment";
+import { useTheme } from "../../context/ThemeContext";
 
 function AppointmentCard({
   id,
@@ -22,6 +23,8 @@ function AppointmentCard({
   type,
   onCancel,
 }) {
+  const { theme } = useTheme();
+
   const partsList = serviceParts?.map((part) => (
     <SText key={part._id} thin>
       {capFirstLetter(part.name)}
@@ -65,7 +68,7 @@ function AppointmentCard({
           <PriBtn
             square
             full
-            isRed
+            style={{ backgroundColor: theme.red, borderColor: theme.red }}
             title={"Cancel"}
             onPress={() => onCancel(id)}
           />
