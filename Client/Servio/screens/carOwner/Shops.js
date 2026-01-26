@@ -4,19 +4,44 @@ import Navbar from "../../components/general/Navbar";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import ShopCard from "../../components/cards/ShopCard";
 import useApi from "../../hooks/useApi";
+import { getVerifiedShops } from "../../api/shop";
+import { useEffect, useState } from "react";
 
 function Shops(props) {
-  const {} = useApi()
+  const [shops, setShops] = useState([]);
+
+  const {
+    data: fetchedShops,
+    request: fetchShops,
+    loading,
+  } = useApi(getVerifiedShops);
+
+  useEffect(() => {
+    fetchShops();
+  }, []);
+
+  useEffect(() => {
+    setShops(fetchedShops);
+  }, [fetchedShops]);
+
+  const RenderShops = shops.map((shop) => (
+    <ShopCard
+      key={shop._id}
+      id={shop._id}
+      name={shop.name}
+      address={shop.address}
+      description={shop.description}
+      image={shop?.image}
+      openHours={shop.openHours}
+      rating={shop.rating}
+      ratingCount={shop.ratingCount}
+      services={shop.services}
+    />
+  ));
+
   return (
     <SafeScreen>
-      <ScrollScreen>
-        <ShopCard
-          description={"Hello World"}
-          name={"Cars2"}
-          address={"Albayader"}
-          openHours={"fasd"}
-        />
-      </ScrollScreen>
+      <ScrollScreen>{RenderShops}</ScrollScreen>
       <Navbar />
     </SafeScreen>
   );

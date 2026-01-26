@@ -31,6 +31,9 @@ function CardLeftBorder({ title, data, status, parts }) {
         color = "darkPink";
         text = "Dangerous";
         break;
+      default:
+        color = "lightBlue";
+        text = "Services";
     }
 
     backColor = theme[color] + 20;
@@ -62,7 +65,11 @@ function CardLeftBorder({ title, data, status, parts }) {
           <RowCont>
             <MaterialCommunityIcons
               name={
-                text === "Dangerous" ? "alert-outline" : "alert-circle-outline"
+                text === "Dangerous"
+                  ? "alert-outline"
+                  : "Services"
+                    ? "toolbox-outline"
+                    : "alert-circle-outline"
               }
               size={24}
               color={theme[color]}
