@@ -15,7 +15,7 @@ const shopSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    
+
     image: String,
 
     imagePublicId: String,
@@ -50,15 +50,21 @@ const shopSchema = new mongoose.Schema(
         required: true,
       },
     },
-    openHours: {
-      sun: { isOpen: Boolean, from: String, to: String },
-      mon: { isOpen: Boolean, from: String, to: String },
-      tue: { isOpen: Boolean, from: String, to: String },
-      wed: { isOpen: Boolean, from: String, to: String },
-      thu: { isOpen: Boolean, from: String, to: String },
-      fri: { isOpen: Boolean, from: String, to: String },
-      sat: { isOpen: Boolean, from: String, to: String },
-    },
+    openHours: [
+      {
+        day: {
+          type: String,
+          required: true,
+          enum: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"],
+        },
+        isOpen: {
+          type: Boolean,
+          required: true,
+        },
+        from: String,
+        to: String,
+      },
+    ],
     ratingCount: {
       type: Number,
       default: 0,

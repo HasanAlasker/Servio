@@ -42,7 +42,7 @@ router.get("/upcoming", auth, async (req, res) => {
       .sort({ scheduledDate: 1 })
       .populate("car", "make name model plateNumber mileage color")
       .populate("customer", "name phone")
-      .populate("shop", "owner name services address rating ratingCount")
+      .populate("shop")
       .populate("serviceParts");
 
     return res.status(200).json({ success: true, data: upcoming });

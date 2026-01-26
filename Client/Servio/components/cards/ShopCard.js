@@ -11,6 +11,7 @@ import GapContainer from "../general/GapContainer";
 import CardLeftBorder from "./CardLeftBorder";
 import IconTextLabel from "../general/IconTextLabel";
 import PriBtn from "../general/PriBtn";
+import { useEffect, useState } from "react";
 
 function ShopCard({
   id,
@@ -23,6 +24,14 @@ function ShopCard({
   rating,
   ratingCount,
 }) {
+  const [days, setDays] = useState([]);
+
+  
+  useEffect(() => {
+    setDays((prev) => prev.filter((day) => day.isOpen !== true));
+  }, []);
+  console.log(days);
+
   return (
     <CardComp style={styles.container}>
       {image && <Image style={styles.image} source={{ uri: image }} />}

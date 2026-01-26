@@ -7,8 +7,18 @@ const timeSchema = Joi.string()
     "string.pattern.base": "Time must be in HH:MM format (e.g., 09:00, 14:30)",
   });
 
+// Valid day codes
+const validDays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+
 // Validation for a single day's hours
 const dayHoursSchema = Joi.object({
+  day: Joi.string()
+    .valid(...validDays)
+    .required()
+    .messages({
+      "any.only": "Day must be one of: sun, mon, tue, wed, thu, fri, sat",
+      "any.required": "Day is required",
+    }),
   isOpen: Joi.boolean().required(),
   from: Joi.when("isOpen", {
     is: true,
@@ -105,18 +115,35 @@ export const addShopSchema = Joi.object({
     "any.required": "Address is required",
   }),
 
-  openHours: Joi.object({
-    sun: dayHoursSchema.required(),
-    mon: dayHoursSchema.required(),
-    tue: dayHoursSchema.required(),
-    wed: dayHoursSchema.required(),
-    thu: dayHoursSchema.required(),
-    fri: dayHoursSchema.required(),
-    sat: dayHoursSchema.required(),
-  })
+  openHours: Joi.array()
+    .items(dayHoursSchema)
+    .length(7)
     .required()
+    .custom((value, helpers) => {
+      // Ensure all 7 days are present and no duplicates
+      const days = value.map((item) => item.day);
+      const uniqueDays = new Set(days);
+      
+      if (uniqueDays.size !== 7) {
+        return helpers.error("any.custom", {
+          message: "All 7 days must be provided without duplicates",
+        });
+      }
+      
+      // Check if all required days are present
+      const hasAllDays = validDays.every((day) => days.includes(day));
+      if (!hasAllDays) {
+        return helpers.error("any.custom", {
+          message: "All days of the week must be included",
+        });
+      }
+      
+      return value;
+    })
     .messages({
-      "any.required": "Open hours for all days are required",
+      "array.base": "Open hours must be an array",
+      "array.length": "Open hours must contain exactly 7 days",
+      "any.required": "Open hours are required",
     }),
 });
 
@@ -165,13 +192,31 @@ export const editShopSchema = Joi.object({
 
   address: addressSchema,
 
-  openHours: Joi.object({
-    sun: dayHoursSchema,
-    mon: dayHoursSchema,
-    tue: dayHoursSchema,
-    wed: dayHoursSchema,
-    thu: dayHoursSchema,
-    fri: dayHoursSchema,
-    sat: dayHoursSchema,
-  }),
+  openHours: Joi.array()
+    .items(dayHoursSchema)
+    .length(7)
+    .custom((value, helpers) => {
+      // Ensure all 7 days are present and no duplicates
+      const days = value.map((item) => item.day);
+      const uniqueDays = new Set(days);
+      
+      if (uniqueDays.size !== 7) {
+        return helpers.error("any.custom", {
+          message: "All 7 days must be provided without duplicates",
+        });
+      }
+      
+      const hasAllDays = validDays.every((day) => days.includes(day));
+      if (!hasAllDays) {
+        return helpers.error("any.custom", {
+          message: "All days of the week must be included",
+        });
+      }
+      
+      return value;
+    })
+    .messages({
+      "array.base": "Open hours must be an array",
+      "array.length": "Open hours must contain exactly 7 days",
+    }),
 }).min(1);

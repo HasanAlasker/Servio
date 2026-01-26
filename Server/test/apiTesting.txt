@@ -17,26 +17,28 @@
 // open shop
 {
   "name": "CareCenter",
+	"description": "Body shop for all car",
+	"image": "https://www.autorepairwesthaven.com/wp-content/uploads/2023/07/Fred_Auto_Repair.jpeg",
   "services": [
     { "name": "accessories" },
     { "name": "upgrade parts" }
   ],
-  "addresses": [
+  "address":
     {
       "city": "Amman",
       "area": "Al-Bayader",
-      "street": "Alommal Road"
+      "street": "Alommal Street"
     }
-  ],
-  "openHours": {
-    "sun": { "isOpen": true, "from": "09:00", "to": "18:00" },
-    "mon": { "isOpen": true, "from": "09:00", "to": "18:00" },
-    "tue": { "isOpen": true, "from": "09:00", "to": "18:00" },
-    "wed": { "isOpen": true, "from": "09:00", "to": "18:00" },
-    "thu": { "isOpen": true, "from": "09:00", "to": "18:00" },
-    "fri": { "isOpen": false },
-    "sat": { "isOpen": false }
-  }
+  ,
+"openHours": [
+  { "day": "sun", "dayName": "Sunday", "isOpen": true, "from": "09:00", "to": "18:00" },
+  { "day": "mon", "dayName": "Monday", "isOpen": true, "from": "09:00", "to": "18:00" },
+  { "day": "tue", "dayName": "Tuesday", "isOpen": true, "from": "09:00", "to": "18:00" },
+  { "day": "wed", "dayName": "Wednesday", "isOpen": true, "from": "09:00", "to": "18:00" },
+  { "day": "thu", "dayName": "Thursday", "isOpen": true, "from": "09:00", "to": "18:00" },
+  { "day": "fri", "dayName": "Friday", "isOpen": false },
+  { "day": "sat", "dayName": "Saturday", "isOpen": false }
+]
 }
 
 // make appointment
