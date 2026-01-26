@@ -4,6 +4,7 @@ import SafeScreen from "../../components/general/SafeScreen";
 import { UseUser } from "../../context/UserContext";
 import PriBtn from "../../components/general/PriBtn";
 import LText from "../../components/text/LText";
+import OfflineModal from "../../components/general/OfflineModal";
 
 function Dash(props) {
   const { logout, user } = UseUser();
@@ -22,6 +23,7 @@ function Dash(props) {
         <LText>{user._id}</LText>
         <PriBtn title={"logout"} onPress={handlePress} />
       </View>
+      <OfflineModal />
     </SafeScreen>
   );
 }

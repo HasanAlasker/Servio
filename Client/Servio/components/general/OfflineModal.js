@@ -1,20 +1,19 @@
 import { useState, useEffect } from "react";
 import { View, StyleSheet, Modal } from "react-native";
-import { useNetInfo } from "@react-native-community/netinfo";
 import { Feather } from "@expo/vector-icons";
-import useThemedStyles from "../../hooks/useThemedStyles";
-import { useTheme } from '../../config/ThemeContext'
 import AppText from "../../config/AppText";
-import RequestBtn from "../RequestBtn";
-
+import { useTheme } from "../../context/ThemeContext";
+import useThemedStyles from "../../hooks/useThemedStyles";
+import { useNetInfo } from "@react-native-community/netinfo";
+import PriBtn from "./PriBtn";
 
 function OfflineModal(props) {
-  const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
+  const styles = useThemedStyles(getStyles);
   const netinfo = useNetInfo();
 
   const [showOffline, setShowOffline] = useState(false);
-  
+
   useEffect(() => {
     let timer;
     if (netinfo.type !== "unknown" && netinfo.isInternetReachable === false) {
@@ -33,9 +32,9 @@ function OfflineModal(props) {
   return (
     <Modal transparent>
       <View style={styles.container}>
-        <Feather name="wifi-off" size={100} color={theme.red}></Feather>
+        <Feather name="wifi-off" size={100} color={theme.red} />
         <AppText style={styles.text}>Please connect to the internet</AppText>
-        <RequestBtn isRed={true} style={styles.btn} title={"Retry"}></RequestBtn>
+        <PriBtn style={styles.btn} full title={"Retry"} />
       </View>
       <View style={styles.overlay} />
     </Modal>
@@ -70,10 +69,11 @@ const getStyles = (theme) =>
       zIndex: 90,
       opacity: 0.5,
     },
-    btn:{
-        width:"100%",
-        marginTop:20
-    }
+    btn: {
+      marginTop: 20,
+      backgroundColor: theme.red,
+      borderColor: theme.red,
+    },
   });
 
 export default OfflineModal;

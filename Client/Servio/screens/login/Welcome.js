@@ -5,6 +5,7 @@ import PriBtn from "../../components/general/PriBtn";
 import SecBtn from "../../components/general/SecBtn";
 import GapContainer from "../../components/general/GapContainer";
 import { useNavigation } from "@react-navigation/native";
+import OfflineModal from "../../components/general/OfflineModal";
 
 function Welcome(props) {
   const navigation = useNavigation();
@@ -24,6 +25,7 @@ function Welcome(props) {
           />
         </GapContainer>
       </View>
+      <OfflineModal />
     </SafeScreen>
   );
 }

@@ -1,7 +1,5 @@
 import { StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
-import PriBtn from "../../components/general/PriBtn";
-import { UseUser } from "../../context/UserContext";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import Navbar from "../../components/general/Navbar";
 import LText from "../../components/text/LText";
@@ -12,6 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import useApi from "../../hooks/useApi";
 import { countDocs } from "../../api/user";
 import { useEffect } from "react";
+import OfflineModal from "../../components/general/OfflineModal";
 
 function Home(props) {
   const navigaiton = useNavigation();
@@ -70,10 +69,9 @@ function Home(props) {
             onPress={() => navigaiton.navigate("Bookings", { active: "past" })}
           />
         </GapContainer>
-
-        {/* <PriBtn title={"logout"} onPress={handlePress} /> */}
       </ScrollScreen>
       <Navbar />
+      <OfflineModal />
     </SafeScreen>
   );
 }

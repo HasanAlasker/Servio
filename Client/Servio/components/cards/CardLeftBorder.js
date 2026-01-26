@@ -72,8 +72,8 @@ function CardLeftBorder({ title, data, status, parts }) {
           <View>{RenderParts}</View>
         </GapContainer>
       )}
-      {title && <MText color={color}>{title}</MText>}
-      {data && <MText color={color}>{data}</MText>}
+      {title != null && <MText color={color}>{title}</MText>}
+      {data != null && <MText color={color}>{data.toString()}</MText>}
     </View>
   );
 }

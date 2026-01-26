@@ -21,6 +21,7 @@ import MyShop from "./screens/shopOwner/MyShop";
 import { useEffect } from "react";
 import Profile from "./screens/carOwner/Profile";
 import Suggestions from "./screens/shared/Suggestions";
+import OfflineModal from "./components/general/OfflineModal";
 
 const Stack = createNativeStackNavigator();
 
