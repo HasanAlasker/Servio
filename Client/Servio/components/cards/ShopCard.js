@@ -30,10 +30,10 @@ function ShopCard({
 }) {
   const [showBtn, setShowBtn] = useState(false);
   const route = useRoute();
-  const params = route.params;
+  const params = route?.params;
+  
   useEffect(() => {
-    if (params) setShowBtn(params.showingBtn);
-    else setShowBtn(true);
+    if(params.showBtn) setShowBtn(params.showBtn)
   }, []);
 
   const days = openHours.filter((day) => day.isOpen === true);
@@ -50,18 +50,20 @@ function ShopCard({
             <SText color={"sec_text"}>{description}</SText>
           </View>
 
-          <SquareInfo
-            icon={"map-marker-outline"}
-            color={"darkPink"}
-            title={address.area + " " + address.street}
-            text={address.city}
-          />
-          <SquareInfo
-            icon={"star-outline"}
-            color={"gold"}
-            title={ratingCount === 0 ? "Not rated" : rating + "Star Rating"}
-            text={ratingCount === 0 ? "No one rated this shop" : ratingCount}
-          />
+          <GapContainer gap={10}>
+            <SquareInfo
+              icon={"map-marker-outline"}
+              color={"darkPink"}
+              title={address.area + " " + address.street}
+              text={address.city}
+            />
+            <SquareInfo
+              icon={"star-outline"}
+              color={"gold"}
+              title={ratingCount === 0 ? "Not rated" : rating + "Star Rating"}
+              text={ratingCount === 0 ? "No one rated this shop" : ratingCount}
+            />
+          </GapContainer>
 
           <View>
             {groupDays.map((group, index) => (
@@ -73,7 +75,7 @@ function ShopCard({
 
           <CardLeftBorder parts={services} status={"randomText"} />
 
-          {showBtn && <PriBtn full square title={"Reserve"}/>}
+          {showBtn && <PriBtn full square title={"Reserve"} />}
         </GapContainer>
       </View>
     </CardComp>

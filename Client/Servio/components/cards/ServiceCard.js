@@ -11,6 +11,13 @@ import { useNavigation } from "@react-navigation/native";
 
 function ServiceCard({ car, dueBy, parts, status }) {
   const navigate = useNavigation();
+
+  const sendParams = {
+    car,
+    parts,
+    showBtn: true
+  };
+
   return (
     <CardComp style={styles.container}>
       <GapContainer>
@@ -35,7 +42,7 @@ function ServiceCard({ car, dueBy, parts, status }) {
           full
           square
           title={"Book Appointment"}
-          onPress={() => navigate.navigate("Shops")}
+          onPress={() => navigate.navigate("Shops", sendParams)}
         />
       </GapContainer>
     </CardComp>
