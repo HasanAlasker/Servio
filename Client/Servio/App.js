@@ -19,7 +19,7 @@ import Register from "./screens/login/Register";
 import Dash from "./screens/admin/Dash";
 import MyShop from "./screens/shopOwner/MyShop";
 import { useEffect } from "react";
-import Profile from "./screens/carOwner/Profile";
+import Profile from "./screens/shared/Profile";
 import Suggestions from "./screens/shared/Suggestions";
 import OfflineModal from "./components/general/OfflineModal";
 
@@ -32,6 +32,7 @@ const AdminStack = () => {
       screenOptions={{ headerShown: false, animation: "none" }}
     >
       <Stack.Screen name="Dash" component={Dash} />
+      <Stack.Screen name="Profile" component={Profile} />
     </Stack.Navigator>
   );
 };
@@ -63,6 +64,7 @@ const ShopOwnerStack = () => {
     >
       <Stack.Screen name="MyShop" component={MyShop} />
       <Stack.Screen name="Suggestions" component={Suggestions} />
+      <Stack.Screen name="Profile" component={Profile} />
     </Stack.Navigator>
   );
 };

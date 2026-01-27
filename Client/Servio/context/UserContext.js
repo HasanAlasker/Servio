@@ -265,14 +265,14 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const editProfile = async (id, data) => {
+  const editProfile = async (data) => {
     try {
       setLoading(true);
       setError(false);
       setMessage(null);
       setStatus(null);
 
-      const res = await editUser(id, data);
+      const res = await editUser(user._id, data);
 
       const responseMessage = res.data?.message;
       const responseStatus = res.status;

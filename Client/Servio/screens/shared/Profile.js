@@ -1,0 +1,153 @@
+import { StyleSheet } from "react-native";
+import SafeScreen from "../../components/general/SafeScreen";
+import Navbar from "../../components/general/Navbar";
+import KeyboardScrollScreen from "../../components/general/KeyboardScrollScreen";
+import * as Yup from "yup";
+import AppForm from "../../components/form/AppForm";
+import { UseUser } from "../../context/UserContext";
+import GapContainer from "../../components/general/GapContainer";
+import FormikInput from "../../components/form/FormikInput";
+import { useState } from "react";
+import CardComp from "../../components/cards/CardComp";
+import LText from "../../components/text/LText";
+import SquareInfo from "../../components/cards/SquareInfo";
+import StatusLabel from "../../components/general/StatusLabel";
+import PriBtn from "../../components/general/PriBtn";
+import SeparatorComp from "../../components/general/SeparatorComp";
+import { useTheme } from "../../context/ThemeContext";
+import SubmitBtn from "../../components/form/SubmitBtn";
+
+const validationSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(2, "Name must be at least 2 characters long")
+    .max(25, "Name must not exceed 25 characters")
+    .matches(
+      /^[a-zA-Z\s'-]+$/,
+      "Name can only contain letters, spaces, hyphens, and apostrophes",
+    )
+    .trim()
+    .required("Name is required"),
+
+  phone: Yup.string()
+    .required("Phone is required")
+    .test(
+      "phone-validation",
+      "Please enter a valid phone number",
+      function (value) {
+        if (!value || value.trim() === "") return true;
+        const phoneRegex = /^\+?[\d\s\-\(\)]+$/;
+        const isValidFormat = phoneRegex.test(value);
+        const isValidLength = value.length >= 10 && value.length <= 15;
+        return isValidFormat && isValidLength;
+      },
+    ),
+});
+
+function Profile(props) {
+  const { theme } = useTheme();
+
+  const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
+  const [isEdit, setEdit] = useState(false);
+  const { user, editProfile } = UseUser();
+
+  const initialValues = {
+    name: user.name,
+    phone: user.phone,
+  };
+
+  const handleEditPress = () => {
+    setEdit(!isEdit);
+  };
+
+  const handleSubmit = async (values) => {
+    setHasBeenSubmited(true);
+    try {
+      const response = await editProfile(values);
+      if (response.status !== 200) console.log(response.message);
+      setEdit(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <SafeScreen>
+      <KeyboardScrollScreen>
+        <GapContainer style={{marginVertical:'auto'}}>
+          <CardComp style={{ width: "90%", marginHorizontal: "auto" }}>
+            <GapContainer>
+              <GapContainer gap={12}>
+                <SquareInfo
+                  icon={"account"}
+                  color={"lightBlue"}
+                  title={"Name"}
+                  text={user.name}
+                  fliped
+                />
+                <SquareInfo
+                  icon={"phone"}
+                  color={"green"}
+                  text={user.phone}
+                  title={"Phone"}
+                  fliped
+                />
+                <SquareInfo
+                  icon={"email"}
+                  color={"pink"}
+                  text={user.email}
+                  title={"Email"}
+                  fliped
+                />
+              </GapContainer>
+              {user.role !== "user" && <StatusLabel status={user.role} />}
+              <PriBtn
+                square
+                full
+                title={!isEdit ? "Edit Info" : "Cancel"}
+                style={{
+                  backgroundColor: isEdit ? theme.red : theme.blue,
+                  borderColor: isEdit ? theme.red : theme.blue,
+                }}
+                onPress={handleEditPress}
+              />
+            </GapContainer>
+          </CardComp>
+          {isEdit && (
+            <AppForm
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              <GapContainer>
+                <SeparatorComp children={"Edit your info"} />
+                <FormikInput
+                  name={"name"}
+                  placeholder={"Name"}
+                  hasBeenSubmitted={hasBeenSubmitted}
+                />
+                <FormikInput
+                  name={"phone"}
+                  placeholder={"Phone"}
+                  hasBeenSubmitted={hasBeenSubmitted}
+                />
+
+                <SubmitBtn
+                  defaultText="Save"
+                  submittingText="Saving..."
+                  disabled={!isEdit}
+                />
+              </GapContainer>
+            </AppForm>
+          )}
+        </GapContainer>
+      </KeyboardScrollScreen>
+      <Navbar />
+    </SafeScreen>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {},
+});
+
+export default Profile;
