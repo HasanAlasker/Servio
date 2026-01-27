@@ -1,15 +1,14 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import Navbar from "../../components/general/Navbar";
 import AddCarCard from "../../components/cards/AddCarCard";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GapContainer from "../../components/general/GapContainer";
 import { deleteCar } from "../../api/car";
 import CardComp from "../../components/cards/CardComp";
 import SquareInfo from "../../components/cards/SquareInfo";
-import RowCont from "../../components/general/RowCont";
 
 function CarParts(props) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -17,6 +16,8 @@ function CarParts(props) {
   const navigate = useNavigation();
   const route = useRoute();
   const params = route?.params;
+
+  console.log(params)
 
   const handleDelete = async () => {
     try {
@@ -44,6 +45,15 @@ function CarParts(props) {
               text={params.model + " - " + params.color}
             />
           </CardComp>
+
+          <AddCarCard
+            text={"Add Part"}
+            icon={"car-cog"}
+            color={"blue"}
+            navigateTo={"AddPart"}
+            params={params.id}
+          />
+
           <AddCarCard
             text={"Edit Car"}
             icon={"pencil-box-outline"}
@@ -51,6 +61,7 @@ function CarParts(props) {
             navigateTo={"AddCar"}
             params={params}
           />
+
           <AddCarCard
             text={"Delete Car"}
             icon={"delete-outline"}

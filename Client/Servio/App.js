@@ -23,6 +23,7 @@ import Profile from "./screens/shared/Profile";
 import Suggestions from "./screens/shared/Suggestions";
 import OfflineModal from "./components/general/OfflineModal";
 import CarParts from "./screens/carOwner/CarParts";
+import AddPart from "./screens/carOwner/AddPart";
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +55,7 @@ const CarOwnerStack = () => {
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Suggestions" component={Suggestions} />
       <Stack.Screen name="CarParts" component={CarParts} />
+      <Stack.Screen name="AddPart" component={AddPart} />
     </Stack.Navigator>
   );
 };
