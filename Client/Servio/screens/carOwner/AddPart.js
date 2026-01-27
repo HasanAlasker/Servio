@@ -80,7 +80,7 @@ function AddPart(props) {
     try {
       const response = await addPart(params.id, data);
       if (response.ok) {
-        navigate.goBack();
+        navigate.navigate("MyCars");
       }
       if (!response.ok) {
         setErrMsg(response.data.message);
