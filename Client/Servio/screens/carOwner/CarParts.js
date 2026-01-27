@@ -17,8 +17,6 @@ function CarParts(props) {
   const route = useRoute();
   const params = route?.params;
 
-  console.log(params)
-
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
@@ -37,7 +35,7 @@ function CarParts(props) {
     <SafeScreen>
       <ScrollScreen>
         <GapContainer>
-          <CardComp style={{ alignItems: "center" }}>
+          <CardComp>
             <SquareInfo
               color={"lightBlue"}
               icon={"car-outline"}
@@ -51,7 +49,7 @@ function CarParts(props) {
             icon={"car-cog"}
             color={"blue"}
             navigateTo={"AddPart"}
-            params={params.id}
+            params={params}
           />
 
           <AddCarCard

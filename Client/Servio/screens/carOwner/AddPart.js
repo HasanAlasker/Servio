@@ -2,16 +2,146 @@ import { View, StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import KeyboardScrollScreen from "../../components/general/KeyboardScrollScreen";
 import Navbar from "../../components/general/Navbar";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import * as Yup from "yup";
+import AppForm from "../../components/form/AppForm";
+import { useState } from "react";
+import GapContainer from "../../components/general/GapContainer";
+import FormikInput from "../../components/form/FormikInput";
+import SeparatorComp from "../../components/general/SeparatorComp";
+import SubmitBtn from "../../components/form/SubmitBtn";
+import { addPart } from "../../api/part";
+import ErrorMessage from "../../components/form/ErrorMessage";
+
+const validationSchema = Yup.object({
+  name: Yup.string().trim().lowercase().required("Part name is required"),
+
+  months: Yup.number()
+    .min(0, "Months cannot be negative")
+    .required("Recommended months are required")
+    .transform((value, originalValue) =>
+      originalValue === "" ||
+      originalValue === null ||
+      originalValue === undefined
+        ? null
+        : value,
+    )
+    .typeError("Months must be a number"),
+
+  miles: Yup.number()
+    .min(0, "Miles cannot be negative")
+    .required("Recommended miles are required")
+    .transform((value, originalValue) =>
+      originalValue === "" ||
+      originalValue === null ||
+      originalValue === undefined
+        ? null
+        : value,
+    )
+    .typeError("Miles must be a number"),
+
+  lastChangeDate: Yup.date()
+    .max(new Date(), "Last change date cannot be in the future")
+    .required("Last change date is required")
+    .typeError("Last change date must be a valid date"),
+
+  lastChangeMileage: Yup.number()
+    .min(0, "Mileage cannot be negative")
+    .required("Last change mileage is required")
+    .typeError("Mileage must be a number"),
+});
 
 function AddPart(props) {
-  const route = useRoute();
-  const carId = route?.params;
+  const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
+  const [errMsg, setErrMsg] = useState(null);
 
-  console.log(carId)
+  const navigate = useNavigation();
+  const route = useRoute();
+  const params = route?.params;
+
+  const initialValues = {
+    name: params?.partName || "",
+    lastChangeDate: params?.lastChangeDate || "",
+    lastChangeMileage: params?.lastChangeMileage || "",
+    months: params?.recommendedChangeInterval?.months || null,
+    miles: params?.recommendedChangeInterval?.miles || null,
+  };
+
+  const handleSubmit = async (values) => {
+    const data = {
+      name: values.name,
+      lastChangeDate: values.lastChangeDate,
+      lastChangeMileage: Number(values.lastChangeMileage),
+      recommendedChangeInterval: {
+        months: Number(values.months),
+        miles: Number(values.miles),
+      },
+    };
+    try {
+      const response = await addPart(params.id, data);
+      if (response.ok) {
+        navigate.goBack();
+      }
+      if (!response.ok) {
+        setErrMsg(response.data.message);
+      }
+    } catch (error) {}
+  };
+
   return (
     <SafeScreen>
-      <KeyboardScrollScreen></KeyboardScrollScreen>
+      <KeyboardScrollScreen>
+        <AppForm
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          <GapContainer>
+            <FormikInput
+              name={"name"}
+              placeholder={"Part Name"}
+              icon={"package"}
+              hasBeenSubmitted={hasBeenSubmitted}
+            />
+
+            <FormikInput
+              name={"lastChangeDate"}
+              placeholder={"Last Change Date"}
+              icon={"clock"}
+              hasBeenSubmitted={hasBeenSubmitted}
+            />
+
+            <FormikInput
+              name={"lastChangeMileage"}
+              placeholder={"Last Change Mileage"}
+              icon={"refresh-cw"}
+              hasBeenSubmitted={hasBeenSubmitted}
+            />
+            <SeparatorComp children={"Recommended Change After"} />
+            <FormikInput
+              name={"months"}
+              placeholder={"Months"}
+              icon={"calendar"}
+              hasBeenSubmitted={hasBeenSubmitted}
+            />
+
+            <FormikInput
+              name={"miles"}
+              placeholder={"Miles/ Kilometers"}
+              icon={"fast-forward"}
+              hasBeenSubmitted={hasBeenSubmitted}
+            />
+
+            {errMsg && <ErrorMessage error={errMsg} />}
+
+            <SubmitBtn
+              defaultText="Add Part"
+              submittingText="Adding Part..."
+              setHasBeenSubmitted={setHasBeenSubmited}
+            />
+          </GapContainer>
+        </AppForm>
+      </KeyboardScrollScreen>
       <Navbar />
     </SafeScreen>
   );
