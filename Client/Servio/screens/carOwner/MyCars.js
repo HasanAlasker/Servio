@@ -55,7 +55,12 @@ function MyCars(props) {
               You haven't added any cars yet
             </SText>
           )}
-          <AddCarCard />
+          <AddCarCard
+            text={"Add Car"}
+            icon={"plus"}
+            color={"blue"}
+            navigateTo={"AddCar"}
+          />
           {loading && <LText>loading...</LText>}
         </GapContainer>
       </ScrollScreen>

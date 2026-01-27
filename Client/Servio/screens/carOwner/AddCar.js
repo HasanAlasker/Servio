@@ -49,7 +49,6 @@ function AddCar(props) {
   const [selectedMake, setSelectedMake] = useState(null);
   const [namesList, setNamesList] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigation();
@@ -141,20 +140,6 @@ function AddCar(props) {
     }
   };
 
-  const handleDelete = async (values) => {
-    try {
-      setIsDeleting(true);
-      const response = await deleteCar(params.id);
-      if (response.ok) {
-        navigate.navigate("MyCars");
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsDeleting(false);
-    }
-  };
-
   return (
     <SafeScreen>
       <KeyboardScrollScreen>
@@ -202,19 +187,6 @@ function AddCar(props) {
                 />
               )}
 
-              {/* {isEdit && (
-                <FormikDropBox
-                  name={"name"}
-                  placeholder={"Name"}
-                  items={namesList}
-                  icon={"truck"}
-                  hasBeenSubmitted={hasBeenSubmitted}
-                  onSelectItem={(value) => {
-                    setFieldValue("name", value);
-                  }}
-                />
-              )} */}
-
               <FormikInput
                 name={"model"}
                 placeholder={"Model"}
@@ -258,10 +230,10 @@ function AddCar(props) {
 
               {isEdit && (
                 <PriBtn
-                  title={!isDeleting ? "Delete Car" : "Deleting Car..."}
+                  title={"Cancel"}
                   style={styles.delete}
-                  disabled={loading || isDeleting || isSubmitting}
-                  onPress={handleDelete}
+                  disabled={loading || isSubmitting}
+                  onPress={()=>navigate.goBack()}
                 />
               )}
             </GapContainer>

@@ -5,17 +5,19 @@ import { useTheme } from "../../context/ThemeContext";
 import MText from "../../components/text/MText";
 import { useNavigation } from "@react-navigation/native";
 
-function AddCarCard(props) {
+function AddCarCard({ text, icon, navigateTo, color, params, onPress }) {
   const { theme } = useTheme();
   const navigation = useNavigation();
 
   return (
     <CardComp
       style={styles.container}
-      onPress={() => navigation.navigate("AddCar")}
+      onPress={
+        onPress ? onPress : () => navigation.navigate(navigateTo, params)
+      }
     >
-      <MaterialCommunityIcons name="plus" color={theme.blue} size={40} />
-      <MText color={"blue"}>Add Car</MText>
+      <MaterialCommunityIcons name={icon} color={theme[color]} size={40} />
+      <MText color={color}>{text}</MText>
     </CardComp>
   );
 }

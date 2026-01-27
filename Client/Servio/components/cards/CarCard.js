@@ -35,7 +35,7 @@ function CarCard({
     <CardComp
       style={styles.container}
       onPress={() => {
-        navigate.navigate("AddCar", passToEdit);
+        navigate.navigate("CarParts", passToEdit);
       }}
     >
       {image && <Image style={styles.image} source={{ uri: image }} />}

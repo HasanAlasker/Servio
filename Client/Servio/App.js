@@ -22,6 +22,7 @@ import { useEffect } from "react";
 import Profile from "./screens/shared/Profile";
 import Suggestions from "./screens/shared/Suggestions";
 import OfflineModal from "./components/general/OfflineModal";
+import CarParts from "./screens/carOwner/CarParts";
 
 const Stack = createNativeStackNavigator();
 
@@ -52,6 +53,7 @@ const CarOwnerStack = () => {
       <Stack.Screen name="MyCars" component={MyCars} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Suggestions" component={Suggestions} />
+      <Stack.Screen name="CarParts" component={CarParts} />
     </Stack.Navigator>
   );
 };
