@@ -11,20 +11,6 @@ const partSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      enum: [
-        "engine oil",
-        "oil filter",
-        "air filter",
-        "brake pads",
-        "brake fluid",
-        "coolant",
-        "transmission fluid",
-        "spark plugs",
-        "battery",
-        "tires",
-        "timing belt",
-        "wiper blades",
-      ],
     },
     recommendedChangeInterval: {
       months: {
