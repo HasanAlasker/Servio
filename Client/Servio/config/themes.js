@@ -31,7 +31,7 @@ export const darkTheme = {
   main_text: "#FFFFFF",
   sec_text: "#989898",
   light_gray: "#676767ff",
-  faded: "#D5D5D5",
+  faded: "#545454",
   loading: "#676767ff",
   darker_gray: "#D3D3D3",
   red: "#FF5959",

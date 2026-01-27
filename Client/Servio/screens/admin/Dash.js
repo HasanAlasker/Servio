@@ -5,24 +5,22 @@ import { UseUser } from "../../context/UserContext";
 import PriBtn from "../../components/general/PriBtn";
 import LText from "../../components/text/LText";
 import OfflineModal from "../../components/general/OfflineModal";
+import Navbar from "../../components/general/Navbar";
+import ScrollScreen from "../../components/general/ScrollScreen";
 
 function Dash(props) {
-  const { logout, user } = UseUser();
-  const handlePress = async () => {
-    await logout();
-    console.log("pressed");
-  };
+  const { user } = UseUser();
   return (
     <SafeScreen>
-      <View style={styles.container}>
+      <ScrollScreen style={styles.container}>
         <Text>Admin</Text>
         <LText>{user.name}</LText>
         <LText>{user.phone}</LText>
         <LText>{user.email}</LText>
         <LText>{user.createdAt}</LText>
         <LText>{user._id}</LText>
-        <PriBtn title={"logout"} onPress={handlePress} />
-      </View>
+      </ScrollScreen>
+      <Navbar />
       <OfflineModal />
     </SafeScreen>
   );
