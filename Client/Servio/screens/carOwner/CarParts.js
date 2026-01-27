@@ -12,10 +12,12 @@ import SquareInfo from "../../components/cards/SquareInfo";
 import useApi from "../../hooks/useApi";
 import { getTrackedParts } from "../../api/part";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
-import { formatDate } from "../../functions/formatDate";
-import SeparatorComp from "../../components/general/SeparatorComp";
+import PriBtn from "../../components/general/PriBtn";
+import { useTheme } from "../../context/ThemeContext";
+import PartCard from "../../components/cards/PartCard";
 
 function CarParts(props) {
+  const { theme } = useTheme();
   const [parts, setParts] = useState([]);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -37,63 +39,10 @@ function CarParts(props) {
     setParts(fetchedParts);
   }, [fetchedParts]);
 
-  const addMonthsToDate = (dateString, monthsToAdd) => {
-    const date = new Date(dateString);
-    date.setMonth(date.getMonth() + monthsToAdd);
-    return date;
-  };
-
   const RenderParts = parts.map((part) => (
-    <CardComp key={part?._id}>
-      <GapContainer gap={15}>
-        <SquareInfo
-          color={"lightBlue"}
-          icon={"car-door"}
-          title={"Part Name"}
-          text={capFirstLetter(part?.name)}
-          fliped
-        />
-        <SquareInfo
-          color={"green"}
-          icon={"calendar-outline"}
-          title={"Last Change Date"}
-          text={formatDate(part?.lastChangeDate)}
-          fliped
-        />
-        <SquareInfo
-          color={"pink"}
-          icon={"gauge"}
-          title={"Last Change Mileage"}
-          text={part?.lastChangeMileage + " Km"}
-          fliped
-        />
-        <SeparatorComp children={"Next Change"} full />
-        <SquareInfo
-          color={"gold"}
-          icon={"calendar-outline"}
-          title={"Next Change Date"}
-          text={formatDate(
-            addMonthsToDate(
-              part?.lastChangeDate,
-              part?.recommendedChangeInterval.months,
-            ),
-          )}
-          fliped
-        />
-        <SquareInfo
-          color={"gold"}
-          icon={"gauge"}
-          title={"Next Change Mileage"}
-          text={
-            part?.lastChangeMileage +
-            part.recommendedChangeInterval.miles +
-            " Km"
-          }
-          fliped
-        />
-      </GapContainer>
-    </CardComp>
+    <PartCard key={part._id} part={part} />
   ));
+
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
@@ -113,26 +62,35 @@ function CarParts(props) {
       <ScrollScreen>
         <GapContainer>
           <CardComp>
-            <SquareInfo
-              color={"lightBlue"}
-              icon={"car-outline"}
-              title={
-                capFirstLetter(params?.make) +
-                " " +
-                capFirstLetter(params?.name)
-              }
-              text={params?.model + " - " + capFirstLetter(params?.color)}
-            />
+            <GapContainer gap={25}>
+              <SquareInfo
+                color={"lightBlue"}
+                icon={"car-outline"}
+                title={
+                  capFirstLetter(params?.make) +
+                  " " +
+                  capFirstLetter(params?.name)
+                }
+                text={params?.model + " - " + capFirstLetter(params?.color)}
+              />
+              <GapContainer gap={10}>
+                <PriBtn
+                  square
+                  full
+                  title={"Edit"}
+                  onPress={() => navigate.navigate("AddCar", params)}
+                />
+                <PriBtn
+                  square
+                  full
+                  style={{ backgroundColor: theme.red, borderColor: theme.red }}
+                  title={"Delete"}
+                  onPress={handleDelete}
+                />
+              </GapContainer>
+            </GapContainer>
           </CardComp>
 
-          <AddCarCard
-            text={"Edit Car"}
-            icon={"pencil-box-outline"}
-            color={"blue"}
-            navigateTo={"AddCar"}
-            params={params}
-          />
-          
           {RenderParts}
 
           <AddCarCard
@@ -141,13 +99,6 @@ function CarParts(props) {
             color={"blue"}
             navigateTo={"AddPart"}
             params={params}
-          />
-
-          <AddCarCard
-            text={"Delete Car"}
-            icon={"delete-outline"}
-            color={"red"}
-            onPress={handleDelete}
           />
         </GapContainer>
       </ScrollScreen>
