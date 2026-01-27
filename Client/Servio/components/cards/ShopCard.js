@@ -12,6 +12,10 @@ import CardLeftBorder from "./CardLeftBorder";
 import IconTextLabel from "../general/IconTextLabel";
 import PriBtn from "../general/PriBtn";
 import { useEffect, useState } from "react";
+import {
+  formatDayRange,
+  formatOpenDays,
+} from "../../functions/formatOpenHours";
 
 function ShopCard({
   id,
@@ -24,13 +28,8 @@ function ShopCard({
   rating,
   ratingCount,
 }) {
-  const [days, setDays] = useState([]);
-
-  
-  useEffect(() => {
-    setDays((prev) => prev.filter((day) => day.isOpen !== true));
-  }, []);
-  console.log(days);
+  const days = openHours.filter((day) => day.isOpen === true);
+  const groupDays = formatOpenDays(days);
 
   return (
     <CardComp style={styles.container}>
@@ -55,6 +54,14 @@ function ShopCard({
             title={ratingCount === 0 ? "Not rated" : rating + "Star Rating"}
             text={ratingCount === 0 ? "No one rated this shop" : ratingCount}
           />
+
+          <View>
+            {groupDays.map((group, index) => (
+              <SText key={index}>
+                {formatDayRange(group)}: {group[0].from} - {group[0].to}
+              </SText>
+            ))}
+          </View>
 
           <CardLeftBorder parts={services} status={"randomText"} />
 
