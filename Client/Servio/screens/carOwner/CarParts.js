@@ -12,7 +12,6 @@ import SquareInfo from "../../components/cards/SquareInfo";
 import useApi from "../../hooks/useApi";
 import { getTrackedParts } from "../../api/part";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
-import RowCont from "../../components/general/RowCont";
 import { formatDate } from "../../functions/formatDate";
 import SeparatorComp from "../../components/general/SeparatorComp";
 
@@ -31,7 +30,7 @@ function CarParts(props) {
   } = useApi(getTrackedParts);
 
   useEffect(() => {
-    fetchParts(params.id);
+    fetchParts(params?.id);
   }, []);
 
   useEffect(() => {
@@ -45,27 +44,27 @@ function CarParts(props) {
   };
 
   const RenderParts = parts.map((part) => (
-    <CardComp key={part._id}>
+    <CardComp key={part?._id}>
       <GapContainer gap={15}>
         <SquareInfo
           color={"lightBlue"}
           icon={"car-door"}
           title={"Part Name"}
-          text={capFirstLetter(part.name)}
+          text={capFirstLetter(part?.name)}
           fliped
         />
         <SquareInfo
           color={"green"}
           icon={"calendar-outline"}
           title={"Last Change Date"}
-          text={formatDate(part.lastChangeDate)}
+          text={formatDate(part?.lastChangeDate)}
           fliped
         />
         <SquareInfo
           color={"pink"}
           icon={"gauge"}
           title={"Last Change Mileage"}
-          text={part.lastChangeMileage + " Km"}
+          text={part?.lastChangeMileage + " Km"}
           fliped
         />
         <SeparatorComp children={"Next Change"} full />
@@ -75,8 +74,8 @@ function CarParts(props) {
           title={"Next Change Date"}
           text={formatDate(
             addMonthsToDate(
-              part.lastChangeDate,
-              part.recommendedChangeInterval.months,
+              part?.lastChangeDate,
+              part?.recommendedChangeInterval.months,
             ),
           )}
           fliped
@@ -85,7 +84,7 @@ function CarParts(props) {
           color={"gold"}
           icon={"gauge"}
           title={"Next Change Mileage"}
-          text={part.recommendedChangeInterval.miles + " Km"}
+          text={part?.lastChangeMileage + part.recommendedChangeInterval.miles + " Km"}
           fliped
         />
       </GapContainer>
@@ -94,7 +93,7 @@ function CarParts(props) {
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
-      const response = await deleteCar(params.id);
+      const response = await deleteCar(params?.id);
       if (response.ok) {
         navigate.navigate("MyCars");
       }
@@ -114,9 +113,9 @@ function CarParts(props) {
               color={"lightBlue"}
               icon={"car-outline"}
               title={
-                capFirstLetter(params.make) + " " + capFirstLetter(params.name)
+                capFirstLetter(params?.make) + " " + capFirstLetter(params?.name)
               }
-              text={params.model + " - " + capFirstLetter(params.color)}
+              text={params?.model + " - " + capFirstLetter(params?.color)}
             />
           </CardComp>
 
