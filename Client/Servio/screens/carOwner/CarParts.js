@@ -84,7 +84,11 @@ function CarParts(props) {
           color={"gold"}
           icon={"gauge"}
           title={"Next Change Mileage"}
-          text={part?.lastChangeMileage + part.recommendedChangeInterval.miles + " Km"}
+          text={
+            part?.lastChangeMileage +
+            part.recommendedChangeInterval.miles +
+            " Km"
+          }
           fliped
         />
       </GapContainer>
@@ -113,12 +117,22 @@ function CarParts(props) {
               color={"lightBlue"}
               icon={"car-outline"}
               title={
-                capFirstLetter(params?.make) + " " + capFirstLetter(params?.name)
+                capFirstLetter(params?.make) +
+                " " +
+                capFirstLetter(params?.name)
               }
               text={params?.model + " - " + capFirstLetter(params?.color)}
             />
           </CardComp>
 
+          <AddCarCard
+            text={"Edit Car"}
+            icon={"pencil-box-outline"}
+            color={"blue"}
+            navigateTo={"AddCar"}
+            params={params}
+          />
+          
           {RenderParts}
 
           <AddCarCard
@@ -126,14 +140,6 @@ function CarParts(props) {
             icon={"car-cog"}
             color={"blue"}
             navigateTo={"AddPart"}
-            params={params}
-          />
-
-          <AddCarCard
-            text={"Edit Car"}
-            icon={"pencil-box-outline"}
-            color={"blue"}
-            navigateTo={"AddCar"}
             params={params}
           />
 
