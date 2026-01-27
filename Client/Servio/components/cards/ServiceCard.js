@@ -7,8 +7,10 @@ import { formatDate } from "../../functions/formatDate";
 import GapContainer from "../general/GapContainer";
 import PriBtn from "../general/PriBtn";
 import CardLeftBorder from "./CardLeftBorder";
+import { useNavigation } from "@react-navigation/native";
 
 function ServiceCard({ car, dueBy, parts, status }) {
+  const navigate = useNavigation();
   return (
     <CardComp style={styles.container}>
       <GapContainer>
@@ -27,9 +29,14 @@ function ServiceCard({ car, dueBy, parts, status }) {
           <IconTextLabel icon={"gauge"} text={dueBy.mileage + " Km"} />
         </View>
 
-        <CardLeftBorder status={status} parts={parts}/>
+        <CardLeftBorder status={status} parts={parts} />
 
-        <PriBtn full square title={"Book Appointment"}/>
+        <PriBtn
+          full
+          square
+          title={"Book Appointment"}
+          onPress={() => navigate.navigate("Shops")}
+        />
       </GapContainer>
     </CardComp>
   );

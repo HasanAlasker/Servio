@@ -62,7 +62,7 @@ function Home(props) {
             title={"Shops"}
             color={"green"}
             icon={"wrench-outline"}
-            onPress={() => navigaiton.navigate("Shops")}
+            onPress={() => navigaiton.navigate("Shops", { showingBtn: false })}
           />
           <SquareHome
             title={"History"}
