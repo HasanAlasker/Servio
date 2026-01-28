@@ -4,6 +4,8 @@ import SuggestionModel from "../models/suggestion.js";
 import { sendPushNotification } from "../utils/notifications.js";
 import auth from "../middleware/auth.js";
 import admin from "../middleware/admin.js";
+import suggestionValidationSchema from "../validation/suggestion.js";
+import validate from "../middleware/joiValidation.js";
 
 const router = express.Router();
 
@@ -21,55 +23,59 @@ router.get("/all", [auth, admin], async (req, res) => {
 });
 
 // create suggesion
-router.post("/add", auth, async (req, res) => {
-  try {
-    const data = req.body;
-    data.user = req.user._id;
-
-    const suggestion = new SuggestionModel(data);
-    await suggestion.save();
-
-    if (!suggestion)
-      return res
-        .status(400)
-        .json({ success: false, message: "Failed to send suggestion" });
-
+router.post(
+  "/add",
+  [auth, validate(suggestionValidationSchema)],
+  async (req, res) => {
     try {
-      const admins = await UserModel.find({ role: "admin" });
-      const suggester = await UserModel.findById(req.user);
+      const data = req.body;
+      data.user = req.user._id;
 
-      const tokens = [];
-      admins.forEach((admin) => {
-        if (
-          admin.pushNotificationTokens &&
-          admin.pushNotificationTokens.length > 0
-        ) {
-          admin.pushNotificationTokens.forEach((tokenObj) => {
-            tokens.push(tokenObj.token);
-          });
+      const suggestion = new SuggestionModel(data);
+      await suggestion.save();
+
+      if (!suggestion)
+        return res
+          .status(400)
+          .json({ success: false, message: "Failed to send suggestion" });
+
+      try {
+        const admins = await UserModel.find({ role: "admin" });
+        const suggester = await UserModel.findById(req.user);
+
+        const tokens = [];
+        admins.forEach((admin) => {
+          if (
+            admin.pushNotificationTokens &&
+            admin.pushNotificationTokens.length > 0
+          ) {
+            admin.pushNotificationTokens.forEach((tokenObj) => {
+              tokens.push(tokenObj.token);
+            });
+          }
+        });
+
+        // Send notification if we have tokens
+        if (tokens.length > 0) {
+          await sendPushNotification(
+            tokens,
+            "New Suggestion",
+            `${suggester.name} made a suggestion or gave feedback!`,
+          );
+          console.log("📤 Notification sent to", tokens.length, "admin(s)");
+        } else {
+          console.log("⚠️ No admin tokens found");
         }
-      });
-
-      // Send notification if we have tokens
-      if (tokens.length > 0) {
-        await sendPushNotification(
-          tokens,
-          "New Suggestion",
-          `${suggester.name} made a suggestion or gave feedback!`
-        );
-        console.log("📤 Notification sent to", tokens.length, "admin(s)");
-      } else {
-        console.log("⚠️ No admin tokens found");
+      } catch (notificationError) {
+        console.error("Failed to send push notification:", notificationError);
       }
-    } catch (notificationError) {
-      console.error("Failed to send push notification:", notificationError);
-    }
 
-    res.status(201).send("Suggestion submitted successfully");
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-});
+      res.status(201).send("Suggestion submitted successfully");
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
+  },
+);
 
 // delete suggestion (admin)
 router.delete("/delete/:id", [auth, admin], async (req, res) => {
@@ -80,9 +86,8 @@ router.delete("/delete/:id", [auth, admin], async (req, res) => {
       return res.status(400).send("Invalid suggestion ID");
     }
 
-    const deletedSuggestion = await SuggestionModel.findByIdAndDelete(
-      suggestionId
-    );
+    const deletedSuggestion =
+      await SuggestionModel.findByIdAndDelete(suggestionId);
     if (!deletedSuggestion) return res.status(400).send("Suggestion not found");
 
     res.status(200).send("Suggestion deleted successfully");
