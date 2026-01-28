@@ -5,13 +5,14 @@ import Navbar from "../../components/general/Navbar";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import * as Yup from "yup";
 import AppForm from "../../components/form/AppForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GapContainer from "../../components/general/GapContainer";
 import FormikInput from "../../components/form/FormikInput";
 import SeparatorComp from "../../components/general/SeparatorComp";
 import SubmitBtn from "../../components/form/SubmitBtn";
-import { addPart } from "../../api/part";
+import { addPart, editPart } from "../../api/part";
 import ErrorMessage from "../../components/form/ErrorMessage";
+import PriBtn from "../../components/general/PriBtn";
 
 const validationSchema = Yup.object({
   name: Yup.string().trim().lowercase().required("Part name is required"),
@@ -54,6 +55,7 @@ const validationSchema = Yup.object({
 function AddPart(props) {
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
   const [errMsg, setErrMsg] = useState(null);
+  const [isEdit, setEdit] = useState(false);
 
   const navigate = useNavigation();
   const route = useRoute();
@@ -62,10 +64,16 @@ function AddPart(props) {
   const initialValues = {
     name: params?.partName || "",
     lastChangeDate: params?.lastChangeDate || "",
-    lastChangeMileage: params?.lastChangeMileage || "",
-    months: params?.recommendedChangeInterval?.months || null,
-    miles: params?.recommendedChangeInterval?.miles || null,
+    lastChangeMileage: params?.lastChangeMileage?.toString() || "",
+    months: params?.recommendedChangeInterval?.months?.toString() || null,
+    miles: params?.recommendedChangeInterval?.miles?.toString() || null,
   };
+
+  useEffect(() => {
+    if (params.isEdit) {
+      setEdit(true);
+    }
+  }, [params]);
 
   const handleSubmit = async (values) => {
     const data = {
@@ -88,13 +96,35 @@ function AddPart(props) {
     } catch (error) {}
   };
 
+  const handleEdit = async (values) => {
+    console.log("values:", values);
+    const data = {
+      name: values.name,
+      lastChangeDate: values.lastChangeDate,
+      lastChangeMileage: Number(values.lastChangeMileage),
+      recommendedChangeInterval: {
+        months: Number(values.months),
+        miles: Number(values.miles),
+      },
+    };
+    try {
+      const response = await editPart(params.partId, data);
+      if (response.ok) {
+        navigate.navigate("MyCars");
+      }
+      if (!response.ok) {
+        setErrMsg(response.data.errors[0].message);
+      }
+    } catch (error) {}
+  };
+
   return (
     <SafeScreen>
       <KeyboardScrollScreen>
         <AppForm
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}
+          onSubmit={!isEdit ? handleSubmit : handleEdit}
         >
           <GapContainer>
             <FormikInput
@@ -135,10 +165,11 @@ function AddPart(props) {
             {errMsg && <ErrorMessage error={errMsg} />}
 
             <SubmitBtn
-              defaultText="Add Part"
-              submittingText="Adding Part..."
+              defaultText={!isEdit ? "Add Part" : "Edit Part"}
+              submittingText={!isEdit ? "Adding Part..." : "Editing Part..."}
               setHasBeenSubmitted={setHasBeenSubmited}
             />
+
           </GapContainer>
         </AppForm>
       </KeyboardScrollScreen>

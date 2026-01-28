@@ -5,16 +5,31 @@ import GapContainer from "../general/GapContainer";
 import CardComp from "./CardComp";
 import { formatDate } from "../../functions/formatDate";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
+import { useNavigation } from "@react-navigation/native";
 
-function PartCard({part}) {
+function PartCard({ part }) {
+  const navigate = useNavigation();
+
   const addMonthsToDate = (dateString, monthsToAdd) => {
     const date = new Date(dateString);
     date.setMonth(date.getMonth() + monthsToAdd);
     return date;
   };
 
+  const passPart = {
+    partId: part._id,
+    partName: part.name,
+    lastChangeDate: part.lastChangeDate,
+    lastChangeMileage: part.lastChangeMileage,
+    recommendedChangeInterval: {
+      months: part.recommendedChangeInterval.months,
+      miles: part.recommendedChangeInterval.miles,
+    },
+    isEdit: true,
+  };
+
   return (
-    <CardComp>
+    <CardComp onPress={() => navigate.navigate("AddPart", passPart)}>
       <GapContainer gap={15}>
         <SquareInfo
           color={"lightBlue"}
