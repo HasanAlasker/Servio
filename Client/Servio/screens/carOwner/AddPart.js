@@ -10,9 +10,10 @@ import GapContainer from "../../components/general/GapContainer";
 import FormikInput from "../../components/form/FormikInput";
 import SeparatorComp from "../../components/general/SeparatorComp";
 import SubmitBtn from "../../components/form/SubmitBtn";
-import { addPart, editPart } from "../../api/part";
+import { addPart, editPart, unTrackPart } from "../../api/part";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import PriBtn from "../../components/general/PriBtn";
+import { useTheme } from "../../context/ThemeContext";
 
 const validationSchema = Yup.object({
   name: Yup.string().trim().lowercase().required("Part name is required"),
@@ -53,6 +54,7 @@ const validationSchema = Yup.object({
 });
 
 function AddPart(props) {
+  const { theme } = useTheme();
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
   const [errMsg, setErrMsg] = useState(null);
   const [isEdit, setEdit] = useState(false);
@@ -97,7 +99,6 @@ function AddPart(props) {
   };
 
   const handleEdit = async (values) => {
-    console.log("values:", values);
     const data = {
       name: values.name,
       lastChangeDate: values.lastChangeDate,
@@ -109,6 +110,18 @@ function AddPart(props) {
     };
     try {
       const response = await editPart(params.partId, data);
+      if (response.ok) {
+        navigate.navigate("MyCars");
+      }
+      if (!response.ok) {
+        setErrMsg(response.data.errors[0].message);
+      }
+    } catch (error) {}
+  };
+
+  const handleDelete = async (values) => {
+    try {
+      const response = await unTrackPart(params.partId);
       if (response.ok) {
         navigate.navigate("MyCars");
       }
@@ -169,7 +182,11 @@ function AddPart(props) {
               submittingText={!isEdit ? "Adding Part..." : "Editing Part..."}
               setHasBeenSubmitted={setHasBeenSubmited}
             />
-
+            <PriBtn
+              style={{ backgroundColor: theme.red, borderColor: theme.red }}
+              title={"Delete Part"}
+              onPress={handleDelete}
+            />
           </GapContainer>
         </AppForm>
       </KeyboardScrollScreen>

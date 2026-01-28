@@ -214,6 +214,8 @@ router.patch(
         });
       }
 
+      await updateServicesForCar(part.car)
+
       return res.status(200).json({ success: true, data: updatedPart });
     } catch (error) {
       console.error(error);

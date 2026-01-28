@@ -15,4 +15,4 @@ export const editPart = (id, data) =>
   apiClient.patch(`${endpoint}/edit/${id}`, data);
 
 export const unTrackPart = (id) =>
-  apiClient.patch(`${endpoint}/edit/${id}`);
+  apiClient.patch(`${endpoint}/un-track/${id}`);
