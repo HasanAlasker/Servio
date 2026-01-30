@@ -97,6 +97,22 @@ export const addShopSchema = Joi.object({
 
   imagePublicId: Joi.string().allow(""),
 
+  phone: Joi.string()
+    .pattern(/^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/)
+    .required()
+    .trim()
+    .messages({
+      "string.pattern.base": "Please enter a valid phone number",
+      "any.required": "Phone number is required",
+    }),
+
+  link: Joi.string().trim().min(5).max(500).required().messages({
+    "string.empty": "Shop link is required",
+    "string.min": "Link must be at least 5 characters long",
+    "string.max": "Link can't be longer than 500 characters",
+    "any.required": "Shop link is required",
+  }),
+
   services: Joi.array()
     .items(
       Joi.object({
@@ -123,13 +139,13 @@ export const addShopSchema = Joi.object({
       // Ensure all 7 days are present and no duplicates
       const days = value.map((item) => item.day);
       const uniqueDays = new Set(days);
-      
+
       if (uniqueDays.size !== 7) {
         return helpers.error("any.custom", {
           message: "All 7 days must be provided without duplicates",
         });
       }
-      
+
       // Check if all required days are present
       const hasAllDays = validDays.every((day) => days.includes(day));
       if (!hasAllDays) {
@@ -137,7 +153,7 @@ export const addShopSchema = Joi.object({
           message: "All days of the week must be included",
         });
       }
-      
+
       return value;
     })
     .messages({
@@ -178,6 +194,22 @@ export const editShopSchema = Joi.object({
       "any.required": "Shop description is required",
     }),
 
+  phone: Joi.string()
+    .pattern(/^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/)
+    .required()
+    .trim()
+    .messages({
+      "string.pattern.base": "Please enter a valid phone number",
+      "any.required": "Phone number is required",
+    }),
+
+  link: Joi.string().trim().min(5).max(500).required().messages({
+    "string.empty": "Shop link is required",
+    "string.min": "Link must be at least 5 characters long",
+    "string.max": "Link can't be longer than 500 characters",
+    "any.required": "Shop link is required",
+  }),
+
   services: Joi.array()
     .items(
       Joi.object({
@@ -199,20 +231,20 @@ export const editShopSchema = Joi.object({
       // Ensure all 7 days are present and no duplicates
       const days = value.map((item) => item.day);
       const uniqueDays = new Set(days);
-      
+
       if (uniqueDays.size !== 7) {
         return helpers.error("any.custom", {
           message: "All 7 days must be provided without duplicates",
         });
       }
-      
+
       const hasAllDays = validDays.every((day) => days.includes(day));
       if (!hasAllDays) {
         return helpers.error("any.custom", {
           message: "All days of the week must be included",
         });
       }
-      
+
       return value;
     })
     .messages({

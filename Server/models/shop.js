@@ -65,6 +65,23 @@ const shopSchema = new mongoose.Schema(
         to: String,
       },
     ],
+    phone: {
+      type: String,
+      trim: true,
+      required: true,
+      match: [
+        /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/,
+        "Please enter a valid phone number",
+      ],
+      unique: true,
+    },
+    link: {
+      type: String,
+      trim: true,
+      minLength: [5, "Link must be at least 2 characters long"],
+      maxLength: [500, "Link can't be longer than 500 characters"],
+      required: true,
+    },
     ratingCount: {
       type: Number,
       default: 0,
