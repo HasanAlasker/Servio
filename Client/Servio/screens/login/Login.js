@@ -77,7 +77,7 @@ function Login(props) {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            <GapContainer style={{ marginTop: "40" }}>
+            <GapContainer style={{ marginTop: "40" }} gap={15}>
               <FormikInput
                 name={"email"}
                 placeholder={"Email"}

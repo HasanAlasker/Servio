@@ -139,7 +139,7 @@ function AddPart(props) {
           validationSchema={validationSchema}
           onSubmit={!isEdit ? handleSubmit : handleEdit}
         >
-          <GapContainer>
+          <GapContainer gap={15}>
             <FormikInput
               name={"name"}
               placeholder={"Part Name"}

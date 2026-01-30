@@ -62,7 +62,7 @@ function Suggestions(props) {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          <GapContainer>
+          <GapContainer gap={15}>
             <FormikDropBox
               name={"type"}
               placeholder={"Type"}
