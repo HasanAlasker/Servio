@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import Navbar from "../../components/general/Navbar";
 import * as Yup from "yup";
@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import AddImageBtn from "../../components/form/AddImageBtn";
 import FormikDropBox from "../../components/form/FormikDropBox";
-import { addCar, deleteCar, editCar, getMakeAndModels } from "../../api/car";
+import { addCar, editCar, getMakeAndModels } from "../../api/car";
 import useApi from "../../hooks/useApi";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -233,7 +233,7 @@ function AddCar(props) {
                   title={"Cancel"}
                   style={styles.delete}
                   disabled={loading || isSubmitting}
-                  onPress={()=>navigate.goBack()}
+                  onPress={() => navigate.goBack()}
                 />
               )}
             </GapContainer>
