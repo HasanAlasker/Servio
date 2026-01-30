@@ -14,6 +14,7 @@ import AppointmentCard from "../../components/cards/AppointmentCard";
 import GapContainer from "../../components/general/GapContainer";
 import TabNav from "../../components/general/TabNav";
 import { useRoute } from "@react-navigation/native";
+import SText from "../../components/text/SText";
 
 function Bookings(props) {
   const [upcoming, setUpcoming] = useState([]);
@@ -38,6 +39,8 @@ function Bookings(props) {
     request: fetchPast,
     loading: loadingPast,
   } = useApi(getPastAppointments);
+
+  const loading = loadingPast || loadingUpcoming;
 
   useEffect(() => {
     fetchUpcoming();
@@ -104,7 +107,14 @@ function Bookings(props) {
       <ScrollScreen>
         <GapContainer>
           <TabNav active={activeTab} onTabChange={onTabChange} />
-          {RenderAppointments}
+          {RenderAppointments.length === 0 && !loading ? (
+            <SText thin color={"sec_text"} style={{ marginHorizontal: "auto" }}>
+              You haven't booked any appointments yet
+            </SText>
+          ) : (
+            RenderAppointments
+          )}
+          {loading && <SText>Loading</SText>}
         </GapContainer>
       </ScrollScreen>
       <Navbar />

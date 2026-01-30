@@ -55,6 +55,9 @@ function MyCars(props) {
           ) : (
             carsList
           )}
+          
+          {loading && <SText>Loading</SText>}
+
           <AddCarCard
             text={"Add Car"}
             icon={"plus"}
