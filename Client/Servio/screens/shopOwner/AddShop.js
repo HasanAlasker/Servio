@@ -22,7 +22,7 @@ function AddShop(props) {
     name: "",
     description: "",
     address: "",
-    services: [""],
+    services: "",
     openHours: "",
     phone: "",
     link: "",

@@ -25,7 +25,12 @@ function InputBox({
     <View style={styles.container}>
       {penOn && <Feather name="edit-3" size={24} color={theme.blue} />}
       {icon && (
-        <MaterialCommunityIcons name={icon} size={24} color={theme.blue} />
+        <MaterialCommunityIcons
+          name={icon}
+          size={24}
+          color={theme.blue}
+          style={isBox && styles.padding}
+        />
       )}
       <TextInput
         style={[
@@ -80,6 +85,9 @@ const getStyles = (theme) =>
     placeholder: {
       opacity: 0.6,
     },
+    padding:{
+      marginTop: 5
+    }
   });
 
 export default InputBox;
