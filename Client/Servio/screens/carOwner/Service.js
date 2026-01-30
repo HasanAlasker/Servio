@@ -8,6 +8,7 @@ import GapContainer from "../../components/general/GapContainer";
 import useApi from "../../hooks/useApi";
 import { getUpcomingServices } from "../../api/upcomingService";
 import ServiceCard from "../../components/cards/ServiceCard";
+import SText from "../../components/text/SText";
 
 function Service(props) {
   const [services, setServices] = useState([]);
@@ -39,7 +40,16 @@ function Service(props) {
   return (
     <SafeScreen>
       <ScrollScreen>
-        <GapContainer>{RenderServices}</GapContainer>
+        <GapContainer>
+          {RenderServices.length === 0 && !loading ? (
+            <SText thin color={"sec_text"} style={{ marginHorizontal: "auto" }}>
+              You don't have any upcoming services
+            </SText>
+          ) : (
+            RenderServices
+          )}
+          {loading && <SText>Loading</SText>}
+        </GapContainer>
       </ScrollScreen>
       <Navbar />
     </SafeScreen>
