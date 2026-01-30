@@ -42,10 +42,18 @@ function SettingsMenu({ isVisible, onClose }) {
           <SeparatorComp full />
 
           <MenuOption
+            text={"Open Shop"}
+            icon={"storefront-plus-outline"}
+            color={"blue"}
+            onPress={() => navigate.navigate("AddShop")}
+          />
+          <SeparatorComp full />
+
+          <MenuOption
             text={"Suggestions"}
             icon={"chat-outline"}
-            color={'green'}
-            onPress={()=> navigate.navigate('Suggestions')}
+            color={"green"}
+            onPress={() => navigate.navigate("Suggestions")}
           />
           <SeparatorComp full />
 

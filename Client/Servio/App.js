@@ -21,9 +21,10 @@ import MyShop from "./screens/shopOwner/MyShop";
 import { useEffect } from "react";
 import Profile from "./screens/shared/Profile";
 import Suggestions from "./screens/shared/Suggestions";
-import OfflineModal from "./components/general/OfflineModal";
 import CarParts from "./screens/carOwner/CarParts";
 import AddPart from "./screens/carOwner/AddPart";
+import AddShop from "./screens/shopOwner/AddShop";
+import ShopDash from "./screens/shopOwner/ShopDash";
 
 const Stack = createNativeStackNavigator();
 
@@ -56,6 +57,7 @@ const CarOwnerStack = () => {
       <Stack.Screen name="Suggestions" component={Suggestions} />
       <Stack.Screen name="CarParts" component={CarParts} />
       <Stack.Screen name="AddPart" component={AddPart} />
+      <Stack.Screen name="AddShop" component={AddShop} />
     </Stack.Navigator>
   );
 };
@@ -63,12 +65,14 @@ const CarOwnerStack = () => {
 const ShopOwnerStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="MyShop"
+      initialRouteName="ShopDash"
       screenOptions={{ headerShown: false, animation: "none" }}
     >
+      <Stack.Screen name="ShopDash" component={ShopDash} />
       <Stack.Screen name="MyShop" component={MyShop} />
       <Stack.Screen name="Suggestions" component={Suggestions} />
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="AddShop" component={AddShop} />
     </Stack.Navigator>
   );
 };
