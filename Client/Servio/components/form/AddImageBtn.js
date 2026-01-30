@@ -159,7 +159,7 @@ const getStyles = (theme) =>
       aspectRatio: 31 / 20,
       marginHorizontal: "auto",
       marginBottom: 10,
-      marginTop: 25,
+      // marginTop: 25,
       alignSelf: 'center', // Better centering
     },
     touchableArea: {

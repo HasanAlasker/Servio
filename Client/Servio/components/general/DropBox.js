@@ -6,7 +6,7 @@ import {
   Modal,
   FlatList,
 } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 import AppText from "../../config/AppText";
@@ -66,7 +66,7 @@ function DropBox({
           <View style={styles.left}>
             {penOn && <Feather name="edit-3" size={24} color={theme.blue} />}
             {icon && (
-              <Feather name={icon} size={24} color={theme.blue}></Feather>
+              <MaterialCommunityIcons name={icon} size={24} color={theme.blue}/>
             )}
             <AppText
               style={[

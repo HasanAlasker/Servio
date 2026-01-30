@@ -82,7 +82,7 @@ function Login(props) {
                 name={"email"}
                 placeholder={"Email"}
                 autoCapitalize={"none"}
-                icon={"mail"}
+                icon={"email-outline"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />
 
@@ -90,7 +90,7 @@ function Login(props) {
                 name={"password"}
                 placeholder={"Password"}
                 autoCapitalize={"none"}
-                icon={"lock"}
+                icon={"lock-outline"}
                 isPassword={true}
                 hasBeenSubmitted={hasBeenSubmitted}
               />

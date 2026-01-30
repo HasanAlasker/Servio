@@ -151,7 +151,7 @@ function Register(props) {
                 name={"name"}
                 placeholder={"Name"}
                 autoCapitalize={"none"}
-                icon={"user"}
+                icon={"account-outline"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />
 
@@ -159,7 +159,7 @@ function Register(props) {
                 name={"email"}
                 placeholder={"Email"}
                 autoCapitalize={"none"}
-                icon={"mail"}
+                icon={"email-outline"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />
 
@@ -167,7 +167,7 @@ function Register(props) {
                 name={"phone"}
                 placeholder={"Phone"}
                 autoCapitalize={"none"}
-                icon={"phone"}
+                icon={"phone-outline"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />
 
@@ -175,7 +175,7 @@ function Register(props) {
                 name={"password"}
                 placeholder={"Password"}
                 autoCapitalize={"none"}
-                icon={"lock"}
+                icon={"lock-outline"}
                 isPassword={true}
                 hasBeenSubmitted={hasBeenSubmitted}
               />
@@ -184,7 +184,7 @@ function Register(props) {
                 name={"confirmPassword"}
                 placeholder={"Confirm password"}
                 autoCapitalize={"none"}
-                icon={"lock"}
+                icon={"lock-outline"}
                 isPassword
                 hasBeenSubmitted={hasBeenSubmitted}
               />

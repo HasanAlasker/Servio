@@ -164,7 +164,7 @@ function AddCar(props) {
                 name={"make"}
                 placeholder={"Make"}
                 items={makesList}
-                icon={"package"}
+                icon={"home-city-outline"}
                 hasBeenSubmitted={hasBeenSubmitted}
                 onSelectItem={(value) => {
                   setSelectedMake(value);
@@ -179,7 +179,7 @@ function AddCar(props) {
                   name={"name"}
                   placeholder={"Name"}
                   items={namesList}
-                  icon={"truck"}
+                  icon={"car-lifted-pickup"}
                   hasBeenSubmitted={hasBeenSubmitted}
                   onSelectItem={(value) => {
                     setFieldValue("name", value);
@@ -190,7 +190,7 @@ function AddCar(props) {
               <FormikInput
                 name={"model"}
                 placeholder={"Model"}
-                icon={"hash"}
+                icon={"timer-cog-outline"}
                 autoCapitalize={"none"}
                 keyboardType={"numeric"}
                 hasBeenSubmitted={hasBeenSubmitted}
@@ -199,7 +199,7 @@ function AddCar(props) {
               <FormikInput
                 name={"plateNumber"}
                 placeholder={"Plate number"}
-                icon={"credit-card"}
+                icon={"newspaper-variant-outline"}
                 autoCapitalize={"none"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />
@@ -207,7 +207,7 @@ function AddCar(props) {
               <FormikInput
                 name={"mileage"}
                 placeholder={"Mileage"}
-                icon={"disc"}
+                icon={"gauge"}
                 autoCapitalize={"none"}
                 keyboardType={"numeric"}
                 hasBeenSubmitted={hasBeenSubmitted}
@@ -216,7 +216,7 @@ function AddCar(props) {
               <FormikInput
                 name={"color"}
                 placeholder={"Color"}
-                icon={"droplet"}
+                icon={"palette-outline"}
                 autoCapitalize={"none"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />

@@ -1,5 +1,5 @@
 import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
@@ -24,7 +24,7 @@ function InputBox({
   return (
     <View style={styles.container}>
       {penOn && <Feather name="edit-3" size={24} color={theme.blue} />}
-      {icon && <Feather name={icon} size={24} color={theme.blue} />}
+      {icon && <MaterialCommunityIcons name={icon} size={24} color={theme.blue} />}
       <TextInput
         style={[
           styles.text,

@@ -66,7 +66,7 @@ function Suggestions(props) {
             <FormikDropBox
               name={"type"}
               placeholder={"Type"}
-              icon={"align-left"}
+              icon={"view-day-outline"}
               items={suggestionTypes}
               hasBeenSubmitted={hasBeenSubmitted}
             />
@@ -74,14 +74,14 @@ function Suggestions(props) {
             <FormikInput
               name={"title"}
               placeholder={"Title"}
-              icon={"credit-card"}
+              icon={"subtitles-outline"}
               hasBeenSubmitted={hasBeenSubmitted}
             />
 
             <FormikInput
               name={"message"}
               placeholder={"Message"}
-              icon={"mail"}
+              icon={"tooltip-text-outline"}
               hasBeenSubmitted={hasBeenSubmitted}
               isBox
               height={110}

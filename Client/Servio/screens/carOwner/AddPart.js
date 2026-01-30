@@ -143,35 +143,35 @@ function AddPart(props) {
             <FormikInput
               name={"name"}
               placeholder={"Part Name"}
-              icon={"package"}
+              icon={"engine-outline"}
               hasBeenSubmitted={hasBeenSubmitted}
             />
 
             <FormikInput
               name={"lastChangeDate"}
               placeholder={"Last Change Date"}
-              icon={"clock"}
+              icon={"clock-outline"}
               hasBeenSubmitted={hasBeenSubmitted}
             />
 
             <FormikInput
               name={"lastChangeMileage"}
               placeholder={"Last Change Mileage"}
-              icon={"refresh-cw"}
+              icon={"gauge"}
               hasBeenSubmitted={hasBeenSubmitted}
             />
             <SeparatorComp children={"Recommended Change After"} />
             <FormikInput
               name={"months"}
               placeholder={"Months"}
-              icon={"calendar"}
+              icon={"calendar-outline"}
               hasBeenSubmitted={hasBeenSubmitted}
             />
 
             <FormikInput
               name={"miles"}
               placeholder={"Miles/ Kilometers"}
-              icon={"fast-forward"}
+              icon={"skip-next-circle-outline"}
               hasBeenSubmitted={hasBeenSubmitted}
             />
 
