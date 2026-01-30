@@ -149,18 +149,18 @@ function AddPart(props) {
 
             <FormikInput
               name={"lastChangeDate"}
-              placeholder={"Last Change Date"}
+              placeholder={"Last change date"}
               icon={"clock-outline"}
               hasBeenSubmitted={hasBeenSubmitted}
             />
 
             <FormikInput
               name={"lastChangeMileage"}
-              placeholder={"Last Change Mileage"}
+              placeholder={"Last change mileage"}
               icon={"gauge"}
               hasBeenSubmitted={hasBeenSubmitted}
             />
-            <SeparatorComp children={"Recommended Change After"} />
+            <SeparatorComp children={"Recommended change after"} />
             <FormikInput
               name={"months"}
               placeholder={"Months"}

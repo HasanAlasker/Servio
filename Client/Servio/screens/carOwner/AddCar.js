@@ -189,7 +189,7 @@ function AddCar(props) {
 
               <FormikInput
                 name={"model"}
-                placeholder={"Model"}
+                placeholder={"Model (Year of make)"}
                 icon={"timer-cog-outline"}
                 autoCapitalize={"none"}
                 keyboardType={"numeric"}

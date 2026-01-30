@@ -50,21 +50,21 @@ function AddShop(props) {
 
               <FormikInput
                 name={"name"}
-                placeholder={"Shop Name"}
+                placeholder={"Shop name"}
                 icon={"store-outline"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />
 
               <FormikInput
                 name={"address"}
-                placeholder={"Shop Address"}
+                placeholder={"Shop address"}
                 icon={"map-marker-outline"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />
 
               <FormikInput
                 name={"phone"}
-                placeholder={"Shop Phone"}
+                placeholder={"Shop phone"}
                 icon={"phone-outline"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />
@@ -78,7 +78,7 @@ function AddShop(props) {
 
               <FormikInput
                 name={"description"}
-                placeholder={"Shop Description"}
+                placeholder={"Shop description"}
                 isBox
                 height={80}
                 icon={"comment-text-outline"}
@@ -87,7 +87,7 @@ function AddShop(props) {
 
               <FormikInput
                 name={"services"}
-                placeholder={"Shop Services, ex (car accessories, oil changes)"}
+                placeholder={"Shop services, (car accessories, oil changes)"}
                 isBox
                 height={80}
                 icon={"wrench-outline"}
