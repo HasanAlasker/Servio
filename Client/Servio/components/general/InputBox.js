@@ -24,11 +24,14 @@ function InputBox({
   return (
     <View style={styles.container}>
       {penOn && <Feather name="edit-3" size={24} color={theme.blue} />}
-      {icon && <MaterialCommunityIcons name={icon} size={24} color={theme.blue} />}
+      {icon && (
+        <MaterialCommunityIcons name={icon} size={24} color={theme.blue} />
+      )}
       <TextInput
         style={[
           styles.text,
           isBox && { textAlignVertical: "top", paddingTop: 6 },
+          !value && styles.placeholder,
         ]}
         placeholder={placeholder}
         placeholderTextColor={theme.blue}
@@ -73,6 +76,9 @@ const getStyles = (theme) =>
       padding: 0,
       margin: 0,
       textAlignVertical: "center",
+    },
+    placeholder: {
+      opacity: 0.6,
     },
   });
 

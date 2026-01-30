@@ -14,6 +14,7 @@ import { addPart, editPart, unTrackPart } from "../../api/part";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import PriBtn from "../../components/general/PriBtn";
 import { useTheme } from "../../context/ThemeContext";
+import FormikDatePicker from "../../components/form/FormikDatePicker";
 
 const validationSchema = Yup.object({
   name: Yup.string().trim().lowercase().required("Part name is required"),
@@ -147,10 +148,9 @@ function AddPart(props) {
               hasBeenSubmitted={hasBeenSubmitted}
             />
 
-            <FormikInput
+            <FormikDatePicker
               name={"lastChangeDate"}
-              placeholder={"Last change date"}
-              icon={"clock-outline"}
+              placeholder="Last change date"
               hasBeenSubmitted={hasBeenSubmitted}
             />
 

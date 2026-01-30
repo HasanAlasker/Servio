@@ -10,7 +10,7 @@ import ErrorMessage from "./ErrorMessage";
 function FormikDatePicker({
   name,
   placeholder = "Select date",
-  icon = "calendar",
+  icon = "calendar-outline",
   minimumDate,
   maximumDate,
   hasBeenSubmitted = false,

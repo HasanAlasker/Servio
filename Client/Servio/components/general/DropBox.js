@@ -44,7 +44,6 @@ function DropBox({
   };
 
   const renderItem = ({ item }) => {
-
     return (
       <MenuOption
         text={item.label}
@@ -66,13 +65,17 @@ function DropBox({
           <View style={styles.left}>
             {penOn && <Feather name="edit-3" size={24} color={theme.blue} />}
             {icon && (
-              <MaterialCommunityIcons name={icon} size={24} color={theme.blue}/>
+              <MaterialCommunityIcons
+                name={icon}
+                size={24}
+                color={theme.blue}
+              />
             )}
             <AppText
               style={[
                 styles.text,
                 disabled && styles.disabledText,
-                !selectedItem && styles.placeholderText,
+                !selectedItem && styles.placeholder,
               ]}
             >
               {displayText}
@@ -153,6 +156,9 @@ const getStyles = (theme) =>
       marginBottom: 5,
     },
     disabled: {
+      opacity: 0.6,
+    },
+    placeholder: {
       opacity: 0.6,
     },
   });
