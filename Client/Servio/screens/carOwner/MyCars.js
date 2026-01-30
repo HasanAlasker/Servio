@@ -48,12 +48,12 @@ function MyCars(props) {
     <SafeScreen>
       <ScrollScreen>
         <GapContainer>
-          {carsList.length > 0 ? (
-            carsList
-          ) : (
+          {!carsData && !loading ? (
             <SText thin color={"sec_text"} style={{ marginHorizontal: "auto" }}>
               You haven't added any cars yet
             </SText>
+          ) : (
+            carsList
           )}
           <AddCarCard
             text={"Add Car"}
@@ -61,7 +61,6 @@ function MyCars(props) {
             color={"blue"}
             navigateTo={"AddCar"}
           />
-          {loading && <LText>loading...</LText>}
         </GapContainer>
       </ScrollScreen>
       <Navbar />
