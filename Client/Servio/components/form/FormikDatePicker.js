@@ -11,6 +11,7 @@ function FormikDatePicker({
   name,
   placeholder = "Select date",
   icon = "calendar-outline",
+  mode = "date",
   minimumDate,
   maximumDate,
   hasBeenSubmitted = false,
@@ -40,6 +41,26 @@ function FormikDatePicker({
 
   const formatDate = (date) => {
     if (!date) return placeholder;
+    
+    if (mode === 'time') {
+      return date.toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      });
+    }
+    
+    if (mode === 'datetime') {
+      return date.toLocaleString('en-US', { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric',
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      });
+    }
+    
     return date.toLocaleDateString('en-US', { 
       year: 'numeric', 
       month: 'short', 
@@ -66,7 +87,7 @@ function FormikDatePicker({
 
       {show && (
         <RNDateTimePicker
-          mode="date"
+          mode={mode}
           value={selectedDate || new Date()}
           onChange={onChange}
           minimumDate={minimumDate}
