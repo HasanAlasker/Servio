@@ -10,11 +10,16 @@ import FormikInput from "../../components/form/FormikInput";
 import GapContainer from "../../components/general/GapContainer";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import OpenHoursInput from "../../components/form/OpenHoursInput";
+import { openShop } from "../../api/shop";
+import { useNavigation } from "@react-navigation/native";
+import ErrorMessage from "../../components/form/ErrorMessage";
 
 const validationSchema = Yup.object({
   image: Yup.string().required("Shop image is required"),
   name: Yup.string().required("Shop name is required"),
-  address: Yup.string().required("Shop address is required"),
+  city: Yup.string().trim().required("City is required"),
+  area: Yup.string().trim().required("Area is required"),
+  street: Yup.string().trim().required("Street is required"),
   phone: Yup.string().required("Shop phone is required"),
   description: Yup.string().required("Shop description is required"),
   services: Yup.string().required("Shop services are required"),
@@ -34,33 +39,107 @@ const validationSchema = Yup.object({
           then: (schema) => schema.required("Closing time is required"),
           otherwise: (schema) => schema,
         }),
-      })
+      }),
     )
-    .test("at-least-one-open", "Shop must be open at least one day", (hours) => {
-      return hours?.some((day) => day.isOpen);
-    }),
+    .test(
+      "at-least-one-open",
+      "Shop must be open at least one day",
+      (hours) => {
+        return hours?.some((day) => day.isOpen);
+      },
+    ),
 });
+
+const formatServices = (services) => {
+  if (!services || typeof services !== "string") return [];
+
+  return services
+    .split(",")
+    .map((service) => ({
+      name: service.trim(),
+    }))
+    .filter((service) => service.name.length > 0);
+};
 
 function AddShop(props) {
   const [hasBeenSubmitted, setHasbeenSubmitted] = useState(false);
+  const [err, setErr] = useState(false);
+  const [errMsg, setErrMsg] = useState(null);
+
+  const navigate = useNavigation();
 
   const handleSubmit = async (values) => {
-    console.log("Submitted values:", values);
-    // Your submission logic here
+    setErr(false);
+    setErrMsg(null);
+
+    const formattedValues = {
+      ...values,
+      services: formatServices(values.services),
+      address: {
+        city: values.city,
+        area: values.area,
+        street: values.street
+      }
+    };
+
+    console.log("Submitted values:", formattedValues);
+    try {
+      const response = await openShop(formattedValues);
+      if (response.ok) {
+        navigate.goBack();
+      }
+      if (!response.ok) {
+        setErr(true);
+        console.log(response);
+        setErrMsg(response.data.errors[0].message || response.data.message);
+      }
+    } catch (error) {}
   };
 
   const initialValues = {
     image: "",
     name: "",
     description: "",
-    address: "",
+    city: "",
+    area: "",
+    street: "",
     services: "",
     openHours: [
-      { day: "sun", dayName: "Sunday", isOpen: true, from: "09:00", to: "18:00" },
-      { day: "mon", dayName: "Monday", isOpen: true, from: "09:00", to: "18:00" },
-      { day: "tue", dayName: "Tuesday", isOpen: true, from: "09:00", to: "18:00" },
-      { day: "wed", dayName: "Wednesday", isOpen: true, from: "09:00", to: "18:00" },
-      { day: "thu", dayName: "Thursday", isOpen: true, from: "09:00", to: "18:00" },
+      {
+        day: "sun",
+        dayName: "Sunday",
+        isOpen: true,
+        from: "09:00",
+        to: "18:00",
+      },
+      {
+        day: "mon",
+        dayName: "Monday",
+        isOpen: true,
+        from: "09:00",
+        to: "18:00",
+      },
+      {
+        day: "tue",
+        dayName: "Tuesday",
+        isOpen: true,
+        from: "09:00",
+        to: "18:00",
+      },
+      {
+        day: "wed",
+        dayName: "Wednesday",
+        isOpen: true,
+        from: "09:00",
+        to: "18:00",
+      },
+      {
+        day: "thu",
+        dayName: "Thursday",
+        isOpen: true,
+        from: "09:00",
+        to: "18:00",
+      },
       { day: "fri", dayName: "Friday", isOpen: false, from: "", to: "" },
       { day: "sat", dayName: "Saturday", isOpen: false, from: "", to: "" },
     ],
@@ -96,9 +175,23 @@ function AddShop(props) {
               />
 
               <FormikInput
-                name={"address"}
-                placeholder={"Shop address"}
-                icon={"map-marker-outline"}
+                name={"city"}
+                placeholder={"City"}
+                icon={"city"}
+                hasBeenSubmitted={hasBeenSubmitted}
+              />
+
+              <FormikInput
+                name={"area"}
+                placeholder={"Area"}
+                icon={"map-marker-radius-outline"}
+                hasBeenSubmitted={hasBeenSubmitted}
+              />
+
+              <FormikInput
+                name={"street"}
+                placeholder={"Street"}
+                icon={"road-variant"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />
 
@@ -111,7 +204,7 @@ function AddShop(props) {
 
               <FormikInput
                 name={"link"}
-                placeholder={"Shop Link, (Google maps/ Website)"}
+                placeholder={"Shop Link (Google maps)"}
                 icon={"link"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />
@@ -135,7 +228,7 @@ function AddShop(props) {
               />
 
               <OpenHoursInput
-                name="openHours" 
+                name="openHours"
                 hasBeenSubmitted={hasBeenSubmitted}
               />
 
@@ -144,6 +237,8 @@ function AddShop(props) {
                 submittingText="Sending..."
                 setHasBeenSubmitted={setHasbeenSubmitted}
               />
+
+              {err && <ErrorMessage error={errMsg} />}
             </GapContainer>
           )}
         </AppForm>
