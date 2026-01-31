@@ -122,6 +122,12 @@ router.post(
       data.owner = req.user._id;
       data.isVerified = false;
 
+      if (req.file) {
+        uploadedImage = await uploadToCloudinary(req.file.buffer);
+        data.image = uploadedImage.secure_url;
+        data.imagePublicId = uploadedImage.public_id;
+      }
+
       const newShop = new ShopModel(data);
       newShop.save();
 
@@ -129,12 +135,6 @@ router.post(
         return res
           .status(404)
           .json({ success: false, message: "Failed to create shop" });
-
-      if (req.file) {
-        uploadedImage = await uploadToCloudinary(req.file.buffer);
-        data.image = uploadedImage.secure_url;
-        data.imagePublicId = uploadedImage.public_id;
-      }
 
       return res.status(201).json({
         success: true,
@@ -159,8 +159,11 @@ router.post(
 // edit shop
 router.patch(
   "/edit/:id",
+  upload.single("image"),
   [auth, shopOwner, validate(editShopSchema)],
   async (req, res) => {
+    let uploadedImage = null;
+
     try {
       const id = req.params.id;
       const data = req.body;
@@ -178,6 +181,12 @@ router.patch(
           .status(403)
           .json({ success: false, message: "You can only update your shop" });
 
+      if (req.file) {
+        uploadedImage = await uploadToCloudinary(req.file.buffer);
+        data.image = uploadedImage.secure_url;
+        data.imagePublicId = uploadedImage.public_id;
+      }
+
       const updatedShop = await ShopModel.findByIdAndUpdate(id, data, {
         runValidators: true,
         new: true,
@@ -190,6 +199,10 @@ router.patch(
 
       return res.status(200).json({ success: true, data: updatedShop });
     } catch (error) {
+      // If post creation fails and image was uploaded, delete it from Cloudinary
+      if (uploadedImage && uploadedImage.public_id) {
+        await deleteImageFromCloudinary(uploadedImage.public_id);
+      }
       console.error(error);
       return res.status(500).json({
         success: false,
