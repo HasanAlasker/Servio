@@ -22,7 +22,31 @@ function FormikDatePicker({
   const [show, setShow] = useState(false);
   const shouldShowError = hasBeenSubmitted && errors[name];
 
-  const selectedDate = values[name] ? new Date(values[name]) : null;
+  // Get the value from the nested path
+  const getNestedValue = (obj, path) => {
+    return path.split(/[\[\].]/).filter(Boolean).reduce((acc, part) => acc?.[part], obj);
+  };
+
+  const fieldValue = getNestedValue(values, name);
+  
+  // Parse the value based on mode
+  const getDateValue = () => {
+    if (!fieldValue) return null;
+    
+    if (mode === 'time') {
+      // If it's a time string like "09:00", convert to Date
+      if (typeof fieldValue === 'string' && fieldValue.includes(':')) {
+        const [hours, minutes] = fieldValue.split(':');
+        const date = new Date();
+        date.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+        return date;
+      }
+    }
+    
+    return new Date(fieldValue);
+  };
+
+  const selectedDate = getDateValue();
 
   const handlePress = () => {
     setShow(true);
@@ -35,7 +59,15 @@ function FormikDatePicker({
     }
     
     if (selectedDate) {
-      setFieldValue(name, selectedDate);
+      if (mode === 'time') {
+        // Store as "HH:MM" string for time mode
+        const hours = selectedDate.getHours().toString().padStart(2, '0');
+        const minutes = selectedDate.getMinutes().toString().padStart(2, '0');
+        setFieldValue(name, `${hours}:${minutes}`);
+      } else {
+        // Store as Date for date/datetime modes
+        setFieldValue(name, selectedDate);
+      }
     }
   };
 
@@ -109,8 +141,7 @@ const getStyles = (theme) =>
       backgroundColor: theme.post,
       paddingVertical: 8,
       paddingHorizontal: 15,
-      width: "90%",
-      marginHorizontal: "auto",
+      width: "100%",
       gap: 10,
       minHeight: 40,
       alignItems: "center",

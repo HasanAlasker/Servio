@@ -9,13 +9,45 @@ import AddImageBtn from "../../components/form/AddImageBtn";
 import FormikInput from "../../components/form/FormikInput";
 import GapContainer from "../../components/general/GapContainer";
 import SubmitBtn from "../../components/form/SubmitBtn";
+import OpenHoursInput from "../../components/form/OpenHoursInput";
 
-const validationSchema = Yup.object({});
+const validationSchema = Yup.object({
+  image: Yup.string().required("Shop image is required"),
+  name: Yup.string().required("Shop name is required"),
+  address: Yup.string().required("Shop address is required"),
+  phone: Yup.string().required("Shop phone is required"),
+  description: Yup.string().required("Shop description is required"),
+  services: Yup.string().required("Shop services are required"),
+  openHours: Yup.array()
+    .of(
+      Yup.object().shape({
+        day: Yup.string().required(),
+        dayName: Yup.string().required(),
+        isOpen: Yup.boolean().required(),
+        from: Yup.string().when("isOpen", {
+          is: true,
+          then: (schema) => schema.required("Opening time is required"),
+          otherwise: (schema) => schema,
+        }),
+        to: Yup.string().when("isOpen", {
+          is: true,
+          then: (schema) => schema.required("Closing time is required"),
+          otherwise: (schema) => schema,
+        }),
+      })
+    )
+    .test("at-least-one-open", "Shop must be open at least one day", (hours) => {
+      return hours?.some((day) => day.isOpen);
+    }),
+});
 
 function AddShop(props) {
   const [hasBeenSubmitted, setHasbeenSubmitted] = useState(false);
 
-  const handleSubmit = async (values) => {};
+  const handleSubmit = async (values) => {
+    console.log("Submitted values:", values);
+    // Your submission logic here
+  };
 
   const initialValues = {
     image: "",
@@ -23,7 +55,15 @@ function AddShop(props) {
     description: "",
     address: "",
     services: "",
-    openHours: "",
+    openHours: [
+      { day: "sun", dayName: "Sunday", isOpen: true, from: "09:00", to: "18:00" },
+      { day: "mon", dayName: "Monday", isOpen: true, from: "09:00", to: "18:00" },
+      { day: "tue", dayName: "Tuesday", isOpen: true, from: "09:00", to: "18:00" },
+      { day: "wed", dayName: "Wednesday", isOpen: true, from: "09:00", to: "18:00" },
+      { day: "thu", dayName: "Thursday", isOpen: true, from: "09:00", to: "18:00" },
+      { day: "fri", dayName: "Friday", isOpen: false, from: "", to: "" },
+      { day: "sat", dayName: "Saturday", isOpen: false, from: "", to: "" },
+    ],
     phone: "",
     link: "",
   };
@@ -91,6 +131,11 @@ function AddShop(props) {
                 isBox
                 height={80}
                 icon={"wrench-outline"}
+                hasBeenSubmitted={hasBeenSubmitted}
+              />
+
+              <OpenHoursInput
+                name="openHours" 
                 hasBeenSubmitted={hasBeenSubmitted}
               />
 

@@ -17,8 +17,8 @@
 // open shop
 {
   "name": "CareCenter",
-	"description": "Body shop for all car",
-	"image": "https://www.autorepairwesthaven.com/wp-content/uploads/2023/07/Fred_Auto_Repair.jpeg",
+  "description": "Body shop for all car",
+  "image": "https://www.autorepairwesthaven.com/wp-content/uploads/2023/07/Fred_Auto_Repair.jpeg",
   "services": [
     { "name": "accessories" },
     { "name": "upgrade parts" }
@@ -30,15 +30,15 @@
       "street": "Alommal Street"
     }
   ,
-"openHours": [
-  { "day": "sun", "dayName": "Sunday", "isOpen": true, "from": "09:00", "to": "18:00" },
-  { "day": "mon", "dayName": "Monday", "isOpen": true, "from": "09:00", "to": "18:00" },
-  { "day": "tue", "dayName": "Tuesday", "isOpen": true, "from": "09:00", "to": "18:00" },
-  { "day": "wed", "dayName": "Wednesday", "isOpen": true, "from": "09:00", "to": "18:00" },
-  { "day": "thu", "dayName": "Thursday", "isOpen": true, "from": "09:00", "to": "18:00" },
-  { "day": "fri", "dayName": "Friday", "isOpen": false },
-  { "day": "sat", "dayName": "Saturday", "isOpen": false }
-]
+  "openHours": [
+    { "day": "sun", "dayName": "Sunday", "isOpen": true, "from": "09:00", "to": "18:00" },
+    { "day": "mon", "dayName": "Monday", "isOpen": true, "from": "09:00", "to": "18:00" },
+    { "day": "tue", "dayName": "Tuesday", "isOpen": true, "from": "09:00", "to": "18:00" },
+    { "day": "wed", "dayName": "Wednesday", "isOpen": true, "from": "09:00", "to": "18:00" },
+    { "day": "thu", "dayName": "Thursday", "isOpen": true, "from": "09:00", "to": "18:00" },
+    { "day": "fri", "dayName": "Friday", "isOpen": false },
+    { "day": "sat", "dayName": "Saturday", "isOpen": false }
+  ]
 }
 
 // make appointment
