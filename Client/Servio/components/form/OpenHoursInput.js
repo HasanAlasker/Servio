@@ -78,6 +78,7 @@ function OpenHoursInput({ name = "openHours", hasBeenSubmitted = false }) {
                     icon="clock-time-four-outline"
                     placeholder="09:00"
                     hasBeenSubmitted={hasBeenSubmitted}
+                    full
                   />
                 </View>
 
@@ -89,6 +90,7 @@ function OpenHoursInput({ name = "openHours", hasBeenSubmitted = false }) {
                     icon="clock-time-four-outline"
                     placeholder="18:00"
                     hasBeenSubmitted={hasBeenSubmitted}
+                    full
                   />
                 </View>
               </View>
