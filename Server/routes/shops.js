@@ -7,6 +7,11 @@ import shopOwner from "../middleware/shopOwner.js";
 import validate from "../middleware/joiValidation.js";
 import { addShopSchema, editShopSchema } from "../validation/shop.js";
 import UserModel from "../models/user.js";
+import {
+  deleteImageFromCloudinary,
+  upload,
+  uploadToCloudinary,
+} from "../utils/cloudinary.js";
 
 const router = express.Router();
 
@@ -105,33 +110,51 @@ router.get("/:id", auth, async (req, res) => {
 });
 
 // open shop
-router.post("/openShop", [auth, validate(addShopSchema)], async (req, res) => {
-  try {
-    const data = req.body;
-    data.owner = req.user._id;
-    data.isVerified = false;
+router.post(
+  "/openShop",
+  upload.single("image"),
+  [auth, validate(addShopSchema)],
+  async (req, res) => {
+    let uploadedImage = null;
 
-    const newShop = new ShopModel(data);
-    newShop.save();
+    try {
+      const data = req.body;
+      data.owner = req.user._id;
+      data.isVerified = false;
 
-    if (!newShop)
-      return res
-        .status(404)
-        .json({ success: false, message: "Failed to create shop" });
+      const newShop = new ShopModel(data);
+      newShop.save();
 
-    return res.status(201).json({
-      success: true,
-      message: "Admins will review your request soon",
-      data: newShop,
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+      if (!newShop)
+        return res
+          .status(404)
+          .json({ success: false, message: "Failed to create shop" });
+
+      if (req.file) {
+        uploadedImage = await uploadToCloudinary(req.file.buffer);
+        data.image = uploadedImage.secure_url;
+        data.imagePublicId = uploadedImage.public_id;
+      }
+
+      return res.status(201).json({
+        success: true,
+        message: "Admins will review your request soon",
+        data: newShop,
+      });
+    } catch (error) {
+      // If post creation fails and image was uploaded, delete it from Cloudinary
+      if (uploadedImage && uploadedImage.public_id) {
+        await deleteImageFromCloudinary(uploadedImage.public_id);
+      }
+
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // edit shop
 router.patch(

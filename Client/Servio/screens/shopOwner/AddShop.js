@@ -48,6 +48,7 @@ const validationSchema = Yup.object({
         return hours?.some((day) => day.isOpen);
       },
     ),
+  link: Yup.string().required(),
 });
 
 const formatServices = (services) => {
@@ -78,8 +79,8 @@ function AddShop(props) {
       address: {
         city: values.city,
         area: values.area,
-        street: values.street
-      }
+        street: values.street,
+      },
     };
 
     console.log("Submitted values:", formattedValues);
