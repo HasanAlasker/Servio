@@ -27,7 +27,7 @@ const getStyles = (theme) =>
     text: {
       color: theme.blue,
       fontWeight: "bold",
-      fontSize: 20,
+      fontSize: 18,
       textAlign: "center",
     },
   });
