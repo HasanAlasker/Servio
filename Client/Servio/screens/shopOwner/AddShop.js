@@ -111,7 +111,7 @@ function AddShop(props) {
 
               <FormikInput
                 name={"link"}
-                placeholder={"Shop Link, ex (google maps/ website)"}
+                placeholder={"Shop Link, (Google maps/ Website)"}
                 icon={"link"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />

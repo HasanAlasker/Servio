@@ -104,7 +104,7 @@ function AddImageBtn({
   };
 
   return (
-    <>
+    <View>
       <View style={[styles.container, containerStyle]}>
         <TouchableOpacity
           style={[styles.touchableArea, touchableAreaStyle]}
@@ -148,7 +148,7 @@ function AddImageBtn({
       {error && errorMessage && (
         <ErrorMessage error={errorMessage} />
       )}
-    </>
+    </View>
   );
 }
 

@@ -54,7 +54,7 @@ function OpenHoursInput({ name = "openHours", hasBeenSubmitted = false }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Opening Hours</Text>
-      
+
       {openHours.map((day, index) => (
         <View key={day.day} style={styles.dayRow}>
           <View style={styles.dayHeader}>
@@ -95,20 +95,22 @@ function OpenHoursInput({ name = "openHours", hasBeenSubmitted = false }) {
                 </View>
               </View>
 
-              <TouchableOpacity
-                onPress={() => copyToAllOpenDays(index)}
-                style={styles.copyButton}
-              >
-                <Text style={styles.copyButtonText}>
-                  Copy to all open days
-                </Text>
-              </TouchableOpacity>
+              {index == 0 && (
+                <TouchableOpacity
+                  onPress={() => copyToAllOpenDays(index)}
+                  style={styles.copyButton}
+                >
+                  <Text style={styles.copyButtonText}>
+                    Copy to all open days
+                  </Text>
+                </TouchableOpacity>
+              )}
             </>
           )}
         </View>
       ))}
 
-      {hasBeenSubmitted && typeof error === 'string' && (
+      {hasBeenSubmitted && typeof error === "string" && (
         <ErrorMessage error={error} />
       )}
     </View>
@@ -161,14 +163,13 @@ const getStyles = (theme) =>
       color: theme.main_text,
     },
     copyButton: {
-      alignSelf: "center",
       paddingVertical: 8,
       paddingHorizontal: 15,
-      backgroundColor: theme.faded,
+      backgroundColor: theme.backgroundColor,
       borderRadius: 15,
     },
     copyButtonText: {
-      fontSize: 12,
+      fontSize: 14,
       color: theme.blue,
       fontWeight: "600",
     },
