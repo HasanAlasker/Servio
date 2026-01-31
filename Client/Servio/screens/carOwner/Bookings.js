@@ -108,7 +108,11 @@ function Bookings(props) {
         <GapContainer>
           <TabNav active={activeTab} onTabChange={onTabChange} />
           {RenderAppointments.length === 0 && !loading ? (
-            <SText thin color={"sec_text"} style={{ marginHorizontal: "auto" }}>
+            <SText
+              thin
+              color={"sec_text"}
+              style={{ marginHorizontal: "auto", textAlign: "center" }}
+            >
               You haven't booked any appointments yet
             </SText>
           ) : (
@@ -123,7 +127,9 @@ function Bookings(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    
+  },
 });
 
 export default Bookings;

@@ -49,7 +49,7 @@ function MyCars(props) {
       <ScrollScreen>
         <GapContainer>
           {carsList.length === 0 && !loading ? (
-            <SText thin color={"sec_text"} style={{ marginHorizontal: "auto" }}>
+            <SText thin color={"sec_text"} style={{ marginHorizontal: "auto", textAlign: 'center' }}>
               You haven't added any cars yet
             </SText>
           ) : (

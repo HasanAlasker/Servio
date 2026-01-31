@@ -42,7 +42,7 @@ function Service(props) {
       <ScrollScreen>
         <GapContainer>
           {RenderServices.length === 0 && !loading ? (
-            <SText thin color={"sec_text"} style={{ marginHorizontal: "auto" }}>
+            <SText thin color={"sec_text"} style={{ marginHorizontal: "auto", textAlign: 'center' }}>
               You don't have any upcoming services
             </SText>
           ) : (

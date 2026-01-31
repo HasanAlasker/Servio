@@ -75,6 +75,10 @@ router.get("/count", auth, async (req, res) => {
     const numOfCars = await CarModel.countDocuments({ owner: userId });
     const numOfAppointments = await AppointmentModel.countDocuments({
       customer: userId,
+      $and: [
+        { scheduledDate: { $gte: new Date() } },
+        { status: { $nin: ["canceled", "completed", "no-show"] } },
+      ],
     });
     const numOfServices = await UpcomingServiceModel.countDocuments({
       $and: [{ customer: userId }, { status: { $in: ["due", "overdue"] } }],
