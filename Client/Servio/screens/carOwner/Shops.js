@@ -6,6 +6,7 @@ import ShopCard from "../../components/cards/ShopCard";
 import useApi from "../../hooks/useApi";
 import { getVerifiedShops } from "../../api/shop";
 import { useEffect, useState } from "react";
+import GapContainer from "../../components/general/GapContainer";
 
 function Shops(props) {
   const [shops, setShops] = useState([]);
@@ -41,7 +42,9 @@ function Shops(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen>{RenderShops}</ScrollScreen>
+      <ScrollScreen>
+        <GapContainer>{RenderShops}</GapContainer>
+      </ScrollScreen>
       <Navbar />
     </SafeScreen>
   );

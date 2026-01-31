@@ -5,7 +5,6 @@ import MText from "../text/MText";
 import RowCont from "../general/RowCont";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import SText from "../text/SText";
-import TText from "../text/TText";
 import GapContainer from "../general/GapContainer";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 
@@ -67,9 +66,9 @@ function CardLeftBorder({ title, data, status, parts }) {
               name={
                 text === "Dangerous"
                   ? "alert-outline"
-                  : "Services"
-                    ? "toolbox-outline"
-                    : "alert-circle-outline"
+                  : text === "Check Soon"
+                    ? "alert-circle-outline"
+                    : "toolbox-outline"
               }
               size={24}
               color={theme[color]}
