@@ -57,6 +57,7 @@ function Shops(props) {
             rating={shop.rating}
             ratingCount={shop.ratingCount}
             services={shop.services}
+            isVerified={shop.isVerified}
           />
         ))
       : Verified.map((shop) => (
@@ -71,6 +72,7 @@ function Shops(props) {
             rating={shop.rating}
             ratingCount={shop.ratingCount}
             services={shop.services}
+            isVerified={shop.isVerified}
           />
         ));
 
