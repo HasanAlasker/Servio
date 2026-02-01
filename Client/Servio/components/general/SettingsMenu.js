@@ -12,7 +12,7 @@ import { UseUser } from "../../context/UserContext";
 function SettingsMenu({ isVisible, onClose }) {
   const styles = useThemedStyles(getStyles);
   const { toggleTheme, isDarkMode } = useTheme();
-  const { logout, isAdmin } = UseUser();
+  const { logout, isUser } = UseUser();
   const navigate = useNavigation();
 
   if (!isVisible) return null;
@@ -39,7 +39,7 @@ function SettingsMenu({ isVisible, onClose }) {
           />
           <SeparatorComp full />
 
-          {!isAdmin && (
+          {isUser && (
             <MenuOption
               text={"Open Shop"}
               icon={"storefront-plus-outline"}
@@ -47,7 +47,7 @@ function SettingsMenu({ isVisible, onClose }) {
               onPress={() => navigate.navigate("AddShop")}
             />
           )}
-          {!isAdmin && <SeparatorComp full />}
+          {isUser && <SeparatorComp full />}
 
           <MenuOption
             text={"Suggestions"}

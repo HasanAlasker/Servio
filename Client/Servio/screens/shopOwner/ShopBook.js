@@ -1,13 +1,19 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from "react-native";
+import SafeScreen from "../../components/general/SafeScreen";
+import ScrollScreen from "../../components/general/ScrollScreen";
+import Navbar from "../../components/general/Navbar";
 
 function ShopBook(props) {
   return (
-    <View style={styles.container}></View>
+    <SafeScreen>
+      <ScrollScreen style={styles.container}></ScrollScreen>
+      <Navbar />
+    </SafeScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  container:{},
-})
+  container: {},
+});
 
 export default ShopBook;
