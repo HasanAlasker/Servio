@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import TText from "../text/TText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 

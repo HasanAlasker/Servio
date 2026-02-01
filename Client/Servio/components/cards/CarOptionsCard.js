@@ -1,11 +1,11 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import CardComp from "./CardComp";
 import GapContainer from "../general/GapContainer";
 import SquareInfo from "./SquareInfo";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import PriBtn from "../general/PriBtn";
 import { useTheme } from "../../context/ThemeContext";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { deleteCar } from "../../api/car";
 import { useState } from "react";
 

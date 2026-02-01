@@ -1,6 +1,5 @@
 import { View, StyleSheet, Image } from "react-native";
 import CardComp from "./CardComp";
-import LText from "../text/LText";
 import MText from "../text/MText";
 import SText from "../text/SText";
 import RowCont from "../general/RowCont";

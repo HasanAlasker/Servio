@@ -5,7 +5,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import RowCont from "../general/RowCont";
 import GapContainer from "../general/GapContainer";
 import SText from "../text/SText";
-import MText from "../text/MText";
 import TText from "../text/TText";
 
 function SquareInfo({ icon, color, title, text, fliped = false, style }) {

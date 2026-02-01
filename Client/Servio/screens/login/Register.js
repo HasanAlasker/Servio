@@ -1,5 +1,4 @@
 import { View, StyleSheet } from "react-native";
-import AppText from "../../config/AppText";
 import SafeScreen from "../../components/general/SafeScreen";
 import KeyboardScrollScreen from "../../components/general/KeyboardScrollScreen";
 import LogoAndMoto from "../../components/welcome/LogoAndMoto";
@@ -9,7 +8,6 @@ import GapContainer from "../../components/general/GapContainer";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import { ErrorMessage } from "formik";
 import * as Yup from "yup";
-import useThemedStyles from "../../hooks/useThemedStyles";
 import { UseUser } from "../../context/UserContext";
 import { useEffect, useState } from "react";
 import SeparatorComp from "../../components/general/SeparatorComp";

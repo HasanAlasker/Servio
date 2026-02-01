@@ -7,7 +7,6 @@ import GapContainer from "../../components/general/GapContainer";
 import { useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
 import { getMyCars } from "../../api/car";
-import LText from "../../components/text/LText";
 import SText from "../../components/text/SText";
 import CarCard from "../../components/cards/CarCard";
 

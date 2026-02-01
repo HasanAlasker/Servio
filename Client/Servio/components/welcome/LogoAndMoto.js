@@ -1,5 +1,4 @@
 import { View, StyleSheet, Image } from "react-native";
-import AppText from "../../config/AppText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 import LText from "../text/LText";
@@ -7,7 +6,6 @@ import SText from "../text/SText";
 
 function LogoAndMoto({ moto }) {
   const styles = useThemedStyles(getStyles);
-  const { theme } = useTheme();
 
   return (
     <View style={styles.container}>

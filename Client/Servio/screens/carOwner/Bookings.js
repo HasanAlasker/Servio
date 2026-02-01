@@ -15,6 +15,7 @@ import GapContainer from "../../components/general/GapContainer";
 import TabNav from "../../components/general/TabNav";
 import { useRoute } from "@react-navigation/native";
 import SText from "../../components/text/SText";
+import KeyboardScrollScreen from "../../components/general/KeyboardScrollScreen";
 
 function Bookings(props) {
   const [upcoming, setUpcoming] = useState([]);
@@ -111,7 +112,7 @@ function Bookings(props) {
             <SText
               thin
               color={"sec_text"}
-              style={{ marginHorizontal: "auto", textAlign: "center" }}
+              style={{ margin: "auto", textAlign: "center" }}
             >
               You haven't booked any appointments yet
             </SText>

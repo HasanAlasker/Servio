@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
-import FullScreen from "../../components/general/FullScreen";
 import Navbar from "../../components/general/Navbar";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import GapContainer from "../../components/general/GapContainer";

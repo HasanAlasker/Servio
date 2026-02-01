@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import SText from "../text/SText";
 import RowCont from "./RowCont";
 import { useTheme } from "../../context/ThemeContext";

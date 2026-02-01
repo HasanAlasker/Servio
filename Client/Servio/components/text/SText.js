@@ -1,9 +1,9 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import AppText from "../../config/AppText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 
-function SText({ children, color, thin, style, }) {
+function SText({ children, color, thin, style }) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getStyles);
   return (

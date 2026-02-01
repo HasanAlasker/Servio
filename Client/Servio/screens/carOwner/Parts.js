@@ -1,4 +1,3 @@
-import React from "react";
 import { View, StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import FullScreen from "../../components/general/FullScreen";

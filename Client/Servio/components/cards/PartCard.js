@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import SquareInfo from "./SquareInfo";
 import SeparatorComp from "../general/SeparatorComp";
 import GapContainer from "../general/GapContainer";

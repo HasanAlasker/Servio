@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import KeyboardScrollScreen from "../../components/general/KeyboardScrollScreen";
 import Navbar from "../../components/general/Navbar";

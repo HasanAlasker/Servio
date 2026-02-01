@@ -10,7 +10,6 @@ import { getTimeFromDate } from "../../functions/fromatTime";
 import IconTextLabel from "../general/IconTextLabel";
 import { formatDate } from "../../functions/formatDate";
 import PriBtn from "../general/PriBtn";
-import { cancelAppointment } from "../../api/appointment";
 import { useTheme } from "../../context/ThemeContext";
 
 function AppointmentCard({

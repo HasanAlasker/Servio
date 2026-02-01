@@ -1,15 +1,12 @@
 import { View, StyleSheet, Image } from "react-native";
 import CardComp from "./CardComp";
-import LText from "../text/LText";
 import MText from "../text/MText";
 import SText from "../text/SText";
-import RowCont from "../general/RowCont";
 import SquareInfo from "./SquareInfo";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import GapContainer from "../general/GapContainer";
 import CardLeftBorder from "./CardLeftBorder";
-import IconTextLabel from "../general/IconTextLabel";
 import PriBtn from "../general/PriBtn";
 import { useEffect, useState } from "react";
 import {

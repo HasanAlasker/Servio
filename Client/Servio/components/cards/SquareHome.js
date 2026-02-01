@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { View, StyleSheet, TouchableOpacity, Pressable } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 import SText from "../text/SText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";

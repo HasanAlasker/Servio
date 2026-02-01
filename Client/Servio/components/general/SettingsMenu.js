@@ -1,5 +1,4 @@
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
-import BackContainer from "./BackContainer";
 import MenuBackBtn from "./MenuBackBtn";
 import MenuOption from "./MenuOption";
 import SeparatorComp from "./SeparatorComp";
@@ -8,7 +7,6 @@ import { Modal } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 import GapContainer from "./GapContainer";
-import CardModal from "./CardModal";
 import { UseUser } from "../../context/UserContext";
 
 function SettingsMenu({ isVisible, onClose }) {

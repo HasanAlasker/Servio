@@ -9,7 +9,6 @@ import GapContainer from "../../components/general/GapContainer";
 import FormikInput from "../../components/form/FormikInput";
 import { useState } from "react";
 import CardComp from "../../components/cards/CardComp";
-import LText from "../../components/text/LText";
 import SquareInfo from "../../components/cards/SquareInfo";
 import StatusLabel from "../../components/general/StatusLabel";
 import PriBtn from "../../components/general/PriBtn";
