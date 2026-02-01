@@ -17,6 +17,7 @@ import Welcome from "./screens/login/Welcome";
 import Login from "./screens/login/Login";
 import Register from "./screens/login/Register";
 import Dash from "./screens/admin/Dash";
+import AdminShops from "./screens/admin/Shops";
 import MyShop from "./screens/shopOwner/MyShop";
 import { useEffect } from "react";
 import Profile from "./screens/shared/Profile";
@@ -25,6 +26,8 @@ import CarParts from "./screens/carOwner/CarParts";
 import AddPart from "./screens/carOwner/AddPart";
 import AddShop from "./screens/shopOwner/AddShop";
 import ShopDash from "./screens/shopOwner/ShopDash";
+import Users from "./screens/admin/Users";
+import Reports from "./screens/admin/Reports";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +39,9 @@ const AdminStack = () => {
     >
       <Stack.Screen name="Dash" component={Dash} />
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="AdminShops" component={AdminShops} />
+      <Stack.Screen name="Users" component={Users} />
+      <Stack.Screen name="Reports" component={Reports} />
     </Stack.Navigator>
   );
 };
