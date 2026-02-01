@@ -4,7 +4,7 @@ import RowCont from "./RowCont";
 import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
 
-function TabNav({ active, onTabChange }) {
+function TabNav({ active, onTabChange, one, two }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
 
@@ -17,17 +17,17 @@ function TabNav({ active, onTabChange }) {
           {
             borderTopLeftRadius: 15,
             borderBottomLeftRadius: 15,
-            backgroundColor: active === "upcoming" ? theme.blue : theme.post,
+            backgroundColor: active === "1" ? theme.blue : theme.post,
           },
         ]}
       >
         <SText
           style={[
             styles.text,
-            { color: active === "upcoming" ? theme.always_white : theme.blue },
+            { color: active === "1" ? theme.always_white : theme.blue },
           ]}
         >
-          Upcoming
+          {one}
         </SText>
       </TouchableOpacity>
 
@@ -38,17 +38,17 @@ function TabNav({ active, onTabChange }) {
           {
             borderTopRightRadius: 15,
             borderBottomRightRadius: 15,
-            backgroundColor: active === "past" ? theme.blue : theme.post,
+            backgroundColor: active === "2" ? theme.blue : theme.post,
           },
         ]}
       >
         <SText
           style={[
             styles.text,
-            { color: active === "past" ? theme.always_white : theme.blue },
+            { color: active === "2" ? theme.always_white : theme.blue },
           ]}
         >
-          Past
+          {two}
         </SText>
       </TouchableOpacity>
     </RowCont>

@@ -20,7 +20,7 @@ import KeyboardScrollScreen from "../../components/general/KeyboardScrollScreen"
 function Bookings(props) {
   const [upcoming, setUpcoming] = useState([]);
   const [past, setPast] = useState([]);
-  const [activeTab, setTab] = useState("upcoming");
+  const [activeTab, setTab] = useState("1");
 
   const route = useRoute();
   const params = route.params;
@@ -56,7 +56,7 @@ function Bookings(props) {
   const handleCancel = async (id, type) => {
     await cancelAppointment(id);
 
-    if (type === "upcoming") {
+    if (type === "1") {
       const canceledApp = upcoming.find((app) => app._id === id);
       canceledApp.status = "canceled";
       setUpcoming((prev) => prev.filter((app) => app._id !== id));
@@ -70,7 +70,7 @@ function Bookings(props) {
   };
 
   const RenderAppointments =
-    activeTab === "upcoming"
+    activeTab === "1"
       ? upcoming.map((appointment) => (
           <AppointmentCard
             key={appointment._id}
@@ -99,7 +99,7 @@ function Bookings(props) {
         ));
 
   const onTabChange = () => {
-    let changeTo = activeTab === "upcoming" ? "past" : "upcoming";
+    let changeTo = activeTab === "1" ? "2" : "1";
     setTab(changeTo);
   };
 
@@ -107,7 +107,12 @@ function Bookings(props) {
     <SafeScreen>
       <ScrollScreen>
         <GapContainer>
-          <TabNav active={activeTab} onTabChange={onTabChange} />
+          <TabNav
+            one={"Upcoming"}
+            two={"Past"}
+            active={activeTab}
+            onTabChange={onTabChange}
+          />
           {RenderAppointments.length === 0 && !loading ? (
             <SText
               thin
@@ -128,9 +133,7 @@ function Bookings(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    
-  },
+  container: {},
 });
 
 export default Bookings;

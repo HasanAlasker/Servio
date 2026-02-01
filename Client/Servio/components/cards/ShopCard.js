@@ -30,7 +30,7 @@ function ShopCard({
   const params = route?.params;
   
   useEffect(() => {
-    if(params.showBtn) setShowBtn(params.showBtn)
+    if(params?.showBtn) setShowBtn(params?.showBtn)
   }, []);
 
   const days = openHours.filter((day) => day.isOpen === true);
