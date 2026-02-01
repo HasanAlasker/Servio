@@ -26,49 +26,35 @@ function ShopOwner({onMenu, isMenu}) {
 
       <TouchableOpacity
         style={styles.navbarBtn}
-        onPress={() => navigation.navigate("MyCars")}
+        onPress={() => navigation.navigate("MyShop")}
       >
         <Ionicons
-          name="car-outline"
-          size={38}
-          style={[styles.icon, route.name === "MyCars" && styles.active]}
+          name="storefront-outline"
+          size={35}
+          style={[styles.icon, route.name === "MyShop" && styles.active]}
         />
         <Text
           style={[
             styles.text,
-            route.name === "MyCars" && styles.active,
-            { bottom: 4 },
+            route.name === "MyShop" && styles.active,
+            { bottom: 3 },
           ]}
         >
-          Garage
+          My Shops
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.navbarBtn}
-        onPress={() => navigation.navigate("Bookings")}
+        onPress={() => navigation.navigate("ShopBook")}
       >
         <Feather
           name="calendar"
           size={30}
-          style={[styles.icon, route.name === "Bookings" && styles.active]}
+          style={[styles.icon, route.name === "ShopBook" && styles.active]}
         />
-        <Text style={[styles.text, route.name === "Bookings" && styles.active]}>
+        <Text style={[styles.text, route.name === "ShopBook" && styles.active]}>
           Bookings
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.navbarBtn}
-        onPress={() => navigation.navigate("Service")}
-      >
-        <Feather
-          name="clock"
-          size={30}
-          style={[styles.icon, route.name === "Service" && styles.active]}
-        />
-        <Text style={[styles.text, route.name === "Service" && styles.active]}>
-          Service
         </Text>
       </TouchableOpacity>
 

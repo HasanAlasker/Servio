@@ -23,11 +23,10 @@ function Navbar(props) {
       {isUser ? (
         <UserNav onMenu={handleMenu} isMenu={isMenu} />
       ) : isShopOwner ? (
-        <ShopOwner />
+        <ShopOwner onMenu={handleMenu} isMenu={isMenu} />
       ) : (
         <Admin onMenu={handleMenu} isMenu={isMenu} />
       )}
-
       <View style={styles.bottom}></View>
     </>
   );
