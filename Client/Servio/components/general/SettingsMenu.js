@@ -12,7 +12,7 @@ import { UseUser } from "../../context/UserContext";
 function SettingsMenu({ isVisible, onClose }) {
   const styles = useThemedStyles(getStyles);
   const { toggleTheme, isDarkMode } = useTheme();
-  const { logout } = UseUser();
+  const { logout, isAdmin } = UseUser();
   const navigate = useNavigation();
 
   if (!isVisible) return null;
@@ -39,13 +39,15 @@ function SettingsMenu({ isVisible, onClose }) {
           />
           <SeparatorComp full />
 
-          <MenuOption
-            text={"Open Shop"}
-            icon={"storefront-plus-outline"}
-            color={"blue"}
-            onPress={() => navigate.navigate("AddShop")}
-          />
-          <SeparatorComp full />
+          {!isAdmin && (
+            <MenuOption
+              text={"Open Shop"}
+              icon={"storefront-plus-outline"}
+              color={"blue"}
+              onPress={() => navigate.navigate("AddShop")}
+            />
+          )}
+          {!isAdmin && <SeparatorComp full />}
 
           <MenuOption
             text={"Suggestions"}
