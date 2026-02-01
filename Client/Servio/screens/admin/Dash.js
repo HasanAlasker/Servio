@@ -13,12 +13,7 @@ function Dash(props) {
   return (
     <SafeScreen>
       <ScrollScreen style={styles.container}>
-        <Text>Admin</Text>
-        <LText>{user.name}</LText>
-        <LText>{user.phone}</LText>
-        <LText>{user.email}</LText>
-        <LText>{user.createdAt}</LText>
-        <LText>{user._id}</LText>
+
       </ScrollScreen>
       <Navbar />
       <OfflineModal />
