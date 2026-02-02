@@ -45,8 +45,8 @@ function Users(props) {
 
   const RenderUsers =
     tab === "1"
-      ? active.map((user) => <UserCard key={user._id} user={user} full />)
-      : deleted.map((user) => <UserCard key={user._id} user={user} full />);
+      ? active.map((user) => <UserCard key={user._id} passedUser={user} full />)
+      : deleted.map((user) => <UserCard key={user._id} passedUser={user} full />);
 
   return (
     <SafeScreen>

@@ -68,7 +68,7 @@ function Profile(props) {
       <KeyboardScrollScreen>
         <GapContainer style={{ marginVertical: "auto" }}>
           <UserCard
-            user={user}
+            passedUser={user}
             handleEditPress={handleEditPress}
             isEdit={isEdit}
           />
