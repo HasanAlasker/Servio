@@ -5,7 +5,12 @@ import Navbar from "../../components/general/Navbar";
 import TabNav from "../../components/general/TabNav";
 import { useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
-import { getAllUsers, getDeletedUsers } from "../../api/user";
+import {
+  deleteUser,
+  getAllUsers,
+  getDeletedUsers,
+  undeleteUser,
+} from "../../api/user";
 import UserCard from "../../components/cards/UserCard";
 import GapContainer from "../../components/general/GapContainer";
 
@@ -43,10 +48,48 @@ function Users(props) {
     else setTab("1");
   };
 
+  const handleAction = async (isDeleted, id) => {
+    try {
+      if (isDeleted) {
+        await undeleteUser(id);
+        setDeleted((prev) => prev.filter((user) => user._id !== id));
+        setActive((prev) => {
+          const user = deleted.find((user) => user._id === id);
+          return user ? [{ ...user, isDeleted: false }, ...prev] : prev;
+        });
+      } else {
+        await deleteUser(id);
+        setActive((prev) => prev.filter((user) => user._id !== id));
+        setDeleted((prev) => {
+          const user = active.find((user) => user._id === id);
+          return user ? [{ ...user, isDeleted: true }, ...prev] : prev;
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const RenderUsers =
     tab === "1"
-      ? active.map((user) => <UserCard key={user._id} passedUser={user} full />)
-      : deleted.map((user) => <UserCard key={user._id} passedUser={user} full />);
+      ? active.map((user) => (
+          <UserCard
+            key={user._id}
+            passedUser={user}
+            isDeleted={user.isDeleted}
+            handleAction={handleAction}
+            full
+          />
+        ))
+      : deleted.map((user) => (
+          <UserCard
+            key={user._id}
+            passedUser={user}
+            isDeleted={user.isDeleted}
+            handleAction={handleAction}
+            full
+          />
+        ));
 
   return (
     <SafeScreen>

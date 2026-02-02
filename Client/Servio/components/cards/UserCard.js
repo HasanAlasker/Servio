@@ -8,7 +8,14 @@ import { useTheme } from "../../context/ThemeContext";
 import { UseUser } from "../../context/UserContext";
 import { useRoute } from "@react-navigation/native";
 
-function UserCard({ passedUser, isEdit, handleEditPress, full }) {
+function UserCard({
+  passedUser,
+  isEdit,
+  handleEditPress,
+  handleAction,
+  isDeleted = null,
+  full,
+}) {
   const { theme } = useTheme();
   const { user, isAdmin } = UseUser();
   const route = useRoute();
@@ -54,6 +61,18 @@ function UserCard({ passedUser, isEdit, handleEditPress, full }) {
               borderColor: isEdit ? theme.red : theme.blue,
             }}
             onPress={handleEditPress}
+          />
+        )}
+        {isDeleted !== null && route.name === "Users" && (
+          <PriBtn
+            square
+            full
+            title={isDeleted ? "Un-Delete" : "Delete User"}
+            style={{
+              backgroundColor: !isDeleted ? theme.red : theme.blue,
+              borderColor: !isDeleted ? theme.red : theme.blue,
+            }}
+            onPress={() => handleAction(isDeleted, passedUser._id)}
           />
         )}
       </GapContainer>
