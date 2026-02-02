@@ -13,6 +13,8 @@ import {
   formatDayRange,
   formatOpenDays,
 } from "../../functions/formatOpenHours";
+import { deleteShop, verifyShop } from "../../api/shop";
+import { useTheme } from "../../context/ThemeContext";
 
 function ShopCard({
   id,
@@ -26,6 +28,7 @@ function ShopCard({
   ratingCount,
   isVerified = null,
 }) {
+  const { theme } = useTheme();
   const [showBtn, setShowBtn] = useState(false);
   const route = useRoute();
   const params = route?.params;
@@ -36,6 +39,16 @@ function ShopCard({
 
   const days = openHours.filter((day) => day.isOpen === true);
   const groupDays = formatOpenDays(days);
+
+  const hadleVerification = async () => {
+    try {
+      if (isVerified) {
+        const response = await deleteShop(id);
+      } else {
+        const response = await verifyShop(id);
+      }
+    } catch (error) {}
+  };
 
   return (
     <CardComp style={styles.container}>
@@ -74,6 +87,20 @@ function ShopCard({
           <CardLeftBorder parts={services} status={"randomText"} />
 
           {showBtn && <PriBtn full square title={"Reserve"} />}
+
+          {isVerified !== null && (
+            <PriBtn
+              full
+              square
+              title={isVerified ? "Delete Shop" : "Verify Shop"}
+              onPress={hadleVerification}
+              style={
+                isVerified
+                  ? { backgroundColor: theme.red, borderColor: theme.red }
+                  : null
+              }
+            />
+          )}
         </GapContainer>
       </View>
     </CardComp>

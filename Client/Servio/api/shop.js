@@ -128,6 +128,6 @@ export const editShop = (id, data) => {
   });
 };
 
-export const deleteShop = (id) => apiClient.patch(`${endpoint}/edit/${id}`);
+export const deleteShop = (id) => apiClient.patch(`${endpoint}/delete/${id}`);
 
 export const verifyShop = (id) => apiClient.patch(`${endpoint}/verify/${id}`);
