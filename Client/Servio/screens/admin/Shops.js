@@ -43,6 +43,12 @@ function Shops(props) {
     else setTab("1");
   };
 
+  const handleAction = (type, id) => {
+    if (type === "delete") {
+      setVerified((p) => p.filter((shop) => shop._id !== id));
+    }
+  };
+
   const RenderShops =
     tab === "1"
       ? unverified.map((shop) => (
@@ -58,6 +64,7 @@ function Shops(props) {
             ratingCount={shop.ratingCount}
             services={shop.services}
             isVerified={shop.isVerified}
+            onAction={handleAction}
           />
         ))
       : Verified.map((shop) => (
@@ -73,6 +80,7 @@ function Shops(props) {
             ratingCount={shop.ratingCount}
             services={shop.services}
             isVerified={shop.isVerified}
+            onAction={handleAction}
           />
         ));
 

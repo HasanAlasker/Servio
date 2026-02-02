@@ -27,6 +27,7 @@ function ShopCard({
   rating,
   ratingCount,
   isVerified = null,
+  onAction
 }) {
   const { theme } = useTheme();
   const [showBtn, setShowBtn] = useState(false);
@@ -44,8 +45,10 @@ function ShopCard({
     try {
       if (isVerified) {
         const response = await deleteShop(id);
+        onAction("delete", id)
       } else {
         const response = await verifyShop(id);
+        onAction("verify", id)
       }
     } catch (error) {}
   };
