@@ -104,45 +104,45 @@ router.get("/count", auth, async (req, res) => {
 });
 
 // count docs (admin)
-router.get("/admin/count", auth, async (req, res) => {
+router.get("/admin/count", [auth, admin], async (req, res) => {
   try {
-    const activeUsers = UserModel.countDocuments({ isDeleted: false });
-    const deletedUsers = UserModel.countDocuments({ isDeleted: true });
-    const carOwners = UserModel.countDocuments({
+    const activeUsers = await UserModel.countDocuments({ isDeleted: false });
+    const deletedUsers = await UserModel.countDocuments({ isDeleted: true });
+    const carOwners = await UserModel.countDocuments({
       role: "user",
       isDeleted: false,
     });
-    const shopOwners = UserModel.countDocuments({
+    const shopOwners = await UserModel.countDocuments({
       role: "shopOwner",
       isDeleted: false,
     });
-    const activeShops = ShopModel.countDocuments({
+    const activeShops = await ShopModel.countDocuments({
       isVerified: true,
       isDeleted: false,
     });
-    const deletedShops = ShopModel.countDocuments({
+    const deletedShops = await ShopModel.countDocuments({
       isVerified: false,
       isDeleted: true,
     });
-    const shopRequests = ShopModel.countDocuments({
+    const shopRequests = await ShopModel.countDocuments({
       isVerified: false,
       isDeleted: false,
     });
-    const suggestions = SuggestionModel.countDocuments();
-    const reports = ReportModel.countDocuments({ status: "open" });
-    const cars = CarModel.countDocuments();
+    const suggestions = await SuggestionModel.countDocuments();
+    const reports = await ReportModel.countDocuments({ status: "open" });
+    const cars = await CarModel.countDocuments();
 
     const response = {
-      activeUsers,
-      deletedUsers,
-      deletedShops,
-      activeShops,
-      shopRequests,
-      shopOwners,
-      carOwners,
-      suggestions,
-      reports,
-      cars,
+      activeUsers: activeUsers,
+      deletedUsers: deletedUsers,
+      deletedShops: deletedShops,
+      activeShops: activeShops,
+      shopRequests: shopRequests,
+      shopOwners: shopOwners,
+      carOwners: carOwners,
+      suggestions: suggestions,
+      reports: reports,
+      cars: cars,
     };
 
     return res.status(200).json({ success: true, data: response });

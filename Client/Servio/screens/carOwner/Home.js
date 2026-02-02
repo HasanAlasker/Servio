@@ -80,7 +80,7 @@ function Home(props) {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 30,
+    // marginVertical: 30,
   },
   row: {
     flexDirection: "row",
