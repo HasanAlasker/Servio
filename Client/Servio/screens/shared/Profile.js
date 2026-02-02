@@ -15,6 +15,7 @@ import PriBtn from "../../components/general/PriBtn";
 import SeparatorComp from "../../components/general/SeparatorComp";
 import { useTheme } from "../../context/ThemeContext";
 import SubmitBtn from "../../components/form/SubmitBtn";
+import UserCard from "../../components/cards/UserCard";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -43,8 +44,6 @@ const validationSchema = Yup.object().shape({
 });
 
 function Profile(props) {
-  const { theme } = useTheme();
-
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
   const [isEdit, setEdit] = useState(false);
   const { user, editProfile } = UseUser();
@@ -72,45 +71,8 @@ function Profile(props) {
   return (
     <SafeScreen>
       <KeyboardScrollScreen>
-        <GapContainer style={{marginVertical:'auto'}}>
-          <CardComp style={{ width: "90%", marginHorizontal: "auto" }}>
-            <GapContainer>
-              <GapContainer gap={12}>
-                <SquareInfo
-                  icon={"account"}
-                  color={"lightBlue"}
-                  title={"Name"}
-                  text={user.name}
-                  fliped
-                />
-                <SquareInfo
-                  icon={"phone"}
-                  color={"green"}
-                  text={user.phone}
-                  title={"Phone"}
-                  fliped
-                />
-                <SquareInfo
-                  icon={"email"}
-                  color={"pink"}
-                  text={user.email}
-                  title={"Email"}
-                  fliped
-                />
-              </GapContainer>
-              {user.role !== "user" && <StatusLabel status={user.role} />}
-              <PriBtn
-                square
-                full
-                title={!isEdit ? "Edit Info" : "Cancel"}
-                style={{
-                  backgroundColor: isEdit ? theme.red : theme.blue,
-                  borderColor: isEdit ? theme.red : theme.blue,
-                }}
-                onPress={handleEditPress}
-              />
-            </GapContainer>
-          </CardComp>
+        <GapContainer style={{ marginVertical: "auto" }}>
+          <UserCard handleEditPress={handleEditPress} isEdit={isEdit} />
           {isEdit && (
             <AppForm
               initialValues={initialValues}
