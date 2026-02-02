@@ -12,6 +12,7 @@ import { countDocs } from "../../api/user";
 import { useEffect } from "react";
 import OfflineModal from "../../components/general/OfflineModal";
 import { UseUser } from "../../context/UserContext";
+import RowCont from "../../components/general/RowCont";
 
 function Home(props) {
   const navigaiton = useNavigation();
@@ -80,7 +81,7 @@ function Home(props) {
 
 const styles = StyleSheet.create({
   container: {
-    // marginVertical: 30,
+    marginVertical: 30,
   },
   row: {
     flexDirection: "row",

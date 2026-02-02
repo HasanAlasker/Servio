@@ -9,6 +9,7 @@ import GapContainer from "../../components/general/GapContainer";
 import useApi from "../../hooks/useApi";
 import { adminCountDocs } from "../../api/user";
 import { useEffect } from "react";
+import LText from "../../components/text/LText";
 
 function Dash(props) {
   const { user } = UseUser();
@@ -23,7 +24,10 @@ function Dash(props) {
   return (
     <SafeScreen>
       <ScrollScreen>
-        <GapContainer>
+        <LText>Quick Actions</LText>
+        <GapContainer style={[styles.container, styles.row]}></GapContainer>
+        <LText>Metrics</LText>
+        <GapContainer style={styles.container}>
           <CardLeftBorder
             title={"Shop Requests:"}
             data={loading ? "..." : data.shopRequests}
@@ -73,7 +77,13 @@ function Dash(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    marginVertical: 30,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 });
 
 export default Dash;
