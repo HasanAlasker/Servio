@@ -4,40 +4,38 @@ import GapContainer from "../general/GapContainer";
 import SquareInfo from "./SquareInfo";
 import PriBtn from "../general/PriBtn";
 import StatusLabel from "../general/StatusLabel";
-import { UseUser } from "../../context/UserContext";
 import { useTheme } from "../../context/ThemeContext";
 
-function UserCard({ isEdit, handleEditPress }) {
+function UserCard({ user, isEdit, handleEditPress, full }) {
   const { theme } = useTheme();
-  const { user } = UseUser();
 
   return (
-    <CardComp style={{ width: "90%", marginHorizontal: "auto" }}>
+    <CardComp style={{ width: full ? "100%" : "90%", marginHorizontal: "auto" }}>
       <GapContainer>
         <GapContainer gap={12}>
           <SquareInfo
             icon={"account"}
             color={"lightBlue"}
             title={"Name"}
-            text={user.name}
+            text={user?.name}
             fliped
           />
           <SquareInfo
             icon={"phone"}
             color={"green"}
-            text={user.phone}
+            text={user?.phone}
             title={"Phone"}
             fliped
           />
           <SquareInfo
             icon={"email"}
             color={"pink"}
-            text={user.email}
+            text={user?.email}
             title={"Email"}
             fliped
           />
         </GapContainer>
-        {user.role !== "user" && <StatusLabel status={user.role} />}
+        {user?.role !== "user" && <StatusLabel status={user?.role} />}
         <PriBtn
           square
           full

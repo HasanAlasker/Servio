@@ -8,12 +8,7 @@ import { UseUser } from "../../context/UserContext";
 import GapContainer from "../../components/general/GapContainer";
 import FormikInput from "../../components/form/FormikInput";
 import { useState } from "react";
-import CardComp from "../../components/cards/CardComp";
-import SquareInfo from "../../components/cards/SquareInfo";
-import StatusLabel from "../../components/general/StatusLabel";
-import PriBtn from "../../components/general/PriBtn";
 import SeparatorComp from "../../components/general/SeparatorComp";
-import { useTheme } from "../../context/ThemeContext";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import UserCard from "../../components/cards/UserCard";
 
@@ -72,7 +67,11 @@ function Profile(props) {
     <SafeScreen>
       <KeyboardScrollScreen>
         <GapContainer style={{ marginVertical: "auto" }}>
-          <UserCard handleEditPress={handleEditPress} isEdit={isEdit} />
+          <UserCard
+            user={user}
+            handleEditPress={handleEditPress}
+            isEdit={isEdit}
+          />
           {isEdit && (
             <AppForm
               initialValues={initialValues}

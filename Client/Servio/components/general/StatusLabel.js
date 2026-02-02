@@ -35,7 +35,7 @@ function StatusLabel({ status }) {
         { backgroundColor: backColor, borderColor: theme[color] },
       ]}
     >
-      <TText style={{ color: theme[color] }}>{capFirstLetter(status)}</TText>
+      <TText style={{ color: theme[color] }}>{capFirstLetter(status||"...")}</TText>
     </View>
   );
 }

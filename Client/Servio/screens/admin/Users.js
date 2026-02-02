@@ -6,6 +6,8 @@ import TabNav from "../../components/general/TabNav";
 import { useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
 import { getAllUsers, getDeletedUsers } from "../../api/user";
+import UserCard from "../../components/cards/UserCard";
+import GapContainer from "../../components/general/GapContainer";
 
 function Users(props) {
   const [tab, setTab] = useState("1");
@@ -41,17 +43,23 @@ function Users(props) {
     else setTab("1");
   };
 
-  
+  const RenderUsers =
+    tab === "1"
+      ? active.map((user) => <UserCard key={user._id} user={user} full />)
+      : deleted.map((user) => <UserCard key={user._id} user={user} full />);
 
   return (
     <SafeScreen>
       <ScrollScreen>
-        <TabNav
-          one={"Active"}
-          two={"Deleted"}
-          onTabChange={handleTab}
-          active={tab}
-        />
+        <GapContainer>
+          <TabNav
+            one={"Active"}
+            two={"Deleted"}
+            onTabChange={handleTab}
+            active={tab}
+          />
+          {RenderUsers}
+        </GapContainer>
       </ScrollScreen>
       <Navbar />
     </SafeScreen>
