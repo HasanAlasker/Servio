@@ -8,6 +8,7 @@ import useApi from "../../hooks/useApi";
 import { getUnVerifiedShops, getVerifiedShops } from "../../api/shop";
 import ShopCard from "../../components/cards/ShopCard";
 import GapContainer from "../../components/general/GapContainer";
+import SText from "../../components/text/SText";
 
 function Shops(props) {
   const [tab, setTab] = useState("1");
@@ -27,6 +28,8 @@ function Shops(props) {
     error: errUv,
     loading: loadingUv,
   } = useApi(getUnVerifiedShops);
+
+  let loading = loadingUv || loadingV;
 
   useEffect(() => {
     fetchVshops();
@@ -49,7 +52,7 @@ function Shops(props) {
     } else if (type === "verify") {
       setUnverified((p) => p.filter((shop) => shop._id !== id));
       let shop = unverified.find((shop) => shop._id === id);
-      shop.isVerified = true
+      shop.isVerified = true;
       setVerified((p) => [shop, ...p]);
     }
   };
@@ -100,6 +103,26 @@ function Shops(props) {
             onTabChange={handleTab}
           />
           {RenderShops}
+          
+          {!loadingUv && unverified.length === 0 && tab === "1" && (
+            <SText
+              thin
+              color={"sec_text"}
+              style={{ margin: "auto", textAlign: "center" }}
+            >
+              There are no requests yet
+            </SText>
+          )}
+
+          {!loadingV && Verified.length === 0 && tab === "2" && (
+            <SText
+              thin
+              color={"sec_text"}
+              style={{ margin: "auto", textAlign: "center" }}
+            >
+              There are no open shops yet
+            </SText>
+          )}
         </GapContainer>
       </ScrollScreen>
       <Navbar />
