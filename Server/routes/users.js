@@ -13,6 +13,9 @@ import {
 import CarModel from "../models/car.js";
 import AppointmentModel from "../models/appointment.js";
 import UpcomingServiceModel from "../models/upcomingService.js";
+import ShopModel from "../models/shop.js";
+import SuggestionModel from "../models/suggestion.js";
+import ReportModel from "../models/report.js";
 
 const router = express.Router();
 
@@ -88,6 +91,58 @@ router.get("/count", auth, async (req, res) => {
       cars: numOfCars,
       appointments: numOfAppointments,
       services: numOfServices,
+    };
+
+    return res.status(200).json({ success: true, data: response });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// count docs (admin)
+router.get("/admin/count", auth, async (req, res) => {
+  try {
+    const activeUsers = UserModel.countDocuments({ isDeleted: false });
+    const deletedUsers = UserModel.countDocuments({ isDeleted: true });
+    const carOwners = UserModel.countDocuments({
+      role: "user",
+      isDeleted: false,
+    });
+    const shopOwners = UserModel.countDocuments({
+      role: "shopOwner",
+      isDeleted: false,
+    });
+    const activeShops = ShopModel.countDocuments({
+      isVerified: true,
+      isDeleted: false,
+    });
+    const deletedShops = ShopModel.countDocuments({
+      isVerified: false,
+      isDeleted: true,
+    });
+    const shopRequests = ShopModel.countDocuments({
+      isVerified: false,
+      isDeleted: false,
+    });
+    const suggestions = SuggestionModel.countDocuments();
+    const reports = ReportModel.countDocuments({ status: "open" });
+    const cars = CarModel.countDocuments();
+
+    const response = {
+      activeUsers,
+      deletedUsers,
+      deletedShops,
+      activeShops,
+      shopRequests,
+      shopOwners,
+      carOwners,
+      suggestions,
+      reports,
+      cars,
     };
 
     return res.status(200).json({ success: true, data: response });
