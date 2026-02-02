@@ -46,6 +46,11 @@ function Shops(props) {
   const handleAction = (type, id) => {
     if (type === "delete") {
       setVerified((p) => p.filter((shop) => shop._id !== id));
+    } else if (type === "verify") {
+      setUnverified((p) => p.filter((shop) => shop._id !== id));
+      let shop = unverified.find((shop) => shop._id === id);
+      shop.isVerified = true
+      setVerified((p) => [shop, ...p]);
     }
   };
 
