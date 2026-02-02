@@ -13,6 +13,7 @@ import {
 } from "../../api/user";
 import UserCard from "../../components/cards/UserCard";
 import GapContainer from "../../components/general/GapContainer";
+import SText from "../../components/text/SText";
 
 function Users(props) {
   const [tab, setTab] = useState("1");
@@ -32,6 +33,8 @@ function Users(props) {
     loading: loadingD,
     error: errD,
   } = useApi(getDeletedUsers);
+
+  const loading = loadingA || loadingD;
 
   useEffect(() => {
     fActive();
@@ -102,6 +105,15 @@ function Users(props) {
             active={tab}
           />
           {RenderUsers}
+          {!loadingD && deleted.length === 0 && tab === "2" && (
+            <SText
+              thin
+              color={"sec_text"}
+              style={{ margin: "auto", textAlign: "center" }}
+            >
+              There are no deleted accounts
+            </SText>
+          )}
         </GapContainer>
       </ScrollScreen>
       <Navbar />
