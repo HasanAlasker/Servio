@@ -12,7 +12,7 @@ import { UseUser } from "../../context/UserContext";
 function SettingsMenu({ isVisible, onClose }) {
   const styles = useThemedStyles(getStyles);
   const { toggleTheme, isDarkMode } = useTheme();
-  const { logout, isUser } = UseUser();
+  const { logout, isUser, isAdmin } = UseUser();
   const navigate = useNavigation();
 
   if (!isVisible) return null;
@@ -53,7 +53,7 @@ function SettingsMenu({ isVisible, onClose }) {
             text={"Suggestions"}
             icon={"chat-outline"}
             color={"green"}
-            onPress={() => navigate.navigate("Suggestions")}
+            onPress={() => navigate.navigate(!isAdmin ? "Suggestions" : "SeeSuggestions")}
           />
           <SeparatorComp full />
 
