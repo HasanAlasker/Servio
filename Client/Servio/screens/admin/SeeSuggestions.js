@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
 import { deleteSuggestion, getAllSuggestions } from "../../api/suggestion";
 import SuggestionCard from "../../components/cards/SuggestionCard";
+import LText from "../../components/text/LText";
 
 function SeeSuggestions(props) {
   const [sug, setSug] = useState([]);
@@ -41,7 +42,10 @@ function SeeSuggestions(props) {
   return (
     <SafeScreen>
       <ScrollScreen>
-        <GapContainer>{RenderSug}</GapContainer>
+        <GapContainer>
+          <LText style={{ textAlign: "center" }}>User Suggestions</LText>
+          {RenderSug}
+        </GapContainer>
       </ScrollScreen>
       <Navbar />
     </SafeScreen>
