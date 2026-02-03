@@ -10,22 +10,31 @@ import useApi from "../../hooks/useApi";
 import { adminCountDocs } from "../../api/user";
 import { useEffect } from "react";
 import LText from "../../components/text/LText";
+import SquareHome from "../../components/cards/SquareHome";
+import { useNavigation } from "@react-navigation/native";
 
 function Dash(props) {
   const { user } = UseUser();
   const { data, request, loading, error } = useApi(adminCountDocs);
 
+  const navigate = useNavigation()
+
   useEffect(() => {
     request();
   }, [user, error]);
-
-  console.log(data);
 
   return (
     <SafeScreen>
       <ScrollScreen>
         <LText>Quick Actions</LText>
-        <GapContainer style={[styles.container, styles.row]}></GapContainer>
+        <GapContainer style={[styles.container, styles.row]}>
+          <SquareHome
+            color={"lightBlue"}
+            icon={"store-remove-outline"}
+            title={"Deleted"}
+            onPress={()=> navigate.navigate("DeletedShops")}
+          />
+        </GapContainer>
         <LText>Metrics</LText>
         <GapContainer style={styles.container}>
           <CardLeftBorder

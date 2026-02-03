@@ -78,6 +78,21 @@ router.get("/mine", [auth, shopOwner], async (req, res) => {
   }
 });
 
+// get deleted shops
+router.get("/deleted", [auth, admin], async (req, res) => {
+  try {
+    const shops = await ShopModel.find({ isDeleted: true });
+
+    return res.status(200).json({ success: true, data: shops });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
 // get shop by id
 router.get("/:id", auth, async (req, res) => {
   try {
@@ -237,6 +252,42 @@ router.patch("/delete/:id", [auth, admin], async (req, res) => {
       return res
         .status(404)
         .json({ success: false, message: "Failed to delete shop" });
+
+    return res.status(200).json({ success: true, data: deletedShop });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// undelete and verify shop
+router.patch("/un-delete/:id", [auth, admin], async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid shop ID",
+      });
+    }
+
+    const deletedShop = await ShopModel.findByIdAndUpdate(
+      id,
+      { isDeleted: false, isVerified: true },
+      {
+        runValidators: true,
+        new: true,
+      },
+    );
+
+    if (!deletedShop)
+      return res
+        .status(404)
+        .json({ success: false, message: "Failed to un-delete shop" });
 
     return res.status(200).json({ success: true, data: deletedShop });
   } catch (error) {

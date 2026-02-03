@@ -29,6 +29,7 @@ import ShopDash from "./screens/shopOwner/ShopDash";
 import Users from "./screens/admin/Users";
 import Reports from "./screens/admin/Reports";
 import ShopBook from "./screens/shopOwner/ShopBook";
+import DeletedShops from "./screens/admin/DeletedShops";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,7 +43,8 @@ const AdminStack = () => {
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="AdminShops" component={AdminShops} />
       <Stack.Screen name="Users" component={Users} />
-      <Stack.Screen name="Reports" component={Reports} />
+      <Stack.Screen name="Reports" component={Reports} /> 
+      <Stack.Screen name="DeletedShops" component={DeletedShops} /> 
     </Stack.Navigator>
   );
 };

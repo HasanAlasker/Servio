@@ -9,6 +9,8 @@ export const getUnVerifiedShops = () =>
 
 export const getMyShop = () => apiClient.get(`${endpoint}/mine`);
 
+export const getDeletedShops = () => apiClient.get(`${endpoint}/deleted`);
+
 export const getShopById = (id) => apiClient.get(`${endpoint}/${id}`);
 
 export const openShop = (data) => {
@@ -129,5 +131,8 @@ export const editShop = (id, data) => {
 };
 
 export const deleteShop = (id) => apiClient.patch(`${endpoint}/delete/${id}`);
+
+export const undeleteShop = (id) =>
+  apiClient.patch(`${endpoint}/un-delete/${id}`);
 
 export const verifyShop = (id) => apiClient.patch(`${endpoint}/verify/${id}`);

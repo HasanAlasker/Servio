@@ -27,7 +27,8 @@ function ShopCard({
   rating,
   ratingCount,
   isVerified = null,
-  onAction
+  isDeleted = null,
+  onAction,
 }) {
   const { theme } = useTheme();
   const [showBtn, setShowBtn] = useState(false);
@@ -45,10 +46,10 @@ function ShopCard({
     try {
       if (isVerified) {
         const response = await deleteShop(id);
-        onAction("delete", id)
+        onAction("delete", id);
       } else {
         const response = await verifyShop(id);
-        onAction("verify", id)
+        onAction("verify", id);
       }
     } catch (error) {}
   };
@@ -96,7 +97,9 @@ function ShopCard({
               full
               square
               title={isVerified ? "Delete Shop" : "Verify Shop"}
-              onPress={hadleVerification}
+              onPress={
+                isDeleted === null ? hadleVerification : () => onAction(id)
+              }
               style={
                 isVerified
                   ? { backgroundColor: theme.red, borderColor: theme.red }
