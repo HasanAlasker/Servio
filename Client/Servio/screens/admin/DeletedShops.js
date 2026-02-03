@@ -6,6 +6,9 @@ import useApi from "../../hooks/useApi";
 import { getDeletedShops, undeleteShop } from "../../api/shop";
 import { useEffect, useState } from "react";
 import ShopCard from "../../components/cards/ShopCard";
+import SText from "../../components/text/SText";
+import GapContainer from "../../components/general/GapContainer";
+import LText from "../../components/text/LText";
 
 function DeletedShops(props) {
   const { data, request, loading, error } = useApi(getDeletedShops);
@@ -21,7 +24,8 @@ function DeletedShops(props) {
 
   const handleUndelete = async (id) => {
     try {
-      const response = await undeleteShop(id);
+      await undeleteShop(id);
+      setShops((p) => p.filter((shop) => shop._id !== id));
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +51,21 @@ function DeletedShops(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen>{RenderShops}</ScrollScreen>
+      <ScrollScreen>
+        <GapContainer>
+          <LText style={{ textAlign: "center" }}>Deleted Shops</LText>
+          {RenderShops}
+          {!loading && shops.length === 0 && (
+            <SText
+              thin
+              color={"sec_text"}
+              style={{ margin: "auto", textAlign: "center" }}
+            >
+              There are no deleted shops
+            </SText>
+          )}
+        </GapContainer>
+      </ScrollScreen>
       <Navbar />
     </SafeScreen>
   );
