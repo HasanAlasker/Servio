@@ -34,6 +34,12 @@ function Dash(props) {
             title={"Deleted"}
             onPress={()=> navigate.navigate("DeletedShops")}
           />
+          <SquareHome
+            color={"green"}
+            icon={"chat-outline"}
+            title={"Sent"}
+            onPress={()=> navigate.navigate("SeeSuggestions")}
+          />
         </GapContainer>
         <LText>Metrics</LText>
         <GapContainer style={styles.container}>
