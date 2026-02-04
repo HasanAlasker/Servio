@@ -7,7 +7,7 @@ export const getVerifiedShops = () => apiClient.get(`${endpoint}/verified`);
 export const getUnVerifiedShops = () =>
   apiClient.get(`${endpoint}/un-verified`);
 
-export const getMyShop = () => apiClient.get(`${endpoint}/mine`);
+export const getMyShops = () => apiClient.get(`${endpoint}/mine`);
 
 export const getDeletedShops = () => apiClient.get(`${endpoint}/deleted`);
 

@@ -11,7 +11,7 @@ import GapContainer from "../../components/general/GapContainer";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import OpenHoursInput from "../../components/form/OpenHoursInput";
 import { openShop } from "../../api/shop";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import ErrorMessage from "../../components/form/ErrorMessage";
 
 const validationSchema = Yup.object({
@@ -68,6 +68,9 @@ function AddShop(props) {
   const [errMsg, setErrMsg] = useState(null);
 
   const navigate = useNavigation();
+  const route = useRoute()
+  const params = route.params
+  console.log(params)
 
   const handleSubmit = async (values) => {
     setErr(false);

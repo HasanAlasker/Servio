@@ -29,6 +29,7 @@ function ShopCard({
   isVerified = null,
   isDeleted = null,
   onAction,
+  onCardPress
 }) {
   const { theme } = useTheme();
   const [showBtn, setShowBtn] = useState(false);
@@ -55,7 +56,7 @@ function ShopCard({
   };
 
   return (
-    <CardComp style={styles.container}>
+    <CardComp style={styles.container} onPress={onCardPress}>
       {image && <Image style={styles.image} source={{ uri: image }} />}
 
       <View style={styles.textCont}>
