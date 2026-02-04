@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import Navbar from "../../components/general/Navbar";
 import * as Yup from "yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import KeyboardScrollScreen from "../../components/general/KeyboardScrollScreen";
 import AppForm from "../../components/form/AppForm";
 import AddImageBtn from "../../components/form/AddImageBtn";
@@ -13,6 +13,7 @@ import OpenHoursInput from "../../components/form/OpenHoursInput";
 import { openShop } from "../../api/shop";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import ErrorMessage from "../../components/form/ErrorMessage";
+import { formatServices, revertServices } from "../../functions/formatServices";
 
 const validationSchema = Yup.object({
   image: Yup.string().required("Shop image is required"),
@@ -51,26 +52,19 @@ const validationSchema = Yup.object({
   link: Yup.string().required(),
 });
 
-const formatServices = (services) => {
-  if (!services || typeof services !== "string") return [];
-
-  return services
-    .split(",")
-    .map((service) => ({
-      name: service.trim(),
-    }))
-    .filter((service) => service.name.length > 0);
-};
-
 function AddShop(props) {
   const [hasBeenSubmitted, setHasbeenSubmitted] = useState(false);
+  const [isEdit, setEdit] = useState(false);
   const [err, setErr] = useState(false);
   const [errMsg, setErrMsg] = useState(null);
 
   const navigate = useNavigation();
-  const route = useRoute()
-  const params = route.params
-  console.log(params)
+  const route = useRoute();
+  const params = route?.params;
+
+  useEffect(() => {
+    if (params) setEdit(true);
+  }, []);
 
   const handleSubmit = async (values) => {
     setErr(false);
@@ -101,13 +95,13 @@ function AddShop(props) {
   };
 
   const initialValues = {
-    image: "",
-    name: "",
-    description: "",
-    city: "",
-    area: "",
-    street: "",
-    services: "",
+    image: params?.image || "",
+    name: params?.name || "",
+    description: params?.description || "",
+    city: params?.address?.city || "",
+    area: params?.address?.area || "",
+    street: params?.address?.street || "",
+    services: revertServices(params?.services) || "",
     openHours: [
       {
         day: "sun",
@@ -147,8 +141,8 @@ function AddShop(props) {
       { day: "fri", dayName: "Friday", isOpen: false, from: "", to: "" },
       { day: "sat", dayName: "Saturday", isOpen: false, from: "", to: "" },
     ],
-    phone: "",
-    link: "",
+    phone: params?.phone || "",
+    link: params?.link || "",
   };
 
   return (
