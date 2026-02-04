@@ -12,6 +12,8 @@ export const countDocs = () => apiClient.get(`${endpoint}/count`);
 
 export const adminCountDocs = () => apiClient.get(`${endpoint}/admin/count`);
 
+export const shopCountDocs = () => apiClient.get(`${endpoint}/shopOwner/count`);
+
 export const getUserById = (id) => apiClient.get(`${endpoint}/${id}`);
 
 export const registerUser = (data) =>

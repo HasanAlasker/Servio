@@ -4,6 +4,7 @@ import _ from "lodash";
 import admin from "../middleware/admin.js";
 import UserModel from "../models/user.js";
 import auth from "../middleware/auth.js";
+import shopOwner from "../middleware/shopOwner.js";
 import validate from "../middleware/joiValidation.js";
 import {
   userLoginSchema,
@@ -143,6 +144,52 @@ router.get("/admin/count", [auth, admin], async (req, res) => {
       suggestions: suggestions,
       reports: reports,
       cars: cars,
+    };
+
+    return res.status(200).json({ success: true, data: response });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// count docs (shopOwner)
+router.get("/shopOwner/count", [auth, shopOwner], async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const activeShops = await ShopModel.countDocuments({
+      owner: userId,
+      isDeleted: false,
+      isVerified: true,
+    });
+    const newShops = await ShopModel.countDocuments({
+      owner: userId,
+      isDeleted: false,
+      isVerified: false,
+    });
+    const myShopsId = await ShopModel.find({
+      owner: userId,
+      isDeleted: false,
+      isVerified: true,
+    }).select("_id");
+
+    let idList = []
+    myShopsId.map((shop)=> idList.push(shop._id))
+
+    const requests = await AppointmentModel.countDocuments({
+      shop: { $in: myShopsId },
+      status: "pending",
+    });
+
+    const response = {
+      activeShops: activeShops,
+      newShops: newShops,
+      activeShops: activeShops,
+      requests: requests,
     };
 
     return res.status(200).json({ success: true, data: response });
