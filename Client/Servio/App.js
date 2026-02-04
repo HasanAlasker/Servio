@@ -44,9 +44,9 @@ const AdminStack = () => {
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="AdminShops" component={AdminShops} />
       <Stack.Screen name="Users" component={Users} />
-      <Stack.Screen name="Reports" component={Reports} /> 
-      <Stack.Screen name="DeletedShops" component={DeletedShops} /> 
-      <Stack.Screen name="SeeSuggestions" component={SeeSuggestions} /> 
+      <Stack.Screen name="Reports" component={Reports} />
+      <Stack.Screen name="DeletedShops" component={DeletedShops} />
+      <Stack.Screen name="SeeSuggestions" component={SeeSuggestions} />
     </Stack.Navigator>
   );
 };
@@ -85,6 +85,12 @@ const ShopOwnerStack = () => {
       <Stack.Screen name="Suggestions" component={Suggestions} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="AddShop" component={AddShop} />
+      <Stack.Screen name="MyCars" component={MyCars} />
+      <Stack.Screen name="CarParts" component={CarParts} />
+      <Stack.Screen name="AddCar" component={AddCar} />
+      <Stack.Screen name="Parts" component={Parts} />
+      <Stack.Screen name="AddPart" component={AddPart} />
+      <Stack.Screen name="Service" component={Service} />
     </Stack.Navigator>
   );
 };

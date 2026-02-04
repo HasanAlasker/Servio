@@ -3,10 +3,10 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 
-function ShopOwner({onMenu, isMenu}) {
+function ShopOwner({ onMenu, isMenu }) {
   const navigation = useNavigation();
   const route = useRoute();
-  const styles = useThemedStyles(getStyles)
+  const styles = useThemedStyles(getStyles);
 
   return (
     <View style={styles.navbar}>
@@ -60,8 +60,25 @@ function ShopOwner({onMenu, isMenu}) {
 
       <TouchableOpacity
         style={styles.navbarBtn}
-        onPress={onMenu}
+        onPress={() => navigation.navigate("MyCars")}
       >
+        <Ionicons
+          name="car-outline"
+          size={38}
+          style={[styles.icon, route.name === "MyCars" && styles.active]}
+        />
+        <Text
+          style={[
+            styles.text,
+            route.name === "MyCars" && styles.active,
+            { bottom: 4 },
+          ]}
+        >
+          My Cars
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.navbarBtn} onPress={onMenu}>
         <Feather
           name="settings"
           size={30}
@@ -108,7 +125,6 @@ const getStyles = (theme) =>
     active: {
       color: theme.blue,
     },
-
   });
 
 export default ShopOwner;
