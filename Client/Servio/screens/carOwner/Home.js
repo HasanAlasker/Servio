@@ -69,7 +69,7 @@ function Home(props) {
             title={"History"}
             color={"pink"}
             icon={"folder-outline"}
-            onPress={() => navigaiton.navigate("Bookings", { active: "past" })}
+            onPress={() => navigaiton.navigate("Bookings", { active: "2" })}
           />
         </GapContainer>
       </ScrollScreen>

@@ -17,7 +17,7 @@ function Dash(props) {
   const { user } = UseUser();
   const { data, request, loading, error } = useApi(adminCountDocs);
 
-  const navigate = useNavigation()
+  const navigate = useNavigation();
 
   useEffect(() => {
     request();
@@ -32,13 +32,20 @@ function Dash(props) {
             color={"lightBlue"}
             icon={"store-remove-outline"}
             title={"Deleted"}
-            onPress={()=> navigate.navigate("DeletedShops")}
+            onPress={() => navigate.navigate("DeletedShops")}
           />
           <SquareHome
             color={"green"}
             icon={"chat-outline"}
-            title={"Sent"}
-            onPress={()=> navigate.navigate("SeeSuggestions")}
+            title={"Received"}
+            onPress={() => navigate.navigate("SeeSuggestions")}
+          />
+
+          <SquareHome
+            color={"pink"}
+            icon={"close-circle-outline"}
+            title={"Closed"}
+            onPress={() => navigate.navigate("Reports")}
           />
         </GapContainer>
         <LText>Metrics</LText>
