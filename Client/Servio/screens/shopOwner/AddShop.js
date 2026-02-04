@@ -80,7 +80,6 @@ function AddShop(props) {
       },
     };
 
-    console.log("Submitted values:", formattedValues);
     try {
       const response = await openShop(formattedValues);
       if (response.ok) {
@@ -94,6 +93,8 @@ function AddShop(props) {
     } catch (error) {}
   };
 
+  console.log(params?.openHours);
+
   const initialValues = {
     image: params?.image || "",
     name: params?.name || "",
@@ -106,40 +107,52 @@ function AddShop(props) {
       {
         day: "sun",
         dayName: "Sunday",
-        isOpen: true,
-        from: "09:00",
-        to: "18:00",
+        isOpen: params?.openHours[0].isOpen || true,
+        from: params?.openHours[0].from || "09:00",
+        to: params?.openHours[0].to || "18:00",
       },
       {
         day: "mon",
         dayName: "Monday",
-        isOpen: true,
-        from: "09:00",
-        to: "18:00",
+        isOpen: params?.openHours[1].isOpen || true,
+        from: params?.openHours[1].from || "09:00",
+        to: params?.openHours[1].to || "18:00",
       },
       {
         day: "tue",
         dayName: "Tuesday",
-        isOpen: true,
-        from: "09:00",
-        to: "18:00",
+        isOpen: params?.openHours[2].isOpen || true,
+        from: params?.openHours[2].from || "09:00",
+        to: params?.openHours[2].to || "18:00",
       },
       {
         day: "wed",
         dayName: "Wednesday",
-        isOpen: true,
-        from: "09:00",
-        to: "18:00",
+        isOpen: params?.openHours[3].isOpen || true,
+        from: params?.openHours[3].from || "09:00",
+        to: params?.openHours[3].to || "18:00",
       },
       {
         day: "thu",
         dayName: "Thursday",
-        isOpen: true,
-        from: "09:00",
-        to: "18:00",
+        isOpen: params?.openHours[4].isOpen || true,
+        from: params?.openHours[4].from || "09:00",
+        to: params?.openHours[4].to || "18:00",
       },
-      { day: "fri", dayName: "Friday", isOpen: false, from: "", to: "" },
-      { day: "sat", dayName: "Saturday", isOpen: false, from: "", to: "" },
+      {
+        day: "fri",
+        dayName: "Friday",
+        isOpen: params?.openHours[5].isOpen || false,
+        from: params?.openHours[5].from || "",
+        to: params?.openHours[5].to || "",
+      },
+      {
+        day: "sat",
+        dayName: "Saturday",
+        isOpen: params?.openHours[6].isOpen || false,
+        from: params?.openHours[6].from || "",
+        to: params?.openHours[6].to || "",
+      },
     ],
     phone: params?.phone || "",
     link: params?.link || "",
