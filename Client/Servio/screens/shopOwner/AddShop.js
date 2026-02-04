@@ -87,8 +87,17 @@ function AddShop(props) {
       }
       if (!response.ok) {
         setErr(true);
-        console.log(response);
-        setErrMsg(response.data.errors[0].message || response.data.message);
+        if (response?.data?.message) {
+          setErrMsg(response.data.message);
+        }
+        // Fallback to validation errors
+        else if (response?.data?.errors?.[0]?.message) {
+          setErrMsg(response.data.errors[0].message);
+        }
+        // Final fallback
+        else {
+          setErrMsg("An error occurred. Please try again.");
+        }
       }
     } catch (error) {}
   };

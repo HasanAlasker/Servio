@@ -120,7 +120,7 @@ router.post("/add/:id", [auth, validate(addPartSchema)], async (req, res) => {
 
     await updateServicesForCar(carId);
 
-    newPart.save();
+    await newPart.save();
 
     return res.status(201).json({ success: true, data: newPart });
   } catch (error) {

@@ -205,7 +205,7 @@ router.post("/register", validate(userRegistrationSchema), async (req, res) => {
     const newUser = new UserModel(data);
 
     newUser.password = await newUser.hashPassword(data.password);
-    newUser.save();
+    await newUser.save();
 
     const token = newUser.generateAuthToken();
 

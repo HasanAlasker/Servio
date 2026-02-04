@@ -144,7 +144,7 @@ router.post(
       }
 
       const newShop = new ShopModel(data);
-      newShop.save();
+      await newShop.save();
 
       if (!newShop)
         return res
@@ -160,6 +160,13 @@ router.post(
       // If post creation fails and image was uploaded, delete it from Cloudinary
       if (uploadedImage && uploadedImage.public_id) {
         await deleteImageFromCloudinary(uploadedImage.public_id);
+      }
+      // Handle duplicate plate number error
+      if (error.code === 11000) {
+        return res.status(400).json({
+          success: false,
+          message: "Shop number already exists",
+        });
       }
 
       console.error(error);
