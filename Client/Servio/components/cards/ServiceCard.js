@@ -8,14 +8,17 @@ import GapContainer from "../general/GapContainer";
 import PriBtn from "../general/PriBtn";
 import CardLeftBorder from "./CardLeftBorder";
 import { useNavigation } from "@react-navigation/native";
+import { UseUser } from "../../context/UserContext";
+import ShopOwner from "../navbars/ShopOwner";
 
 function ServiceCard({ car, dueBy, parts, status }) {
   const navigate = useNavigation();
+  const { isShopOwner } = UseUser();
 
   const sendParams = {
     car,
     parts,
-    showBtn: true
+    showBtn: true,
   };
 
   return (
@@ -38,12 +41,14 @@ function ServiceCard({ car, dueBy, parts, status }) {
 
         <CardLeftBorder status={status} parts={parts} />
 
-        <PriBtn
-          full
-          square
-          title={"Book Appointment"}
-          onPress={() => navigate.navigate("Shops", sendParams)}
-        />
+        {!ShopOwner && (
+          <PriBtn
+            full
+            square
+            title={"Book Appointment"}
+            onPress={() => navigate.navigate("Shops", sendParams)}
+          />
+        )}
       </GapContainer>
     </CardComp>
   );
