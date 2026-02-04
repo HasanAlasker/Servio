@@ -161,7 +161,6 @@ router.post(
       if (uploadedImage && uploadedImage.public_id) {
         await deleteImageFromCloudinary(uploadedImage.public_id);
       }
-      // Handle duplicate plate number error
       if (error.code === 11000) {
         return res.status(400).json({
           success: false,
@@ -224,6 +223,12 @@ router.patch(
       // If post creation fails and image was uploaded, delete it from Cloudinary
       if (uploadedImage && uploadedImage.public_id) {
         await deleteImageFromCloudinary(uploadedImage.public_id);
+      }
+      if (error.code === 11000) {
+        return res.status(400).json({
+          success: false,
+          message: "Shop number already exists",
+        });
       }
       console.error(error);
       return res.status(500).json({

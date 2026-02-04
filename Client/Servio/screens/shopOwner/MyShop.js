@@ -23,7 +23,7 @@ function MyShop(props) {
 
   useEffect(() => {
     fetchShops();
-  }, []);
+  }, [fetchedShops]);
 
   useEffect(() => {
     setShops(fetchedShops);

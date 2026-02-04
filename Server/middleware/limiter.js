@@ -7,7 +7,7 @@ const MINUTE = 60 * SECOND;
 //protects entire server
 export const globalLimit = rateLimit({
   windowMs: 15 * MINUTE,
-  max: 350,
+  max: 550,
   message: "Too many requests, please try again later.",
   standardHeaders: true,
   legacyHeaders: false,

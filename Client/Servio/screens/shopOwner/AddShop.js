@@ -10,7 +10,7 @@ import FormikInput from "../../components/form/FormikInput";
 import GapContainer from "../../components/general/GapContainer";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import OpenHoursInput from "../../components/form/OpenHoursInput";
-import { openShop } from "../../api/shop";
+import { editShop, openShop } from "../../api/shop";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import { formatServices, revertServices } from "../../functions/formatServices";
@@ -52,6 +52,20 @@ const validationSchema = Yup.object({
   link: Yup.string().required(),
 });
 
+const formatValues = (values) => {
+  const { city, area, street, services, ...rest } = values;
+
+  return {
+    ...values,
+    services: formatServices(values.services),
+    address: {
+      city: values.city,
+      area: values.area,
+      street: values.street,
+    },
+  };
+};
+
 function AddShop(props) {
   const [hasBeenSubmitted, setHasbeenSubmitted] = useState(false);
   const [isEdit, setEdit] = useState(false);
@@ -69,21 +83,12 @@ function AddShop(props) {
   const handleSubmit = async (values) => {
     setErr(false);
     setErrMsg(null);
-
-    const formattedValues = {
-      ...values,
-      services: formatServices(values.services),
-      address: {
-        city: values.city,
-        area: values.area,
-        street: values.street,
-      },
-    };
+    const formattedValues = formatValues(values);
 
     try {
       const response = await openShop(formattedValues);
       if (response.ok) {
-        navigate.goBack();
+        navigate.navigate("MyShop");
       }
       if (!response.ok) {
         setErr(true);
@@ -93,9 +98,31 @@ function AddShop(props) {
         // Fallback to validation errors
         else if (response?.data?.errors?.[0]?.message) {
           setErrMsg(response.data.errors[0].message);
+        } else {
+          setErrMsg("An error occurred. Please try again.");
         }
-        // Final fallback
-        else {
+      }
+    } catch (error) {}
+  };
+
+  const handleEdit = async (values) => {
+    setErr(false);
+    setErrMsg(null);
+    const formattedValues = formatValues(values);
+
+    try {
+      const response = await editShop(params._id, formattedValues);
+      console.log(response);
+      if (response.ok) {
+        navigate.navigate("MyShop");
+      }
+      if (!response.ok) {
+        setErr(true);
+        if (response?.data?.message) {
+          setErrMsg(response.data.message);
+        } else if (response?.data?.errors?.[0]?.message) {
+          setErrMsg(response.data.errors[0].message);
+        } else {
           setErrMsg("An error occurred. Please try again.");
         }
       }
@@ -173,7 +200,7 @@ function AddShop(props) {
         <AppForm
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}
+          onSubmit={!isEdit ? handleSubmit : handleEdit}
         >
           {({ values, errors, setFieldValue, setStatus }) => (
             <GapContainer gap={15}>

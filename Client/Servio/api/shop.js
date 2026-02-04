@@ -123,7 +123,7 @@ export const editShop = (id, data) => {
     formData.append("imagePublicId", data.imagePublicId);
   }
 
-  return apiClient.patch(`${endpoint}/editShop/${id}`, formData, {
+  return apiClient.patch(`${endpoint}/edit/${id}`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
