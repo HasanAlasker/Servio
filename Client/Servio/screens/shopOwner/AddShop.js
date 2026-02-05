@@ -112,7 +112,6 @@ function AddShop(props) {
 
     try {
       const response = await editShop(params._id, formattedValues);
-      console.log(response);
       if (response.ok) {
         navigate.navigate("MyShop");
       }

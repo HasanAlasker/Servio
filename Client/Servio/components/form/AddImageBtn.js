@@ -119,7 +119,6 @@ function AddImageBtn({
                 style={styles.image} 
                 source={{ uri: image }}
                 onError={(e) => console.log("Image load error:", e.nativeEvent.error)}
-                onLoad={() => console.log("Image loaded successfully")}
               />
               <View style={styles.overlay}>
                 <MaterialCommunityIcons

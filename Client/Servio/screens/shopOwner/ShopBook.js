@@ -40,7 +40,9 @@ function ShopBook(props) {
       rating={shop.rating}
       ratingCount={shop.ratingCount}
       services={shop.services}
-      onCardPress={() => navigate.navigate("ShopAppointments", shop)}
+      onCardPress={() =>
+        navigate.navigate("ShopAppointments", { shopId: shop._id })
+      }
       mini
     />
   ));
