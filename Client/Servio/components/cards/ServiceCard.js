@@ -41,7 +41,7 @@ function ServiceCard({ car, dueBy, parts, status }) {
 
         <CardLeftBorder status={status} parts={parts} />
 
-        {!ShopOwner && (
+        {!isShopOwner && (
           <PriBtn
             full
             square
