@@ -35,13 +35,13 @@ function AppointmentCard({
       <GapContainer gap={20}>
         <SquareInfo
           color={"lightBlue"}
-          icon={"car-outline"}
+          icon={"car"}
           title={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
           text={car?.plateNumber}
         />
         <SquareInfo
           color={"darkPink"}
-          icon={"map-marker-outline"}
+          icon={"map-marker"}
           title={capFirstLetter(shop?.name)}
           text={shop?.address.area + " " + shop?.address.street}
         />

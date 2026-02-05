@@ -15,7 +15,7 @@ function SuggestionCard({ suggestion, id, onAction }) {
           color={"lightBlue"}
           title={suggestion.user.name}
           text={formatDate(suggestion.createdAt) + " - " + suggestion.user.role}
-          icon={"account-outline"}
+          icon={"account"}
         />
         <StatusLabel status={suggestion.type} />
         <GapContainer gap={5}>

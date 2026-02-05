@@ -34,7 +34,7 @@ function CarOptionsCard({ params }) {
       <GapContainer gap={25}>
         <SquareInfo
           color={"lightBlue"}
-          icon={"car-outline"}
+          icon={"car"}
           title={
             capFirstLetter(params?.make) + " " + capFirstLetter(params?.name)
           }

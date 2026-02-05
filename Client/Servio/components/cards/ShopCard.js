@@ -68,13 +68,13 @@ function ShopCard({
 
           <GapContainer gap={10}>
             <SquareInfo
-              icon={"map-marker-outline"}
-              color={"darkPink"}
+              icon={"map-marker"}
+              color={"red"}
               title={address.area + " " + address.street}
               text={address.city}
             />
             <SquareInfo
-              icon={"star-outline"}
+              icon={"star"}
               color={"gold"}
               title={ratingCount === 0 ? "Not rated" : rating + "Star Rating"}
               text={ratingCount === 0 ? "No one rated this shop" : ratingCount}

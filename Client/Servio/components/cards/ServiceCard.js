@@ -26,7 +26,7 @@ function ServiceCard({ car, dueBy, parts, status }) {
       <GapContainer>
         <SquareInfo
           color={"lightBlue"}
-          icon={"car-outline"}
+          icon={"car"}
           title={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
           text={car?.plateNumber}
         />

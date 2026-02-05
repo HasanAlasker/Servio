@@ -40,7 +40,7 @@ function PartCard({ part }) {
         />
         <SquareInfo
           color={"green"}
-          icon={"calendar-outline"}
+          icon={"calendar"}
           title={"Last Change Date"}
           text={formatDate(part?.lastChangeDate)}
           fliped
@@ -55,7 +55,7 @@ function PartCard({ part }) {
         <SeparatorComp children={"Next Change"} full />
         <SquareInfo
           color={"gold"}
-          icon={"calendar-outline"}
+          icon={"calendar"}
           title={"Next Change Date"}
           text={formatDate(
             addMonthsToDate(
