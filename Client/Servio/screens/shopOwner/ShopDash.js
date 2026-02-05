@@ -71,7 +71,7 @@ function Home(props) {
             />
           )}
           <CardLeftBorder
-            title={"Pending Appointments: "}
+            title={"New Appointments: "}
             data={loading ? "..." : shopData.requests}
           />
         </GapContainer>
