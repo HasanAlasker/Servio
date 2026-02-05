@@ -29,7 +29,8 @@ function ShopCard({
   isVerified = null,
   isDeleted = null,
   onAction,
-  onCardPress
+  onCardPress,
+  mini,
 }) {
   const { theme } = useTheme();
   const [showBtn, setShowBtn] = useState(false);
@@ -66,30 +67,36 @@ function ShopCard({
             <SText color={"sec_text"}>{description}</SText>
           </View>
 
-          <GapContainer gap={10}>
-            <SquareInfo
-              icon={"map-marker"}
-              color={"red"}
-              title={address.area + " " + address.street}
-              text={address.city}
-            />
-            <SquareInfo
-              icon={"star"}
-              color={"gold"}
-              title={ratingCount === 0 ? "Not rated" : rating + "Star Rating"}
-              text={ratingCount === 0 ? "No one rated this shop" : ratingCount}
-            />
-          </GapContainer>
+          {!mini && (
+            <GapContainer gap={10}>
+              <SquareInfo
+                icon={"map-marker"}
+                color={"red"}
+                title={address.area + " " + address.street}
+                text={address.city}
+              />
+              <SquareInfo
+                icon={"star"}
+                color={"gold"}
+                title={ratingCount === 0 ? "Not rated" : rating + "Star Rating"}
+                text={
+                  ratingCount === 0 ? "No one rated this shop" : ratingCount
+                }
+              />
+            </GapContainer>
+          )}
 
-          <View>
-            {groupDays.map((group, index) => (
-              <SText key={index}>
-                {formatDayRange(group)}: {group[0].from} - {group[0].to}
-              </SText>
-            ))}
-          </View>
+          {!mini && (
+            <View>
+              {groupDays.map((group, index) => (
+                <SText key={index}>
+                  {formatDayRange(group)}: {group[0].from} - {group[0].to}
+                </SText>
+              ))}
+            </View>
+          )}
 
-          <CardLeftBorder parts={services} status={"randomText"} />
+          {!mini && <CardLeftBorder parts={services} status={"randomText"} />}
 
           {showBtn && <PriBtn full square title={"Reserve"} />}
 

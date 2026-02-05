@@ -51,9 +51,19 @@ function ShopOwner({ onMenu, isMenu }) {
         <Feather
           name="calendar"
           size={30}
-          style={[styles.icon, route.name === "ShopBook" && styles.active]}
+          style={[
+            styles.icon,
+            (route.name === "ShopBook" || route.name === "ShopAppointments") &&
+              styles.active,
+          ]}
         />
-        <Text style={[styles.text, route.name === "ShopBook" && styles.active]}>
+        <Text
+          style={[
+            styles.text,
+            (route.name === "ShopBook" || route.name === "ShopAppointments") &&
+              styles.active,
+          ]}
+        >
           Bookings
         </Text>
       </TouchableOpacity>

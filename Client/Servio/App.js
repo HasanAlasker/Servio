@@ -31,6 +31,7 @@ import Reports from "./screens/admin/Reports";
 import ShopBook from "./screens/shopOwner/ShopBook";
 import DeletedShops from "./screens/admin/DeletedShops";
 import SeeSuggestions from "./screens/admin/SeeSuggestions";
+import ShopAppointments from "./screens/shopOwner/ShopAppointments";
 
 const Stack = createNativeStackNavigator();
 
@@ -91,6 +92,7 @@ const ShopOwnerStack = () => {
       <Stack.Screen name="Parts" component={Parts} />
       <Stack.Screen name="AddPart" component={AddPart} />
       <Stack.Screen name="Service" component={Service} />
+      <Stack.Screen name="ShopAppointments" component={ShopAppointments} />
     </Stack.Navigator>
   );
 };
