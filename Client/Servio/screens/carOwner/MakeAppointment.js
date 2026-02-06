@@ -1,15 +1,16 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import GapContainer from "../../components/general/GapContainer";
 import KeyboardScrollScreen from "../../components/general/KeyboardScrollScreen";
 import Navbar from "../../components/general/Navbar";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import AppForm from "../../components/form/AppForm";
 import * as Yup from "yup";
 import FormikDatePicker from "../../components/form/FormikDatePicker";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import { useState } from "react";
 import AppSummary from "../../components/cards/AppSummary";
+import { bookAppointment } from "../../api/appointment";
 
 const validationSchema = Yup.object({
   date: Yup.date()
@@ -20,6 +21,7 @@ const validationSchema = Yup.object({
 
 function MakeAppointment(props) {
   const [hasBeenSubmited, setHasBeenSubmited] = useState(false);
+  const navigate = useNavigation();
   const route = useRoute();
   const params = route.params;
 
@@ -28,8 +30,32 @@ function MakeAppointment(props) {
     time: "",
   };
 
+  let partsId = route.params.parts.map((part) => part._id);
+
   const handleSubmit = async (values) => {
-    // dont forget to format the scheduled date to iso so its date and time
+    let dateObj = new Date(values.date);
+    const [hours, minutes] = values.time.split(":");
+    dateObj.setHours(parseInt(hours, 10));
+    dateObj.setMinutes(parseInt(minutes, 10));
+    dateObj.setSeconds(0);
+    dateObj.setMilliseconds(0);
+
+    let date = dateObj.toISOString();
+
+    const data = {
+      car: params.car._id,
+      shop: params.shop.id,
+      serviceParts: partsId,
+      scheduledDate: date,
+    };
+
+    try {
+      const response = await bookAppointment(data);
+      if (response.ok) navigate.navigate("Bookings");
+      else console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -76,10 +102,6 @@ function MakeAppointment(props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: "auto",
-  },
-});
+const styles = StyleSheet.create({});
 
 export default MakeAppointment;

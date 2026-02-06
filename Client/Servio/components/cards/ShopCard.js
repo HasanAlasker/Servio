@@ -38,8 +38,6 @@ function ShopCard({
   const navigate = useNavigation();
 
   const route = useRoute();
-
-  let partsId = route.params.parts.map((part) => part._id);
   const shopData = { id, name };
 
   const params = {
