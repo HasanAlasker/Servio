@@ -16,7 +16,7 @@ function ServiceCard({ car, customer, dueBy, parts, status }) {
   const { isShopOwner } = UseUser();
 
   const sendParams = {
-    car: car._id,
+    car: car,
     customer,
     parts,
     showBtn: true,

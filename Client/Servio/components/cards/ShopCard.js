@@ -39,14 +39,15 @@ function ShopCard({
 
   const route = useRoute();
 
-  let partsId = route.params.parts.map((part)=>part._id)
+  let partsId = route.params.parts.map((part) => part._id);
+  const shopData = { id, name };
 
   const params = {
-    shop: id,
+    shop: shopData,
     car: serviceData?.car,
     customer: serviceData?.customer,
-    parts: partsId,
-    showBtn: route?.params?.showBtn
+    parts: serviceData.parts,
+    showBtn: route?.params?.showBtn,
   };
 
   useEffect(() => {

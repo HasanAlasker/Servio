@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import FormikDatePicker from "../../components/form/FormikDatePicker";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import { useState } from "react";
+import AppSummary from "../../components/cards/AppSummary";
 
 const validationSchema = Yup.object({
   date: Yup.date()
@@ -34,20 +35,22 @@ function MakeAppointment(props) {
   return (
     <SafeScreen>
       <KeyboardScrollScreen>
-        <View style={{ marginVertical: "auto" }}>
+        <GapContainer style={{ marginVertical: "auto" }}>
           <AppForm
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
-            enableReinitialize={true}
           >
             {({ values }) => (
               <GapContainer gap={15}>
+                <AppSummary params={params} />
+
                 <FormikDatePicker
                   name={"date"}
                   icon="calendar-outline"
                   hasBeenSubmitted={hasBeenSubmited}
                 />
+
                 {values.date && (
                   <FormikDatePicker
                     name={"time"}
@@ -57,6 +60,7 @@ function MakeAppointment(props) {
                     hasBeenSubmitted={hasBeenSubmited}
                   />
                 )}
+
                 <SubmitBtn
                   defaultText="Confirm"
                   submittingText="Confirming"
@@ -65,7 +69,7 @@ function MakeAppointment(props) {
               </GapContainer>
             )}
           </AppForm>
-        </View>
+        </GapContainer>
       </KeyboardScrollScreen>
       <Navbar />
     </SafeScreen>
