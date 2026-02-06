@@ -40,8 +40,8 @@ function AppointmentCard({
           text={car?.plateNumber}
         />
         <SquareInfo
-          color={"darkPink"}
-          icon={"map-marker"}
+          color={"green"}
+          icon={"store"}
           title={capFirstLetter(shop?.name)}
           text={shop?.address.area + " " + shop?.address.street}
         />
