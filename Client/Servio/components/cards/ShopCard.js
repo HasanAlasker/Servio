@@ -4,7 +4,7 @@ import MText from "../text/MText";
 import SText from "../text/SText";
 import SquareInfo from "./SquareInfo";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import GapContainer from "../general/GapContainer";
 import CardLeftBorder from "./CardLeftBorder";
 import PriBtn from "../general/PriBtn";
@@ -31,11 +31,23 @@ function ShopCard({
   onAction,
   onCardPress,
   mini,
+  serviceData,
 }) {
   const { theme } = useTheme();
   const [showBtn, setShowBtn] = useState(false);
+  const navigate = useNavigation();
+
   const route = useRoute();
-  const params = route?.params;
+
+  let partsId = route.params.parts.map((part)=>part._id)
+
+  const params = {
+    shop: id,
+    car: serviceData?.car,
+    customer: serviceData?.customer,
+    parts: partsId,
+    showBtn: route?.params?.showBtn
+  };
 
   useEffect(() => {
     if (params?.showBtn) setShowBtn(params?.showBtn);
@@ -47,10 +59,10 @@ function ShopCard({
   const hadleVerification = async () => {
     try {
       if (isVerified) {
-        const response = await deleteShop(id);
+        await deleteShop(id);
         onAction("delete", id);
       } else {
-        const response = await verifyShop(id);
+        await verifyShop(id);
         onAction("verify", id);
       }
     } catch (error) {}
@@ -98,7 +110,14 @@ function ShopCard({
 
           {!mini && <CardLeftBorder parts={services} status={"randomText"} />}
 
-          {showBtn && <PriBtn full square title={"Reserve"} />}
+          {showBtn && (
+            <PriBtn
+              full
+              square
+              title={"Reserve"}
+              onPress={() => navigate.navigate("MakeAppointment", params)}
+            />
+          )}
 
           {isVerified !== null && (
             <PriBtn

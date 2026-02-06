@@ -30,6 +30,7 @@ function Service(props) {
     <ServiceCard
       key={service._id}
       car={service.car}
+      customer={service.customer}
       parts={service.parts}
       dueBy={service.dueBy}
       status={service.status}

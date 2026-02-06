@@ -11,12 +11,13 @@ import { useNavigation } from "@react-navigation/native";
 import { UseUser } from "../../context/UserContext";
 import ShopOwner from "../navbars/ShopOwner";
 
-function ServiceCard({ car, dueBy, parts, status }) {
+function ServiceCard({ car, customer, dueBy, parts, status }) {
   const navigate = useNavigation();
   const { isShopOwner } = UseUser();
 
   const sendParams = {
-    car,
+    car: car._id,
+    customer,
     parts,
     showBtn: true,
   };

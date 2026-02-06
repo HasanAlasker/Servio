@@ -7,9 +7,12 @@ import useApi from "../../hooks/useApi";
 import { getVerifiedShops } from "../../api/shop";
 import { useEffect, useState } from "react";
 import GapContainer from "../../components/general/GapContainer";
+import { useRoute } from "@react-navigation/native";
 
 function Shops(props) {
   const [shops, setShops] = useState([]);
+  const route = useRoute()
+  const params = route?.params
 
   const {
     data: fetchedShops,
@@ -37,6 +40,7 @@ function Shops(props) {
       rating={shop.rating}
       ratingCount={shop.ratingCount}
       services={shop.services}
+      serviceData = {params}
     />
   ));
 

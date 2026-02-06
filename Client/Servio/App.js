@@ -32,6 +32,7 @@ import ShopBook from "./screens/shopOwner/ShopBook";
 import DeletedShops from "./screens/admin/DeletedShops";
 import SeeSuggestions from "./screens/admin/SeeSuggestions";
 import ShopAppointments from "./screens/shopOwner/ShopAppointments";
+import MakeAppointment from "./screens/carOwner/MakeAppointment";
 
 const Stack = createNativeStackNavigator();
 
@@ -70,6 +71,7 @@ const CarOwnerStack = () => {
       <Stack.Screen name="CarParts" component={CarParts} />
       <Stack.Screen name="AddPart" component={AddPart} />
       <Stack.Screen name="AddShop" component={AddShop} />
+      <Stack.Screen name="MakeAppointment" component={MakeAppointment} />
     </Stack.Navigator>
   );
 };

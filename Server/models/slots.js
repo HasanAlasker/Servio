@@ -6,4 +6,4 @@ const slotSchema = new mongoose.Schema({
   to: String,
 });
 
-const SlotModel = mongoose.model("Slot", slotSchema);
+export const SlotModel = mongoose.model("Slot", slotSchema);
