@@ -80,7 +80,7 @@ function Bookings(props) {
             serviceParts={appointment.serviceParts}
             status={appointment.status}
             scheuledAt={appointment.scheduledDate}
-            type={"upcoming"}
+            type={"1"}
             onCancel={handleCancel}
           />
         ))
@@ -93,7 +93,7 @@ function Bookings(props) {
             serviceParts={appointment.serviceParts}
             status={appointment.status}
             scheuledAt={appointment.scheduledDate}
-            type={"past"}
+            type={"2"}
             onCancel={handleCancel}
           />
         ));
