@@ -7,6 +7,7 @@ import users from "./routes/users.js";
 import cars from "./routes/cars.js";
 import shops from "./routes/shops.js";
 import appointments from "./routes/appointments.js";
+import slots from "./routes/slots.js";
 import upcomingServices from "./routes/upcomingServices.js";
 import parts from "./routes/parts.js";
 import reports from "./routes/reports.js";
@@ -31,7 +32,7 @@ mongoose
   .connect(process.env.DATABASE_URL)
   .then(() => console.log("Connected to mongoDB... ✅"))
   .catch((err) =>
-    console.log("Error connecting to mongoDB... ❌", err.message)
+    console.log("Error connecting to mongoDB... ❌", err.message),
   );
 
 app.use(express.json());
@@ -45,10 +46,11 @@ app.use("/api/appointments", appointments);
 app.use("/api/upcomingServices", upcomingServices);
 app.use("/api/suggestions", suggestions);
 app.use("/api/reports", reports);
+app.use("/api/slots", slots);
 // await seedDatabase()
 
-startServiceScheduler()
-console.log("Service scheduler started 📆")
+startServiceScheduler();
+console.log("Service scheduler started 📆");
 
 app.listen(port, () => {
   console.log(`Server running on ${port} 🌍`);
