@@ -44,7 +44,7 @@ function ShopCard({
     shop: shopData,
     car: serviceData?.car,
     customer: serviceData?.customer,
-    parts: serviceData.parts,
+    parts: serviceData?.parts,
     showBtn: route?.params?.showBtn,
   };
 
