@@ -14,7 +14,7 @@ function UserCard({
   handleEditPress,
   handleAction,
   isDeleted = null,
-  full,
+  short,
 }) {
   const { theme } = useTheme();
   const { user, isAdmin } = UseUser();
@@ -22,7 +22,8 @@ function UserCard({
 
   return (
     <CardComp
-      style={{ width: full ? "100%" : "90%", marginHorizontal: "auto" }}
+      style={{marginHorizontal: "auto" }}
+      short={short}
     >
       <GapContainer>
         <GapContainer gap={12}>

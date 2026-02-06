@@ -71,6 +71,7 @@ function Profile(props) {
             passedUser={user}
             handleEditPress={handleEditPress}
             isEdit={isEdit}
+            short
           />
           {isEdit && (
             <AppForm
