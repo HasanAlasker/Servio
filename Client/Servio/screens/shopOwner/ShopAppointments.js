@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import Navbar from "../../components/general/Navbar";
@@ -7,8 +7,12 @@ import { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import useApi from "../../hooks/useApi";
 import {
+  confirmAppointment,
   getConfirmedAppointments,
   getPendingAppointments,
+  markAppointmentCompleted,
+  markAppointmentNoShow,
+  rejectAppointment,
 } from "../../api/appointment";
 import AppointmentCard from "../../components/cards/AppointmentCard";
 import GapContainer from "../../components/general/GapContainer";
@@ -50,6 +54,31 @@ function ShopAppointments(props) {
     else setTab("1");
   };
 
+  const handleRejection = async (id) => {
+    try {
+      const response = await rejectAppointment(id);
+      setPending((p) => p.filter((app) => app._id !== id));
+    } catch (error) {}
+  };
+
+  const handleApproval = async (id) => {
+    try {
+      const response = await confirmAppointment(id);
+    } catch (error) {}
+  };
+
+  const handleCompletion = async (id) => {
+    try {
+      const response = await markAppointmentCompleted(id);
+    } catch (error) {}
+  };
+
+  const handleNoShow = async (id) => {
+    try {
+      const response = await markAppointmentNoShow(id);
+    } catch (error) {}
+  };
+
   const RenderAppointments =
     tab === "1"
       ? confirmed.map((appointment) => (
@@ -61,8 +90,7 @@ function ShopAppointments(props) {
             serviceParts={appointment.serviceParts}
             status={appointment.status}
             scheuledAt={appointment.scheduledDate}
-            type={"upcoming"}
-            // onCancel={handleCancel}
+            type={"1"}
           />
         ))
       : pending.map((appointment) => (
@@ -74,8 +102,9 @@ function ShopAppointments(props) {
             serviceParts={appointment.serviceParts}
             status={appointment.status}
             scheuledAt={appointment.scheduledDate}
-            type={"past"}
-            // onCancel={handleCancel}
+            type={"2"}
+            onAccept={handleApproval}
+            onReject={handleRejection}
           />
         ));
 

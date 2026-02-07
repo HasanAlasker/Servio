@@ -11,6 +11,7 @@ import IconTextLabel from "../general/IconTextLabel";
 import { formatDate } from "../../functions/formatDate";
 import PriBtn from "../general/PriBtn";
 import { useTheme } from "../../context/ThemeContext";
+import { UseUser } from "../../context/UserContext";
 
 function AppointmentCard({
   id,
@@ -21,7 +22,12 @@ function AppointmentCard({
   serviceParts,
   type,
   onCancel,
+  onReject,
+  onAccept,
+  onComplete,
+  onNoShow,
 }) {
+  const { isShopOwner, isUser } = UseUser();
   const { theme } = useTheme();
 
   const partsList = serviceParts?.map((part) => (
@@ -63,7 +69,7 @@ function AppointmentCard({
           <SeparatorComp children={"Service Parts"} full color="sec_text" />
           {partsList}
         </View>
-        {status === "pending" && (
+        {isUser && status === "pending" && (
           <PriBtn
             square
             full
@@ -72,6 +78,29 @@ function AppointmentCard({
             onPress={() => onCancel(id, type)}
           />
         )}
+        <GapContainer gap={15}>
+          {isShopOwner && (
+            <PriBtn
+              square
+              full
+              title={status === "pending" ? "Accept" : "Completed"}
+              onPress={
+                status === "pending" ? () => onAccept(id) : () => onComplete(id)
+              }
+            />
+          )}
+          {isShopOwner && (
+            <PriBtn
+              square
+              full
+              style={{ backgroundColor: theme.red, borderColor: theme.red }}
+              title={status === "pending" ? "Reject" : "No-Show"}
+              onPress={
+                status === "pending" ? () => onReject(id) : () => onNoShow(id)
+              }
+            />
+          )}
+        </GapContainer>
       </GapContainer>
     </CardComp>
   );

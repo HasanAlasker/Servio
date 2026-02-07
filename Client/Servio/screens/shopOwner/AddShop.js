@@ -128,8 +128,6 @@ function AddShop(props) {
     } catch (error) {}
   };
 
-  console.log(params?.openHours);
-
   const initialValues = {
     image: params?.image || "",
     name: params?.name || "",

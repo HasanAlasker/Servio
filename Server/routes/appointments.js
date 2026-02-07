@@ -141,6 +141,7 @@ router.get("/pending/:id", [auth, shopOwner], async (req, res) => {
     const pending = await AppointmentModel.find({
       shop: shopId,
       status: "pending",
+      isRejected: false
     })
       .sort("-createdAt")
       .populate("car", "make name model plateNumber mileage color")
@@ -239,7 +240,7 @@ router.patch(
 );
 
 // reject appointment (shopOwner)
-router.patch("/reject/:id", shopOwner, async (req, res) => {
+router.patch("/reject/:id", [auth, shopOwner], async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -254,6 +255,7 @@ router.patch("/reject/:id", shopOwner, async (req, res) => {
       id,
       {
         isRejected: true,
+        status: "canceled"
       },
       { runValidators: true, new: true },
     );
