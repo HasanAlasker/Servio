@@ -1,13 +1,104 @@
 import express from "express";
+import auth from "../middleware/auth.js";
+import { SlotModel } from "../models/slots.js";
+import shopOwner from "../middleware/shopOwner.js";
 
 const router = express.Router();
 
 // get busy slots
+router.post("/busy/:id", auth, async (req, res) => {
+  try {
+    const shopId = req.params.id;
+    const { date } = req.body;
+
+    if (!date) {
+      return res.status(400).json({
+        success: false,
+        message: "Date is required",
+      });
+    }
+
+    const busySlots = await SlotModel.find({
+      shop: shopId,
+      date: new Date(date),
+    });
+
+    return res.status(200).json({ success: true, data: busySlots });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 
 // chech slot
+router.post("/checkSlot/:id", auth, async (req, res) => {
+  try {
+    const shopId = req.params.id;
+    const { date, from } = req.body;
+
+    if (!date || !from) {
+      return res.status(400).json({
+        success: false,
+        message: "Date and from time are required",
+      });
+    }
+
+    const slotDate = new Date(date);
+    const [hours, minutes] = from.split(":");
+    slotDate.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
+    const endTime = new Date(slotDate);
+    endTime.setHours(endTime.getHours() + 2);
+
+    const overlappingSlots = await SlotModel.find({
+      shop: shopId,
+      $or: [
+        // New slot starts during existing slot
+        {
+          from: { $lte: slotDate },
+          to: { $gt: slotDate },
+        },
+        // New slot ends during existing slot
+        {
+          from: { $lt: endTime },
+          to: { $gte: endTime },
+        },
+        // New slot completely contains existing slot
+        {
+          from: { $gte: slotDate },
+          to: { $lte: endTime },
+        },
+      ],
+    });
+
+    if (overlappingSlots.length > 0) {
+      return res.status(200).json({
+        success: true,
+        available: false,
+        message: "Time slot is already booked",
+        conflicts: overlappingSlots,
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      available: true,
+      message: "Time slot is available",
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+// create slot (this happens in appointments route when user books)
+
+// edit slot (when mechanic sets the duration on confirm)
 
 // delete slot (this happens in appointments route when shopOwner rejects/ or user cancels)
-
-// create slot (this happens in appointments route when user books)
 
 export default router;
