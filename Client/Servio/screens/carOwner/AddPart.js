@@ -182,11 +182,13 @@ function AddPart(props) {
               submittingText={!isEdit ? "Adding Part..." : "Editing Part..."}
               setHasBeenSubmitted={setHasBeenSubmited}
             />
-            <PriBtn
-              style={{ backgroundColor: theme.red, borderColor: theme.red }}
-              title={"Delete Part"}
-              onPress={handleDelete}
-            />
+            {isEdit && (
+              <PriBtn
+                style={{ backgroundColor: theme.red, borderColor: theme.red }}
+                title={"Delete Part"}
+                onPress={handleDelete}
+              />
+            )}
           </GapContainer>
         </AppForm>
       </KeyboardScrollScreen>
