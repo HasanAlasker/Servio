@@ -7,15 +7,15 @@ import { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import useApi from "../../hooks/useApi";
 import {
-  confirmAppointment,
   getConfirmedAppointments,
   getPendingAppointments,
-  markAppointmentCompleted,
-  markAppointmentNoShow,
-  rejectAppointment,
 } from "../../api/appointment";
 import AppointmentCard from "../../components/cards/AppointmentCard";
 import GapContainer from "../../components/general/GapContainer";
+import {
+  handleApproval,
+  handleRejection,
+} from "../../functions/appointmentControls";
 
 function ShopAppointments(props) {
   const [tab, setTab] = useState("1");
@@ -52,31 +52,6 @@ function ShopAppointments(props) {
   const handleTab = () => {
     if (tab === "1") setTab("2");
     else setTab("1");
-  };
-
-  const handleRejection = async (id) => {
-    try {
-      const response = await rejectAppointment(id);
-      setPending((p) => p.filter((app) => app._id !== id));
-    } catch (error) {}
-  };
-
-  const handleApproval = async (id) => {
-    try {
-      const response = await confirmAppointment(id);
-    } catch (error) {}
-  };
-
-  const handleCompletion = async (id) => {
-    try {
-      const response = await markAppointmentCompleted(id);
-    } catch (error) {}
-  };
-
-  const handleNoShow = async (id) => {
-    try {
-      const response = await markAppointmentNoShow(id);
-    } catch (error) {}
   };
 
   const RenderAppointments =
