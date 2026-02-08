@@ -183,12 +183,18 @@ router.post(
           .status(400)
           .json({ success: false, message: "Shop was deleted" });
 
-      const appointment = new AppointmentModel(data);
+      const appointment = new AppointmentModel({
+        shop: data.shop,
+        scheduledDate: data.scheduledDate,
+        customer: data.customer,
+        car: data.car,
+        serviceParts: data.serviceParts,
+      });
       await appointment.save();
 
       const newSlot = new SlotModel({
         shop: data.shop,
-        date: data.date,
+        date: data.scheduledDate,
         from: data.time,
       });
       await newSlot.save();
@@ -217,7 +223,7 @@ router.patch(
     try {
       const id = req.params.id;
       const slotId = req.body.slot;
-      const { to } = req.body;
+      const to = req.body.to;
 
       if (!id || !mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({

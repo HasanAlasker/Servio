@@ -47,6 +47,7 @@ function MakeAppointment(props) {
       shop: params.shop.id,
       serviceParts: partsId,
       scheduledDate: date,
+      time: values.time,
     };
 
     try {

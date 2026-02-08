@@ -21,17 +21,17 @@ export const getCompletedAppointments = (id) =>
 export const bookAppointment = (data) =>
   apiClient.post(`${endpoint}/book`, data);
 
-export const confirmAppointment = (id) =>
-  apiClient.patch(`${endpoint}/confirm/${id}`);
+export const confirmAppointment = (id, data) =>
+  apiClient.patch(`${endpoint}/confirm/${id}`, data);
 
-export const rejectAppointment = (id) =>
-  apiClient.patch(`${endpoint}/reject/${id}`);
+export const rejectAppointment = (id, data) =>
+  apiClient.patch(`${endpoint}/reject/${id}`, data);
 
-export const markAppointmentCompleted = (id) =>
-  apiClient.patch(`${endpoint}/mark-completed/${id}`);
+export const markAppointmentCompleted = (id, data) =>
+  apiClient.patch(`${endpoint}/mark-completed/${id}`, data);
 
-export const markAppointmentNoShow = (id) =>
-  apiClient.patch(`${endpoint}/no-show/${id}`);
+export const markAppointmentNoShow = (id, data) =>
+  apiClient.patch(`${endpoint}/no-show/${id}`, data);
 
-export const cancelAppointment = (id) =>
-  apiClient.patch(`${endpoint}/cancel/${id}`);
+export const cancelAppointment = (id, data) =>
+  apiClient.patch(`${endpoint}/cancel/${id}`, data);
