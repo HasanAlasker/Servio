@@ -10,6 +10,8 @@ import {
   editAppointmentSchema,
 } from "../validation/appointment.js";
 import ShopModel from "../models/shop.js";
+import { SlotModel } from "../models/slots.js";
+import { deletedSlot } from "../services/deleteSlot.js";
 
 const router = express.Router();
 
@@ -141,7 +143,7 @@ router.get("/pending/:id", [auth, shopOwner], async (req, res) => {
     const pending = await AppointmentModel.find({
       shop: shopId,
       status: "pending",
-      isRejected: false
+      isRejected: false,
     })
       .sort("-createdAt")
       .populate("car", "make name model plateNumber mileage color")
@@ -184,6 +186,13 @@ router.post(
       const appointment = new AppointmentModel(data);
       await appointment.save();
 
+      const newSlot = new SlotModel({
+        shop: data.shop,
+        date: data.date,
+        from: data.time,
+      });
+      await newSlot.save();
+
       if (!appointment)
         res
           .status(400)
@@ -207,6 +216,8 @@ router.patch(
   async (req, res) => {
     try {
       const id = req.params.id;
+      const slotId = req.body.slot;
+      const { to } = req.body;
 
       if (!id || !mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
@@ -223,7 +234,15 @@ router.patch(
         { runValidators: true, new: true },
       );
 
-      if (!confirmed)
+      const confirmedSlot = await SlotModel.findByIdAndUpdate(
+        slotId,
+        {
+          to: to,
+        },
+        { runValidators: true, new: true },
+      );
+
+      if (!confirmed || !confirmedSlot)
         res
           .status(400)
           .json({ success: false, message: "Failed to confirm appointment" });
@@ -243,6 +262,7 @@ router.patch(
 router.patch("/reject/:id", [auth, shopOwner], async (req, res) => {
   try {
     const id = req.params.id;
+    const slotId = req.body.slot;
 
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
@@ -255,12 +275,14 @@ router.patch("/reject/:id", [auth, shopOwner], async (req, res) => {
       id,
       {
         isRejected: true,
-        status: "canceled"
+        status: "canceled",
       },
       { runValidators: true, new: true },
     );
 
-    if (!rejected)
+    await deletedSlot(slotId);
+
+    if (!rejected || deletedSlot)
       res
         .status(400)
         .json({ success: false, message: "Failed to reject appointment" });
@@ -282,6 +304,7 @@ router.patch(
   async (req, res) => {
     try {
       const id = req.params.id;
+      const slotId = req.body.slot;
 
       if (!id || !mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
@@ -297,6 +320,8 @@ router.patch(
         },
         { runValidators: true, new: true },
       );
+
+      await deletedSlot(slotId);
 
       if (!completed)
         res
@@ -321,6 +346,7 @@ router.patch(
   async (req, res) => {
     try {
       const id = req.params.id;
+      const slotId = req.body.slot;
 
       if (!id || !mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
@@ -336,6 +362,8 @@ router.patch(
         },
         { runValidators: true, new: true },
       );
+
+      await deletedSlot(slotId);
 
       if (!noShow)
         res
@@ -357,6 +385,7 @@ router.patch(
 router.patch("/cancel/:id", auth, async (req, res) => {
   try {
     const id = req.params.id;
+    const slotId = req.body.slot;
 
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
@@ -387,6 +416,8 @@ router.patch("/cancel/:id", auth, async (req, res) => {
       },
       { runValidators: true, new: true },
     );
+
+    await deletedSlot(slotId);
 
     if (!canceled)
       res

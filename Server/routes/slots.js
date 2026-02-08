@@ -1,7 +1,6 @@
 import express from "express";
 import auth from "../middleware/auth.js";
 import { SlotModel } from "../models/slots.js";
-import shopOwner from "../middleware/shopOwner.js";
 
 const router = express.Router();
 
@@ -18,9 +17,19 @@ router.post("/busy/:id", auth, async (req, res) => {
       });
     }
 
+    // Create date range for the entire day
+    const startOfDay = new Date(date);
+    startOfDay.setHours(0, 0, 0, 0);
+
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23, 59, 59, 999);
+
     const busySlots = await SlotModel.find({
       shop: shopId,
-      date: new Date(date),
+      date: {
+        $gte: startOfDay,
+        $lte: endOfDay,
+      },
     });
 
     return res.status(200).json({ success: true, data: busySlots });
