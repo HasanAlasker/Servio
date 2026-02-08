@@ -11,16 +11,34 @@ import SubmitBtn from "../../components/form/SubmitBtn";
 import { useState } from "react";
 import AppSummary from "../../components/cards/AppSummary";
 import { bookAppointment } from "../../api/appointment";
+import { checkSlot } from "../../api/slots";
+import ErrorMessage from "../../components/form/ErrorMessage";
 
 const validationSchema = Yup.object({
   date: Yup.date()
     .required("Please select a date")
-    .min(new Date(), "Date cannot be in the past"),
-  time: Yup.string().required("Please select a time").nullable(),
+    .min(
+      new Date(new Date().setHours(0, 0, 0, 0)),
+      "Date cannot be in the past",
+    ),
+  time: Yup.string()
+    .required("Please select a time")
+    .test("is-future-time", "Time must be in the future", function (value) {
+      const { date } = this.parent;
+      if (!date || !value) return true;
+
+      const selectedDate = new Date(date);
+      const [hours, minutes] = value.split(":");
+      selectedDate.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
+
+      return selectedDate > new Date();
+    }),
 });
 
 function MakeAppointment(props) {
   const [hasBeenSubmited, setHasBeenSubmited] = useState(false);
+  const [err, setErr] = useState(null);
+  const [overlapping, setOverlapping] = useState(null);
   const navigate = useNavigation();
   const route = useRoute();
   const params = route.params;
@@ -42,20 +60,46 @@ function MakeAppointment(props) {
 
     let date = dateObj.toISOString();
 
-    const data = {
-      car: params.car._id,
-      shop: params.shop.id,
-      serviceParts: partsId,
-      scheduledDate: date,
-      time: values.time,
-    };
-
     try {
-      const response = await bookAppointment(data);
-      if (response.ok) navigate.navigate("Bookings");
-      else console.log(response);
+      const slotData = {
+        date: date,
+        from: values.time,
+      };
+
+      const slotCheck = await checkSlot(params.shop.id, slotData);
+
+      if (!slotCheck.ok) {
+        setErr("Failed to check slot availability");
+        return;
+      }
+
+      if (!slotCheck.data.available) {
+        setErr(slotCheck.data.message);
+        setOverlapping(slotCheck.data.overlappingSlots);
+        return;
+      }
+
+      const appointmentData = {
+        car: params.car._id,
+        shop: params.shop.id,
+        serviceParts: partsId,
+        scheduledDate: date,
+        time: values.time,
+      };
+
+      const response = await bookAppointment(appointmentData);
+
+      if (response.ok) {
+        navigate.navigate("Bookings");
+      } else {
+        setErr(
+          "Failed to book appointment, This car might have appointment in the same time",
+        );
+        console.log(response);
+      }
     } catch (error) {
       console.log(error);
+      setErr("An error occurred. Please try again.");
     }
   };
 
@@ -93,6 +137,8 @@ function MakeAppointment(props) {
                   submittingText="Confirming"
                   setHasBeenSubmitted={setHasBeenSubmited}
                 />
+
+                {err && <ErrorMessage error={err} />}
               </GapContainer>
             )}
           </AppForm>
