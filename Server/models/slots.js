@@ -6,6 +6,11 @@ const slotSchema = new mongoose.Schema({
     ref: "Shop",
     required: true,
   },
+  appointment: {
+    type: mongoose.Types.ObjectId,
+    ref: "Appointment",
+    required: true,
+  },
   date: Date,
   from: String,
   to: String,

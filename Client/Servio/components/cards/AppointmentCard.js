@@ -78,8 +78,8 @@ function AppointmentCard({
             onPress={() => onCancel(id, type)}
           />
         )}
-        <GapContainer gap={15}>
-          {isShopOwner && (
+        {isShopOwner && (
+          <GapContainer gap={15}>
             <PriBtn
               square
               full
@@ -88,8 +88,7 @@ function AppointmentCard({
                 status === "pending" ? () => onAccept(id) : () => onComplete(id)
               }
             />
-          )}
-          {isShopOwner && (
+
             <PriBtn
               square
               full
@@ -99,8 +98,8 @@ function AppointmentCard({
                 status === "pending" ? () => onReject(id) : () => onNoShow(id)
               }
             />
-          )}
-        </GapContainer>
+          </GapContainer>
+        )}
       </GapContainer>
     </CardComp>
   );

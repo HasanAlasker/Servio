@@ -92,9 +92,7 @@ function MakeAppointment(props) {
       if (response.ok) {
         navigate.navigate("Bookings");
       } else {
-        setErr(
-          "Failed to book appointment, This car might have appointment in the same time",
-        );
+        setErr("This car has another appointment in this time");
         console.log(response);
       }
     } catch (error) {
@@ -134,7 +132,7 @@ function MakeAppointment(props) {
 
                 <SubmitBtn
                   defaultText="Confirm"
-                  submittingText="Confirming"
+                  submittingText="Confirming..."
                   setHasBeenSubmitted={setHasBeenSubmited}
                 />
 

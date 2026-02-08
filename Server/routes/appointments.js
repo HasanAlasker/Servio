@@ -198,6 +198,7 @@ router.post(
 
       const newSlot = new SlotModel({
         shop: data.shop,
+        appointment: appointment._id,
         date: data.scheduledDate,
         from: data.time,
         to: toTime,
@@ -227,7 +228,6 @@ router.patch(
   async (req, res) => {
     try {
       const id = req.params.id;
-      const slotId = req.body.slot;
       const to = req.body.to;
 
       if (!id || !mongoose.Types.ObjectId.isValid(id)) {
@@ -245,8 +245,10 @@ router.patch(
         { runValidators: true, new: true },
       );
 
+      const slot = await SlotModel.findOne({ appointment: confirmed._id });
+
       const confirmedSlot = await SlotModel.findByIdAndUpdate(
-        slotId,
+        slot._id,
         {
           to: to,
         },
@@ -273,7 +275,6 @@ router.patch(
 router.patch("/reject/:id", [auth, shopOwner], async (req, res) => {
   try {
     const id = req.params.id;
-    const slotId = req.body.slot;
 
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
@@ -291,7 +292,8 @@ router.patch("/reject/:id", [auth, shopOwner], async (req, res) => {
       { runValidators: true, new: true },
     );
 
-    await deletedSlot(slotId);
+    const slot = await SlotModel.findOne({ appointment: rejected._id });
+    await deletedSlot(slot._id);
 
     if (!rejected || deletedSlot)
       res
@@ -315,7 +317,6 @@ router.patch(
   async (req, res) => {
     try {
       const id = req.params.id;
-      const slotId = req.body.slot;
 
       if (!id || !mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
@@ -332,7 +333,8 @@ router.patch(
         { runValidators: true, new: true },
       );
 
-      await deletedSlot(slotId);
+      const slot = await SlotModel.findOne({ appointment: completed._id });
+      await deletedSlot(slot._id);
 
       if (!completed)
         res
@@ -357,7 +359,6 @@ router.patch(
   async (req, res) => {
     try {
       const id = req.params.id;
-      const slotId = req.body.slot;
 
       if (!id || !mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
@@ -374,7 +375,8 @@ router.patch(
         { runValidators: true, new: true },
       );
 
-      await deletedSlot(slotId);
+      const slot = await SlotModel.findOne({ appointment: noShow._id });
+      await deletedSlot(slot._id);
 
       if (!noShow)
         res
@@ -396,7 +398,6 @@ router.patch(
 router.patch("/cancel/:id", auth, async (req, res) => {
   try {
     const id = req.params.id;
-    const slotId = req.body.slot;
 
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
@@ -428,7 +429,8 @@ router.patch("/cancel/:id", auth, async (req, res) => {
       { runValidators: true, new: true },
     );
 
-    await deletedSlot(slotId);
+    const slot = await SlotModel.findOne({ appointment: canceled._id });
+    await deletedSlot(slot._id);
 
     if (!canceled)
       res
