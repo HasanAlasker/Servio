@@ -9,6 +9,7 @@ import useApi from "../../hooks/useApi";
 import {
   getConfirmedAppointments,
   getPendingAppointments,
+  markAppointmentCompleted,
   rejectAppointment,
 } from "../../api/appointment";
 import AppointmentCard from "../../components/cards/AppointmentCard";
@@ -60,7 +61,30 @@ function ShopAppointments(props) {
   const handleRejection = async (id) => {
     try {
       const response = await rejectAppointment(id);
-      console.log(response)
+      if (response.ok) {
+        setPending((p) => p.filter((a) => a._id !== id));
+      }
+    } catch (error) {}
+  };
+
+  const handleCompletion = async (id) => {
+    try {
+      const response = await markAppointmentCompleted(id);
+      if (response.ok) {
+        setConfirmed((p) =>
+          p.map((app) =>
+            app._id === id ? { ...app, status: "completed" } : app,
+          ),
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleNoshow = async (id) => {
+    try {
+      const response = await rejectAppointment(id);
       if (response.ok) {
         setPending((p) => p.filter((a) => a._id !== id));
       }
@@ -78,6 +102,8 @@ function ShopAppointments(props) {
             serviceParts={appointment.serviceParts}
             status={appointment.status}
             scheuledAt={appointment.scheduledDate}
+            onComplete={handleCompletion}
+            onNoShow={handleNoshow}
             type={"1"}
           />
         ))

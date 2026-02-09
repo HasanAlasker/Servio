@@ -292,7 +292,6 @@ router.patch("/reject/:id", [auth, shopOwner], async (req, res) => {
       { runValidators: true, new: true },
     );
 
-    // Check if appointment was found BEFORE trying to use it
     if (!rejected) {
       return res.status(404).json({
         success: false,
@@ -300,14 +299,11 @@ router.patch("/reject/:id", [auth, shopOwner], async (req, res) => {
       });
     }
 
-    // Find and delete the slot
     const slot = await SlotModel.findOne({ appointment: rejected._id });
-
     if (slot) {
-      await deletedSlot(slot._id); // Only delete if slot exists
+      await deletedSlot(slot._id);
     }
 
-    // Return success (removed the buggy condition)
     return res.status(200).json({ success: true, data: rejected });
   } catch (error) {
     console.error(error);
@@ -341,13 +337,15 @@ router.patch(
         { runValidators: true, new: true },
       );
 
-      const slot = await SlotModel.findOne({ appointment: completed._id });
-      await deletedSlot(slot._id);
-
       if (!completed)
         res
           .status(400)
           .json({ success: false, message: "Failed to confirm appointment" });
+
+      const slot = await SlotModel.findOne({ appointment: completed._id });
+      if (slot) {
+        await deletedSlot(slot._id);
+      }
 
       return res.status(200).json({ success: true, data: completed });
     } catch (error) {
@@ -383,14 +381,15 @@ router.patch(
         { runValidators: true, new: true },
       );
 
-      const slot = await SlotModel.findOne({ appointment: noShow._id });
-      await deletedSlot(slot._id);
-
       if (!noShow)
         res
           .status(400)
           .json({ success: false, message: "Failed to confirm appointment" });
 
+      const slot = await SlotModel.findOne({ appointment: noShow._id });
+      if (slot) {
+        await deletedSlot(slot._id);
+      }
       return res.status(200).json({ success: true, data: noShow });
     } catch (error) {
       console.error(error);
@@ -436,14 +435,15 @@ router.patch("/cancel/:id", auth, async (req, res) => {
       },
       { runValidators: true, new: true },
     );
-
-    const slot = await SlotModel.findOne({ appointment: canceled._id });
-    await deletedSlot(slot._id);
-
     if (!canceled)
       res
         .status(400)
         .json({ success: false, message: "Failed to confirm appointment" });
+
+    const slot = await SlotModel.findOne({ appointment: canceled._id });
+    if (slot) {
+      await deletedSlot(slot._id);
+    }
 
     return res.status(200).json({ success: true, data: canceled });
   } catch (error) {

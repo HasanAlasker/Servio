@@ -13,7 +13,7 @@ import PriBtn from "../general/PriBtn";
 import { useTheme } from "../../context/ThemeContext";
 import { UseUser } from "../../context/UserContext";
 import AppModal from "./AppModal";
-import { useState } from "react";
+import { startTransition, useState } from "react";
 
 function AppointmentCard({
   id,
@@ -87,7 +87,7 @@ function AppointmentCard({
             onPress={() => onCancel(id, type)}
           />
         )}
-        {isShopOwner && (
+        {isShopOwner && (status === "pending" || status === "confirmed") && (
           <GapContainer gap={15}>
             <PriBtn
               square
