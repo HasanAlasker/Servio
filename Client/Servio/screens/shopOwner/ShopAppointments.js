@@ -12,10 +12,7 @@ import {
 } from "../../api/appointment";
 import AppointmentCard from "../../components/cards/AppointmentCard";
 import GapContainer from "../../components/general/GapContainer";
-import {
-  handleApproval,
-  handleRejection,
-} from "../../functions/appointmentControls";
+import { handleRejection } from "../../functions/appointmentControls";
 
 function ShopAppointments(props) {
   const [tab, setTab] = useState("1");
@@ -78,7 +75,6 @@ function ShopAppointments(props) {
             status={appointment.status}
             scheuledAt={appointment.scheduledDate}
             type={"2"}
-            onAccept={handleApproval}
             onReject={handleRejection}
           />
         ));

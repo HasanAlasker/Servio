@@ -12,6 +12,8 @@ import { formatDate } from "../../functions/formatDate";
 import PriBtn from "../general/PriBtn";
 import { useTheme } from "../../context/ThemeContext";
 import { UseUser } from "../../context/UserContext";
+import AppModal from "./AppModal";
+import { useState } from "react";
 
 function AppointmentCard({
   id,
@@ -29,6 +31,13 @@ function AppointmentCard({
 }) {
   const { isShopOwner, isUser } = UseUser();
   const { theme } = useTheme();
+  const [modal, setModal] = useState(false);
+
+  const onApprove = async (id) => {
+    setModal(true);
+  };
+
+  const closeModal = () => setModal(false);
 
   const partsList = serviceParts?.map((part) => (
     <SText key={part._id} thin>
@@ -85,7 +94,9 @@ function AppointmentCard({
               full
               title={status === "pending" ? "Accept" : "Completed"}
               onPress={
-                status === "pending" ? () => onAccept(id) : () => onComplete(id)
+                status === "pending"
+                  ? () => onApprove(id)
+                  : () => onComplete(id)
               }
             />
 
@@ -101,6 +112,7 @@ function AppointmentCard({
           </GapContainer>
         )}
       </GapContainer>
+      <AppModal isVisible={modal} onClose={closeModal} from={scheuledAt}/>
     </CardComp>
   );
 }
