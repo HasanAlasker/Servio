@@ -51,6 +51,12 @@ function ShopAppointments(props) {
     else setTab("1");
   };
 
+  const handleApproval = (id) => {
+    setPending((p) => p.filter((a) => a._id !== id));
+    const app = pending.find((a) => a._id === id);
+    setConfirmed((p) => [{ ...app, status: "confirmed" }, ...p]);
+  };
+
   const RenderAppointments =
     tab === "1"
       ? confirmed.map((appointment) => (
@@ -76,6 +82,7 @@ function ShopAppointments(props) {
             scheuledAt={appointment.scheduledDate}
             type={"2"}
             onReject={handleRejection}
+            onAccept={handleApproval}
           />
         ));
 

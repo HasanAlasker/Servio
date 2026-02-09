@@ -12,21 +12,37 @@ import { useTheme } from "../../context/ThemeContext";
 import { getTimeFromDate } from "../../functions/fromatTime";
 import { formatDate } from "../../functions/formatDate";
 import IconTextLabel from "../general/IconTextLabel";
+import { confirmAppointment } from "../../api/appointment";
+import ErrorMessage from "../form/ErrorMessage";
 
 const validationSchema = Yup.object({
   to: Yup.string().required("Please select a time"),
 });
 
-function AppModal({ from, isVisible, onClose }) {
+function AppModal({ from, isVisible, onClose, id, onApproval }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
   const [hasBeenSubmited, setHasBeenSubmited] = useState(false);
+  const [err, setErr] = useState(null);
 
   const initialValues = {
     to: null,
   };
   const handleSubmit = async (values) => {
-    // call api here
+    setErr(null);
+    try {
+      const data = {
+        to: values.to,
+      };
+      const response = await confirmAppointment(id, data);
+      if (response.ok) {
+        onApproval(id);
+        onClose();
+      } else setErr(response.data.message);
+    } catch (error) {
+      console.log(error);
+      setErr("Error");
+    }
   };
 
   return (
@@ -68,6 +84,7 @@ function AppModal({ from, isVisible, onClose }) {
               title={"Cancel"}
               onPress={onClose}
             /> */}
+            {err && <ErrorMessage error={err} />}
           </GapContainer>
         </AppForm>
       </GapContainer>

@@ -112,7 +112,13 @@ function AppointmentCard({
           </GapContainer>
         )}
       </GapContainer>
-      <AppModal isVisible={modal} onClose={closeModal} from={scheuledAt}/>
+      <AppModal
+        isVisible={modal}
+        onClose={closeModal}
+        from={scheuledAt}
+        id={id}
+        onApproval={() => onAccept(id)}
+      />
     </CardComp>
   );
 }
