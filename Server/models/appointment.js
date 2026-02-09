@@ -34,6 +34,7 @@ const appointmentSchema = new mongoose.Schema(
         "canceled",
         "completed",
         "no-show",
+        "rejected"
       ],
       default: "pending",
     },

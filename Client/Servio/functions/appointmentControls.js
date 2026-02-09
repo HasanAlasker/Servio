@@ -5,13 +5,6 @@ import {
   rejectAppointment,
 } from "../api/appointment";
 
-export const handleRejection = async (id) => {
-  try {
-    const response = await rejectAppointment(id);
-    setPending((p) => p.filter((app) => app._id !== id));
-  } catch (error) {}
-};
-
 export const handleCompletion = async (id) => {
   try {
     const response = await markAppointmentCompleted(id);

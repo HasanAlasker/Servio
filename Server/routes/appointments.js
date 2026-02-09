@@ -279,7 +279,7 @@ router.patch("/reject/:id", [auth, shopOwner], async (req, res) => {
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
         success: false,
-        message: "Invalid car ID",
+        message: "Invalid appointment ID", // Fixed message
       });
     }
 
@@ -287,19 +287,27 @@ router.patch("/reject/:id", [auth, shopOwner], async (req, res) => {
       id,
       {
         isRejected: true,
-        status: "canceled",
+        status: "rejected",
       },
       { runValidators: true, new: true },
     );
 
+    // Check if appointment was found BEFORE trying to use it
+    if (!rejected) {
+      return res.status(404).json({
+        success: false,
+        message: "Appointment not found",
+      });
+    }
+
+    // Find and delete the slot
     const slot = await SlotModel.findOne({ appointment: rejected._id });
-    await deletedSlot(slot._id);
 
-    if (!rejected || deletedSlot)
-      res
-        .status(400)
-        .json({ success: false, message: "Failed to reject appointment" });
+    if (slot) {
+      await deletedSlot(slot._id); // Only delete if slot exists
+    }
 
+    // Return success (removed the buggy condition)
     return res.status(200).json({ success: true, data: rejected });
   } catch (error) {
     console.error(error);

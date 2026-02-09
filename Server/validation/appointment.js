@@ -88,6 +88,7 @@ export const editAppointmentSchema = Joi.object({
       "canceled",
       "completed",
       "no-show",
+      "rejected",
     )
     .lowercase()
     .messages({

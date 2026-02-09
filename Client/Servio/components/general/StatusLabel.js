@@ -22,6 +22,11 @@ function StatusLabel({ status }) {
     case "canceled":
       color = "red";
       break;
+
+    case "rejected":
+      color = "red";
+      break;
+
     default:
       color = "lightBlue";
   }
@@ -35,7 +40,9 @@ function StatusLabel({ status }) {
         { backgroundColor: backColor, borderColor: theme[color] },
       ]}
     >
-      <TText style={{ color: theme[color] }}>{capFirstLetter(status||"...")}</TText>
+      <TText style={{ color: theme[color] }}>
+        {capFirstLetter(status || "...")}
+      </TText>
     </View>
   );
 }
@@ -49,7 +56,7 @@ const getStyles = (theme) =>
       borderWidth: 1.4,
       justifyContent: "center",
       alignItems: "center",
-      alignSelf:'flex-start'
+      alignSelf: "flex-start",
     },
   });
 

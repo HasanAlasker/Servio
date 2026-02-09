@@ -9,10 +9,10 @@ import useApi from "../../hooks/useApi";
 import {
   getConfirmedAppointments,
   getPendingAppointments,
+  rejectAppointment,
 } from "../../api/appointment";
 import AppointmentCard from "../../components/cards/AppointmentCard";
 import GapContainer from "../../components/general/GapContainer";
-import { handleRejection } from "../../functions/appointmentControls";
 
 function ShopAppointments(props) {
   const [tab, setTab] = useState("1");
@@ -55,6 +55,16 @@ function ShopAppointments(props) {
     setPending((p) => p.filter((a) => a._id !== id));
     const app = pending.find((a) => a._id === id);
     setConfirmed((p) => [{ ...app, status: "confirmed" }, ...p]);
+  };
+
+  const handleRejection = async (id) => {
+    try {
+      const response = await rejectAppointment(id);
+      console.log(response)
+      if (response.ok) {
+        setPending((p) => p.filter((a) => a._id !== id));
+      }
+    } catch (error) {}
   };
 
   const RenderAppointments =
