@@ -11,6 +11,7 @@ import { useState } from "react";
 import SeparatorComp from "../../components/general/SeparatorComp";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import UserCard from "../../components/cards/UserCard";
+import ErrorMessage from "../../components/form/ErrorMessage";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -41,6 +42,7 @@ const validationSchema = Yup.object().shape({
 function Profile(props) {
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
   const [isEdit, setEdit] = useState(false);
+  const [err, setErr] = useState(null);
   const { user, editProfile } = UseUser();
 
   const initialValues = {
@@ -50,14 +52,17 @@ function Profile(props) {
 
   const handleEditPress = () => {
     setEdit(!isEdit);
+    setErr(null);
   };
 
   const handleSubmit = async (values) => {
     setHasBeenSubmited(true);
     try {
       const response = await editProfile(values);
-      if (response.status !== 200) console.log(response.message);
-      setEdit(false);
+      if (response.success) setEdit(false);
+      if (!response.success) {
+        setErr(response.message);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -97,6 +102,8 @@ function Profile(props) {
                   submittingText="Saving..."
                   disabled={!isEdit}
                 />
+
+                {err && <ErrorMessage error={err} />}
               </GapContainer>
             </AppForm>
           )}

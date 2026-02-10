@@ -177,8 +177,8 @@ router.get("/shopOwner/count", [auth, shopOwner], async (req, res) => {
       isVerified: true,
     }).select("_id");
 
-    let idList = []
-    myShopsId.map((shop)=> idList.push(shop._id))
+    let idList = [];
+    myShopsId.map((shop) => idList.push(shop._id));
 
     const requests = await AppointmentModel.countDocuments({
       shop: { $in: myShopsId },
@@ -354,6 +354,13 @@ router.patch(
       return res.status(200).json({ success: true, data: updatedUser });
     } catch (error) {
       console.error(error);
+      if (error.code === 11000) {
+        return res.status(400).json({
+          success: false,
+          message: "Phone number already exists",
+        });
+      }
+
       return res.status(500).json({
         success: false,
         message: "Server Error",
