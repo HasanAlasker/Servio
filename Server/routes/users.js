@@ -206,7 +206,21 @@ router.get("/shopOwner/count", [auth, shopOwner], async (req, res) => {
 router.get("/refreshToken/:id", auth, async (req, res) => {
   try {
     const userId = req.params.id;
+
+    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid resource ID",
+      });
+    }
+
     const user = await UserModel.findById(userId);
+
+    if (!user)
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+        
     const token = user.generateAuthToken();
     const response = _.omit(user.toObject(), ["password", "__v"]);
     return res.status(201).header("x-auth-token", token).json({
@@ -333,8 +347,6 @@ router.post("/login", validate(userLoginSchema), async (req, res) => {
     });
   }
 });
-
-
 
 // edit
 router.patch(

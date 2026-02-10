@@ -1,5 +1,11 @@
 import { useContext, createContext, useState } from "react";
-import { editUser, getMe, loginUser, registerUser } from "../api/user";
+import {
+  editUser,
+  getMe,
+  loginUser,
+  refreshToken,
+  registerUser,
+} from "../api/user";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { isServerAwake } from "../api/upcomingService";
 
@@ -62,6 +68,42 @@ export const UserProvider = ({ children }) => {
   const removeUserData = async () => {
     try {
       await AsyncStorage.multiRemove([STORAGE_KEYS.USER, STORAGE_KEYS.TOKEN]);
+    } catch (error) {
+      console.error("Error removing user data", error);
+    }
+  };
+
+  const refreshUserToken = async () => {
+    try {
+      const res = await refreshToken(user._id);
+
+      const responseMessage = res.data?.message;
+      const responseStatus = res.status;
+
+      if (!res.ok) {
+        setError(true);
+        setMessage(responseMessage);
+        setStatus(responseStatus);
+        return {
+          success: false,
+          message: responseMessage,
+          status: responseStatus,
+        };
+      }
+
+      const user = res.data.data;
+      const token = res.headers["x-auth-token"];
+
+      setUser(user);
+      setMessage(responseMessage);
+      setStatus(responseStatus);
+      await storeUserData(user, token);
+
+      return {
+        success: true,
+        message: responseMessage,
+        status: responseStatus,
+      };
     } catch (error) {
       console.error("Error removing user data", error);
     }
@@ -340,6 +382,7 @@ export const UserProvider = ({ children }) => {
     getMyProfile,
     login,
     register,
+    refreshToken,
     editProfile,
     logout,
     role,
