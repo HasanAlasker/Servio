@@ -202,6 +202,27 @@ router.get("/shopOwner/count", [auth, shopOwner], async (req, res) => {
   }
 });
 
+// refresh user token
+router.get("/refreshToken/:id", auth, async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await UserModel.findById(userId);
+    const token = user.generateAuthToken();
+    const response = _.omit(user.toObject(), ["password", "__v"]);
+    return res.status(201).header("x-auth-token", token).json({
+      success: true,
+      message: "Token refreshed successfully",
+      data: response,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
 // get by id
 router.get("/:id", admin, async (req, res) => {
   try {
@@ -303,8 +324,7 @@ router.post("/login", validate(userLoginSchema), async (req, res) => {
     return res
       .status(201)
       .header("x-auth-token", token)
-      .json({ success: true, message: "Login successful", data: response })
-      .header();
+      .json({ success: true, message: "Login successful", data: response });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -313,6 +333,8 @@ router.post("/login", validate(userLoginSchema), async (req, res) => {
     });
   }
 });
+
+
 
 // edit
 router.patch(
