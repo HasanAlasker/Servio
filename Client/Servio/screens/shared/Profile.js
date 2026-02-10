@@ -84,7 +84,7 @@ function Profile(props) {
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
-              <GapContainer>
+              <GapContainer gap={15}>
                 <SeparatorComp children={"Edit your info"} />
                 <FormikInput
                   name={"name"}
