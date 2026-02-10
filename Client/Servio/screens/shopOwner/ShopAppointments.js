@@ -10,6 +10,7 @@ import {
   getConfirmedAppointments,
   getPendingAppointments,
   markAppointmentCompleted,
+  markAppointmentNoShow,
   rejectAppointment,
 } from "../../api/appointment";
 import AppointmentCard from "../../components/cards/AppointmentCard";
@@ -84,11 +85,17 @@ function ShopAppointments(props) {
 
   const handleNoshow = async (id) => {
     try {
-      const response = await rejectAppointment(id);
+      const response = await markAppointmentNoShow(id);
       if (response.ok) {
-        setPending((p) => p.filter((a) => a._id !== id));
+        setConfirmed((p) =>
+          p.map((app) =>
+            app._id === id ? { ...app, status: "no-show" } : app,
+          ),
+        );
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const RenderAppointments =

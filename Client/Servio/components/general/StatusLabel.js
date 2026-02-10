@@ -19,11 +19,9 @@ function StatusLabel({ status }) {
       color = "green";
       break;
 
-    case "canceled":
-      color = "red";
-      break;
-
     case "rejected":
+    case "no-show":
+    case "canceled":
       color = "red";
       break;
 
