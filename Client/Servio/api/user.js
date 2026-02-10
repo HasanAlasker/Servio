@@ -22,7 +22,7 @@ export const registerUser = (data) =>
 export const loginUser = (data) => apiClient.post(`${endpoint}/login`, data);
 
 export const refreshToken = (id) =>
-  apiClient.post(`${endpoint}/refreshToken/${id}`);
+  apiClient.get(`${endpoint}/refreshToken/${id}`);
 
 export const editUser = (id, data) =>
   apiClient.patch(`${endpoint}/edit/${id}`, data);

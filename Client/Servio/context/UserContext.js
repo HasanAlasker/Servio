@@ -35,6 +35,48 @@ export const UserProvider = ({ children }) => {
     TOKEN: "@servio_token",
   };
 
+  const refreshUserToken = async (userId) => {
+    try {
+      if (!userId) {
+        console.log("No user ID provided");
+        return { success: false, message: "No user ID" };
+      }
+
+      const res = await refreshToken(userId);
+      console.log(res)
+
+      const responseMessage = res.data?.message;
+      const responseStatus = res.status;
+
+      if (!res.ok) {
+        setError(true);
+        setMessage(responseMessage);
+        setStatus(responseStatus);
+        return {
+          success: false,
+          message: responseMessage,
+          status: responseStatus,
+        };
+      }
+
+      const refreshedUser = res.data.data;
+      const refreshedtoken = res.headers["x-auth-token"];
+
+      setUser(refreshedUser);
+      setMessage(responseMessage);
+      setStatus(responseStatus);
+      await storeUserData(refreshedUser, refreshedtoken);
+
+      return {
+        success: true,
+        message: responseMessage,
+        status: responseStatus,
+      };
+    } catch (error) {
+      console.error("Error removing user data", error);
+    }
+  };
+
   const loadUserData = async () => {
     setLoading(false);
     setAppStart(false);
@@ -44,9 +86,12 @@ export const UserProvider = ({ children }) => {
       const loadedUser = await AsyncStorage.getItem(STORAGE_KEYS.USER);
       const loadedToken = await AsyncStorage.getItem(STORAGE_KEYS.TOKEN);
       if (loadedUser && loadedToken) {
-        setUser(JSON.parse(loadedUser));
+        const parsedUser = JSON.parse(loadedUser);
+        setUser(parsedUser);
         setToken(loadedToken);
         setIsAuthenticated(true);
+
+        await refreshUserToken(parsedUser._id);
       }
     } catch (error) {
       console.error("Error loading stored user", error);
@@ -68,42 +113,6 @@ export const UserProvider = ({ children }) => {
   const removeUserData = async () => {
     try {
       await AsyncStorage.multiRemove([STORAGE_KEYS.USER, STORAGE_KEYS.TOKEN]);
-    } catch (error) {
-      console.error("Error removing user data", error);
-    }
-  };
-
-  const refreshUserToken = async () => {
-    try {
-      const res = await refreshToken(user._id);
-
-      const responseMessage = res.data?.message;
-      const responseStatus = res.status;
-
-      if (!res.ok) {
-        setError(true);
-        setMessage(responseMessage);
-        setStatus(responseStatus);
-        return {
-          success: false,
-          message: responseMessage,
-          status: responseStatus,
-        };
-      }
-
-      const user = res.data.data;
-      const token = res.headers["x-auth-token"];
-
-      setUser(user);
-      setMessage(responseMessage);
-      setStatus(responseStatus);
-      await storeUserData(user, token);
-
-      return {
-        success: true,
-        message: responseMessage,
-        status: responseStatus,
-      };
     } catch (error) {
       console.error("Error removing user data", error);
     }
@@ -382,7 +391,7 @@ export const UserProvider = ({ children }) => {
     getMyProfile,
     login,
     register,
-    refreshToken,
+    refreshUserToken,
     editProfile,
     logout,
     role,
