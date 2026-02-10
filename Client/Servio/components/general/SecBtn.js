@@ -18,7 +18,7 @@ const getStyles = (theme) =>
     container: {
       width: "90%",
       marginHorizontal: "auto",
-      backgroundColor: theme.post,
+      backgroundColor: theme.bacground,
       padding: 6,
       borderRadius: 25,
       borderColor: theme.blue,

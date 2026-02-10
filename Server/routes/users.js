@@ -287,7 +287,7 @@ router.post("/login", validate(userLoginSchema), async (req, res) => {
     if (!user)
       return res
         .status(404)
-        .json({ success: false, message: "User not found" });
+        .json({ success: false, message: "Invalid email or password" });
 
     const validPassword = await user.comparePassword(data.password);
 
