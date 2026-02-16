@@ -46,20 +46,6 @@ function Admin({onMenu, isMenu}) {
 
       <TouchableOpacity
         style={styles.navbarBtn}
-        onPress={() => navigation.navigate("Users")}
-      >
-        <Feather
-          name="users"
-          size={30}
-          style={[styles.icon, route.name === "Users" && styles.active]}
-        />
-        <Text style={[styles.text, route.name === "Users" && styles.active]}>
-          Users
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.navbarBtn}
         onPress={() => navigation.navigate("Reports")}
       >
         <MaterialCommunityIcons
@@ -69,6 +55,20 @@ function Admin({onMenu, isMenu}) {
         />
         <Text style={[styles.text, route.name === "Reports" && styles.active]}>
           Reports
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.navbarBtn}
+        onPress={() => navigation.navigate("Users")}
+      >
+        <Feather
+          name="users"
+          size={30}
+          style={[styles.icon, route.name === "Users" && styles.active]}
+        />
+        <Text style={[styles.text, route.name === "Users" && styles.active]}>
+          Users
         </Text>
       </TouchableOpacity>
 
