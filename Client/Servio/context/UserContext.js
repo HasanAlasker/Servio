@@ -43,7 +43,6 @@ export const UserProvider = ({ children }) => {
       }
 
       const res = await refreshToken(userId);
-      console.log(res)
 
       const responseMessage = res.data?.message;
       const responseStatus = res.status;

@@ -1,4 +1,4 @@
-import { Feather, Ionicons } from "@expo/vector-icons";
+import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
@@ -62,8 +62,8 @@ function Admin({onMenu, isMenu}) {
         style={styles.navbarBtn}
         onPress={() => navigation.navigate("Reports")}
       >
-        <Ionicons
-          name="megaphone-outline"
+        <MaterialCommunityIcons
+          name="bullhorn-variant-outline"
           size={30}
           style={[styles.icon, route.name === "Reports" && styles.active]}
         />
