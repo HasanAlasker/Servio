@@ -94,7 +94,7 @@ router.get("/confirmed/:id", [auth, shopOwner], async (req, res) => {
       shop: shopId,
       status: "confirmed",
     })
-      .sort("-createdAt")
+
       .populate("car", "make name model plateNumber mileage color")
       .populate("customer", "name phone")
       .populate("shop", "owner name services address rating ratingCount")
@@ -145,7 +145,6 @@ router.get("/pending/:id", [auth, shopOwner], async (req, res) => {
       status: "pending",
       isRejected: false,
     })
-      .sort("-createdAt")
       .populate("car", "make name model plateNumber mileage color")
       .populate("customer", "name phone")
       .populate("shop", "owner name services address rating ratingCount")

@@ -13,7 +13,7 @@ import PriBtn from "../general/PriBtn";
 import { useTheme } from "../../context/ThemeContext";
 import { UseUser } from "../../context/UserContext";
 import AppModal from "./AppModal";
-import { startTransition, useState } from "react";
+import { useMemo, useState } from "react";
 
 function AppointmentCard({
   id,
@@ -44,6 +44,14 @@ function AppointmentCard({
       {capFirstLetter(part.name)}
     </SText>
   ));
+
+  const isDue = useMemo(() => {
+    const passedMins = 10 * 60 * 1000; // caluculate 10 min in milliseconds
+    const scheduledTime = new Date(scheuledAt).getTime();
+    const currentTime = Date.now();
+
+    return currentTime >= (scheduledTime + passedMins);
+  }, [scheuledAt]);
 
   return (
     <CardComp>
@@ -78,6 +86,7 @@ function AppointmentCard({
           <SeparatorComp children={"Service Parts"} full color="sec_text" />
           {partsList}
         </View>
+
         {isUser && status === "pending" && (
           <PriBtn
             square
@@ -87,27 +96,41 @@ function AppointmentCard({
             onPress={() => onCancel(id, type)}
           />
         )}
-        {isShopOwner && (status === "pending" || status === "confirmed") && (
+
+        {isShopOwner && status === "pending" && (
           <GapContainer gap={15}>
             <PriBtn
               square
               full
-              title={status === "pending" ? "Accept" : "Completed"}
-              onPress={
-                status === "pending"
-                  ? () => onApprove(id)
-                  : () => onComplete(id)
-              }
+              title={"Accept"}
+              onPress={() => onApprove(id)}
             />
 
             <PriBtn
               square
               full
               style={{ backgroundColor: theme.red, borderColor: theme.red }}
-              title={status === "pending" ? "Reject" : "No-Show"}
-              onPress={
-                status === "pending" ? () => onReject(id) : () => onNoShow(id)
-              }
+              title={"Reject"}
+              onPress={() => onReject(id)}
+            />
+          </GapContainer>
+        )}
+
+        {isShopOwner && status === "confirmed" && isDue && (
+          <GapContainer gap={15}>
+            <PriBtn
+              square
+              full
+              title={"Completed"}
+              onPress={() => onComplete(id)}
+            />
+
+            <PriBtn
+              square
+              full
+              style={{ backgroundColor: theme.red, borderColor: theme.red }}
+              title={"No-Show"}
+              onPress={() => onNoShow(id)}
             />
           </GapContainer>
         )}
