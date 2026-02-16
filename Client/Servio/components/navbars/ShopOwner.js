@@ -40,7 +40,7 @@ function ShopOwner({ onMenu, isMenu }) {
             { bottom: 3 },
           ]}
         >
-          My Shops
+          Shops
         </Text>
       </TouchableOpacity>
 
@@ -84,7 +84,7 @@ function ShopOwner({ onMenu, isMenu }) {
             { bottom: 4 },
           ]}
         >
-          My Cars
+          Cars
         </Text>
       </TouchableOpacity>
 
@@ -94,7 +94,7 @@ function ShopOwner({ onMenu, isMenu }) {
           size={30}
           style={[styles.icon, isMenu && styles.active]}
         />
-        <Text style={[styles.text, isMenu && styles.active]}>Settings</Text>
+        <Text style={[styles.text, isMenu && styles.active]}>More</Text>
       </TouchableOpacity>
     </View>
   );

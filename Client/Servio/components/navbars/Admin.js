@@ -81,7 +81,7 @@ function Admin({onMenu, isMenu}) {
           size={30}
           style={[styles.icon, isMenu && styles.active]}
         />
-        <Text style={[styles.text, isMenu && styles.active]}>Settings</Text>
+        <Text style={[styles.text, isMenu && styles.active]}>More</Text>
       </TouchableOpacity>
     </View>
   );
