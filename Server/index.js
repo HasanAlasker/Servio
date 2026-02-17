@@ -20,7 +20,14 @@ import { startServiceScheduler } from "./jobs/serviceSchedular.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://servio-mylt.onrender.com"
+        : "http://192.168.1.19:4000",
+  }),
+);
 
 const port = process.env.PORT || 4000;
 

@@ -69,7 +69,7 @@ router.get("/past", auth, async (req, res) => {
         { status: { $in: ["completed", "no-show", "canceled"] } },
       ],
     })
-      .sort({ scheduledDate: 1 })
+      .sort("-scheduledDate")
       .populate("car", "make name model plateNumber mileage color")
       .populate("customer", "name phone")
       .populate("shop", "owner name services address rating ratingCount")
