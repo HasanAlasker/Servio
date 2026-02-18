@@ -32,8 +32,8 @@ export const deleteUser = (id) => apiClient.patch(`${endpoint}/delete/${id}`);
 export const undeleteUser = (id) =>
   apiClient.patch(`${endpoint}/un-delete/${id}`);
 
-// export const addPushToken = (token, platform) =>
-//   apiClient.post(`${endpoint}/push-token`, { token, platform });
+export const addPushToken = (token, platform) =>
+  apiClient.post(`${endpoint}/push-token`, { token, platform });
 
-// export const removePushToken = (token) =>
-//   apiClient.delete(`${endpoint}/push-token/${token}`);
+export const removePushToken = (token) =>
+  apiClient.delete(`${endpoint}/push-token/${token}`);

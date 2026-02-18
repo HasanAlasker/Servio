@@ -33,6 +33,7 @@ import DeletedShops from "./screens/admin/DeletedShops";
 import SeeSuggestions from "./screens/admin/SeeSuggestions";
 import ShopAppointments from "./screens/shopOwner/ShopAppointments";
 import MakeAppointment from "./screens/carOwner/MakeAppointment";
+import { NotificationProvider } from "./context/NotificationContext";
 
 const Stack = createNativeStackNavigator();
 
@@ -154,7 +155,9 @@ export default function App() {
     <SafeAreaProvider>
       <ThemeProvider>
         <UserProvider>
-          <AppNavigator />
+          <NotificationProvider>
+            <AppNavigator />
+          </NotificationProvider>
         </UserProvider>
       </ThemeProvider>
     </SafeAreaProvider>

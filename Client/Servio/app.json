@@ -20,10 +20,20 @@
         "foregroundImage": "./assets/adaptive.png",
         "backgroundColor": "#007bffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.hasan_alasker.Servio",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-notifications"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "bba45793-f511-4f58-be49-7e5320905842"
+      }
     }
   }
 }
