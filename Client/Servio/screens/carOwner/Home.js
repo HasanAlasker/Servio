@@ -12,7 +12,6 @@ import { countDocs } from "../../api/user";
 import { useEffect } from "react";
 import OfflineModal from "../../components/general/OfflineModal";
 import { UseUser } from "../../context/UserContext";
-import RowCont from "../../components/general/RowCont";
 
 function Home(props) {
   const navigaiton = useNavigation();

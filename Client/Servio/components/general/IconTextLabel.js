@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { useTheme } from "../../context/ThemeContext";
 import SText from "../text/SText";
 import RowCont from "./RowCont";

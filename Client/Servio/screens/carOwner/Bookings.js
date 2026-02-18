@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { StyleSheet } from "react-native";
 import Navbar from "../../components/general/Navbar";
-import FullScreen from "../../components/general/FullScreen";
 import SafeScreen from "../../components/general/SafeScreen";
 import useApi from "../../hooks/useApi";
 import {
@@ -15,7 +14,6 @@ import GapContainer from "../../components/general/GapContainer";
 import TabNav from "../../components/general/TabNav";
 import { useRoute } from "@react-navigation/native";
 import SText from "../../components/text/SText";
-import KeyboardScrollScreen from "../../components/general/KeyboardScrollScreen";
 
 function Bookings(props) {
   const [upcoming, setUpcoming] = useState([]);

@@ -1,6 +1,5 @@
 import { View, StyleSheet, Image } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
-import { useTheme } from "../../context/ThemeContext";
 import LText from "../text/LText";
 import SText from "../text/SText";
 

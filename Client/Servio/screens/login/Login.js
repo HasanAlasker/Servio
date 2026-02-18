@@ -55,7 +55,7 @@ function Login(props) {
 
   const isButtonDisabled = loading || connecting || !success || connectionError;
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values) => {
     setHasBeenSubmited(true);
     try {
       const response = await login(values);
