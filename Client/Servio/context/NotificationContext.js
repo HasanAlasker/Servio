@@ -55,7 +55,6 @@ export const NotificationProvider = ({ children }) => {
         projectId: "bba45793-f511-4f58-be49-7e5320905842"
       });
 
-      console.log(token)
       // console.log("Push notification token:", token.data);
       return token.data;
     } catch (error) {
