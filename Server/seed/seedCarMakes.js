@@ -80,7 +80,7 @@ const carMakesData = [
     ],
   },
   {
-    make: "mercedes-benz",
+    make: "mercedes",
     name: [
       "a-class","c-class","e-class","s-class",
       "g-class","gla","glc","gle","gls","cla","cls"
