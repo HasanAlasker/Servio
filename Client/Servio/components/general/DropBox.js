@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Modal,
   FlatList,
+  StatusBar,
 } from "react-native";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import useThemedStyles from "../../hooks/useThemedStyles";
@@ -114,7 +115,6 @@ const getStyles = (theme) =>
   StyleSheet.create({
     back: {
       marginVertical: 0,
-      marginTop: 25,
     },
     container: {
       flexDirection: "row",
@@ -141,6 +141,7 @@ const getStyles = (theme) =>
       flex: 1,
     },
     modalContent: {
+      paddingTop: StatusBar.currentHeight,
       backgroundColor: theme.post,
       borderRadius: 20,
       flex: 1,

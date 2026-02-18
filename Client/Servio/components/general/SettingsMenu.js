@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { View, StyleSheet, TouchableWithoutFeedback, StatusBar } from "react-native";
 import MenuBackBtn from "./MenuBackBtn";
 import MenuOption from "./MenuOption";
 import SeparatorComp from "./SeparatorComp";
@@ -87,7 +87,7 @@ const getStyles = (theme) =>
       position: "absolute",
       zIndex: 120,
       paddingHorizontal: 20,
-      paddingTop: 20,
+      paddingTop: StatusBar.currentHeight,
       paddingBottom: 40,
       borderBottomRightRadius: 22,
       borderBottomLeftRadius: 22,
