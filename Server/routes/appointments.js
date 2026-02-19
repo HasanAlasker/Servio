@@ -12,6 +12,9 @@ import {
 import ShopModel from "../models/shop.js";
 import { SlotModel } from "../models/slots.js";
 import { deletedSlot } from "../services/deleteSlot.js";
+import UserModel from "../models/user.js";
+import { sendPushNotification } from "../utils/notifications.js";
+import { getTimeFromDate } from "../../Client/Servio/functions/fromatTime.js";
 
 const router = express.Router();
 
@@ -208,6 +211,30 @@ router.post(
         res
           .status(400)
           .json({ success: false, message: "Failed to make appointment" });
+
+      try {
+        const shop = await ShopModel.findById(appointment.shop._id);
+        const shopOwner = await UserModel.findById(shop.owner._id);
+
+        if (
+          shopOwner &&
+          shopOwner.pushNotificationTokens &&
+          shopOwner.pushNotificationTokens.length > 0
+        ) {
+          const tokens = shopOwner.pushNotificationTokens.map(
+            (tokenObj) => tokenObj.token,
+          );
+
+          await sendPushNotification(
+            tokens,
+            `New Appointment`,
+            `Someone booked an appointment in ${shop.name} at ${getTimeFromDate(appointment.scheduledDate)}!`,
+          );
+          console.log("📤 Attempting to send notification to:", tokens);
+        }
+      } catch (notificationError) {
+        console.error("Failed to send push notification:", notificationError);
+      }
 
       return res.status(201).json({ success: true, data: appointment });
     } catch (error) {

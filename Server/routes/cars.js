@@ -242,7 +242,6 @@ router.patch(
       }
 
       await updateServicesForCar(carId);
-      await sendDueServiceNotifications()
 
       return res.status(200).json({ success: true, data: updatedCar });
     } catch (error) {
