@@ -488,6 +488,31 @@ router.patch(
       if (slot) {
         await deletedSlot(slot._id);
       }
+
+      try {
+        const customer = await UserModel.findById(noShow.customer._id);
+        const shop = await ShopModel.findById(noShow.shop._id);
+
+        if (
+          customer &&
+          customer.pushNotificationTokens &&
+          customer.pushNotificationTokens.length > 0
+        ) {
+          const tokens = customer.pushNotificationTokens.map(
+            (tokenObj) => tokenObj.token,
+          );
+
+          await sendPushNotification(
+            tokens,
+            `Appointment Not Attended`,
+            `${shop.name} marked your appointment at ${getTimeFromDate(noShow.scheduledDate)} as no-show!`,
+          );
+          console.log("📤 Attempting to send notification to:", tokens);
+        }
+      } catch (notificationError) {
+        console.error("Failed to send push notification:", notificationError);
+      }
+
       return res.status(200).json({ success: true, data: noShow });
     } catch (error) {
       console.error(error);
