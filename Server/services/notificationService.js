@@ -1,8 +1,9 @@
 // services/notificationService.js
 import UpcomingServiceModel from "../models/upcomingService.js";
+import UserModel from "../models/user.js";
+import { sendPushNotification } from "../utils/notifications.js";
 
 export const sendNotification = async (service) => {
-
   const partNames = service.parts.map((p) => p.name).join(", ");
   const message = `Your ${service.car.make} ${service.car.name} needs service for: ${partNames}`;
 
@@ -23,7 +24,28 @@ export const sendDueServiceNotifications = async () => {
 
   for (const service of services) {
     try {
-      // todo: put my send notification util here 
+      try {
+        const owner = await UserModel.findById(service.customer);
+
+        if (
+          owner &&
+          owner.pushNotificationTokens &&
+          owner.pushNotificationTokens.length > 0
+        ) {
+          const tokens = owner.pushNotificationTokens.map(
+            (tokenObj) => tokenObj.token,
+          );
+
+          await sendPushNotification(
+            tokens,
+            `Service Notification`,
+            `${service.status === "soon" ? "New service required soon" : "Check this service immediately"}`,
+          );
+          console.log("📤 Attempting to send notification to:", tokens);
+        }
+      } catch (notificationError) {
+        console.error("Failed to send push notification:", notificationError);
+      }
 
       // Mark as notified
       service.notificationSent = true;
@@ -36,5 +58,3 @@ export const sendDueServiceNotifications = async () => {
     }
   }
 };
-
-

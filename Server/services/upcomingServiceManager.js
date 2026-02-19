@@ -6,6 +6,7 @@ import {
   getServiceStatus,
   groupServiceableParts,
 } from "./serviceCalculator.js";
+import { sendDueServiceNotifications } from "./notificationService.js";
 
 export const updateServicesForCar = async (carId) => {
   const car = await CarModel.findById(carId);
@@ -39,6 +40,8 @@ export const updateServicesForCar = async (carId) => {
       : null;
 
     const status = getServiceStatus(daysUntilDue, milesUntilDue);
+
+    await sendDueServiceNotifications() // debug: delete this
 
     await UpcomingServiceModel.create({
       car: carId,
