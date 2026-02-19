@@ -354,6 +354,30 @@ router.patch("/reject/:id", [auth, shopOwner], async (req, res) => {
       await deletedSlot(slot._id);
     }
 
+    try {
+      const customer = await UserModel.findById(rejected.customer._id);
+      const shop = await ShopModel.findById(rejected.shop._id);
+
+      if (
+        customer &&
+        customer.pushNotificationTokens &&
+        customer.pushNotificationTokens.length > 0
+      ) {
+        const tokens = customer.pushNotificationTokens.map(
+          (tokenObj) => tokenObj.token,
+        );
+
+        await sendPushNotification(
+          tokens,
+          `Appointment Rejected`,
+          `${shop.name} rejected your appointment at ${getTimeFromDate(rejected.scheduledDate)}, try another time!`,
+        );
+        console.log("📤 Attempting to send notification to:", tokens);
+      }
+    } catch (notificationError) {
+      console.error("Failed to send push notification:", notificationError);
+    }
+
     return res.status(200).json({ success: true, data: rejected });
   } catch (error) {
     console.error(error);
