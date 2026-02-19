@@ -26,7 +26,7 @@ app.use(
     origin:
       process.env.NODE_ENV === "production"
         ? "https://servio-mylt.onrender.com"
-        : "http://192.168.1.19:4000",
+        : "http://192.168.1.16:4000",
   }),
 );
 

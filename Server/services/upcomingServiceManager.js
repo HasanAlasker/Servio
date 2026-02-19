@@ -41,8 +41,6 @@ export const updateServicesForCar = async (carId) => {
 
     const status = getServiceStatus(daysUntilDue, milesUntilDue);
 
-    await sendDueServiceNotifications() // debug: delete this
-
     await UpcomingServiceModel.create({
       car: carId,
       customer: car.owner,
@@ -51,6 +49,7 @@ export const updateServicesForCar = async (carId) => {
       status,
     });
   }
+  await sendDueServiceNotifications(); // debug: delete this
 };
 
 export const updateServicesForAllCars = async () => {
