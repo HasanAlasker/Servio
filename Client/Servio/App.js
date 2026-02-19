@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -34,6 +33,8 @@ import SeeSuggestions from "./screens/admin/SeeSuggestions";
 import ShopAppointments from "./screens/shopOwner/ShopAppointments";
 import MakeAppointment from "./screens/carOwner/MakeAppointment";
 import { NotificationProvider } from "./context/NotificationContext";
+import { SystemBars } from "react-native-edge-to-edge";
+import * as NavigationBar from "expo-navigation-bar";
 
 const Stack = createNativeStackNavigator();
 
@@ -128,11 +129,17 @@ const AppNavigator = () => {
     loadUserData();
   }, []);
 
+  useEffect(() => {
+    if (Platform.OS === "android") {
+      NavigationBar.setStyle(isDarkMode ? "dark" : "light");
+    }
+  }, [isDarkMode]);
+
   if (appStart) return <LoadingCircle />;
 
   return (
     <>
-      <StatusBar style={isDarkMode ? "light" : "dark"} />
+      <SystemBars style={isDarkMode ? "light" : "dark"} />
       <NavigationContainer>
         {!isAuthenticated ? (
           <AuthStack />

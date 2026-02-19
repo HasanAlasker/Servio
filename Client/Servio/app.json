@@ -20,16 +20,14 @@
         "foregroundImage": "./assets/adaptive.png",
         "backgroundColor": "#007bffff"
       },
-      "edgeToEdgeEnabled": true,
       "package": "com.hasan_alasker.Servio",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "edgeToEdgeEnabled": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-notifications"
-    ],
+    "plugins": ["expo-notifications", "react-native-edge-to-edge"],
     "extra": {
       "eas": {
         "projectId": "bba45793-f511-4f58-be49-7e5320905842"
