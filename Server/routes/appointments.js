@@ -14,7 +14,8 @@ import { SlotModel } from "../models/slots.js";
 import { deletedSlot } from "../services/deleteSlot.js";
 import UserModel from "../models/user.js";
 import { sendPushNotification } from "../utils/notifications.js";
-import { getTimeFromDate } from "../../Client/Servio/functions/fromatTime.js";
+import { getTimeFromDate } from "../functions/formatTime.js";
+
 
 const router = express.Router();
 
