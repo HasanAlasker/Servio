@@ -49,7 +49,6 @@ export const updateServicesForCar = async (carId) => {
       status,
     });
   }
-  await sendDueServiceNotifications(); // debug: delete this
 };
 
 export const updateServicesForAllCars = async () => {

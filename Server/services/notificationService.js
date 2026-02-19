@@ -39,7 +39,7 @@ export const sendDueServiceNotifications = async () => {
           await sendPushNotification(
             tokens,
             `Service Notification`,
-            `${service.status === "soon" ? "New service required soon" : "Check this service immediately"}`,
+            `${service.status === "soon" ? "There is a service required soon" : "There is a service required immediately"}`,
           );
           console.log("📤 Attempting to send notification to:", tokens);
         }
@@ -48,7 +48,7 @@ export const sendDueServiceNotifications = async () => {
       }
 
       // Mark as notified
-      service.notificationSent = true;
+      // service.notificationSent = true;
       await service.save();
     } catch (error) {
       console.error(

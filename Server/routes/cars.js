@@ -12,6 +12,7 @@ import {
   upload,
   uploadToCloudinary,
 } from "../utils/cloudinary.js";
+import { sendDueServiceNotifications } from "../services/notificationService.js";
 
 const router = express.Router();
 
@@ -241,6 +242,7 @@ router.patch(
       }
 
       await updateServicesForCar(carId);
+      await sendDueServiceNotifications()
 
       return res.status(200).json({ success: true, data: updatedCar });
     } catch (error) {
