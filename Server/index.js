@@ -12,6 +12,7 @@ import upcomingServices from "./routes/upcomingServices.js";
 import parts from "./routes/parts.js";
 import reports from "./routes/reports.js";
 import suggestions from "./routes/suggestions.js";
+import earlyAccess from "./routes/earlyAccess.js";
 import { globalLimit } from "./middleware/limiter.js";
 
 import seedDatabase from "./seed/seedCarMakes.js";
@@ -20,7 +21,7 @@ import { startServiceScheduler } from "./jobs/serviceSchedular.js";
 dotenv.config();
 
 const app = express();
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 app.use(
   cors({
     origin:
@@ -55,6 +56,7 @@ app.use("/api/upcomingServices", upcomingServices);
 app.use("/api/suggestions", suggestions);
 app.use("/api/reports", reports);
 app.use("/api/slots", slots);
+app.use("/api/earlyAccess", earlyAccess);
 // await seedDatabase()
 
 startServiceScheduler();
