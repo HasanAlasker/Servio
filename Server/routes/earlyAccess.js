@@ -25,7 +25,7 @@ router.get("/pending", [auth, admin], async (req, res) => {
 });
 
 // get sent
-router.get("/pending", [auth, admin], async (req, res) => {
+router.get("/sent", [auth, admin], async (req, res) => {
   try {
     const sent = await EarlyAccessModel.find({
       isInvitationSent: true,

@@ -278,7 +278,7 @@ function AddShop(props) {
 
               <SubmitBtn
                 defaultText={!isEdit ? "Send Request" : "Edit Shop"}
-                submittingText={!isEdit ? "Sending..." : "Editing"}
+                submittingText={!isEdit ? "Sending..." : "Editing..."}
                 setHasBeenSubmitted={setHasbeenSubmitted}
               />
 
