@@ -16,7 +16,6 @@ import UserModel from "../models/user.js";
 import { sendPushNotification } from "../utils/notifications.js";
 import { getTimeFromDate } from "../functions/formatTime.js";
 
-
 const router = express.Router();
 
 // get all
@@ -98,7 +97,7 @@ router.get("/confirmed/:id", [auth, shopOwner], async (req, res) => {
       shop: shopId,
       status: "confirmed",
     })
-
+      .sort("scheduledDate")
       .populate("car", "make name model plateNumber mileage color")
       .populate("customer", "name phone")
       .populate("shop", "owner name services address rating ratingCount")
