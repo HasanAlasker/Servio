@@ -415,6 +415,23 @@ router.patch("/delete/:id", [auth, admin], async (req, res) => {
       });
     }
 
+    const checkAppointments = await AppointmentModel.find({
+      customer: id,
+      $or: [
+        { status: "pending" },
+        {
+          status: "confirmed",
+          scheduledDate: { $gt: Date.now() },
+        },
+      ],
+    });
+
+    if (checkAppointments.length > 0)
+      return res.status(400).json({
+        success: false,
+        message: "You can't delete your account if you have appointments",
+      });
+
     const deletedUser = await UserModel.findByIdAndUpdate(
       id,
       { isDeleted: true },
