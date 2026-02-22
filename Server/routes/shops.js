@@ -12,6 +12,7 @@ import {
   upload,
   uploadToCloudinary,
 } from "../utils/cloudinary.js";
+import { sendPushNotification } from "../utils/notifications.js";
 
 const router = express.Router();
 
@@ -151,6 +152,33 @@ router.post(
           .status(404)
           .json({ success: false, message: "Failed to create shop" });
 
+      try {
+        const admins = await UserModel.find({ role: "admin" });
+
+        const tokens = [];
+        admins.forEach((admin) => {
+          if (
+            admin.pushNotificationTokens &&
+            admin.pushNotificationTokens.length > 0
+          ) {
+            admin.pushNotificationTokens.forEach((tokenObj) => {
+              tokens.push(tokenObj.token);
+            });
+          }
+        });
+
+        if (tokens.length > 0) {
+          await sendPushNotification(
+            tokens,
+            `New Registration`,
+            `Someone registered for early access!`,
+          );
+          console.log("📤 Attempting to send notification to:", tokens);
+        }
+      } catch (notificationError) {
+        console.error("Failed to send push notification:", notificationError);
+      }
+
       return res.status(201).json({
         success: true,
         message: "Admins will review your request soon",
@@ -265,6 +293,29 @@ router.patch("/delete/:id", [auth, admin], async (req, res) => {
         .status(404)
         .json({ success: false, message: "Failed to delete shop" });
 
+    try {
+      const shopOwner = await UserModel.findById(deletedShop.owner._id);
+
+      if (
+        shopOwner &&
+        shopOwner.pushNotificationTokens &&
+        shopOwner.pushNotificationTokens.length > 0
+      ) {
+        const tokens = shopOwner.pushNotificationTokens.map(
+          (tokenObj) => tokenObj.token,
+        );
+
+        await sendPushNotification(
+          tokens,
+          `Shop Deleted`,
+          `Servio team has deleted your shop for a policy violation!`,
+        );
+        console.log("📤 Attempting to send notification to:", tokens);
+      }
+    } catch (notificationError) {
+      console.error("Failed to send push notification:", notificationError);
+    }
+
     return res.status(200).json({ success: true, data: deletedShop });
   } catch (error) {
     console.error(error);
@@ -300,6 +351,29 @@ router.patch("/un-delete/:id", [auth, admin], async (req, res) => {
       return res
         .status(404)
         .json({ success: false, message: "Failed to un-delete shop" });
+
+    try {
+      const shopOwner = await UserModel.findById(deletedShop.owner._id);
+
+      if (
+        shopOwner &&
+        shopOwner.pushNotificationTokens &&
+        shopOwner.pushNotificationTokens.length > 0
+      ) {
+        const tokens = shopOwner.pushNotificationTokens.map(
+          (tokenObj) => tokenObj.token,
+        );
+
+        await sendPushNotification(
+          tokens,
+          `Shop Restored`,
+          `Servio team has restored your shop for after investigation!`,
+        );
+        console.log("📤 Attempting to send notification to:", tokens);
+      }
+    } catch (notificationError) {
+      console.error("Failed to send push notification:", notificationError);
+    }
 
     return res.status(200).json({ success: true, data: deletedShop });
   } catch (error) {
@@ -350,6 +424,29 @@ router.patch("/verify/:id", [auth, admin], async (req, res) => {
       return res
         .status(404)
         .json({ success: false, message: "Failed to verify shop" });
+
+    try {
+      const shopOwner = await UserModel.findById(shop.owner._id);
+
+      if (
+        shopOwner &&
+        shopOwner.pushNotificationTokens &&
+        shopOwner.pushNotificationTokens.length > 0
+      ) {
+        const tokens = shopOwner.pushNotificationTokens.map(
+          (tokenObj) => tokenObj.token,
+        );
+
+        await sendPushNotification(
+          tokens,
+          `Shop Request Confirmed`,
+          `Servio team has reviewed and confirmed your shop opening request!`,
+        );
+        console.log("📤 Attempting to send notification to:", tokens);
+      }
+    } catch (notificationError) {
+      console.error("Failed to send push notification:", notificationError);
+    }
 
     return res.status(200).json({ success: true, data: verifiedShop });
   } catch (error) {
