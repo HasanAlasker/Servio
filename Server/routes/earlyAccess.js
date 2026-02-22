@@ -78,7 +78,7 @@ router.post("/request", validate(earlyAccessSchema), async (req, res) => {
         await sendPushNotification(
           tokens,
           `New Registration`,
-          `Someone booked an registered for early access!`,
+          `Someone registered for early access!`,
         );
         console.log("📤 Attempting to send notification to:", tokens);
       }
