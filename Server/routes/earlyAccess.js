@@ -46,7 +46,7 @@ router.post("/request", validate(earlyAccessSchema), async (req, res) => {
     const data = req.body;
 
     const existingReq = await EarlyAccessModel.findOne({
-      $or: [{ phone: data.phone, email: data.email }],
+      $or: [{ phone: data.phone }, { email: data.email }],
     });
     if (existingReq) {
       return res
