@@ -28,6 +28,7 @@ app.use(
       process.env.NODE_ENV === "production"
         ? "https://servio-maintenance.netlify.app"
         : "http://localhost:5173",
+    exposedHeaders: ["x-auth-token"],
   }),
 );
 
