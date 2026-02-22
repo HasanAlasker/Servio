@@ -170,8 +170,8 @@ router.post(
         if (tokens.length > 0) {
           await sendPushNotification(
             tokens,
-            `New Registration`,
-            `Someone registered for early access!`,
+            `New Shop`,
+            `Someone sent a shop opening request!`,
           );
           console.log("📤 Attempting to send notification to:", tokens);
         }
