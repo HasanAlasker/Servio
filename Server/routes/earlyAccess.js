@@ -5,6 +5,8 @@ import admin from "../middleware/admin.js";
 import EarlyAccessModel from "../models/earlyAccess.js";
 import validate from "../middleware/joiValidation.js";
 import { earlyAccessSchema } from "../validation/earlyAccess.js";
+import UserModel from "../models/user.js";
+import { sendPushNotification } from "../utils/notifications.js";
 
 const router = express.Router();
 
@@ -56,6 +58,37 @@ router.post("/request", validate(earlyAccessSchema), async (req, res) => {
 
     const earlyAccessReq = new EarlyAccessModel(data);
     await earlyAccessReq.save();
+
+    try {
+      const admins = await UserModel.find({ role: "admin" });
+
+      if (
+        admins &&
+        admins.pushNotificationTokens &&
+        admins.pushNotificationTokens.length > 0
+      ) {
+        const tokens = [];
+        admins.forEach((admin) => {
+          if (
+            admin.pushNotificationTokens &&
+            admin.pushNotificationTokens.length > 0
+          ) {
+            admin.pushNotificationTokens.forEach((tokenObj) => {
+              tokens.push(tokenObj.token);
+            });
+          }
+        });
+
+        await sendPushNotification(
+          tokens,
+          `New Registration`,
+          `Someone booked an registered for early access!`,
+        );
+        console.log("📤 Attempting to send notification to:", tokens);
+      }
+    } catch (notificationError) {
+      console.error("Failed to send push notification:", notificationError);
+    }
 
     return res.status(201).json({ success: true, data: earlyAccessReq });
   } catch (error) {
