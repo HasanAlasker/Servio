@@ -62,23 +62,19 @@ router.post("/request", validate(earlyAccessSchema), async (req, res) => {
     try {
       const admins = await UserModel.find({ role: "admin" });
 
-      if (
-        admins &&
-        admins.pushNotificationTokens &&
-        admins.pushNotificationTokens.length > 0
-      ) {
-        const tokens = [];
-        admins.forEach((admin) => {
-          if (
-            admin.pushNotificationTokens &&
-            admin.pushNotificationTokens.length > 0
-          ) {
-            admin.pushNotificationTokens.forEach((tokenObj) => {
-              tokens.push(tokenObj.token);
-            });
-          }
-        });
+      const tokens = [];
+      admins.forEach((admin) => {
+        if (
+          admin.pushNotificationTokens &&
+          admin.pushNotificationTokens.length > 0
+        ) {
+          admin.pushNotificationTokens.forEach((tokenObj) => {
+            tokens.push(tokenObj.token);
+          });
+        }
+      });
 
+      if (tokens.length > 0) {
         await sendPushNotification(
           tokens,
           `New Registration`,
