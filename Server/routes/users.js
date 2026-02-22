@@ -404,7 +404,7 @@ router.patch(
 );
 
 // soft delete
-router.patch("/delete/:id", [auth, admin], async (req, res) => {
+router.patch("/delete/:id", auth, async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -414,6 +414,12 @@ router.patch("/delete/:id", [auth, admin], async (req, res) => {
         message: "Invalid user ID",
       });
     }
+
+    if (req.user._id !== id)
+      return res.status(401).json({
+        success: false,
+        message: "You can't delete other users accounts",
+      });
 
     const checkAppointments = await AppointmentModel.find({
       customer: id,
