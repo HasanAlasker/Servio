@@ -26,11 +26,8 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? [
-            "https://servio-mylt.onrender.com",
-            "https://servio-maintenance.netlify.app",
-          ]
-        : ["http://192.168.1.16:4000", "http://localhost:5173"],
+        ? "https://servio-maintenance.netlify.app"
+        : "http://localhost:5173",
   }),
 );
 
