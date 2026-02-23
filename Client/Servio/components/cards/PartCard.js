@@ -49,7 +49,7 @@ function PartCard({ part }) {
           color={"pink"}
           icon={"gauge"}
           title={"Last Change Mileage"}
-          text={part?.lastChangeMileage + " Km"}
+          text={part?.lastChangeMileage.toLocaleString() + " Km"}
           fliped
         />
         <SeparatorComp children={"Next Change"} full />
@@ -70,9 +70,9 @@ function PartCard({ part }) {
           icon={"gauge"}
           title={"Next Change Mileage"}
           text={
-            part?.lastChangeMileage +
-            part.recommendedChangeInterval.miles +
-            " Km"
+            (
+              part?.lastChangeMileage + part.recommendedChangeInterval.miles
+            ).toLocaleString() + " Km"
           }
           fliped
         />

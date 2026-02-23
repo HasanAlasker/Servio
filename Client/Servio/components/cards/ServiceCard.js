@@ -37,7 +37,7 @@ function ServiceCard({ car, customer, dueBy, parts, status }) {
             icon={"calendar-blank-outline"}
             text={formatDate(dueBy.date)}
           />
-          <IconTextLabel icon={"gauge"} text={dueBy.mileage + " Km"} />
+          <IconTextLabel icon={"gauge"} text={dueBy.mileage.toLocaleString() + " Km"} />
         </View>
 
         <CardLeftBorder status={status} parts={parts} />

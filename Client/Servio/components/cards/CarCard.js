@@ -52,7 +52,7 @@ function CarCard({
             icon={"gauge"}
             color={"lightBlue"}
             title={"Mileage"}
-            text={`${mileage} Km`}
+            text={`${mileage.toLocaleString()} Km`}
             fliped
           />
 
