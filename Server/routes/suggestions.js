@@ -6,6 +6,7 @@ import auth from "../middleware/auth.js";
 import admin from "../middleware/admin.js";
 import suggestionValidationSchema from "../validation/suggestion.js";
 import validate from "../middleware/joiValidation.js";
+import UserModel from "../models/user.js";
 
 const router = express.Router();
 

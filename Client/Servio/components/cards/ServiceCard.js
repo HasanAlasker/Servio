@@ -9,16 +9,17 @@ import PriBtn from "../general/PriBtn";
 import CardLeftBorder from "./CardLeftBorder";
 import { useNavigation } from "@react-navigation/native";
 import { UseUser } from "../../context/UserContext";
-import ShopOwner from "../navbars/ShopOwner";
 import Reminder from "../general/Reminder";
 
 function ServiceCard({
+  id,
   car,
   customer,
   dueBy,
   parts,
   status,
   sendNotifications,
+  handleReminder,
 }) {
   const navigate = useNavigation();
   const { isShopOwner } = UseUser();
@@ -51,7 +52,10 @@ function ServiceCard({
           />
         </View>
 
-        <Reminder isActive={sendNotifications} />
+        <Reminder
+          isActive={sendNotifications}
+          onPress={() => handleReminder(id, sendNotifications)}
+        />
 
         <CardLeftBorder status={status} parts={parts} />
 

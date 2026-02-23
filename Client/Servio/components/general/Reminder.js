@@ -13,9 +13,11 @@ function Reminder({ isActive, onPress }) {
         <MaterialCommunityIcons
           name={isActive ? "bell-ring-outline" : "bell-off-outline"}
           size={28}
-          color={isActive ? theme.blue : theme.red}
+          color={isActive ? theme.main_text : theme.sec_text}
         />
-        <SText color={isActive ? "blue" : "red"}>Daily Reminder</SText>
+        <SText color={isActive ? "main_text" : "sec_text"}>
+          Daily Reminder
+        </SText>
       </RowCont>
     </Pressable>
   );
