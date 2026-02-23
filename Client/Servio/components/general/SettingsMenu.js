@@ -1,4 +1,9 @@
-import { View, StyleSheet, TouchableWithoutFeedback, StatusBar } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  StatusBar,
+} from "react-native";
 import MenuBackBtn from "./MenuBackBtn";
 import MenuOption from "./MenuOption";
 import SeparatorComp from "./SeparatorComp";
@@ -39,6 +44,15 @@ function SettingsMenu({ isVisible, onClose }) {
           />
           <SeparatorComp full />
 
+          <MenuOption
+            text={"Suggestions"}
+            icon={"chat-outline"}
+            onPress={() =>
+              navigate.navigate(!isAdmin ? "Suggestions" : "SeeSuggestions")
+            }
+          />
+          <SeparatorComp full />
+
           {isUser && (
             <MenuOption
               text={"Open Shop"}
@@ -60,10 +74,10 @@ function SettingsMenu({ isVisible, onClose }) {
           {isShopOwner && <SeparatorComp full />}
 
           <MenuOption
-            text={"Suggestions"}
-            icon={"chat-outline"}
+            text={"Help"}
+            icon={"headphones"}
             color={"green"}
-            onPress={() => navigate.navigate(!isAdmin ? "Suggestions" : "SeeSuggestions")}
+            onPress={() => console.log("open website link")}
           />
           <SeparatorComp full />
 
