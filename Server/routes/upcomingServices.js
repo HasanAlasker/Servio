@@ -23,9 +23,74 @@ router.get("/", auth, async (req, res) => {
     })
       .sort({ "dueBy.Date": 1 })
       .populate("car", "make name model plateNumber mileage")
-      .populate('parts', "name lastChangeDate lastChangeMileage recommendedChangeInterval");
+      .populate(
+        "parts",
+        "name lastChangeDate lastChangeMileage recommendedChangeInterval",
+      );
 
     return res.status(200).json({ success: true, data: services });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// dont send notifications
+router.patch("/dont-remind/:id", auth, async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid resource ID",
+      });
+    }
+
+    const service = await UpcomingServiceModel.findById(id);
+    if (!service)
+      return res
+        .status(404)
+        .json({ success: false, message: "Service not found" });
+
+    service.notificationSent = true;
+    await service.save();
+
+    return res.status(200).json({ success: true, data: service });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// send notifications
+router.patch("/remind/:id", auth, async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid resource ID",
+      });
+    }
+
+    const service = await UpcomingServiceModel.findById(id);
+    if (!service)
+      return res
+        .status(404)
+        .json({ success: false, message: "Service not found" });
+
+    service.notificationSent = false;
+    await service.save();
+
+    return res.status(200).json({ success: true, data: service });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
