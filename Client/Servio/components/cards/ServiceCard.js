@@ -10,8 +10,16 @@ import CardLeftBorder from "./CardLeftBorder";
 import { useNavigation } from "@react-navigation/native";
 import { UseUser } from "../../context/UserContext";
 import ShopOwner from "../navbars/ShopOwner";
+import Reminder from "../general/Reminder";
 
-function ServiceCard({ car, customer, dueBy, parts, status }) {
+function ServiceCard({
+  car,
+  customer,
+  dueBy,
+  parts,
+  status,
+  sendNotifications,
+}) {
   const navigate = useNavigation();
   const { isShopOwner } = UseUser();
 
@@ -37,8 +45,13 @@ function ServiceCard({ car, customer, dueBy, parts, status }) {
             icon={"calendar-blank-outline"}
             text={formatDate(dueBy.date)}
           />
-          <IconTextLabel icon={"gauge"} text={dueBy.mileage.toLocaleString() + " Km"} />
+          <IconTextLabel
+            icon={"gauge"}
+            text={dueBy.mileage.toLocaleString() + " Km"}
+          />
         </View>
+
+        <Reminder isActive={sendNotifications} />
 
         <CardLeftBorder status={status} parts={parts} />
 

@@ -34,6 +34,7 @@ function Service(props) {
       parts={service.parts}
       dueBy={service.dueBy}
       status={service.status}
+      sendNotifications={!service.notificationSent}
     />
   ));
 
@@ -42,7 +43,11 @@ function Service(props) {
       <ScrollScreen>
         <GapContainer>
           {RenderServices.length === 0 && !loading ? (
-            <SText thin color={"sec_text"} style={{ marginHorizontal: "auto", textAlign: 'center' }}>
+            <SText
+              thin
+              color={"sec_text"}
+              style={{ marginHorizontal: "auto", textAlign: "center" }}
+            >
               You don't have any upcoming services
             </SText>
           ) : (
