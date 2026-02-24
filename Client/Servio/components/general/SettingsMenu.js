@@ -13,6 +13,7 @@ import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 import GapContainer from "./GapContainer";
 import { UseUser } from "../../context/UserContext";
+import { openURL } from "../../functions/openURL";
 
 function SettingsMenu({ isVisible, onClose }) {
   const styles = useThemedStyles(getStyles);
@@ -77,7 +78,9 @@ function SettingsMenu({ isVisible, onClose }) {
             text={"Help"}
             icon={"headphones"}
             color={"green"}
-            onPress={() => console.log("open website link")}
+            onPress={() =>
+              openURL("https://servio-maintenance.netlify.app/how-it-works")
+            }
           />
           <SeparatorComp full />
 
