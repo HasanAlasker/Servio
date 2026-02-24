@@ -37,7 +37,7 @@ function Service(props) {
           service._id === id
             ? {
                 ...service,
-                notificationSent: !service.notificationSent,
+                reminder: !service.reminder,
               }
             : service,
         ),
@@ -59,7 +59,7 @@ function Service(props) {
       parts={service.parts}
       dueBy={service.dueBy}
       status={service.status}
-      sendNotifications={!service.notificationSent}
+      sendNotifications={service.reminder}
       handleReminder={handleReminder}
     />
   ));

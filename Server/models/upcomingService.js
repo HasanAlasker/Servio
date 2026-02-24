@@ -33,7 +33,15 @@ const upcomingServiceSchema = new mongoose.Schema({
     enum: ["not active", "soon", "due", "overdue"],
     default: "not active",
   },
+  reminder: {
+    type: Boolean,
+    default: true,
+  },
   notificationSent: {
+    type: Boolean,
+    default: false,
+  },
+  isBooked: {
     type: Boolean,
     default: false,
   },

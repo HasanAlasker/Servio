@@ -15,6 +15,7 @@
     "@react-native-community/netinfo": "^11.4.1",
     "@react-navigation/native": "^7.1.28",
     "@react-navigation/native-stack": "^7.10.1",
+    "@shopify/react-native-skia": "^2.4.21",
     "apisauce": "^3.2.2",
     "expo": "~54.0.31",
     "expo-constants": "~18.0.13",
@@ -29,7 +30,9 @@
     "react": "19.1.0",
     "react-native": "0.81.5",
     "react-native-edge-to-edge": "^1.7.0",
+    "react-native-fast-confetti": "^1.1.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-reanimated": "^4.2.2",
     "react-native-safe-area-context": "^5.6.2",
     "react-native-screens": "~4.16.0",
     "yup": "^1.7.1"

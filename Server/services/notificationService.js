@@ -16,7 +16,7 @@ export const sendDueServiceNotifications = async () => {
   // Find services that are "soon" or "due" and haven't been notified
   const services = await UpcomingServiceModel.find({
     status: { $in: ["soon", "due", "overdue"] },
-    notificationSent: false,
+    reminder: true,
   })
     .populate("car")
     .populate("customer")

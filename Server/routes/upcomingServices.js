@@ -56,7 +56,7 @@ router.patch("/dont-remind/:id", auth, async (req, res) => {
         .status(404)
         .json({ success: false, message: "Service not found" });
 
-    service.notificationSent = true;
+    service.reminder = false;
     await service.save();
 
     return res.status(200).json({ success: true, data: service });
@@ -87,7 +87,7 @@ router.patch("/remind/:id", auth, async (req, res) => {
         .status(404)
         .json({ success: false, message: "Service not found" });
 
-    service.notificationSent = false;
+    service.reminder = true;
     await service.save();
 
     return res.status(200).json({ success: true, data: service });
