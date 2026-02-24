@@ -32,6 +32,16 @@ function Service(props) {
 
   const handleReminder = async (id, isActive) => {
     try {
+      setServices((prev) =>
+        prev.map((service) =>
+          service._id === id
+            ? {
+                ...service,
+                notificationSent: !service.notificationSent,
+              }
+            : service,
+        ),
+      );
       if (isActive) {
         const res = await dontRemind(id);
       } else {
