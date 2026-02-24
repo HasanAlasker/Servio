@@ -14,6 +14,7 @@ import { useTheme } from "../../context/ThemeContext";
 import { UseUser } from "../../context/UserContext";
 import AppModal from "./AppModal";
 import { useMemo, useState } from "react";
+import ErrorMessage from "../form/ErrorMessage";
 
 function AppointmentCard({
   id,
@@ -50,7 +51,7 @@ function AppointmentCard({
     const scheduledTime = new Date(scheuledAt).getTime();
     const currentTime = Date.now();
 
-    return currentTime >= (scheduledTime + passedMins);
+    return currentTime >= scheduledTime + passedMins;
   }, [scheuledAt]);
 
   return (
@@ -99,13 +100,17 @@ function AppointmentCard({
 
         {isShopOwner && status === "pending" && (
           <GapContainer gap={15}>
-            <PriBtn
-              square
-              full
-              title={"Accept"}
-              onPress={() => onApprove(id)}
-            />
-
+            {Date.now() < new Date(scheuledAt) && (
+              <PriBtn
+                square
+                full
+                title={"Accept"}
+                onPress={() => onApprove(id)}
+              />
+            )}
+            {Date.now() > new Date(scheuledAt) && (
+              <ErrorMessage full error={"Time has passed"} />
+            )}
             <PriBtn
               square
               full
