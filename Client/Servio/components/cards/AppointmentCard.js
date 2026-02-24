@@ -89,13 +89,18 @@ function AppointmentCard({
         </View>
 
         {isUser && status === "pending" && (
-          <PriBtn
-            square
-            full
-            style={{ backgroundColor: theme.red, borderColor: theme.red }}
-            title={"Cancel"}
-            onPress={() => onCancel(id, type)}
-          />
+          <GapContainer gap={15}>
+            {Date.now() > new Date(scheuledAt) && (
+              <ErrorMessage full error={"Time has passed"} />
+            )}
+            <PriBtn
+              square
+              full
+              style={{ backgroundColor: theme.red, borderColor: theme.red }}
+              title={"Cancel"}
+              onPress={() => onCancel(id, type)}
+            />
+          </GapContainer>
         )}
 
         {isShopOwner && status === "pending" && (
