@@ -61,6 +61,10 @@ export const UserProvider = ({ children }) => {
       const refreshedUser = res.data.data;
       const refreshedtoken = res.headers["x-auth-token"];
 
+      if (refreshedUser.isDeleted) {
+        logout();
+      }
+
       setUser(refreshedUser);
       setMessage(responseMessage);
       setStatus(responseStatus);
