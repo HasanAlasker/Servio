@@ -35,3 +35,9 @@ export const markAppointmentNoShow = (id) =>
 
 export const cancelAppointment = (id) =>
   apiClient.patch(`${endpoint}/cancel/${id}`);
+
+export const deleteAllAppointment = () =>
+  apiClient.patch(`${endpoint}/delete-many`);
+
+export const deleteAppointment = (id) =>
+  apiClient.patch(`${endpoint}/delete/${id}`);
