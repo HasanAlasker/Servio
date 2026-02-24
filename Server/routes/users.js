@@ -324,6 +324,11 @@ router.post("/login", validate(userLoginSchema), async (req, res) => {
         .status(404)
         .json({ success: false, message: "Invalid email or password" });
 
+    if (user.isDeleted)
+      return res
+        .status(404)
+        .json({ success: false, message: "Invalid email or password" });
+
     const validPassword = await user.comparePassword(data.password);
 
     if (!validPassword)
