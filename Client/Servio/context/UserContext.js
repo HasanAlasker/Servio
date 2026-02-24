@@ -8,6 +8,7 @@ import {
 } from "../api/user";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { isServerAwake } from "../api/upcomingService";
+import { jwtDecode } from "jwt-decode";
 
 export const UserContext = createContext();
 
@@ -17,6 +18,18 @@ export const UseUser = () => {
     throw new Error("UseUser must be used within a provider");
   }
   return context;
+};
+
+const isTokenExpired = (token) => {
+  try {
+    if (!token) return true;
+
+    const decoded = jwtDecode(token);
+    if (!decoded.exp) return true;
+    return decoded.exp * 1000 < Date.now();
+  } catch (error) {
+    return true;
+  }
 };
 
 export const UserProvider = ({ children }) => {
@@ -61,9 +74,10 @@ export const UserProvider = ({ children }) => {
       const refreshedUser = res.data.data;
       const refreshedtoken = res.headers["x-auth-token"];
 
-      if (refreshedUser.isDeleted) {
-        logout();
-      }
+      if (refreshedUser.isDeleted) logout();
+
+      const tokenIsExpired = isTokenExpired(refreshedtoken);
+      if (tokenIsExpired) logout();
 
       setUser(refreshedUser);
       setMessage(responseMessage);
