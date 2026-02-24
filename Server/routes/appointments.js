@@ -67,6 +67,7 @@ router.get("/past", auth, async (req, res) => {
 
     const past = await AppointmentModel.find({
       customer: userId,
+      isDeleted: false,
       $or: [
         { scheduledDate: { $lte: new Date() } },
         { status: { $in: ["completed", "no-show", "canceled"] } },
@@ -246,6 +247,100 @@ router.post(
     }
   },
 );
+
+// delete many (past)
+router.patch("/delete-many", auth, async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid user ID",
+      });
+    }
+
+    const appointments = await AppointmentModel.updateMany(
+      {
+        customer: userId,
+        scheduledDate: { $lt: new Date() },
+      },
+      { $set: { isDeleted: true } },
+    );
+
+    if (appointments.modifiedCount === 0)
+      return res
+        .status(200)
+        .json({ success: true, message: "No past appointments" });
+
+    return res.status(200).json({
+      success: true,
+      message: "Deleted all past appointments successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// delete one (past)
+router.patch("/delete/:id", auth, async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid appointment ID",
+      });
+    }
+
+    const appointment = await AppointmentModel.findById(id);
+    if (!appointment) {
+      return res.status(404).json({
+        success: false,
+        message: "Appointment not found",
+      });
+    }
+
+    if (appointment.customer.toString() !== userId.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: "Not authorized",
+      });
+    }
+
+    if (new Date(appointment.scheduledDate) > Date.now()) {
+      return res.status(400).json({
+        success: false,
+        message: "You can't delete an appointment unless it's in the past",
+      });
+    }
+
+    const deleted = await AppointmentModel.findByIdAndUpdate(
+      id,
+      {
+        isDeleted: true,
+      },
+      { runValidators: true, new: true },
+    );
+    if (!deleted)
+      return res
+        .status(400)
+        .json({ success: false, message: "Failed to delete appointment" });
+
+    return res.status(200).json({ success: true, data: deleted });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 
 // confirm appointment (shopOwner)
 router.patch(

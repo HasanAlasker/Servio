@@ -34,7 +34,7 @@ const appointmentSchema = new mongoose.Schema(
         "canceled",
         "completed",
         "no-show",
-        "rejected"
+        "rejected",
       ],
       default: "pending",
     },
@@ -46,8 +46,12 @@ const appointmentSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // Prevent double booking (same car at same time)
@@ -58,7 +62,7 @@ appointmentSchema.index(
     partialFilterExpression: {
       status: { $in: ["pending", "confirmed", "in-progress"] },
     },
-  }
+  },
 );
 
 // Virtual for checking if appointment is upcoming
