@@ -13,7 +13,6 @@ import {
   formatDayRange,
   formatOpenDays,
 } from "../../functions/formatOpenHours";
-import { deleteShop, verifyShop } from "../../api/shop";
 import { useTheme } from "../../context/ThemeContext";
 
 function ShopCard({
@@ -55,13 +54,11 @@ function ShopCard({
   const days = openHours.filter((day) => day.isOpen === true);
   const groupDays = formatOpenDays(days);
 
-  const hadleVerification = async () => {
+  const hadleVerification = () => {
     try {
       if (isVerified) {
-        await deleteShop(id);
         onAction("delete", id);
       } else {
-        await verifyShop(id);
         onAction("verify", id);
       }
     } catch (error) {}

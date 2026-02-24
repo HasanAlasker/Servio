@@ -415,28 +415,27 @@ router.patch("/delete/:id", auth, async (req, res) => {
       });
     }
 
-    if (req.user._id !== id)
+    if (req.user.role !== "admin" && req.user._id !== id)
       return res.status(401).json({
         success: false,
         message: "You can't delete other users accounts",
       });
 
-    const checkAppointments = await AppointmentModel.find({
-      customer: id,
-      $or: [
-        { status: "pending" },
-        {
-          status: "confirmed",
-          scheduledDate: { $gt: Date.now() },
-        },
-      ],
-    });
-
-    if (checkAppointments.length > 0)
-      return res.status(400).json({
-        success: false,
-        message: "You can't delete your account if you have appointments",
+    if (req.user.role !== "admin") {
+      const checkAppointments = await AppointmentModel.find({
+        customer: id,
+        $or: [
+          { status: "pending" },
+          { status: "confirmed", scheduledDate: { $gt: Date.now() } },
+        ],
       });
+
+      if (checkAppointments.length > 0)
+        return res.status(400).json({
+          success: false,
+          message: "You can't delete your account if you have appointments",
+        });
+    }
 
     const deletedUser = await UserModel.findByIdAndUpdate(
       id,

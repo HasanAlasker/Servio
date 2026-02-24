@@ -5,7 +5,12 @@ import Navbar from "../../components/general/Navbar";
 import TabNav from "../../components/general/TabNav";
 import { useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
-import { getUnVerifiedShops, getVerifiedShops } from "../../api/shop";
+import {
+  deleteShop,
+  getUnVerifiedShops,
+  getVerifiedShops,
+  verifyShop,
+} from "../../api/shop";
 import ShopCard from "../../components/cards/ShopCard";
 import GapContainer from "../../components/general/GapContainer";
 import SText from "../../components/text/SText";
@@ -46,14 +51,16 @@ function Shops(props) {
     else setTab("1");
   };
 
-  const handleAction = (type, id) => {
+  const handleAction = async (type, id) => {
     if (type === "delete") {
       setVerified((p) => p.filter((shop) => shop._id !== id));
+      await deleteShop(id);
     } else if (type === "verify") {
       setUnverified((p) => p.filter((shop) => shop._id !== id));
       let shop = unverified.find((shop) => shop._id === id);
       shop.isVerified = true;
       setVerified((p) => [shop, ...p]);
+      await verifyShop(id);
     }
   };
 
@@ -103,7 +110,7 @@ function Shops(props) {
             onTabChange={handleTab}
           />
           {RenderShops}
-          
+
           {!loadingUv && unverified.length === 0 && tab === "1" && (
             <SText
               thin

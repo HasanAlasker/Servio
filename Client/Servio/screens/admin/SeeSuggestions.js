@@ -19,12 +19,12 @@ function SeeSuggestions(props) {
 
   useEffect(() => {
     setSug(data);
-  }, [data, error]);
+  }, [data]);
 
   const handleDelete = async (id) => {
     try {
-      const response = await deleteSuggestion(id);
       setSug((p) => p.filter((sug) => sug._id !== id));
+      await deleteSuggestion(id);
     } catch (error) {
       console.log(error);
     }

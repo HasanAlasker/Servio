@@ -52,8 +52,6 @@ function Bookings(props) {
   }, [fetchedUpcoming, fetchedPast]);
 
   const handleCancel = async (id, type) => {
-    await cancelAppointment(id);
-
     if (type === "1") {
       const canceledApp = upcoming.find((app) => app._id === id);
       canceledApp.status = "canceled";
@@ -65,6 +63,7 @@ function Bookings(props) {
       setPast((prev) => prev.filter((app) => app._id !== id));
       setPast((prev) => [canceledApp, ...prev]);
     }
+    await cancelAppointment(id);
   };
 
   const RenderAppointments =

@@ -24,8 +24,8 @@ function DeletedShops(props) {
 
   const handleUndelete = async (id) => {
     try {
-      await undeleteShop(id);
       setShops((p) => p.filter((shop) => shop._id !== id));
+      await undeleteShop(id);
     } catch (error) {
       console.log(error);
     }

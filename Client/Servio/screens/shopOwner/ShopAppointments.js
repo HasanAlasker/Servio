@@ -61,23 +61,19 @@ function ShopAppointments(props) {
 
   const handleRejection = async (id) => {
     try {
+      setPending((p) => p.filter((a) => a._id !== id));
       const response = await rejectAppointment(id);
-      if (response.ok) {
-        setPending((p) => p.filter((a) => a._id !== id));
-      }
     } catch (error) {}
   };
 
   const handleCompletion = async (id) => {
     try {
-      const response = await markAppointmentCompleted(id);
-      if (response.ok) {
-        setConfirmed((p) =>
-          p.map((app) =>
-            app._id === id ? { ...app, status: "completed" } : app,
-          ),
-        );
-      }
+      setConfirmed((p) =>
+        p.map((app) =>
+          app._id === id ? { ...app, status: "completed" } : app,
+        ),
+      );
+      await markAppointmentCompleted(id);
     } catch (error) {
       console.log(error);
     }
@@ -85,14 +81,10 @@ function ShopAppointments(props) {
 
   const handleNoshow = async (id) => {
     try {
+      setConfirmed((p) =>
+        p.map((app) => (app._id === id ? { ...app, status: "no-show" } : app)),
+      );
       const response = await markAppointmentNoShow(id);
-      if (response.ok) {
-        setConfirmed((p) =>
-          p.map((app) =>
-            app._id === id ? { ...app, status: "no-show" } : app,
-          ),
-        );
-      }
     } catch (error) {
       console.log(error);
     }

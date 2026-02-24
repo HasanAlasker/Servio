@@ -54,19 +54,19 @@ function Users(props) {
   const handleAction = async (isDeleted, id) => {
     try {
       if (isDeleted) {
-        await undeleteUser(id);
         setDeleted((prev) => prev.filter((user) => user._id !== id));
         setActive((prev) => {
           const user = deleted.find((user) => user._id === id);
           return user ? [{ ...user, isDeleted: false }, ...prev] : prev;
         });
+        await undeleteUser(id);
       } else {
-        await deleteUser(id);
         setActive((prev) => prev.filter((user) => user._id !== id));
         setDeleted((prev) => {
           const user = active.find((user) => user._id === id);
           return user ? [{ ...user, isDeleted: true }, ...prev] : prev;
         });
+        await deleteUser(id);
       }
     } catch (error) {
       console.log(error);
