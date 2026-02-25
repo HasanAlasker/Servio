@@ -21,6 +21,9 @@ export const getCompletedAppointments = (id) =>
 export const bookAppointment = (data) =>
   apiClient.post(`${endpoint}/book`, data);
 
+export const deleteAllAppointment = () =>
+  apiClient.patch(`${endpoint}/delete-many`);
+
 export const confirmAppointment = (id, data) =>
   apiClient.patch(`${endpoint}/confirm/${id}`, data);
 
@@ -36,8 +39,6 @@ export const markAppointmentNoShow = (id) =>
 export const cancelAppointment = (id) =>
   apiClient.patch(`${endpoint}/cancel/${id}`);
 
-export const deleteAllAppointment = () =>
-  apiClient.patch(`${endpoint}/delete-many`);
 
 export const deleteAppointment = (id) =>
   apiClient.patch(`${endpoint}/delete/${id}`);

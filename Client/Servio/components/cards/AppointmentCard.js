@@ -29,6 +29,8 @@ function AppointmentCard({
   onAccept,
   onComplete,
   onNoShow,
+  showDelete,
+  onDelete,
 }) {
   const { isShopOwner, isUser } = UseUser();
   const { theme } = useTheme();
@@ -101,6 +103,19 @@ function AppointmentCard({
               onPress={() => onCancel(id, type)}
             />
           </GapContainer>
+        )}
+
+        {isUser && showDelete && status !== "pending" && (
+          <PriBtn
+            square
+            full
+            style={{
+              backgroundColor: theme.main_text,
+              borderColor: theme.main_text,
+            }}
+            title={"Delete"}
+            onPress={() => onDelete(id)}
+          />
         )}
 
         {isShopOwner && status === "pending" && (

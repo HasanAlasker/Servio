@@ -5,6 +5,7 @@ import SafeScreen from "../../components/general/SafeScreen";
 import useApi from "../../hooks/useApi";
 import {
   cancelAppointment,
+  deleteAppointment,
   getPastAppointments,
   getUpcomingAppointments,
 } from "../../api/appointment";
@@ -66,6 +67,16 @@ function Bookings(props) {
     await cancelAppointment(id);
   };
 
+  const handleDelete = async (id) => {
+    try {
+      setPast((prev) => prev.filter((app) => app._id !== id));
+      const res = await deleteAppointment(id);
+      console.log(res)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const RenderAppointments =
     activeTab === "1"
       ? upcoming.map((appointment) => (
@@ -92,6 +103,8 @@ function Bookings(props) {
             scheuledAt={appointment.scheduledDate}
             type={"2"}
             onCancel={handleCancel}
+            showDelete
+            onDelete={handleDelete}
           />
         ));
 

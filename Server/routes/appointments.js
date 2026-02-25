@@ -306,7 +306,7 @@ router.patch("/delete/:id", auth, async (req, res) => {
       });
     }
 
-    if (appointment.customer.toString() !== userId.toString()) {
+    if (appointment.customer.toString() !== req.user._id) {
       return res.status(403).json({
         success: false,
         message: "Not authorized",
@@ -320,19 +320,15 @@ router.patch("/delete/:id", auth, async (req, res) => {
       });
     }
 
-    const deleted = await AppointmentModel.findByIdAndUpdate(
-      id,
-      {
-        isDeleted: true,
-      },
-      { runValidators: true, new: true },
-    );
-    if (!deleted)
+    appointment.isDeleted = true;
+    const saved = await appointment.save();
+
+    if (!saved)
       return res
         .status(400)
         .json({ success: false, message: "Failed to delete appointment" });
 
-    return res.status(200).json({ success: true, data: deleted });
+    return res.status(200).json({ success: true, data: appointment });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
