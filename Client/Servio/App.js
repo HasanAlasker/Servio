@@ -35,6 +35,7 @@ import MakeAppointment from "./screens/carOwner/MakeAppointment";
 import { NotificationProvider } from "./context/NotificationContext";
 import { SystemBars } from "react-native-edge-to-edge";
 import * as NavigationBar from "expo-navigation-bar";
+import { CarProvider, UseCar } from "./context/CarContext";
 
 const Stack = createNativeStackNavigator();
 
@@ -123,10 +124,12 @@ const AppNavigator = () => {
     isAuthenticated,
     loadUserData,
   } = UseUser();
+  const { loadCars } = UseCar();
   const { isDarkMode } = useTheme();
 
   useEffect(() => {
     loadUserData();
+    loadCars();
   }, []);
 
   useEffect(() => {
@@ -162,9 +165,11 @@ export default function App() {
     <SafeAreaProvider>
       <ThemeProvider>
         <UserProvider>
-          <NotificationProvider>
-            <AppNavigator />
-          </NotificationProvider>
+          <CarProvider>
+            <NotificationProvider>
+              <AppNavigator />
+            </NotificationProvider>
+          </CarProvider>
         </UserProvider>
       </ThemeProvider>
     </SafeAreaProvider>

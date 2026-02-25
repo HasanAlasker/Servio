@@ -16,6 +16,7 @@ import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import PriBtn from "../../components/general/PriBtn";
 import useThemedStyles from "../../hooks/useThemedStyles";
+import { UseCar } from "../../context/CarContext";
 
 export const validationSchema = Yup.object({
   make: Yup.string().trim().required("Car make is required"),
@@ -43,6 +44,7 @@ export const validationSchema = Yup.object({
 
 function AddCar(props) {
   const styles = useThemedStyles(getStyles);
+  const { addNewCar, updateCars } = UseCar();
 
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
   const [cars, setCars] = useState([]);
@@ -117,6 +119,7 @@ function AddCar(props) {
     try {
       const response = await addCar(values);
       if (response.ok) {
+        addNewCar(response.data.data);
         navigate.navigate("MyCars");
       }
     } catch (error) {
@@ -131,6 +134,7 @@ function AddCar(props) {
     try {
       const response = await editCar(params.id, values);
       if (response.ok) {
+        updateCars(response.data.data);
         navigate.navigate("MyCars");
       }
     } catch (error) {

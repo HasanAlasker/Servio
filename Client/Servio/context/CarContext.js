@@ -1,5 +1,8 @@
 import { useContext, createContext, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import useApi from "../hooks/useApi";
+import { getMyCars } from "../api/car";
+import { useEffect } from "react";
 
 export const CarContext = createContext();
 
@@ -13,24 +16,78 @@ export const UseCar = () => {
 
 export const CarProvider = ({ children }) => {
   const [cars, setCars] = useState([]);
-  const [error, setError] = useState(false);
-  const [message, setMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState(null);
+
+  const {
+    data: carsData,
+    request: fetchCars,
+    error,
+    loading,
+    message,
+  } = useApi(getMyCars);
 
   const STORAGE_KEYS = {
     CARS: "@servio_cars",
   };
 
-  // load cars
+  const storeCars = async (cars) => {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEYS.CARS, JSON.stringify(cars));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  // add car
+  const getStoredCars = async () => {
+    try {
+      const cachedCars = await AsyncStorage.getItem(STORAGE_KEYS.CARS);
+      if (cachedCars) setCars(JSON.parse(cachedCars));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  // edit car
+  const loadCars = () => {
+    getStoredCars();
+    fetchCars();
+  };
 
-  // delete car
+  useEffect(() => {
+    if (carsData) {
+      setCars(carsData);
+      storeCars(carsData);
+    }
+  }, [carsData]);
 
-  const value = {};
+  const addNewCar = (newCar) => {
+    const updated = [newCar, ...cars];
+    setCars(updated);
+    storeCars(updated);
+  };
+
+  const updateCars = (updatedCar) => {
+    const updated = cars.map((c) =>
+      c._id === updatedCar._id ? updatedCar : c,
+    );
+    setCars(updated);
+    storeCars(updated);
+  };
+
+  const removeCar = (removedCar) => {
+    const updated = cars.filter((c) => c._id !== removedCar._id);
+    setCars(updated);
+    storeCars(updated);
+  };
+
+  const value = {
+    cars,
+    error,
+    message,
+    loading,
+    loadCars,
+    addNewCar,
+    updateCars,
+    removeCar,
+  };
 
   return <CarContext.Provider value={value}>{children}</CarContext.Provider>;
 };

@@ -4,30 +4,12 @@ import Navbar from "../../components/general/Navbar";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import AddCarCard from "../../components/cards/AddCarCard";
 import GapContainer from "../../components/general/GapContainer";
-import { useEffect, useState } from "react";
-import useApi from "../../hooks/useApi";
-import { getMyCars } from "../../api/car";
 import SText from "../../components/text/SText";
 import CarCard from "../../components/cards/CarCard";
+import { UseCar } from "../../context/CarContext";
 
 function MyCars(props) {
-  const [cars, setCars] = useState([]);
-
-  const {
-    data: carsData,
-    request: fetchCars,
-    error,
-    loading,
-    message,
-  } = useApi(getMyCars);
-
-  useEffect(() => {
-    fetchCars();
-  }, []);
-
-  useEffect(() => {
-    setCars(carsData);
-  }, [carsData]);
+  const { cars, loading } = UseCar();
 
   const carsList = cars.map((car) => (
     <CarCard
@@ -48,7 +30,11 @@ function MyCars(props) {
       <ScrollScreen>
         <GapContainer>
           {carsList.length === 0 && !loading ? (
-            <SText thin color={"sec_text"} style={{ marginHorizontal: "auto", textAlign: 'center' }}>
+            <SText
+              thin
+              color={"sec_text"}
+              style={{ marginHorizontal: "auto", textAlign: "center" }}
+            >
               You haven't added any cars yet
             </SText>
           ) : (

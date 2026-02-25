@@ -8,8 +8,10 @@ import { useTheme } from "../../context/ThemeContext";
 import { useNavigation } from "@react-navigation/native";
 import { deleteCar } from "../../api/car";
 import { useState } from "react";
+import { UseCar } from "../../context/CarContext";
 
 function CarOptionsCard({ params }) {
+  const { removeCar } = UseCar();
   const { theme } = useTheme();
   const navigate = useNavigation();
 
@@ -20,6 +22,7 @@ function CarOptionsCard({ params }) {
       setIsDeleting(true);
       const response = await deleteCar(params?.id);
       if (response.ok) {
+        removeCar(response.data.data);
         navigate.navigate("MyCars");
       }
     } catch (error) {
@@ -45,13 +48,15 @@ function CarOptionsCard({ params }) {
             square
             full
             title={"Edit"}
+            disabled={isDeleting}
             onPress={() => navigate.navigate("AddCar", params)}
           />
           <PriBtn
             square
             full
             style={{ backgroundColor: theme.red, borderColor: theme.red }}
-            title={"Delete"}
+            title={!isDeleting ? "Delete" : "Deleting..."}
+            disabled={isDeleting}
             onPress={handleDelete}
           />
         </GapContainer>
