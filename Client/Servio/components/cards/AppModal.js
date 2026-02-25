@@ -7,13 +7,13 @@ import SubmitBtn from "../form/SubmitBtn";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import GapContainer from "../general/GapContainer";
 import SText from "../text/SText";
-import PriBtn from "../general/PriBtn";
 import { useTheme } from "../../context/ThemeContext";
 import { getTimeFromDate } from "../../functions/fromatTime";
 import { formatDate } from "../../functions/formatDate";
 import IconTextLabel from "../general/IconTextLabel";
 import { confirmAppointment } from "../../api/appointment";
 import ErrorMessage from "../form/ErrorMessage";
+import { addOneHour, to24Hour } from "../../functions/addOneHour";
 
 const validationSchema = Yup.object({
   to: Yup.string().required("Please select a time"),
@@ -25,8 +25,10 @@ function AppModal({ from, isVisible, onClose, id, onApproval }) {
   const [hasBeenSubmited, setHasBeenSubmited] = useState(false);
   const [err, setErr] = useState(null);
 
+  const fromInitial = to24Hour(getTimeFromDate(addOneHour(from)));
+
   const initialValues = {
-    to: null,
+    to: fromInitial,
   };
   const handleSubmit = async (values) => {
     setErr(null);
