@@ -90,7 +90,7 @@ function MakeAppointment(props) {
       const response = await bookAppointment(appointmentData);
 
       if (response.ok) {
-        navigate.navigate("Bookings");
+        navigate.navigate("Bookings", { active: "1", celebrate: true });
       } else {
         setErr("This car has another appointment in this time");
         console.log(response);

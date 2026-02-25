@@ -15,17 +15,22 @@ import GapContainer from "../../components/general/GapContainer";
 import TabNav from "../../components/general/TabNav";
 import { useRoute } from "@react-navigation/native";
 import SText from "../../components/text/SText";
+import { Confetti } from "react-native-fast-confetti";
 
 function Bookings(props) {
   const [upcoming, setUpcoming] = useState([]);
   const [past, setPast] = useState([]);
   const [activeTab, setTab] = useState("1");
+  const [celebrate, setCelebrate] = useState(false);
 
   const route = useRoute();
   const params = route.params;
 
   useEffect(() => {
-    if (params) setTab(params.active);
+    if (params) {
+      if (params.active) setTab(params.active);
+      if (params.celebrate) handleCelebration();
+    }
   }, []);
 
   const {
@@ -76,6 +81,10 @@ function Bookings(props) {
     }
   };
 
+  const handleCelebration = () => {
+    setTimeout(() => setCelebrate(true), 150);
+  };
+
   const RenderAppointments =
     activeTab === "1"
       ? upcoming.map((appointment) => (
@@ -114,6 +123,7 @@ function Bookings(props) {
 
   return (
     <SafeScreen>
+      {celebrate && <Confetti isInfinite={false} />}
       <ScrollScreen>
         <GapContainer>
           <TabNav
