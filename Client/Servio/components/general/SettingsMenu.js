@@ -30,20 +30,20 @@ function SettingsMenu({ isVisible, onClose }) {
 
       <View style={styles.container}>
         <MenuBackBtn onClose={onClose} />
-        <GapContainer gap={10}>
+        <GapContainer gap={5}>
           <MenuOption
             text={isDarkMode ? "Light mode" : "Dark mode"}
             icon={"circle-half-full"}
             onPress={toggleTheme}
           />
-          <SeparatorComp full />
+          <SeparatorComp full color="faded"/>
 
           <MenuOption
             text={"My Profile"}
             icon={"account-circle-outline"}
             onPress={() => navigate.navigate("Profile")}
           />
-          <SeparatorComp full />
+          <SeparatorComp full color="faded"/>
 
           <MenuOption
             text={"Suggestions"}
@@ -52,7 +52,7 @@ function SettingsMenu({ isVisible, onClose }) {
               navigate.navigate(!isAdmin ? "Suggestions" : "SeeSuggestions")
             }
           />
-          <SeparatorComp full />
+          <SeparatorComp full color="faded"/>
 
           {isUser && (
             <MenuOption
@@ -62,7 +62,7 @@ function SettingsMenu({ isVisible, onClose }) {
               onPress={() => navigate.navigate("AddShop")}
             />
           )}
-          {isUser && <SeparatorComp full />}
+          {isUser && <SeparatorComp full color="faded"/>}
 
           {isShopOwner && (
             <MenuOption
@@ -72,7 +72,7 @@ function SettingsMenu({ isVisible, onClose }) {
               onPress={() => navigate.navigate("Service")}
             />
           )}
-          {isShopOwner && <SeparatorComp full />}
+          {isShopOwner && <SeparatorComp full color="faded"/>}
 
           <MenuOption
             text={"Help"}
@@ -82,7 +82,7 @@ function SettingsMenu({ isVisible, onClose }) {
               openURL("https://servio-maintenance.netlify.app/how-it-works")
             }
           />
-          <SeparatorComp full />
+          <SeparatorComp full color="faded"/>
 
           <MenuOption
             text={"Log out"}

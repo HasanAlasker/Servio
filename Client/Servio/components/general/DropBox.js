@@ -101,7 +101,7 @@ function DropBox({
             keyExtractor={(item) => item.value.toString()}
             renderItem={renderItem}
             ItemSeparatorComponent={() => (
-              <SeparatorComp full style={styles.sep} />
+              <SeparatorComp full style={styles.sep} color="faded"/>
             )}
             contentContainerStyle={styles.list}
           />

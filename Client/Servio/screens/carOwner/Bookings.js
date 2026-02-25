@@ -70,8 +70,7 @@ function Bookings(props) {
   const handleDelete = async (id) => {
     try {
       setPast((prev) => prev.filter((app) => app._id !== id));
-      const res = await deleteAppointment(id);
-      console.log(res)
+      await deleteAppointment(id);
     } catch (error) {
       console.log(error);
     }

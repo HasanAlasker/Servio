@@ -52,7 +52,7 @@ const getStyles = (theme) =>
       elevation: 24,
     },
     text: {
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: "bold",
     },
     disabledContainer: {
