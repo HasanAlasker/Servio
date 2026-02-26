@@ -14,7 +14,7 @@ function Welcome(props) {
     <SafeScreen>
       <View style={styles.container}>
         <LogoAndMoto moto />
-        <GapContainer gap={15}>
+        <GapContainer gap={15} >
           <PriBtn
             title={"Login"}
             onPress={() => navigation.navigate("Login")}
