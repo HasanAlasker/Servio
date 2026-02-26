@@ -1,3 +1,4 @@
+import * as SplashScreen from "expo-splash-screen";
 import { Platform, StyleSheet } from "react-native";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -37,6 +38,7 @@ import { SystemBars } from "react-native-edge-to-edge";
 import * as NavigationBar from "expo-navigation-bar";
 import { CarProvider, UseCar } from "./context/CarContext";
 
+SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
 
 const AdminStack = () => {
@@ -133,12 +135,18 @@ const AppNavigator = () => {
   }, []);
 
   useEffect(() => {
+    if (!appStart) {
+      SplashScreen.hideAsync();
+    }
+  }, []);
+
+  useEffect(() => {
     if (Platform.OS === "android") {
       NavigationBar.setStyle(isDarkMode ? "dark" : "light");
     }
   }, [isDarkMode]);
 
-  if (appStart) return <LoadingCircle />;
+  // if (appStart) return <LoadingCircle />;
 
   return (
     <>
