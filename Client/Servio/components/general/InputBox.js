@@ -35,9 +35,14 @@ function InputBox({
       <TextInput
         style={[
           styles.text,
-          isBox && { textAlignVertical: "top", paddingTop: 6 },
+          isBox && {
+            textAlignVertical: "top",
+            paddingTop: 6,
+            flexWrap: "wrap",
+          },
           !value && styles.placeholder,
         ]}
+        multiline={isBox}
         placeholder={placeholder}
         placeholderTextColor={theme.blue}
         value={value}
@@ -85,9 +90,9 @@ const getStyles = (theme) =>
     placeholder: {
       opacity: 0.6,
     },
-    padding:{
-      marginTop: 5
-    }
+    padding: {
+      marginTop: 5,
+    },
   });
 
 export default InputBox;
