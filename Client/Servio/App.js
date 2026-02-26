@@ -164,13 +164,13 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <ThemeProvider>
-        <UserProvider>
-          <CarProvider>
+        <CarProvider>
+          <UserProvider>
             <NotificationProvider>
               <AppNavigator />
             </NotificationProvider>
-          </CarProvider>
-        </UserProvider>
+          </UserProvider>
+        </CarProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );

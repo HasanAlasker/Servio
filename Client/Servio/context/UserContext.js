@@ -9,6 +9,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { isServerAwake } from "../api/upcomingService";
 import { jwtDecode } from "jwt-decode";
+import { UseCar } from "./CarContext";
 
 export const UserContext = createContext();
 
@@ -42,6 +43,8 @@ export const UserProvider = ({ children }) => {
   const [status, setStatus] = useState(null);
   const [serverAwake, setServerAwake] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const { loadCars } = UseCar();
 
   const STORAGE_KEYS = {
     USER: "@servio_user",
@@ -266,6 +269,8 @@ export const UserProvider = ({ children }) => {
       setIsAuthenticated(true);
 
       await storeUserData(userData, tokenData);
+
+      await loadCars();
       return {
         success: true,
         message: responseMessage,
