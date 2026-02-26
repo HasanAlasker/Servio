@@ -14,7 +14,7 @@ function SquareInfo({ icon, color, title, text, fliped = false, style }) {
   const backColor = theme[color] + "15";
 
   return (
-    <RowCont >
+    <RowCont>
       <View
         style={[
           styles.container,
@@ -25,20 +25,36 @@ function SquareInfo({ icon, color, title, text, fliped = false, style }) {
       </View>
       <GapContainer gap={1}>
         {!fliped ? (
-          <SText thin={fliped} color={fliped ? "sec_text" : "main_text"}>
+          <SText
+            thin={fliped}
+            color={fliped ? "sec_text" : "main_text"}
+            numberOfLines={1}
+          >
             {title}
           </SText>
         ) : (
-          <TText thin={fliped} color={fliped ? "sec_text" : "main_text"}>
+          <TText
+            numberOfLines={1}
+            thin={fliped}
+            color={fliped ? "sec_text" : "main_text"}
+          >
             {title}
           </TText>
         )}
         {!fliped ? (
-          <TText thin={!fliped} color={fliped ? "main_text" : "sec_text"}>
+          <TText
+            numberOfLines={1}
+            thin={!fliped}
+            color={fliped ? "main_text" : "sec_text"}
+          >
             {text}
           </TText>
         ) : (
-          <SText thin={!fliped} color={fliped ? "main_text" : "sec_text"}>
+          <SText
+            numberOfLines={1}
+            thin={!fliped}
+            color={fliped ? "main_text" : "sec_text"}
+          >
             {text}
           </SText>
         )}

@@ -3,7 +3,7 @@ import AppText from "../../config/AppText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 
-function TText({ children, color, thin, style, }) {
+function TText({ children, color, thin, style, ...other }) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getStyles);
   return (
@@ -14,6 +14,7 @@ function TText({ children, color, thin, style, }) {
         { fontWeight: thin || "bold" },
         style,
       ]}
+      {...other}
     >
       {children}
     </AppText>

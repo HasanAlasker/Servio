@@ -9,7 +9,8 @@ function RowCont({ children, gap, style }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    alignItems: 'center'
+    alignItems: "center",
+    flex:1,
   },
 });
 

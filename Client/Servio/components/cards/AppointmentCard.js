@@ -110,8 +110,8 @@ function AppointmentCard({
             square
             full
             style={{
-              backgroundColor: theme.main_text,
-              borderColor: theme.main_text,
+              backgroundColor: "black",
+              borderColor: "black",
             }}
             title={"Delete"}
             onPress={() => onDelete(id)}

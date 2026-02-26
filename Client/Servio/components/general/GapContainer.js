@@ -9,6 +9,7 @@ function GapContainer({ children, gap, style }) {
 const styles = StyleSheet.create({
   container: {
     gap: 20,
+    flex:1, 
   },
 });
 
