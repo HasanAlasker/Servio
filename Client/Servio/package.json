@@ -25,6 +25,7 @@
     "expo-image-picker": "^17.0.10",
     "expo-navigation-bar": "~5.0.10",
     "expo-notifications": "~0.32.16",
+    "expo-splash-screen": "~31.0.13",
     "expo-status-bar": "~3.0.9",
     "formik": "^2.4.9",
     "jwt-decode": "^4.0.0",
