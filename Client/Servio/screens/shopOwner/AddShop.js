@@ -14,7 +14,7 @@ import { editShop, openShop } from "../../api/shop";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import { formatServices, revertServices } from "../../functions/formatServices";
- 
+
 const validationSchema = Yup.object({
   image: Yup.string().required("Shop image is required"),
   name: Yup.string().required("Shop name is required"),
@@ -49,7 +49,12 @@ const validationSchema = Yup.object({
         return hours?.some((day) => day.isOpen);
       },
     ),
-  link: Yup.string().required(),
+  link: Yup.string()
+    .required("Link is required")
+    .matches(
+      /^https:\/\/(www\.)?(google\.com\/maps|maps\.google\.com|goo\.gl\/maps|maps\.app\.goo\.gl)/,
+      "Must be a valid Google Maps link",
+    ),
 });
 
 const formatValues = (values) => {
@@ -248,7 +253,7 @@ function AddShop(props) {
 
               <FormikInput
                 name={"link"}
-                placeholder={"Shop Link (Google maps)"}
+                placeholder={"Google maps Link"}
                 icon={"link"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />

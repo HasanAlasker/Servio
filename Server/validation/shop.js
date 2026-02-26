@@ -106,12 +106,21 @@ export const addShopSchema = Joi.object({
       "any.required": "Phone number is required",
     }),
 
-  link: Joi.string().trim().min(5).max(500).required().messages({
-    "string.empty": "Shop link is required",
-    "string.min": "Link must be at least 5 characters long",
-    "string.max": "Link can't be longer than 500 characters",
-    "any.required": "Shop link is required",
-  }),
+  link: Joi.string()
+    .trim()
+    .min(5)
+    .max(500)
+    .required()
+    .pattern(
+      /^https:\/\/(www\.)?(google\.com\/maps|maps\.google\.com|goo\.gl\/maps|maps\.app\.goo\.gl)/,
+    )
+    .messages({
+      "string.empty": "Shop link is required",
+      "string.min": "Link must be at least 5 characters long",
+      "string.max": "Link can't be longer than 500 characters",
+      "string.pattern.base": "Please enter a Google Maps link",
+      "any.required": "Shop link is required",
+    }),
 
   services: Joi.array()
     .items(
