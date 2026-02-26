@@ -22,7 +22,11 @@ const validationSchema = Yup.object({
   area: Yup.string().trim().required("Area is required"),
   street: Yup.string().trim().required("Street is required"),
   phone: Yup.string().required("Shop phone is required"),
-  description: Yup.string().required("Shop description is required"),
+  description: Yup.string()
+    .trim()
+    .min(10)
+    .max(50)
+    .required("Shop description is required"),
   services: Yup.string().required("Shop services are required"),
   openHours: Yup.array()
     .of(

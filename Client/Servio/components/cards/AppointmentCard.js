@@ -71,6 +71,7 @@ function AppointmentCard({
           icon={"store"}
           title={capFirstLetter(shop?.name)}
           text={shop?.address.area + " " + shop?.address.street}
+          flex
         />
 
         <View>
@@ -86,7 +87,7 @@ function AppointmentCard({
 
         <StatusLabel status={status} />
 
-        {status === "confirmed" && (
+        {isUser && status === "confirmed" && (
           <Pressable onPress={() => openURL(shop?.link)}>
             <Image
               style={styles.map}

@@ -82,6 +82,7 @@ function ShopCard({
                 color={"red"}
                 title={address.area + " " + address.street}
                 text={address.city}
+                flex
               />
               <SquareInfo
                 icon={"star"}

@@ -7,7 +7,7 @@ import GapContainer from "../general/GapContainer";
 import SText from "../text/SText";
 import TText from "../text/TText";
 
-function SquareInfo({ icon, color, title, text, fliped = false, style }) {
+function SquareInfo({ icon, color, title, text, fliped = false, style, flex }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
 
@@ -23,7 +23,7 @@ function SquareInfo({ icon, color, title, text, fliped = false, style }) {
       >
         <MaterialCommunityIcons name={icon} color={theme[color]} size={30} />
       </View>
-      <GapContainer gap={1} flex>
+      <GapContainer flex={flex} gap={1}>
         {!fliped ? (
           <SText
             thin={fliped}
