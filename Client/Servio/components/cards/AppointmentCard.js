@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Image, Pressable } from "react-native";
 import CardComp from "./CardComp";
 import GapContainer from "../general/GapContainer";
 import SquareInfo from "./SquareInfo";
@@ -15,6 +15,7 @@ import { UseUser } from "../../context/UserContext";
 import AppModal from "./AppModal";
 import { useMemo, useState } from "react";
 import ErrorMessage from "../form/ErrorMessage";
+import { openURL } from "../../functions/openURL";
 
 function AppointmentCard({
   id,
@@ -84,6 +85,15 @@ function AppointmentCard({
         </View>
 
         <StatusLabel status={status} />
+
+        {status === "confirmed" && (
+          <Pressable onPress={() => openURL(shop?.link)}>
+            <Image
+              style={styles.map}
+              source={require("../../assets/map.png")}
+            />
+          </Pressable>
+        )}
 
         <View>
           <SeparatorComp children={"Service Parts"} full color="sec_text" />
@@ -172,7 +182,11 @@ function AppointmentCard({
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  map: {
+    width: "100%",
+    height: 120,
+    borderRadius: 15,
+  },
 });
 
 export default AppointmentCard;
