@@ -7,7 +7,7 @@ import { formatDate } from "../../functions/formatDate";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import { useNavigation } from "@react-navigation/native";
 
-function PartCard({ part }) {
+function PartCard({ part, parentParams }) {
   const navigate = useNavigation();
 
   const addMonthsToDate = (dateString, monthsToAdd) => {
@@ -29,7 +29,7 @@ function PartCard({ part }) {
   };
 
   return (
-    <CardComp onPress={() => navigate.navigate("AddPart", passPart)}>
+    <CardComp onPress={() => navigate.navigate("AddPart", {passPart, parentParams})}>
       <GapContainer gap={15}>
         <SquareInfo
           color={"lightBlue"}

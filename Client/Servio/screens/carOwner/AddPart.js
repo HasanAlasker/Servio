@@ -65,15 +65,17 @@ function AddPart(props) {
   const params = route?.params;
 
   const initialValues = {
-    name: params?.partName || "",
-    lastChangeDate: params?.lastChangeDate || "",
-    lastChangeMileage: params?.lastChangeMileage?.toString() || "",
-    months: params?.recommendedChangeInterval?.months?.toString() || null,
-    miles: params?.recommendedChangeInterval?.miles?.toString() || null,
+    name: params?.passPart?.partName || "",
+    lastChangeDate: params?.passPart?.lastChangeDate || "",
+    lastChangeMileage: params?.passPart?.lastChangeMileage?.toString() || "",
+    months:
+      params?.passPart?.recommendedChangeInterval?.months?.toString() || null,
+    miles:
+      params?.passPart?.recommendedChangeInterval?.miles?.toString() || null,
   };
 
   useEffect(() => {
-    if (params.isEdit) {
+    if (params?.passPart.isEdit) {
       setEdit(true);
     }
   }, [params]);
@@ -89,9 +91,9 @@ function AddPart(props) {
       },
     };
     try {
-      const response = await addPart(params.id, data);
+      const response = await addPart(params?.passPart.id, data);
       if (response.ok) {
-        navigate.navigate("CarParts", params);
+        navigate.navigate("CarParts", params?.parentParams);
       }
       if (!response.ok) {
         setErrMsg(response.data.errors[0].message);
@@ -110,9 +112,9 @@ function AddPart(props) {
       },
     };
     try {
-      const response = await editPart(params.partId, data);
+      const response = await editPart(params?.passPart.partId, data);
       if (response.ok) {
-        navigate.navigate("MyCars");
+        navigate.navigate("CarParts", params?.parentParams);
       }
       if (!response.ok) {
         setErrMsg(response.data.errors[0].message);
@@ -122,9 +124,9 @@ function AddPart(props) {
 
   const handleDelete = async (values) => {
     try {
-      const response = await unTrackPart(params.partId);
+      const response = await unTrackPart(params?.passPart.partId);
       if (response.ok) {
-        navigate.navigate("MyCars");
+        navigate.navigate("CarParts", params?.parentParams);
       }
       if (!response.ok) {
         setErrMsg(response.data.errors[0].message);

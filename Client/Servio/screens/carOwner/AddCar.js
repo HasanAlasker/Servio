@@ -135,7 +135,7 @@ function AddCar(props) {
       const response = await editCar(params.id, values);
       if (response.ok) {
         updateCars(response.data.data);
-        navigate.navigate("MyCars");
+        navigate.navigate("CarParts", params);
       }
     } catch (error) {
       console.log(error);

@@ -11,9 +11,11 @@ import { useState } from "react";
 import { UseCar } from "../../context/CarContext";
 
 function CarOptionsCard({ params }) {
-  const { removeCar } = UseCar();
+  const { removeCar, cars } = UseCar();
   const { theme } = useTheme();
   const navigate = useNavigation();
+
+  const car = cars.find((c) => c._id === params?.id);
 
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -39,9 +41,15 @@ function CarOptionsCard({ params }) {
           color={"lightBlue"}
           icon={"car"}
           title={
-            capFirstLetter(params?.make) + " " + capFirstLetter(params?.name)
+            capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)
           }
-          text={params?.model + " - " + capFirstLetter(params?.color)}
+          text={car?.model + " - " + capFirstLetter(car?.color)}
+        />
+        <SquareInfo
+          color={"pink"}
+          icon={"gauge"}
+          title={`${car?.mileage.toLocaleString()}` + " Km"}
+          text={"Mileage"}
         />
         <GapContainer gap={10}>
           <PriBtn
