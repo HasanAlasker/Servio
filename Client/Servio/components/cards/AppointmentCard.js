@@ -16,6 +16,7 @@ import AppModal from "./AppModal";
 import { useMemo, useState } from "react";
 import ErrorMessage from "../form/ErrorMessage";
 import { openURL } from "../../functions/openURL";
+import useThemedStyles from "../../hooks/useThemedStyles";
 
 function AppointmentCard({
   id,
@@ -33,6 +34,7 @@ function AppointmentCard({
   showDelete,
   onDelete,
 }) {
+  const styles = useThemedStyles(getstyles)
   const { isShopOwner, isUser } = UseUser();
   const { theme } = useTheme();
   const [modal, setModal] = useState(false);
@@ -87,14 +89,16 @@ function AppointmentCard({
 
         <StatusLabel status={status} />
 
-        {isUser && status === "confirmed" && (
-          <Pressable onPress={() => openURL(shop?.link)}>
-            <Image
-              style={styles.map}
-              source={require("../../assets/map.png")}
-            />
-          </Pressable>
-        )}
+        {isUser &&
+          status === "confirmed" &&
+          new Date() < new Date(scheuledAt) && (
+            <Pressable onPress={() => openURL(shop?.link)}>
+              <Image
+                style={styles.map}
+                source={require("../../assets/map.png")}
+              />
+            </Pressable>
+          )}
 
         <View>
           <SeparatorComp children={"Service Parts"} full color="sec_text" />
@@ -182,11 +186,13 @@ function AppointmentCard({
   );
 }
 
-const styles = StyleSheet.create({
+const getstyles = (theme) => StyleSheet.create({
   map: {
     width: "100%",
     height: 120,
     borderRadius: 15,
+    borderWidth: 1,
+    borderColor: theme.gold
   },
 });
 
