@@ -75,7 +75,7 @@ function AddPart(props) {
   };
 
   useEffect(() => {
-    if (params?.passPart.isEdit) {
+    if (params?.passPart?.isEdit) {
       setEdit(true);
     }
   }, [params]);
