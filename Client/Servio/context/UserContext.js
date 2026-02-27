@@ -297,12 +297,20 @@ export const UserProvider = ({ children }) => {
       setStatus(null);
 
       const res = await registerUser(data);
+      let responseMessage = res.data?.message;
 
-      const responseMessage = res.data?.message;
+      if (responseMessage === "Validation error") {
+        let validationErr = res.data?.errors[0].message;
+        responseMessage = validationErr;
+        setMessage(validationErr);
+      }
       const responseStatus = res.status;
+      setMessage(responseMessage);
+      setStatus(responseStatus);
 
       if (!res.ok) {
         setError(true);
+
         return {
           success: false,
           message: responseMessage,

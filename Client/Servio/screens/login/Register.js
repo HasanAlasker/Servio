@@ -6,7 +6,7 @@ import AppForm from "../../components/form/AppForm";
 import FormikInput from "../../components/form/FormikInput";
 import GapContainer from "../../components/general/GapContainer";
 import SubmitBtn from "../../components/form/SubmitBtn";
-import { ErrorMessage } from "formik";
+
 import * as Yup from "yup";
 import { UseUser } from "../../context/UserContext";
 import { useEffect, useState } from "react";
@@ -15,6 +15,7 @@ import SecBtn from "../../components/general/SecBtn";
 import { useNavigation } from "@react-navigation/native";
 import useApi from "../../hooks/useApi";
 import { isServerAwake } from "../../api/upcomingService";
+import ErrorMessage from "../../components/form/ErrorMessage";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -94,13 +95,7 @@ const initialValues = {
 };
 
 function Register(props) {
-  const {
-    register,
-    error,
-    message,
-    loading,
-    status,
-  } = UseUser();
+  const { register, error, message, loading, status } = UseUser();
 
   const navigation = useNavigation();
 
@@ -114,7 +109,7 @@ function Register(props) {
   } = useApi(isServerAwake);
 
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
-  const [regErr, setRegErr] = useState(false);
+  const [regErr, setRegErr] = useState(null);
 
   useEffect(() => {
     connectToServer();
@@ -127,7 +122,8 @@ function Register(props) {
     try {
       const response = await register(values);
       if (!response.success) {
-        setRegErr(true);
+        
+        setRegErr(response.message || "Registration Failed");
       }
     } catch (error) {
       console.error(error);
@@ -200,15 +196,7 @@ function Register(props) {
                 setHasBeenSubmitted={setHasBeenSubmited}
               />
 
-              {regErr && (
-                <ErrorMessage
-                  error={
-                    message === "Validation error"
-                      ? "Please enter valid credentials"
-                      : message
-                  }
-                />
-              )}
+              {regErr && <ErrorMessage error={regErr} />}
 
               {(connectionStatus === 429 || status === 429) && (
                 <ErrorMessage error={"Too many requests"} />
