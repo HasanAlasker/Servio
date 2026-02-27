@@ -48,7 +48,7 @@ function ServiceCard({
           />
           <IconTextLabel
             icon={"gauge"}
-            text={dueBy.mileage.toLocaleString() + capFirstLetter(car.unit)}
+            text={dueBy.mileage.toLocaleString() + " " + capFirstLetter(car?.unit)}
           />
         </View>
 

@@ -12,6 +12,7 @@ import { countDocs, shopCountDocs } from "../../api/user";
 import { useEffect } from "react";
 import OfflineModal from "../../components/general/OfflineModal";
 import { UseUser } from "../../context/UserContext";
+import { UseCar } from "../../context/CarContext";
 
 function Home(props) {
   const navigaiton = useNavigation();
