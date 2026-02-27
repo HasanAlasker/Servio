@@ -39,6 +39,11 @@ export const addCarSchema = Joi.object({
     "number.min": "Mileage cannot be negative",
     "any.required": "Mileage is required",
   }),
+
+  unit: Joi.string().required().valid("km", "mile").messages({
+    "any.only": "Invalid unit type",
+    "any.required": "Unit is required",
+  }),
 });
 
 export const editCarSchema = Joi.object({
@@ -73,5 +78,10 @@ export const editCarSchema = Joi.object({
   mileage: Joi.number().min(0).messages({
     "number.base": "Mileage must be a number",
     "number.min": "Mileage cannot be negative",
+  }),
+
+  unit: Joi.string().required().valid("km", "mile").messages({
+    "any.only": "Invalid unit type",
+    "any.required": "Unit is required",
   }),
 }).min(1); // At least one field must be provided for update

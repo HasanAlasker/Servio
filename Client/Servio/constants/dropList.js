@@ -5,3 +5,8 @@ export const suggestionTypes = [
   { label: "Question", value: "question" },
   { label: "Other", value: "other" },
 ];
+
+export const unitTypes = [
+  { label: "Km", value: "km" },
+  { label: "Mile", value: "mile" },
+];

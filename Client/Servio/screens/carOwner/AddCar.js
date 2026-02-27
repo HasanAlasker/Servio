@@ -17,6 +17,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import PriBtn from "../../components/general/PriBtn";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { UseCar } from "../../context/CarContext";
+import { unitTypes } from "../../constants/dropList";
 
 export const validationSchema = Yup.object({
   make: Yup.string().trim().required("Car make is required"),
@@ -40,6 +41,10 @@ export const validationSchema = Yup.object({
     .min(0, "Mileage cannot be negative")
     .required("Mileage is required")
     .typeError("Mileage must be a number"),
+
+  unit: Yup.string()
+    .oneOf(["km", "mile"])
+    .required("Odometer unit is required"),
 });
 
 function AddCar(props) {
@@ -71,6 +76,7 @@ function AddCar(props) {
     color: params?.color || "",
     plateNumber: params?.plateNumber || "",
     mileage: params?.mileage?.toString() || "",
+    unit: params?.unit || "",
     image: params?.image || "",
   };
 
@@ -210,11 +216,22 @@ function AddCar(props) {
 
               <FormikInput
                 name={"mileage"}
-                placeholder={"Mileage"}
+                placeholder={"Mileage (Odometer)"}
                 icon={"gauge"}
                 autoCapitalize={"none"}
                 keyboardType={"numeric"}
                 hasBeenSubmitted={hasBeenSubmitted}
+              />
+
+              <FormikDropBox
+                name={"unit"}
+                placeholder={"Odometer unit"}
+                items={unitTypes}
+                icon={"beaker-outline"}
+                hasBeenSubmitted={hasBeenSubmitted}
+                onSelectItem={(value) => {
+                  setFieldValue("name", value);
+                }}
               />
 
               <FormikInput

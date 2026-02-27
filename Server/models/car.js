@@ -40,6 +40,11 @@ const carSchema = new mongoose.Schema(
       min: [0, "Mileage cannot be negative"],
       required: true,
     },
+    unit: {
+      type: String,
+      enum: ["km", "mile"],
+      required: true
+    },
     isDeleted: {
       type: Boolean,
       default: false,
