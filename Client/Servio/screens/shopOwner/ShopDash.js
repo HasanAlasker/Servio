@@ -30,7 +30,7 @@ function Home(props) {
   useEffect(() => {
     fetchDocs();
     fetchShop();
-  }, [user, error]);
+  }, [user]);
 
   return (
     <SafeScreen>
