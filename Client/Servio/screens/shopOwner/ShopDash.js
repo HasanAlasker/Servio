@@ -15,7 +15,8 @@ import { UseUser } from "../../context/UserContext";
 
 function Home(props) {
   const navigaiton = useNavigation();
-  const { user } = UseUser;
+  const { user } = UseUser();
+  const { cars } = UseCar();
 
   const { data, request: fetchDocs, loading, error } = useApi(countDocs);
 
@@ -56,7 +57,7 @@ function Home(props) {
             onPress={() => navigaiton.navigate("AddShop")}
           />
         </GapContainer>
-        
+
         <LText>Shop Info</LText>
         <GapContainer style={styles.container}>
           <CardLeftBorder
@@ -76,10 +77,7 @@ function Home(props) {
         </GapContainer>
         <LText>Personal Info</LText>
         <GapContainer style={styles.container}>
-          <CardLeftBorder
-            title={"Number of cars: "}
-            data={loading ? "..." : data.cars}
-          />
+          <CardLeftBorder title={"Number of cars: "} data={cars?.length} />
           <CardLeftBorder
             title={"Due services: "}
             data={loading ? "..." : data.services}
