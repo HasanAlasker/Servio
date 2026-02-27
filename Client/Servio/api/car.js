@@ -19,6 +19,7 @@ export const addCar = (data) => {
   formData.append("color", data.color);
   formData.append("plateNumber", data.plateNumber);
   formData.append("mileage", data.mileage);
+  formData.append("unit", data.unit);
 
   if (data.image) {
     const imageUri = data.image;
@@ -53,6 +54,7 @@ export const editCar = (id, data) => {
   formData.append("color", data.color);
   formData.append("plateNumber", data.plateNumber);
   formData.append("mileage", data.mileage);
+  formData.append("unit", data.unit);
 
   if (data.image) {
     // Check if it's a new image (local URI) or existing image (URL)
@@ -75,7 +77,7 @@ export const editCar = (id, data) => {
       formData.append("image", data.image);
     }
   }
-  
+
   if (data.imagePublicId) {
     formData.append("imagePublicId", data.imagePublicId);
   }

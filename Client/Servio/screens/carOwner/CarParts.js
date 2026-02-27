@@ -32,7 +32,7 @@ function CarParts(props) {
   }, [fetchedParts]);
 
   const RenderParts = parts.map((part) => (
-    <PartCard key={part._id} part={part} parentParams={params} />
+    <PartCard key={part._id} part={part} parentParams={params} unit={params.unit} />
   ));
 
   return (

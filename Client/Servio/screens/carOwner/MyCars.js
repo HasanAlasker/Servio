@@ -22,6 +22,7 @@ function MyCars(props) {
       plateNumber={car.plateNumber}
       color={car?.color}
       mileage={car.mileage}
+      unit={car?.unit}
     />
   ));
 

@@ -40,15 +40,13 @@ function CarOptionsCard({ params }) {
         <SquareInfo
           color={"lightBlue"}
           icon={"car"}
-          title={
-            capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)
-          }
+          title={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
           text={car?.model + " - " + capFirstLetter(car?.color)}
         />
         <SquareInfo
           color={"pink"}
           icon={"gauge"}
-          title={`${car?.mileage.toLocaleString()}` + " Km"}
+          title={`${car?.mileage.toLocaleString() + " " + capFirstLetter(car?.unit)}`}
           text={"Mileage"}
         />
         <GapContainer gap={10}>

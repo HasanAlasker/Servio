@@ -16,6 +16,7 @@ function CarCard({
   plateNumber,
   color,
   mileage,
+  unit,
 }) {
   const navigate = useNavigation();
 
@@ -28,6 +29,7 @@ function CarCard({
     plateNumber,
     color,
     mileage,
+    unit,
   };
 
   return (
@@ -52,7 +54,7 @@ function CarCard({
             icon={"gauge"}
             color={"lightBlue"}
             title={"Mileage"}
-            text={`${mileage.toLocaleString()} Km`}
+            text={`${mileage.toLocaleString() + " " + capFirstLetter(unit)}`}
             fliped
           />
 

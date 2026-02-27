@@ -22,7 +22,7 @@ router.get("/", auth, async (req, res) => {
       status: { $nin: ["not active"] },
     })
       .sort({ "dueBy.Date": 1 })
-      .populate("car", "make name model plateNumber mileage")
+      .populate("car", "make name model plateNumber mileage unit")
       .populate(
         "parts",
         "name lastChangeDate lastChangeMileage recommendedChangeInterval",

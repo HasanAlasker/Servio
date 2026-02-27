@@ -18,6 +18,7 @@ import PriBtn from "../../components/general/PriBtn";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { UseCar } from "../../context/CarContext";
 import { unitTypes } from "../../constants/dropList";
+import ErrorMessage from "../../components/form/ErrorMessage";
 
 export const validationSchema = Yup.object({
   make: Yup.string().trim().required("Car make is required"),
@@ -57,6 +58,7 @@ function AddCar(props) {
   const [namesList, setNamesList] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validationErr, setValidationErr] = useState(null);
 
   const navigate = useNavigation();
   const route = useRoute();
@@ -121,9 +123,15 @@ function AddCar(props) {
   }, [selectedMake, cars]);
 
   const handleSubmit = async (values) => {
+    setErr(null);
     setIsSubmitting(true);
     try {
       const response = await addCar(values);
+      console.log(response.data?.message === "Validation error");
+      if (response.data?.message === "Validation error") {
+        setValidationErr(response.data.errors[0].feild);
+      }
+
       if (response.ok) {
         addNewCar(response.data.data);
         navigate.navigate("MyCars");
@@ -139,6 +147,10 @@ function AddCar(props) {
     setIsSubmitting(true);
     try {
       const response = await editCar(params.id, values);
+      if (response.data?.message === "Validation error") {
+        setValidationErr(response.data.errors[0].message);
+      }
+
       if (response.ok) {
         updateCars(response.data.data);
         navigate.navigate("CarParts", params);
@@ -230,7 +242,7 @@ function AddCar(props) {
                 icon={"beaker-outline"}
                 hasBeenSubmitted={hasBeenSubmitted}
                 onSelectItem={(value) => {
-                  setFieldValue("name", value);
+                  setFieldValue("unit", value);
                 }}
               />
 
@@ -241,6 +253,8 @@ function AddCar(props) {
                 autoCapitalize={"none"}
                 hasBeenSubmitted={hasBeenSubmitted}
               />
+
+              {validationErr && <ErrorMessage error={validationErr} />}
 
               <SubmitBtn
                 defaultText={!isEdit ? "Add Car" : "Edit Car"}

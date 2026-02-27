@@ -7,7 +7,7 @@ import { formatDate } from "../../functions/formatDate";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import { useNavigation } from "@react-navigation/native";
 
-function PartCard({ part, parentParams }) {
+function PartCard({ part, parentParams, unit }) {
   const navigate = useNavigation();
 
   const addMonthsToDate = (dateString, monthsToAdd) => {
@@ -29,7 +29,9 @@ function PartCard({ part, parentParams }) {
   };
 
   return (
-    <CardComp onPress={() => navigate.navigate("AddPart", {passPart, parentParams})}>
+    <CardComp
+      onPress={() => navigate.navigate("AddPart", { passPart, parentParams })}
+    >
       <GapContainer gap={15}>
         <SquareInfo
           color={"lightBlue"}
@@ -49,7 +51,11 @@ function PartCard({ part, parentParams }) {
           color={"pink"}
           icon={"gauge"}
           title={"Last Change Mileage"}
-          text={part?.lastChangeMileage.toLocaleString() + " Km"}
+          text={
+            part?.lastChangeMileage.toLocaleString() +
+            " " +
+            capFirstLetter(unit)
+          }
           fliped
         />
         <SeparatorComp children={"Next Change"} full />
@@ -72,7 +78,9 @@ function PartCard({ part, parentParams }) {
           text={
             (
               part?.lastChangeMileage + part.recommendedChangeInterval.miles
-            ).toLocaleString() + " Km"
+            ).toLocaleString() +
+            " " +
+            capFirstLetter(unit)
           }
           fliped
         />
