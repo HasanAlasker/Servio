@@ -12,10 +12,12 @@ import { countDocs } from "../../api/user";
 import { useEffect } from "react";
 import OfflineModal from "../../components/general/OfflineModal";
 import { UseUser } from "../../context/UserContext";
+import { UseCar } from "../../context/CarContext";
 
 function Home(props) {
   const navigaiton = useNavigation();
-  const { user } = UseUser;
+  const { user } = UseUser();
+  const {cars} = UseCar()
 
   const {
     data: fetchedDocs,
@@ -26,7 +28,7 @@ function Home(props) {
 
   useEffect(() => {
     fetchDocs();
-  }, [user, error]);
+  }, [user]);
 
   const data = fetchedDocs;
 
@@ -37,7 +39,7 @@ function Home(props) {
         <GapContainer style={styles.container}>
           <CardLeftBorder
             title={"Number of cars: "}
-            data={loading ? "..." : data.cars}
+            data={cars?.length}
           />
           <CardLeftBorder
             title={"Appointments: "}
