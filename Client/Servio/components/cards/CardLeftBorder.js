@@ -38,7 +38,7 @@ function CardLeftBorder({ title, data, status, parts }) {
     backColor = theme[color] + 20;
   } else {
     color = "blue";
-    backColor = "post";
+    backColor = theme.post;
   }
 
   const RenderParts = parts?.map((part) => (
