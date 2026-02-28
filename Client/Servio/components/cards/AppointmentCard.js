@@ -17,6 +17,8 @@ import { useMemo, useState } from "react";
 import ErrorMessage from "../form/ErrorMessage";
 import { openURL } from "../../functions/openURL";
 import useThemedStyles from "../../hooks/useThemedStyles";
+import RowCont from "../general/RowCont";
+import MText from "../text/MText";
 
 function AppointmentCard({
   id,
@@ -34,7 +36,7 @@ function AppointmentCard({
   showDelete,
   onDelete,
 }) {
-  const styles = useThemedStyles(getstyles)
+  const styles = useThemedStyles(getstyles);
   const { isShopOwner, isUser } = UseUser();
   const { theme } = useTheme();
   const [modal, setModal] = useState(false);
@@ -46,9 +48,10 @@ function AppointmentCard({
   const closeModal = () => setModal(false);
 
   const partsList = serviceParts?.map((part) => (
-    <SText key={part._id} thin>
-      {capFirstLetter(part.name)}
-    </SText>
+    <RowCont key={part._id}>
+      <MText>{"\u2022"}</MText>
+      <SText thin>{capFirstLetter(part.name)}</SText>
+    </RowCont>
   ));
 
   const isDue = useMemo(() => {
@@ -102,7 +105,7 @@ function AppointmentCard({
 
         <View>
           <SeparatorComp children={"Service Parts"} full color="sec_text" />
-          {partsList}
+          <GapContainer gap={5}>{partsList}</GapContainer>
         </View>
 
         {isUser && status === "pending" && (
@@ -186,14 +189,15 @@ function AppointmentCard({
   );
 }
 
-const getstyles = (theme) => StyleSheet.create({
-  map: {
-    width: "100%",
-    height: 120,
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: theme.gold
-  },
-});
+const getstyles = (theme) =>
+  StyleSheet.create({
+    map: {
+      width: "100%",
+      height: 120,
+      borderRadius: 15,
+      borderWidth: 1,
+      borderColor: theme.gold,
+    },
+  });
 
 export default AppointmentCard;

@@ -31,6 +31,8 @@ function AppSummary({ params }) {
           title={"Shop"}
           text={capFirstLetter(params.shop.name)}
         />
+      </GapContainer>
+      <GapContainer style={{ marginTop: 35 }}>
         <CardLeftBorder status={"status"} parts={params.parts} />
       </GapContainer>
     </CardComp>
