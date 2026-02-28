@@ -42,9 +42,10 @@ function CardLeftBorder({ title, data, status, parts }) {
   }
 
   const RenderParts = parts?.map((part) => (
-    <SText key={part._id} thin>
-      {capFirstLetter(part.name)}
-    </SText>
+    <RowCont key={part._id}>
+      <MText>{"\u2022"}</MText>
+      <SText thin>{capFirstLetter(part.name)}</SText>
+    </RowCont>
   ));
 
   return (
