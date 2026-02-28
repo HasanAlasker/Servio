@@ -41,6 +41,13 @@ const partSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    note: {
+      type: String,
+      minLength: [5, "Note must be at least 5 characters long"],
+      maxLength: [100, "Note can't be longer than 100 characters"],
+      match: [/^[a-zA-Z\s'-]+$/, "Please enter a valid note"],
+      trim: true,
+    },
   },
   { timestamps: true },
 );

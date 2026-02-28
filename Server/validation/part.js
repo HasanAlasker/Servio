@@ -34,6 +34,17 @@ export const addPartSchema = Joi.object({
     "number.min": "Mileage cannot be negative",
     "any.required": "Last change mileage is required",
   }),
+
+  note: Joi.string()
+    .trim()
+    .min(10)
+    .max(100)
+    .pattern(/^[a-zA-Z\s'-]+$/)
+    .messages({
+      "string.min": "Note must be at least 10 characters long",
+      "string.max": "Note can't be longer than 100 characters",
+      "string.pattern.base": "Please enter a valid note",
+    }),
 });
 
 export const editPartSchema = Joi.object({
@@ -66,4 +77,15 @@ export const editPartSchema = Joi.object({
     "number.base": "Mileage must be a number",
     "number.min": "Mileage cannot be negative",
   }),
+
+  note: Joi.string()
+    .trim()
+    .min(10)
+    .max(100)
+    .pattern(/^[a-zA-Z\s'-]+$/)
+    .messages({
+      "string.min": "Note must be at least 10 characters long",
+      "string.max": "Note can't be longer than 100 characters",
+      "string.pattern.base": "Please enter a valid note",
+    }),
 }).min(1);

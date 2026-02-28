@@ -42,7 +42,18 @@ const appointmentSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    cost: {
+      type: Number,
+    },
     isRejected: {
+      type: Boolean,
+      default: false,
+    },
+    isReported: {
+      type: Boolean,
+      default: false,
+    },
+    isRated: {
       type: Boolean,
       default: false,
     },
