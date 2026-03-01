@@ -56,6 +56,13 @@ export const ServiceProvider = ({ children }) => {
     }
   }, [fetchedServices]);
 
+  const countDueServices = () => {
+    const due = services.map(
+      (s) => s.status === "due" || s.status === "overdue",
+    );
+    return due.length;
+  };
+
   const values = {
     services,
     setServices,
@@ -64,6 +71,7 @@ export const ServiceProvider = ({ children }) => {
     getStoredServices,
     loading,
     fetchServices,
+    countDueServices,
   };
 
   return (

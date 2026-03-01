@@ -13,18 +13,15 @@ import { useEffect } from "react";
 import OfflineModal from "../../components/general/OfflineModal";
 import { UseUser } from "../../context/UserContext";
 import { UseCar } from "../../context/CarContext";
+import { UseService } from "../../context/ServiceContext";
 
 function Home(props) {
   const navigaiton = useNavigation();
   const { user } = UseUser();
-  const {cars} = UseCar()
+  const { cars } = UseCar();
+  const { countDueServices } = UseService();
 
-  const {
-    data: fetchedDocs,
-    request: fetchDocs,
-    loading,
-    error,
-  } = useApi(countDocs);
+  const { data: fetchedDocs, request: fetchDocs, loading } = useApi(countDocs);
 
   useEffect(() => {
     fetchDocs();
@@ -37,18 +34,12 @@ function Home(props) {
       <ScrollScreen>
         <LText>Quick Peek</LText>
         <GapContainer style={styles.container}>
-          <CardLeftBorder
-            title={"Number of cars: "}
-            data={cars?.length}
-          />
+          <CardLeftBorder title={"Number of cars: "} data={cars?.length} />
           <CardLeftBorder
             title={"Appointments: "}
             data={loading ? "..." : data.appointments}
           />
-          <CardLeftBorder
-            title={"Due services: "}
-            data={loading ? "..." : data.services}
-          />
+          <CardLeftBorder title={"Due services: "} data={countDueServices()} />
         </GapContainer>
 
         <LText>Quick Actions</LText>
