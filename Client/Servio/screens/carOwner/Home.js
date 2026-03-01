@@ -14,11 +14,13 @@ import OfflineModal from "../../components/general/OfflineModal";
 import { UseUser } from "../../context/UserContext";
 import { UseCar } from "../../context/CarContext";
 import { UseService } from "../../context/ServiceContext";
+import { UseAppointment } from "../../context/AppointmentContext";
 
 function Home(props) {
   const navigaiton = useNavigation();
   const { user } = UseUser();
   const { cars } = UseCar();
+  const { countAppointments } = UseAppointment();
   const { countDueServices } = UseService();
 
   const { data: fetchedDocs, request: fetchDocs, loading } = useApi(countDocs);
@@ -35,10 +37,7 @@ function Home(props) {
         <LText>Quick Peek</LText>
         <GapContainer style={styles.container}>
           <CardLeftBorder title={"Number of cars: "} data={cars?.length} />
-          <CardLeftBorder
-            title={"Appointments: "}
-            data={loading ? "..." : data.appointments}
-          />
+          <CardLeftBorder title={"Appointments: "} data={countAppointments()} />
           <CardLeftBorder title={"Due services: "} data={countDueServices()} />
         </GapContainer>
 

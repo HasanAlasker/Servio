@@ -73,6 +73,10 @@ export const AppointmentProvider = ({ children }) => {
     fetchPast();
   };
 
+  const countAppointments = () => {
+    return upcoming.length;
+  };
+
   useEffect(() => {
     if (fetchedUpcoming && fetchedPast) {
       setUpcoming(fetchedUpcoming);
@@ -88,6 +92,7 @@ export const AppointmentProvider = ({ children }) => {
     setUpcoming,
     loading,
     loadAppointments,
+    countAppointments,
   };
   return (
     <AppointmentContext.Provider value={values}>

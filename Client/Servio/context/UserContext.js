@@ -11,6 +11,7 @@ import { isServerAwake } from "../api/upcomingService";
 import { jwtDecode } from "jwt-decode";
 import { UseCar } from "./CarContext";
 import { UseService } from "./ServiceContext";
+import { UseAppointment } from "./AppointmentContext";
 
 export const UserContext = createContext();
 
@@ -47,6 +48,7 @@ export const UserProvider = ({ children }) => {
 
   const { loadCars } = UseCar();
   const { loadServices } = UseService();
+  const { loadAppointments } = UseAppointment();
 
   const STORAGE_KEYS = {
     USER: "@servio_user",
@@ -274,6 +276,7 @@ export const UserProvider = ({ children }) => {
 
       await loadCars();
       await loadServices();
+      await loadAppointments();
       return {
         success: true,
         message: responseMessage,
@@ -333,6 +336,8 @@ export const UserProvider = ({ children }) => {
       await storeUserData(userData, tokenData);
       await loadCars();
       await loadServices();
+      await loadAppointments();
+
       return {
         success: true,
         message: responseMessage,
