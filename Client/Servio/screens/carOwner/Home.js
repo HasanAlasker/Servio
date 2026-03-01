@@ -7,9 +7,6 @@ import CardLeftBorder from "../../components/cards/CardLeftBorder";
 import GapContainer from "../../components/general/GapContainer";
 import SquareHome from "../../components/cards/SquareHome";
 import { useNavigation } from "@react-navigation/native";
-import useApi from "../../hooks/useApi";
-import { countDocs } from "../../api/user";
-import { useEffect } from "react";
 import OfflineModal from "../../components/general/OfflineModal";
 import { UseUser } from "../../context/UserContext";
 import { UseCar } from "../../context/CarContext";
@@ -18,18 +15,9 @@ import { UseAppointment } from "../../context/AppointmentContext";
 
 function Home(props) {
   const navigaiton = useNavigation();
-  const { user } = UseUser();
   const { cars } = UseCar();
   const { countAppointments } = UseAppointment();
   const { countDueServices } = UseService();
-
-  const { data: fetchedDocs, request: fetchDocs, loading } = useApi(countDocs);
-
-  useEffect(() => {
-    fetchDocs();
-  }, [user]);
-
-  const data = fetchedDocs;
 
   return (
     <SafeScreen>
