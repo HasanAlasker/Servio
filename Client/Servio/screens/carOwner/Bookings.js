@@ -2,13 +2,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import Navbar from "../../components/general/Navbar";
 import SafeScreen from "../../components/general/SafeScreen";
-import useApi from "../../hooks/useApi";
-import {
-  cancelAppointment,
-  deleteAppointment,
-  getPastAppointments,
-  getUpcomingAppointments,
-} from "../../api/appointment";
+import { cancelAppointment, deleteAppointment } from "../../api/appointment";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import AppointmentCard from "../../components/cards/AppointmentCard";
 import GapContainer from "../../components/general/GapContainer";
@@ -16,10 +10,11 @@ import TabNav from "../../components/general/TabNav";
 import { useRoute } from "@react-navigation/native";
 import SText from "../../components/text/SText";
 import { Confetti } from "react-native-fast-confetti";
+import { UseAppointment } from "../../context/AppointmentContext";
 
 function Bookings(props) {
-  const [upcoming, setUpcoming] = useState([]);
-  const [past, setPast] = useState([]);
+  const { upcoming, past, setUpcoming, setPast, loading } = UseAppointment();
+
   const [activeTab, setTab] = useState("1");
   const [celebrate, setCelebrate] = useState(false);
 
@@ -32,30 +27,6 @@ function Bookings(props) {
       if (params.celebrate) handleCelebration();
     }
   }, []);
-
-  const {
-    data: fetchedUpcoming,
-    request: fetchUpcoming,
-    loading: loadingUpcoming,
-  } = useApi(getUpcomingAppointments);
-
-  const {
-    data: fetchedPast,
-    request: fetchPast,
-    loading: loadingPast,
-  } = useApi(getPastAppointments);
-
-  const loading = loadingPast || loadingUpcoming;
-
-  useEffect(() => {
-    fetchUpcoming();
-    fetchPast();
-  }, []);
-
-  useEffect(() => {
-    setUpcoming(fetchedUpcoming);
-    setPast(fetchedPast);
-  }, [fetchedUpcoming, fetchedPast]);
 
   const handleCancel = async (id, type) => {
     if (type === "1") {
