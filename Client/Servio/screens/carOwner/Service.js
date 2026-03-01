@@ -12,23 +12,10 @@ import {
 } from "../../api/upcomingService";
 import ServiceCard from "../../components/cards/ServiceCard";
 import SText from "../../components/text/SText";
+import { UseService } from "../../context/ServiceContext";
 
 function Service(props) {
-  const [services, setServices] = useState([]);
-
-  const {
-    data: fetchedServices,
-    request: fetchServices,
-    loading,
-  } = useApi(getUpcomingServices);
-
-  useEffect(() => {
-    fetchServices();
-  }, []);
-
-  useEffect(() => {
-    setServices(fetchedServices);
-  }, [fetchedServices]);
+  const { services, setServices, loading } = UseService();
 
   const handleReminder = async (id, isActive) => {
     try {

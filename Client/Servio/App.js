@@ -37,6 +37,7 @@ import { NotificationProvider } from "./context/NotificationContext";
 import { SystemBars } from "react-native-edge-to-edge";
 import * as NavigationBar from "expo-navigation-bar";
 import { CarProvider, UseCar } from "./context/CarContext";
+import { ServiceProvider, UseService } from "./context/ServiceContext";
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -128,10 +129,12 @@ const AppNavigator = () => {
   } = UseUser();
   const { loadCars } = UseCar();
   const { isDarkMode } = useTheme();
+  const { loadServices, services } = UseService();
 
   useEffect(() => {
     loadUserData();
     loadCars();
+    loadServices();
   }, []);
 
   useEffect(() => {
@@ -174,9 +177,11 @@ export default function App() {
       <ThemeProvider>
         <CarProvider>
           <UserProvider>
-            <NotificationProvider>
-              <AppNavigator />
-            </NotificationProvider>
+            <ServiceProvider>
+              <NotificationProvider>
+                <AppNavigator />
+              </NotificationProvider>
+            </ServiceProvider>
           </UserProvider>
         </CarProvider>
       </ThemeProvider>
