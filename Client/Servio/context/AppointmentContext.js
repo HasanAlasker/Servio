@@ -77,6 +77,11 @@ export const AppointmentProvider = ({ children }) => {
     return upcoming.length;
   };
 
+  const isConfirmedAppointments = () => {
+    const confirmed = upcoming.map((a) => a.status === "confirmed");
+    return confirmed.length > 0;
+  };
+
   useEffect(() => {
     if (fetchedUpcoming && fetchedPast) {
       setUpcoming(fetchedUpcoming);
@@ -93,6 +98,7 @@ export const AppointmentProvider = ({ children }) => {
     loading,
     loadAppointments,
     countAppointments,
+    isConfirmedAppointments,
   };
   return (
     <AppointmentContext.Provider value={values}>
