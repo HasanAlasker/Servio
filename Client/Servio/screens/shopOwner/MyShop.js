@@ -9,25 +9,12 @@ import ShopCard from "../../components/cards/ShopCard";
 import { useNavigation } from "@react-navigation/native";
 import AddCarCard from "../../components/cards/AddCarCard";
 import GapContainer from "../../components/general/GapContainer";
+import { UseShop } from "../../context/ShopContext";
 
 function MyShop(props) {
-  const [shops, setShops] = useState([]);
+  const {shops, setShops, loading} = UseShop()
   const navigate = useNavigation();
 
-  const {
-    data: fetchedShops,
-    request: fetchShops,
-    loading,
-    error,
-  } = useApi(getMyShops);
-
-  useEffect(() => {
-    fetchShops();
-  }, []);
-
-  useEffect(() => {
-    setShops(fetchedShops);
-  }, [fetchedShops, error]);
 
   const RenderShops = shops.map((shop) => (
     <ShopCard

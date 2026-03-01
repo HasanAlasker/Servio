@@ -42,6 +42,7 @@ import {
   AppointmentProvider,
   UseAppointment,
 } from "./context/AppointmentContext";
+import { ShopProvider, UseShop } from "./context/ShopContext";
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -135,13 +136,24 @@ const AppNavigator = () => {
   const { isDarkMode } = useTheme();
   const { loadServices } = UseService();
   const { loadAppointments } = UseAppointment();
+  const { loadShops } = UseShop();
 
   useEffect(() => {
     loadUserData();
     loadCars();
+    // loadServices();
+    // loadAppointments();
+    // loadShops();
+  }, []);
+
+  useEffect(() => {
     loadServices();
     loadAppointments();
-  }, []);
+  }, [isUser]);
+
+  useEffect(() => {
+    loadShops();
+  }, [isShopOwner]);
 
   useEffect(() => {
     if (!appStart) {
@@ -184,11 +196,13 @@ export default function App() {
         <ServiceProvider>
           <CarProvider>
             <AppointmentProvider>
-              <UserProvider>
-                <NotificationProvider>
-                  <AppNavigator />
-                </NotificationProvider>
-              </UserProvider>
+              <ShopProvider>
+                <UserProvider>
+                  <NotificationProvider>
+                    <AppNavigator />
+                  </NotificationProvider>
+                </UserProvider>
+              </ShopProvider>
             </AppointmentProvider>
           </CarProvider>
         </ServiceProvider>

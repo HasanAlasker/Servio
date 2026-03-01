@@ -8,25 +8,12 @@ import useApi from "../../hooks/useApi";
 import { getMyShops } from "../../api/shop";
 import ShopCard from "../../components/cards/ShopCard";
 import GapContainer from "../../components/general/GapContainer";
+import { UseShop } from "../../context/ShopContext";
 
 function ShopBook(props) {
-  const [shops, setShops] = useState([]);
+  const { shops } = UseShop();
+
   const navigate = useNavigation();
-
-  const {
-    data: fetchedShops,
-    request: fetchShops,
-    loading,
-    error,
-  } = useApi(getMyShops);
-
-  useEffect(() => {
-    fetchShops();
-  }, []);
-
-  useEffect(() => {
-    setShops(fetchedShops);
-  }, [fetchedShops, error]);
 
   const RenderShops = shops.map((shop) => (
     <ShopCard

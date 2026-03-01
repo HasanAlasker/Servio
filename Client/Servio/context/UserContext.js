@@ -12,6 +12,7 @@ import { jwtDecode } from "jwt-decode";
 import { UseCar } from "./CarContext";
 import { UseService } from "./ServiceContext";
 import { UseAppointment } from "./AppointmentContext";
+import { UseShop } from "./ShopContext";
 
 export const UserContext = createContext();
 
@@ -49,6 +50,7 @@ export const UserProvider = ({ children }) => {
   const { loadCars } = UseCar();
   const { loadServices } = UseService();
   const { loadAppointments } = UseAppointment();
+  const { loadShops } = UseShop();
 
   const STORAGE_KEYS = {
     USER: "@servio_user",
@@ -277,6 +279,7 @@ export const UserProvider = ({ children }) => {
       await loadCars();
       await loadServices();
       await loadAppointments();
+      if (userData.role === "shopOwner") await loadShops();
       return {
         success: true,
         message: responseMessage,

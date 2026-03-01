@@ -14,6 +14,7 @@ import { editShop, openShop } from "../../api/shop";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import { formatServices, revertServices } from "../../functions/formatServices";
+import { UseShop } from "../../context/ShopContext";
 
 const validationSchema = Yup.object({
   image: Yup.string().required("Shop image is required"),
@@ -76,6 +77,7 @@ const formatValues = (values) => {
 };
 
 function AddShop(props) {
+  const { loadShops } = UseShop();
   const [hasBeenSubmitted, setHasbeenSubmitted] = useState(false);
   const [isEdit, setEdit] = useState(false);
   const [err, setErr] = useState(false);
@@ -97,6 +99,7 @@ function AddShop(props) {
     try {
       const response = await openShop(formattedValues);
       if (response.ok) {
+        await loadShops();
         navigate.navigate("MyShop");
       }
       if (!response.ok) {
@@ -122,6 +125,7 @@ function AddShop(props) {
     try {
       const response = await editShop(params._id, formattedValues);
       if (response.ok) {
+        await loadShops();
         navigate.navigate("MyShop");
       }
       if (!response.ok) {

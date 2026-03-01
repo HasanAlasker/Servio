@@ -14,12 +14,14 @@ import OfflineModal from "../../components/general/OfflineModal";
 import { UseUser } from "../../context/UserContext";
 import { UseCar } from "../../context/CarContext";
 import { UseService } from "../../context/ServiceContext";
+import { UseShop } from "../../context/ShopContext";
 
 function Home(props) {
   const navigaiton = useNavigation();
   const { user } = UseUser();
   const { cars } = UseCar();
   const { countDueServices } = UseService();
+  const { countShops } = UseShop();
 
   const { data, request: fetchDocs, loading, error } = useApi(countDocs);
 
@@ -61,12 +63,15 @@ function Home(props) {
           />
         </GapContainer>
 
+        <LText>Personal Info</LText>
+        <GapContainer style={styles.container}>
+          <CardLeftBorder title={"Number of cars: "} data={cars?.length} />
+          <CardLeftBorder title={"Due services: "} data={countDueServices()} />
+        </GapContainer>
+
         <LText>Shop Info</LText>
         <GapContainer style={styles.container}>
-          <CardLeftBorder
-            title={"Active Shops: "}
-            data={loading ? "..." : shopData.activeShops}
-          />
+          <CardLeftBorder title={"Active Shops: "} data={countShops()} />
           {shopData.newShops > 0 && (
             <CardLeftBorder
               title={"Unverified Shops: "}
@@ -77,11 +82,6 @@ function Home(props) {
             title={"New Appointments: "}
             data={loading ? "..." : shopData.requests}
           />
-        </GapContainer>
-        <LText>Personal Info</LText>
-        <GapContainer style={styles.container}>
-          <CardLeftBorder title={"Number of cars: "} data={cars?.length} />
-          <CardLeftBorder title={"Due services: "} data={countDueServices()} />
         </GapContainer>
       </ScrollScreen>
       <Navbar />
