@@ -1,15 +1,9 @@
-import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import Navbar from "../../components/general/Navbar";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import GapContainer from "../../components/general/GapContainer";
-import useApi from "../../hooks/useApi";
-import {
-  dontRemind,
-  getUpcomingServices,
-  remind,
-} from "../../api/upcomingService";
+import { dontRemind, remind } from "../../api/upcomingService";
 import ServiceCard from "../../components/cards/ServiceCard";
 import SText from "../../components/text/SText";
 import { UseService } from "../../context/ServiceContext";

@@ -176,13 +176,13 @@ export default function App() {
     <SafeAreaProvider>
       <ThemeProvider>
         <CarProvider>
-          <UserProvider>
-            <ServiceProvider>
+          <ServiceProvider>
+            <UserProvider>
               <NotificationProvider>
                 <AppNavigator />
               </NotificationProvider>
-            </ServiceProvider>
-          </UserProvider>
+            </UserProvider>
+          </ServiceProvider>
         </CarProvider>
       </ThemeProvider>
     </SafeAreaProvider>
