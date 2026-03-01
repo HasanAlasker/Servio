@@ -15,6 +15,7 @@ import ErrorMessage from "../../components/form/ErrorMessage";
 import PriBtn from "../../components/general/PriBtn";
 import { useTheme } from "../../context/ThemeContext";
 import FormikDatePicker from "../../components/form/FormikDatePicker";
+import { UseService } from "../../context/ServiceContext";
 
 const validationSchema = Yup.object({
   name: Yup.string().trim().lowercase().required("Part name is required"),
@@ -56,6 +57,7 @@ const validationSchema = Yup.object({
 
 function AddPart(props) {
   const { theme } = useTheme();
+  const { loadServices } = UseService();
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
   const [errMsg, setErrMsg] = useState(null);
   const [isEdit, setEdit] = useState(false);
@@ -93,6 +95,7 @@ function AddPart(props) {
     try {
       const response = await addPart(params?.passPart.id, data);
       if (response.ok) {
+        await loadServices();
         navigate.navigate("CarParts", params?.parentParams);
       }
       if (!response.ok) {
@@ -114,6 +117,7 @@ function AddPart(props) {
     try {
       const response = await editPart(params?.passPart.partId, data);
       if (response.ok) {
+        await loadServices();
         navigate.navigate("CarParts", params?.parentParams);
       }
       if (!response.ok) {
@@ -126,6 +130,7 @@ function AddPart(props) {
     try {
       const response = await unTrackPart(params?.passPart.partId);
       if (response.ok) {
+        await loadServices();
         navigate.navigate("CarParts", params?.parentParams);
       }
       if (!response.ok) {
@@ -189,6 +194,7 @@ function AddPart(props) {
                 style={{ backgroundColor: theme.red, borderColor: theme.red }}
                 title={"Delete Part"}
                 onPress={handleDelete}
+                disabled={hasBeenSubmitted}
               />
             )}
           </GapContainer>

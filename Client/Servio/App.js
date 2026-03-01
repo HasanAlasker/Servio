@@ -175,15 +175,15 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <ThemeProvider>
-        <CarProvider>
-          <ServiceProvider>
+        <ServiceProvider>
+          <CarProvider>
             <UserProvider>
               <NotificationProvider>
                 <AppNavigator />
               </NotificationProvider>
             </UserProvider>
-          </ServiceProvider>
-        </CarProvider>
+          </CarProvider>
+        </ServiceProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );

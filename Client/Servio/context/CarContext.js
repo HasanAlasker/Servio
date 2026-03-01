@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import useApi from "../hooks/useApi";
 import { getMyCars } from "../api/car";
 import { useEffect } from "react";
+import { UseService } from "./ServiceContext";
 
 export const CarContext = createContext();
 
@@ -15,6 +16,7 @@ export const UseCar = () => {
 };
 
 export const CarProvider = ({ children }) => {
+  const { loadServices } = UseService();
   const [cars, setCars] = useState([]);
 
   const {
@@ -58,24 +60,27 @@ export const CarProvider = ({ children }) => {
     }
   }, [carsData]);
 
-  const addNewCar = (newCar) => {
+  const addNewCar = async (newCar) => {
     const updated = [newCar, ...cars];
     setCars(updated);
     storeCars(updated);
+    await loadServices();
   };
 
-  const updateCars = (updatedCar) => {
+  const updateCars = async (updatedCar) => {
     const updated = cars.map((c) =>
       c._id === updatedCar._id ? updatedCar : c,
     );
     setCars(updated);
     storeCars(updated);
+    await loadServices();
   };
 
-  const removeCar = (removedCar) => {
+  const removeCar = async (removedCar) => {
     const updated = cars.filter((c) => c._id !== removedCar._id);
     setCars(updated);
     storeCars(updated);
+    await loadServices();
   };
 
   const value = {
