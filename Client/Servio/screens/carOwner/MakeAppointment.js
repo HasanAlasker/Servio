@@ -13,6 +13,7 @@ import AppSummary from "../../components/cards/AppSummary";
 import { bookAppointment } from "../../api/appointment";
 import { checkSlot } from "../../api/slots";
 import ErrorMessage from "../../components/form/ErrorMessage";
+import { UseAppointment } from "../../context/AppointmentContext";
 
 const validationSchema = Yup.object({
   date: Yup.date()
@@ -36,6 +37,8 @@ const validationSchema = Yup.object({
 });
 
 function MakeAppointment(props) {
+  const { loadAppointments } = UseAppointment();
+
   const [hasBeenSubmited, setHasBeenSubmited] = useState(false);
   const [err, setErr] = useState(null);
   const [overlapping, setOverlapping] = useState(null);
@@ -90,6 +93,7 @@ function MakeAppointment(props) {
       const response = await bookAppointment(appointmentData);
 
       if (response.ok) {
+        await loadAppointments();
         navigate.navigate("Bookings", { active: "1", celebrate: true });
       } else {
         setErr("This car has another appointment in this time");
