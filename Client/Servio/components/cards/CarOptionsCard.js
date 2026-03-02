@@ -24,8 +24,8 @@ function CarOptionsCard({ params }) {
       setIsDeleting(true);
       const response = await deleteCar(params?.id);
       if (response.ok) {
-        removeCar(response.data.data);
         navigate.navigate("MyCars");
+        removeCar(response.data.data);
       }
     } catch (error) {
       console.log(error);
