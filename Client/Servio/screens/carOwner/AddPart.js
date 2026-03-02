@@ -104,9 +104,8 @@ function AddPart(props) {
         months: Number(values.months),
         miles: Number(values.miles),
       },
-      note: values?.note,
+      note: values.note,
     };
-    console.log(data);
     try {
       const response = await addPart(params?.id, data);
       console.log(response);

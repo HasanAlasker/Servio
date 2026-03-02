@@ -43,7 +43,6 @@ const partSchema = new mongoose.Schema(
     },
     note: {
       type: String,
-      minLength: [5, "Note must be at least 5 characters long"],
       maxLength: [100, "Note can't be longer than 100 characters"],
       match: [/^[a-zA-Z0-9\s'-]+$/, "Please enter a valid note"],
       trim: true,

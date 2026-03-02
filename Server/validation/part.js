@@ -37,7 +37,6 @@ export const addPartSchema = Joi.object({
 
   note: Joi.string()
     .trim()
-    .min(5)
     .max(100)
     .pattern(/^[a-zA-Z0-9\s'-]+$/)
     .allow("")
@@ -81,7 +80,6 @@ export const editPartSchema = Joi.object({
 
   note: Joi.string()
     .trim()
-    .min(5)
     .max(100)
     .pattern(/^[a-zA-Z0-9\s'-]+$/)
     .allow("")
