@@ -111,7 +111,7 @@ function AddPart(props) {
       console.log(response);
       if (response.ok) {
         await loadServices();
-        navigate.navigate("CarParts", params?.parentParams);
+        navigate.navigate("CarParts", params);
       }
       if (!response.ok) {
         setErrMsg(response.data.errors[0].message);
