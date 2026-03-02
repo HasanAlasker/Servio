@@ -35,7 +35,7 @@ function PartCard({ part, parentParams, unit }) {
       <GapContainer gap={15}>
         <SquareInfo
           color={"lightBlue"}
-          icon={"car-door"}
+          icon={"engine"}
           title={"Part Name"}
           text={capFirstLetter(part?.name)}
           fliped

@@ -96,6 +96,7 @@ function ShopAppointments(props) {
           <AppointmentCard
             key={appointment._id}
             id={appointment._id}
+            customer={appointment?.customer}
             car={appointment.car}
             shop={appointment.shop}
             serviceParts={appointment.serviceParts}
@@ -110,6 +111,7 @@ function ShopAppointments(props) {
           <AppointmentCard
             key={appointment._id}
             id={appointment._id}
+            customer={appointment?.customer}
             car={appointment.car}
             shop={appointment.shop}
             serviceParts={appointment.serviceParts}

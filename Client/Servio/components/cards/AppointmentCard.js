@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, Pressable } from "react-native";
+import { View, StyleSheet, Image, Pressable, Linking } from "react-native";
 import CardComp from "./CardComp";
 import GapContainer from "../general/GapContainer";
 import SquareInfo from "./SquareInfo";
@@ -24,6 +24,7 @@ function AppointmentCard({
   id,
   scheuledAt,
   status,
+  customer,
   car,
   shop,
   serviceParts,
@@ -40,6 +41,13 @@ function AppointmentCard({
   const { isShopOwner, isUser } = UseUser();
   const { theme } = useTheme();
   const [modal, setModal] = useState(false);
+
+  const handleCall = async () => {
+    try {
+      if (isUser) Linking.openURL(`tel:${shop?.phone}`);
+      if (isShopOwner) Linking.openURL(`tel:${customer?.phone}`);
+    } catch (error) {}
+  };
 
   const onApprove = async (id) => {
     setModal(true);
@@ -73,9 +81,15 @@ function AppointmentCard({
         />
         <SquareInfo
           color={"green"}
-          icon={"store"}
-          title={capFirstLetter(shop?.name)}
-          text={shop?.address.area + " " + shop?.address.street}
+          icon={isUser ? "store" : "account"}
+          title={
+            isUser ? capFirstLetter(shop?.name) : capFirstLetter(customer?.name)
+          }
+          text={
+            isUser
+              ? shop?.address.area + " " + shop?.address.street
+              : capFirstLetter(shop?.name)
+          }
           flex
         />
 
@@ -105,7 +119,7 @@ function AppointmentCard({
 
         <View>
           <SeparatorComp children={"Service Parts"} full color="sec_text" />
-          <GapContainer gap={5}>{partsList}</GapContainer>
+          <GapContainer gap={1}>{partsList}</GapContainer>
         </View>
 
         {isUser && status === "pending" && (
@@ -134,6 +148,34 @@ function AppointmentCard({
             title={"Delete"}
             onPress={() => onDelete(id)}
           />
+        )}
+
+        {isUser && status === "confirmed" ? (
+          <PriBtn
+            square
+            full
+            style={{
+              backgroundColor: "black",
+              borderColor: "black",
+            }}
+            title={"Call Shop"}
+            onPress={handleCall}
+          />
+        ) : (
+          isShopOwner &&
+          status === "confirmed" &&
+          !isDue && (
+            <PriBtn
+              square
+              full
+              style={{
+                backgroundColor: "black",
+                borderColor: "black",
+              }}
+              title={"Call Customer"}
+              onPress={handleCall}
+            />
+          )
         )}
 
         {isShopOwner && status === "pending" && (
