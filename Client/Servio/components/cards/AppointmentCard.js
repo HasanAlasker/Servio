@@ -44,8 +44,8 @@ function AppointmentCard({
 
   const handleCall = async () => {
     try {
-      if (isUser) Linking.openURL(`tel:${shop?.phone}`);
-      if (isShopOwner) Linking.openURL(`tel:${customer?.phone}`);
+      if (isUser) await Linking.openURL(`tel:${shop?.phone}`);
+      if (isShopOwner) await Linking.openURL(`tel:${customer?.phone}`);
     } catch (error) {}
   };
 
@@ -137,26 +137,14 @@ function AppointmentCard({
           </GapContainer>
         )}
 
-        {isUser && showDelete && status !== "pending" && (
-          <PriBtn
-            square
-            full
-            style={{
-              backgroundColor: "black",
-              borderColor: "black",
-            }}
-            title={"Delete"}
-            onPress={() => onDelete(id)}
-          />
-        )}
-
         {isUser && status === "confirmed" ? (
           <PriBtn
             square
+            blackText
             full
             style={{
-              backgroundColor: "black",
-              borderColor: "black",
+              backgroundColor: theme.main_text,
+              borderColor: theme.main_text,
             }}
             title={"Call Shop"}
             onPress={handleCall}
@@ -167,15 +155,30 @@ function AppointmentCard({
           !isDue && (
             <PriBtn
               square
+              blackText
               full
               style={{
-                backgroundColor: "black",
-                borderColor: "black",
+                backgroundColor: theme.main_text,
+                borderColor: theme.main_text,
               }}
-              title={"Call Customer"}
+              title={"Call"}
               onPress={handleCall}
             />
           )
+        )}
+
+        {isUser && showDelete && status !== "pending" && (
+          <PriBtn
+            square
+            blackText
+            full
+            style={{
+              backgroundColor: theme.main_text,
+              borderColor: theme.main_text,
+            }}
+            title={"Delete"}
+            onPress={() => onDelete(id)}
+          />
         )}
 
         {isShopOwner && status === "pending" && (
