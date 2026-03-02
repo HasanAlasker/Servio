@@ -25,6 +25,7 @@ function PartCard({ part, parentParams, unit }) {
       months: part.recommendedChangeInterval.months,
       miles: part.recommendedChangeInterval.miles,
     },
+    note: part?.note,
     isEdit: true,
   };
 

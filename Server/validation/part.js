@@ -37,11 +37,12 @@ export const addPartSchema = Joi.object({
 
   note: Joi.string()
     .trim()
-    .min(10)
+    .min(5)
     .max(100)
-    .pattern(/^[a-zA-Z\s'-]+$/)
+    .pattern(/^[a-zA-Z0-9\s'-]+$/)
+    .allow("")
     .messages({
-      "string.min": "Note must be at least 10 characters long",
+      "string.min": "Note must be at least 5 characters long",
       "string.max": "Note can't be longer than 100 characters",
       "string.pattern.base": "Please enter a valid note",
     }),
@@ -80,11 +81,12 @@ export const editPartSchema = Joi.object({
 
   note: Joi.string()
     .trim()
-    .min(10)
+    .min(5)
     .max(100)
-    .pattern(/^[a-zA-Z\s'-]+$/)
+    .pattern(/^[a-zA-Z0-9\s'-]+$/)
+    .allow("")
     .messages({
-      "string.min": "Note must be at least 10 characters long",
+      "string.min": "Note must be at least 5 characters long",
       "string.max": "Note can't be longer than 100 characters",
       "string.pattern.base": "Please enter a valid note",
     }),

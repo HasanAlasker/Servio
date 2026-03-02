@@ -53,6 +53,16 @@ const validationSchema = Yup.object({
     .min(0, "Mileage cannot be negative")
     .required("Last change mileage is required")
     .typeError("Mileage must be a number"),
+
+  note: Yup.string()
+    .trim()
+    .min(5)
+    .max(100)
+    .matches(
+      /^[a-zA-Z0-9\s'-]+$/,
+      "Note can only contain letters, numbers, spaces, hyphens, and apostrophes",
+    )
+    .notRequired(),
 });
 
 function AddPart(props) {
@@ -66,6 +76,8 @@ function AddPart(props) {
   const route = useRoute();
   const params = route?.params;
 
+  console.log(params)
+
   const initialValues = {
     name: params?.passPart?.partName || "",
     lastChangeDate: params?.passPart?.lastChangeDate || "",
@@ -74,6 +86,7 @@ function AddPart(props) {
       params?.passPart?.recommendedChangeInterval?.months?.toString() || null,
     miles:
       params?.passPart?.recommendedChangeInterval?.miles?.toString() || null,
+    note: params?.passPart?.note || "",
   };
 
   useEffect(() => {
@@ -91,9 +104,12 @@ function AddPart(props) {
         months: Number(values.months),
         miles: Number(values.miles),
       },
+      note: values?.note,
     };
+    console.log(data);
     try {
-      const response = await addPart(params?.passPart.id, data);
+      const response = await addPart(params?.id, data);
+      console.log(response);
       if (response.ok) {
         await loadServices();
         navigate.navigate("CarParts", params?.parentParams);
@@ -113,9 +129,11 @@ function AddPart(props) {
         months: Number(values.months),
         miles: Number(values.miles),
       },
+      note: values?.note,
     };
     try {
       const response = await editPart(params?.passPart.partId, data);
+      console.log(response);
       if (response.ok) {
         await loadServices();
         navigate.navigate("CarParts", params?.parentParams);
@@ -179,6 +197,15 @@ function AddPart(props) {
               name={"miles"}
               placeholder={"Miles/ Kilometers"}
               icon={"skip-next-circle-outline"}
+              hasBeenSubmitted={hasBeenSubmitted}
+            />
+
+            <FormikInput
+              name={"note"}
+              placeholder={"Note (Optional)"}
+              isBox
+              height={100}
+              icon={"note-outline"}
               hasBeenSubmitted={hasBeenSubmitted}
             />
 
