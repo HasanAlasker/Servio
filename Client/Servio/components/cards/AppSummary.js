@@ -33,7 +33,13 @@ function AppSummary({ params }) {
         />
       </GapContainer>
       <GapContainer style={{ marginTop: 35 }}>
-        <CardLeftBorder status={"status"} parts={params.parts} />
+        <CardLeftBorder
+          icon={"invoice-list-outline"}
+          miniTitle={"Service Parts"}
+          customColor={"orange"}
+          status={"status"}
+          parts={params.parts}
+        />
       </GapContainer>
     </CardComp>
   );

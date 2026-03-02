@@ -105,7 +105,14 @@ function ShopCard({
             </View>
           )}
 
-          {!mini && <CardLeftBorder parts={services} status={"randomText"} />}
+          {!mini && (
+            <CardLeftBorder
+              miniTitle={"Services"}
+              customColor={"sec_text"}
+              parts={services}
+              status={"randomText"}
+            />
+          )}
 
           {showBtn && (
             <PriBtn

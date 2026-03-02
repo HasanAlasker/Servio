@@ -76,8 +76,6 @@ function AddPart(props) {
   const route = useRoute();
   const params = route?.params;
 
-  console.log(params)
-
   const initialValues = {
     name: params?.passPart?.partName || "",
     lastChangeDate: params?.passPart?.lastChangeDate || "",
@@ -108,7 +106,6 @@ function AddPart(props) {
     };
     try {
       const response = await addPart(params?.id, data);
-      console.log(response);
       if (response.ok) {
         await loadServices();
         navigate.navigate("CarParts", params);
@@ -132,7 +129,6 @@ function AddPart(props) {
     };
     try {
       const response = await editPart(params?.passPart.partId, data);
-      console.log(response);
       if (response.ok) {
         await loadServices();
         navigate.navigate("CarParts", params?.parentParams);

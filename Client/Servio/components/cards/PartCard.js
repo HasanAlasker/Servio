@@ -6,6 +6,7 @@ import CardComp from "./CardComp";
 import { formatDate } from "../../functions/formatDate";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import { useNavigation } from "@react-navigation/native";
+import CardLeftBorder from "./CardLeftBorder";
 
 function PartCard({ part, parentParams, unit }) {
   const navigate = useNavigation();
@@ -85,6 +86,15 @@ function PartCard({ part, parentParams, unit }) {
           }
           fliped
         />
+        {part?.note && (
+          <CardLeftBorder
+            icon={"information-outline"}
+            miniTitle={"Note"}
+            customColor={"sec_text"}
+            status={"s"}
+            customText={part.note}
+          />
+        )}
       </GapContainer>
     </CardComp>
   );

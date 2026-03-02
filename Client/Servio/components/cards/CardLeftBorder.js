@@ -8,7 +8,16 @@ import SText from "../text/SText";
 import GapContainer from "../general/GapContainer";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 
-function CardLeftBorder({ title, data, status, parts }) {
+function CardLeftBorder({
+  icon,
+  title,
+  customColor,
+  miniTitle,
+  customText,
+  data,
+  status,
+  parts,
+}) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getstyles);
 
@@ -17,22 +26,27 @@ function CardLeftBorder({ title, data, status, parts }) {
   let backColor = "";
 
   if (status) {
-    switch (status) {
-      case "soon":
-        color = "gold";
-        text = "Check Soon";
-        break;
-      case "due":
-        color = "red";
-        text = "Check Immediately";
-        break;
-      case "overdue":
-        color = "darkPink";
-        text = "Dangerous";
-        break;
-      default:
-        color = "lightBlue";
-        text = "Services";
+    if (miniTitle) {
+      text = miniTitle;
+      color = customColor;
+    } else {
+      switch (status) {
+        case "soon":
+          color = "gold";
+          text = "Check Soon";
+          break;
+        case "due":
+          color = "red";
+          text = "Check Immediately";
+          break;
+        case "overdue":
+          color = "darkPink";
+          text = "Dangerous";
+          break;
+        default:
+          color = "sec_text";
+          text = "Services";
+      }
     }
 
     backColor = theme[color] + 20;
@@ -65,18 +79,24 @@ function CardLeftBorder({ title, data, status, parts }) {
           <RowCont>
             <MaterialCommunityIcons
               name={
-                text === "Dangerous"
-                  ? "alert-outline"
-                  : text === "Check Soon"
-                    ? "alert-circle-outline"
-                    : "toolbox-outline"
+                icon
+                  ? icon
+                  : text === "Dangerous"
+                    ? "alert-outline"
+                    : text === "Check Soon"
+                      ? "alert-circle-outline"
+                      : "toolbox-outline"
               }
               size={24}
               color={theme[color]}
             />
             <SText color={color}>{text}</SText>
           </RowCont>
-          <View>{RenderParts}</View>
+          {!customText ? (
+            <View>{RenderParts}</View>
+          ) : (
+            <SText>{customText}</SText>
+          )}
         </GapContainer>
       )}
       {title != null && <MText color={color}>{title}</MText>}
