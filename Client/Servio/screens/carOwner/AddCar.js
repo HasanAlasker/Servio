@@ -123,7 +123,7 @@ function AddCar(props) {
   }, [selectedMake, cars]);
 
   const handleSubmit = async (values) => {
-    setErr(null);
+    setValidationErr(null);
     setIsSubmitting(true);
     try {
       const response = await addCar(values);
@@ -145,6 +145,7 @@ function AddCar(props) {
 
   const handleEdit = async (values) => {
     setIsSubmitting(true);
+    setValidationErr(null)
     try {
       const response = await editCar(params.id, values);
       if (response.data?.message === "Validation error") {
