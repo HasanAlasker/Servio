@@ -18,11 +18,18 @@ import { UseShop } from "../../context/ShopContext";
 
 const validationSchema = Yup.object({
   image: Yup.string().required("Shop image is required"),
-  name: Yup.string().required("Shop name is required"),
+  name: Yup.string()
+    .min(2)
+    .max(25)
+    .required("Shop name is required")
+    .matches(/^[a-zA-Z\s'-]+$/)
+    .trim(),
   city: Yup.string().trim().required("City is required"),
   area: Yup.string().trim().required("Area is required"),
   street: Yup.string().trim().required("Street is required"),
-  phone: Yup.string().required("Shop phone is required"),
+  phone: Yup.string()
+    .required("Shop phone is required")
+    .matches(/^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/),
   description: Yup.string()
     .trim()
     .min(10)
@@ -56,6 +63,9 @@ const validationSchema = Yup.object({
     ),
   link: Yup.string()
     .required("Link is required")
+    .min(5)
+    .max(500)
+    .trim()
     .matches(
       /^https:\/\/(www\.)?(google\.com\/maps|maps\.google\.com|goo\.gl\/maps|maps\.app\.goo\.gl)/,
       "Must be a valid Google Maps link",
@@ -104,11 +114,7 @@ function AddShop(props) {
       }
       if (!response.ok) {
         setErr(true);
-        if (response?.data?.message) {
-          setErrMsg(response.data.message);
-        }
-        // Fallback to validation errors
-        else if (response?.data?.errors?.[0]?.message) {
+        if (response.data?.message === "Validation error") {
           setErrMsg(response.data.errors[0].message);
         } else {
           setErrMsg("An error occurred. Please try again.");
@@ -130,9 +136,7 @@ function AddShop(props) {
       }
       if (!response.ok) {
         setErr(true);
-        if (response?.data?.message) {
-          setErrMsg(response.data.message);
-        } else if (response?.data?.errors?.[0]?.message) {
+        if (response.data?.message === "Validation error") {
           setErrMsg(response.data.errors[0].message);
         } else {
           setErrMsg("An error occurred. Please try again.");

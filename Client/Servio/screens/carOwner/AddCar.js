@@ -127,9 +127,8 @@ function AddCar(props) {
     setIsSubmitting(true);
     try {
       const response = await addCar(values);
-      console.log(response.data?.message === "Validation error");
       if (response.data?.message === "Validation error") {
-        setValidationErr(response.data.errors[0].feild);
+        setValidationErr(response.data.errors[0].message);
       }
 
       if (response.ok) {
