@@ -15,16 +15,14 @@ function TabNav({ active, onTabChange, one, two }) {
         style={[
           styles.btn,
           {
-            borderTopLeftRadius: 15,
-            borderBottomLeftRadius: 15,
-            backgroundColor: active === "1" ? theme.blue : theme.post,
+            backgroundColor: active === "1" ? theme.blue : theme.faded,
           },
         ]}
       >
         <SText
           style={[
             styles.text,
-            { color: active === "1" ? theme.always_white : theme.blue },
+            { color: active === "1" ? theme.always_white : theme.sec_text },
           ]}
         >
           {one}
@@ -36,16 +34,14 @@ function TabNav({ active, onTabChange, one, two }) {
         style={[
           styles.btn,
           {
-            borderTopRightRadius: 15,
-            borderBottomRightRadius: 15,
-            backgroundColor: active === "2" ? theme.blue : theme.post,
+            backgroundColor: active === "2" ? theme.blue : theme.faded,
           },
         ]}
       >
         <SText
           style={[
             styles.text,
-            { color: active === "2" ? theme.always_white : theme.blue },
+            { color: active === "2" ? theme.always_white : theme.sec_text },
           ]}
         >
           {two}
@@ -57,11 +53,17 @@ function TabNav({ active, onTabChange, one, two }) {
 
 const getStyles = (theme) =>
   StyleSheet.create({
-    container: {},
+    container: {
+      backgroundColor: theme.faded,
+      borderRadius: 22,
+      padding:2,
+      alignItems:'center',
+    },
     btn: {
       width: "50%",
       paddingVertical: 8,
       backgroundColor: theme.blue,
+      borderRadius:20
     },
     text: {
       textAlign: "center",
