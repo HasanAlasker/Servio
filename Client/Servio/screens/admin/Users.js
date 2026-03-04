@@ -96,14 +96,14 @@ function Users(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen>
+      <ScrollScreen stickyHeader stickyHeaderIndices={[0]}>
+        <TabNav
+          one={"Active"}
+          two={"Deleted"}
+          onTabChange={handleTab}
+          active={tab}
+        />
         <GapContainer>
-          <TabNav
-            one={"Active"}
-            two={"Deleted"}
-            onTabChange={handleTab}
-            active={tab}
-          />
           {RenderUsers}
           {!loadingD && deleted.length === 0 && tab === "2" && (
             <SText

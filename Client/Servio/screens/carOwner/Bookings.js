@@ -97,14 +97,14 @@ function Bookings(props) {
   return (
     <SafeScreen>
       {celebrate && <Confetti isInfinite={false} />}
-      <ScrollScreen>
+      <ScrollScreen stickyHeader stickyHeaderIndices={[0]}>
+        <TabNav
+          one={"Upcoming"}
+          two={"Past"}
+          active={activeTab}
+          onTabChange={onTabChange}
+        />
         <GapContainer>
-          <TabNav
-            one={"Upcoming"}
-            two={"Past"}
-            active={activeTab}
-            onTabChange={onTabChange}
-          />
           {RenderAppointments.length === 0 && !loading ? (
             <SText
               thin

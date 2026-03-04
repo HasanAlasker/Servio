@@ -8,7 +8,6 @@ import GapContainer from "../../components/general/GapContainer";
 import SquareHome from "../../components/cards/SquareHome";
 import { useNavigation } from "@react-navigation/native";
 import OfflineModal from "../../components/general/OfflineModal";
-import { UseUser } from "../../context/UserContext";
 import { UseCar } from "../../context/CarContext";
 import { UseService } from "../../context/ServiceContext";
 import { UseAppointment } from "../../context/AppointmentContext";

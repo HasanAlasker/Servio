@@ -125,16 +125,14 @@ function ShopAppointments(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen>
-        <GapContainer>
-          <TabNav
-            one={"Confirmed"}
-            two={"Pending"}
-            active={tab}
-            onTabChange={handleTab}
-          />
-          {RenderAppointments}
-        </GapContainer>
+      <ScrollScreen stickyHeader stickyHeaderIndices={[0]}>
+        <TabNav
+          one={"Confirmed"}
+          two={"Pending"}
+          active={tab}
+          onTabChange={handleTab}
+        />
+        <GapContainer>{RenderAppointments}</GapContainer>
       </ScrollScreen>
       <Navbar />
     </SafeScreen>

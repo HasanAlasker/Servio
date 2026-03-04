@@ -1,11 +1,19 @@
 import { StyleSheet, ScrollView } from "react-native";
 
-function ScrollScreen({ children, ...other }) {
+function ScrollScreen({
+  children,
+  stickyHeader,
+  stickyHeaderIndices,
+  ...other
+}) {
   return (
     <ScrollView
       style={styles.container}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 40, paddingTop: 20 }}
+      scrollEventThrottle={30}
+      stickyHeaderIndices={stickyHeaderIndices}
+      stickyHeaderHiddenOnScroll={stickyHeader}
       {...other}
     >
       {children}

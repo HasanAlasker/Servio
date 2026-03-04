@@ -101,14 +101,14 @@ function Shops(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen>
+      <ScrollScreen stickyHeader stickyHeaderIndices={[0]}>
+        <TabNav
+          one={"Unverified"}
+          two={"Verified"}
+          active={tab}
+          onTabChange={handleTab}
+        />
         <GapContainer>
-          <TabNav
-            one={"Unverified"}
-            two={"Verified"}
-            active={tab}
-            onTabChange={handleTab}
-          />
           {RenderShops}
 
           {!loadingUv && unverified.length === 0 && tab === "1" && (
