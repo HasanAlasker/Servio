@@ -43,6 +43,8 @@ import {
   UseAppointment,
 } from "./context/AppointmentContext";
 import { ShopProvider, UseShop } from "./context/ShopContext";
+import * as QuickActions from "expo-quick-actions";
+import { useQuickActionCallback } from "expo-quick-actions/hooks";
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -124,6 +126,23 @@ const AuthStack = () => {
 };
 
 const AppNavigator = () => {
+  // useQuickActionCallback((action)=>{
+  //   console.log(action)
+  // })
+  // useEffect(() => {
+  //   QuickActions.setItems([
+  //     {
+  //       id: "0",
+  //       title: "My Appointments",
+  //       icon: "heart",
+  //     },
+  //     {
+  //       id: "1",
+  //       title: "My Cars",
+  //       icon: "heart",
+  //     },
+  //   ]);
+  // }, []);
   const {
     appStart,
     isUser,
@@ -141,9 +160,6 @@ const AppNavigator = () => {
   useEffect(() => {
     loadUserData();
     loadCars();
-    // loadServices();
-    // loadAppointments();
-    // loadShops();
   }, []);
 
   useEffect(() => {

@@ -11,6 +11,7 @@ import { useRoute } from "@react-navigation/native";
 import SText from "../../components/text/SText";
 import { Confetti } from "react-native-fast-confetti";
 import { UseAppointment } from "../../context/AppointmentContext";
+import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 
 function Bookings(props) {
   const { upcoming, past, setUpcoming, setPast, loading } = UseAppointment();
@@ -116,7 +117,7 @@ function Bookings(props) {
           ) : (
             RenderAppointments
           )}
-          {loading && <SText>Loading</SText>}
+          {loading && <LoadingSkeleton />}
         </GapContainer>
       </ScrollScreen>
       <Navbar />
