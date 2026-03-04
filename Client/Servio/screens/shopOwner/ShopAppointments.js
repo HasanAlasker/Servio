@@ -15,6 +15,8 @@ import {
 } from "../../api/appointment";
 import AppointmentCard from "../../components/cards/AppointmentCard";
 import GapContainer from "../../components/general/GapContainer";
+import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
+import SText from "../../components/text/SText";
 
 function ShopAppointments(props) {
   const [tab, setTab] = useState("1");
@@ -37,6 +39,8 @@ function ShopAppointments(props) {
     loading: lConfirmed,
     error: errConf,
   } = useApi(getConfirmedAppointments);
+
+  const loading = lConfirmed || lPeding;
 
   useEffect(() => {
     fetchConfirmed(shopId);
@@ -132,7 +136,22 @@ function ShopAppointments(props) {
           active={tab}
           onTabChange={handleTab}
         />
-        <GapContainer>{RenderAppointments}</GapContainer>
+        <GapContainer>
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
+          {RenderAppointments.length === 0 && !loading ? (
+            <SText
+              thin
+              color={"sec_text"}
+              style={{ margin: "auto", textAlign: "center" }}
+            >
+              No appointments here
+            </SText>
+          ) : (
+            RenderAppointments
+          )}
+        </GapContainer>
       </ScrollScreen>
       <Navbar />
     </SafeScreen>

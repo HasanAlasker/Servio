@@ -10,6 +10,7 @@ import useApi from "../../hooks/useApi";
 import { getTrackedParts } from "../../api/part";
 import PartCard from "../../components/cards/PartCard";
 import CarOptionsCard from "../../components/cards/CarOptionsCard";
+import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 
 function CarParts(props) {
   const [parts, setParts] = useState([]);
@@ -42,6 +43,7 @@ function CarParts(props) {
           <CarOptionsCard params={params} />
 
           {RenderParts}
+          {loading && <LoadingSkeleton />}
 
           <AddCarCard
             text={"Add Part"}

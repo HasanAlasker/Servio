@@ -8,11 +8,12 @@ import { getVerifiedShops } from "../../api/shop";
 import { useEffect, useState } from "react";
 import GapContainer from "../../components/general/GapContainer";
 import { useRoute } from "@react-navigation/native";
+import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 
 function Shops(props) {
   const [shops, setShops] = useState([]);
-  const route = useRoute()
-  const params = route?.params
+  const route = useRoute();
+  const params = route?.params;
 
   const {
     data: fetchedShops,
@@ -40,14 +41,19 @@ function Shops(props) {
       rating={shop.rating}
       ratingCount={shop.ratingCount}
       services={shop.services}
-      serviceData = {params}
+      serviceData={params}
     />
   ));
 
   return (
     <SafeScreen>
       <ScrollScreen>
-        <GapContainer>{RenderShops}</GapContainer>
+        <GapContainer>
+          {RenderShops}
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
+        </GapContainer>
       </ScrollScreen>
       <Navbar />
     </SafeScreen>
