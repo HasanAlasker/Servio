@@ -9,6 +9,7 @@ import ShopCard from "../../components/cards/ShopCard";
 import SText from "../../components/text/SText";
 import GapContainer from "../../components/general/GapContainer";
 import LText from "../../components/text/LText";
+import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 
 function DeletedShops(props) {
   const { data, request, loading, error } = useApi(getDeletedShops);
@@ -53,8 +54,12 @@ function DeletedShops(props) {
     <SafeScreen>
       <ScrollScreen>
         <GapContainer>
-          <LText style={{ textAlign: "center" }}>Deleted Shops</LText>
+          <LText>Deleted Shops</LText>
           {RenderShops}
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
+
           {!loading && shops.length === 0 && (
             <SText
               thin

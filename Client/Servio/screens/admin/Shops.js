@@ -14,6 +14,7 @@ import {
 import ShopCard from "../../components/cards/ShopCard";
 import GapContainer from "../../components/general/GapContainer";
 import SText from "../../components/text/SText";
+import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 
 function Shops(props) {
   const [tab, setTab] = useState("1");
@@ -110,6 +111,9 @@ function Shops(props) {
         />
         <GapContainer>
           {RenderShops}
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
 
           {!loadingUv && unverified.length === 0 && tab === "1" && (
             <SText

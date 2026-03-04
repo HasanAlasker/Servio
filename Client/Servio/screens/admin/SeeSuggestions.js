@@ -8,6 +8,8 @@ import useApi from "../../hooks/useApi";
 import { deleteSuggestion, getAllSuggestions } from "../../api/suggestion";
 import SuggestionCard from "../../components/cards/SuggestionCard";
 import LText from "../../components/text/LText";
+import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
+import SText from "../../components/text/SText";
 
 function SeeSuggestions(props) {
   const [sug, setSug] = useState([]);
@@ -43,8 +45,21 @@ function SeeSuggestions(props) {
     <SafeScreen>
       <ScrollScreen>
         <GapContainer>
-          <LText style={{ textAlign: "center" }}>User Suggestions</LText>
+          <LText>User Suggestions</LText>
           {RenderSug}
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
+
+          {!loading && sug.length === 0 && (
+            <SText
+              thin
+              color={"sec_text"}
+              style={{ margin: "auto", textAlign: "center" }}
+            >
+              There are no suggestions
+            </SText>
+          )}
         </GapContainer>
       </ScrollScreen>
       <Navbar />
