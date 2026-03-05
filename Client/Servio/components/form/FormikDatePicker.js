@@ -1,10 +1,4 @@
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  Platform,
-} from "react-native";
+import { View, StyleSheet, Pressable, Text, Platform } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
@@ -112,7 +106,7 @@ function FormikDatePicker({
 
   return (
     <View>
-      <TouchableOpacity
+      <Pressable
         style={[styles.container, { width: full ? "100%" : "90%" }]}
         onPress={handlePress}
         activeOpacity={0.7}
@@ -123,7 +117,7 @@ function FormikDatePicker({
         <Text style={[styles.text, !selectedDate && styles.placeholder]}>
           {formatDate(selectedDate)}
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
       {shouldShowError && <ErrorMessage error={errors[name]} />}
 

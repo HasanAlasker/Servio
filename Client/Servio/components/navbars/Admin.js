@@ -1,6 +1,6 @@
 import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, StyleSheet, Pressable, Text } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 
 function Admin({onMenu, isMenu}) {
@@ -10,7 +10,7 @@ function Admin({onMenu, isMenu}) {
 
   return (
     <View style={styles.navbar}>
-      <TouchableOpacity
+      <Pressable
         style={styles.navbarBtn}
         onPress={() => navigation.navigate("Dash")}
       >
@@ -22,9 +22,9 @@ function Admin({onMenu, isMenu}) {
         <Text style={[styles.text, route.name === "Dash" && styles.active]}>
           Home
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity
+      <Pressable
         style={styles.navbarBtn}
         onPress={() => navigation.navigate("AdminShops")}
       >
@@ -42,9 +42,9 @@ function Admin({onMenu, isMenu}) {
         >
           Shops
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity
+      <Pressable
         style={styles.navbarBtn}
         onPress={() => navigation.navigate("Reports")}
       >
@@ -56,9 +56,9 @@ function Admin({onMenu, isMenu}) {
         <Text style={[styles.text, route.name === "Reports" && styles.active]}>
           Reports
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity
+      <Pressable
         style={styles.navbarBtn}
         onPress={() => navigation.navigate("Users")}
       >
@@ -70,9 +70,9 @@ function Admin({onMenu, isMenu}) {
         <Text style={[styles.text, route.name === "Users" && styles.active]}>
           Users
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity
+      <Pressable
         style={styles.navbarBtn}
         onPress={onMenu}
       >
@@ -82,7 +82,7 @@ function Admin({onMenu, isMenu}) {
           style={[styles.icon, isMenu && styles.active]}
         />
         <Text style={[styles.text, isMenu && styles.active]}>More</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 }

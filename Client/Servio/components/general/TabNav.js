@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 import SText from "../text/SText";
 import RowCont from "./RowCont";
 import { useTheme } from "../../context/ThemeContext";
@@ -9,8 +9,8 @@ function TabNav({ active, onTabChange, one, two }) {
   const { theme } = useTheme();
 
   return (
-    <RowCont gap={"none"} style={[styles.container,{marginBottom: 20}]}>
-      <TouchableOpacity
+    <RowCont gap={"none"} style={[styles.container, { marginBottom: 20 }]}>
+      <Pressable
         onPress={onTabChange}
         style={[
           styles.btn,
@@ -27,9 +27,9 @@ function TabNav({ active, onTabChange, one, two }) {
         >
           {one}
         </SText>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity
+      <Pressable
         onPress={onTabChange}
         style={[
           styles.btn,
@@ -46,7 +46,7 @@ function TabNav({ active, onTabChange, one, two }) {
         >
           {two}
         </SText>
-      </TouchableOpacity>
+      </Pressable>
     </RowCont>
   );
 }
@@ -56,14 +56,14 @@ const getStyles = (theme) =>
     container: {
       backgroundColor: theme.faded,
       borderRadius: 22,
-      padding:2,
-      alignItems:'center',
+      padding: 2,
+      alignItems: "center",
     },
     btn: {
       width: "50%",
       paddingVertical: 8,
       backgroundColor: theme.blue,
-      borderRadius:20
+      borderRadius: 20,
     },
     text: {
       textAlign: "center",

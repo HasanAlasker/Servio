@@ -2,7 +2,7 @@ import { useState } from "react";
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
   Modal,
   FlatList,
   StatusBar,
@@ -58,7 +58,7 @@ function DropBox({
   return (
     <>
       <View>
-        <TouchableOpacity
+        <Pressable
           onPress={handlePress}
           style={[styles.container, disabled && styles.disabled]}
           disabled={disabled}
@@ -83,7 +83,7 @@ function DropBox({
             </AppText>
           </View>
           <Feather name="chevron-down" size={26} color={theme.blue} />
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       <Modal visible={modal && !disabled} animationType="slide" transparent>
@@ -101,7 +101,7 @@ function DropBox({
             keyExtractor={(item) => item.value.toString()}
             renderItem={renderItem}
             ItemSeparatorComponent={() => (
-              <SeparatorComp full style={styles.sep} color="faded"/>
+              <SeparatorComp full style={styles.sep} color="faded" />
             )}
             contentContainerStyle={styles.list}
           />

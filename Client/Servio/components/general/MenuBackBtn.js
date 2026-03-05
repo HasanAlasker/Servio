@@ -1,5 +1,5 @@
 import { Feather } from "@expo/vector-icons";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 
@@ -8,13 +8,13 @@ function MenuBackBtn({ onClose, x, style }) {
   const { theme } = useTheme();
 
   return (
-    <TouchableOpacity onPress={onClose} style={[styles.container, style]}>
+    <Pressable onPress={onClose} style={[styles.container, style]}>
       {x ? (
         <Feather name="x" size={35} color={theme.blue}></Feather>
       ) : (
         <Feather name="arrow-left" size={35} color={theme.blue}></Feather>
       )}
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 

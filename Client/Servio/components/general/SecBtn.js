@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 import AppText from "../../config/AppText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "@react-navigation/native";
@@ -7,9 +7,9 @@ function SecBtn({ title, onPress }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <Pressable onPress={onPress} style={styles.container}>
       <AppText style={styles.text}>{title || "Press"}</AppText>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 

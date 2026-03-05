@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { Image, StyleSheet, TouchableOpacity, View, Alert } from "react-native";
+import { Image, StyleSheet, Pressable, View, Alert } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ErrorMessage from "./ErrorMessage";
-import { selectImageFromCamera, selectImageFromLibrary } from "../../functions/addImage";
+import {
+  selectImageFromCamera,
+  selectImageFromLibrary,
+} from "../../functions/addImage";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 import AppText from "../../config/AppText";
@@ -106,7 +109,7 @@ function AddImageBtn({
   return (
     <View>
       <View style={[styles.container, containerStyle]}>
-        <TouchableOpacity
+        <Pressable
           style={[styles.touchableArea, touchableAreaStyle]}
           onPress={handleImagePress}
           disabled={isLoading}
@@ -115,10 +118,12 @@ function AddImageBtn({
           {image ? (
             // Show image with overlay
             <View style={styles.imageContainer}>
-              <Image 
-                style={styles.image} 
+              <Image
+                style={styles.image}
                 source={{ uri: image }}
-                onError={(e) => console.log("Image load error:", e.nativeEvent.error)}
+                onError={(e) =>
+                  console.log("Image load error:", e.nativeEvent.error)
+                }
               />
               <View style={styles.overlay}>
                 <MaterialCommunityIcons
@@ -141,12 +146,10 @@ function AddImageBtn({
               </AppText>
             </View>
           )}
-        </TouchableOpacity>
+        </Pressable>
       </View>
-      
-      {error && errorMessage && (
-        <ErrorMessage error={errorMessage} />
-      )}
+
+      {error && errorMessage && <ErrorMessage error={errorMessage} />}
     </View>
   );
 }
@@ -159,7 +162,7 @@ const getStyles = (theme) =>
       marginHorizontal: "auto",
       marginBottom: 10,
       // marginTop: 25,
-      alignSelf: 'center', // Better centering
+      alignSelf: "center", // Better centering
     },
     touchableArea: {
       flex: 1,
@@ -173,33 +176,33 @@ const getStyles = (theme) =>
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: 'transparent',
+      backgroundColor: "transparent",
     },
     text: {
       fontSize: 24,
       fontWeight: "bold",
       color: theme.blue,
       marginTop: 10,
-      textAlign: 'center',
+      textAlign: "center",
     },
     imageContainer: {
       flex: 1,
-      position: 'relative',
+      position: "relative",
     },
     image: {
-      width: '100%',
-      height: '100%',
+      width: "100%",
+      height: "100%",
       resizeMode: "cover",
     },
     overlay: {
-      position: 'absolute',
+      position: "absolute",
       top: 10,
       right: 10,
-      backgroundColor: 'rgba(0, 0, 0, 0.6)',
+      backgroundColor: "rgba(0, 0, 0, 0.6)",
       borderRadius: 20,
       padding: 8,
-      justifyContent: 'center',
-      alignItems: 'center',
+      justifyContent: "center",
+      alignItems: "center",
     },
   });
 

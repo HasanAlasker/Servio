@@ -1,6 +1,6 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, StyleSheet, Pressable, Text } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { UseService } from "../../context/ServiceContext";
 import MiniRedCircle from "../general/MiniRedCircle";
@@ -15,7 +15,7 @@ function UserNav({ onMenu, isMenu }) {
 
   return (
     <View style={styles.navbar}>
-      <TouchableOpacity
+      <Pressable
         style={styles.navbarBtn}
         onPress={() => navigation.navigate("Home")}
       >
@@ -27,9 +27,9 @@ function UserNav({ onMenu, isMenu }) {
         <Text style={[styles.text, route.name === "Home" && styles.active]}>
           Home
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity
+      <Pressable
         style={styles.navbarBtn}
         onPress={() => navigation.navigate("MyCars")}
       >
@@ -47,9 +47,9 @@ function UserNav({ onMenu, isMenu }) {
         >
           Garage
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity
+      <Pressable
         style={styles.navbarBtn}
         onPress={async () => {
           navigation.navigate("Bookings");
@@ -67,9 +67,9 @@ function UserNav({ onMenu, isMenu }) {
         {isConfirmedAppointments && route.name !== "Bookings" && (
           <MiniRedCircle />
         )}
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity
+      <Pressable
         style={styles.navbarBtn}
         onPress={() => navigation.navigate("Service")}
       >
@@ -84,16 +84,16 @@ function UserNav({ onMenu, isMenu }) {
         {countDueServices() > 0 && route.name !== "Service" && (
           <MiniRedCircle />
         )}
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity style={styles.navbarBtn} onPress={onMenu}>
+      <Pressable style={styles.navbarBtn} onPress={onMenu}>
         <Feather
           name="settings"
           size={30}
           style={[styles.icon, isMenu && styles.active]}
         />
         <Text style={[styles.text, isMenu && styles.active]}>More</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 }

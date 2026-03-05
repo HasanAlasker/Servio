@@ -1,4 +1,4 @@
-import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TextInput, Pressable } from "react-native";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import { useTheme } from "../../context/ThemeContext";
@@ -50,13 +50,13 @@ function InputBox({
         {...rest}
       />
       {isPassword && (
-        <TouchableOpacity onPress={handleHidden}>
+        <Pressable onPress={handleHidden}>
           <Feather
             name={isHidden ? "eye" : "eye-off"}
             size={24}
             color={theme.blue}
           />
-        </TouchableOpacity>
+        </Pressable>
       )}
     </View>
   );

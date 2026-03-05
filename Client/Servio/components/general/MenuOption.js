@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Pressable, View } from "react-native";
 import AppText from "../../config/AppText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
@@ -10,7 +10,7 @@ function MenuOption({ text, icon, color, onPress, disabled, showLock }) {
   const styles = useThemedStyles(getStyles);
 
   return (
-    <TouchableOpacity 
+    <Pressable 
       style={[styles.container, disabled && styles.disabledContainer]} 
       onPress={onPress} 
       disabled={disabled}
@@ -30,7 +30,7 @@ function MenuOption({ text, icon, color, onPress, disabled, showLock }) {
           />
         )}
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 

@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 import AppText from "../../config/AppText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
@@ -14,9 +14,9 @@ function PriBtn({
 }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
-  
+
   return (
-    <TouchableOpacity
+    <Pressable
       disabled={disabled}
       onPress={onPress}
       style={[
@@ -34,7 +34,7 @@ function PriBtn({
       >
         {title || "Press"}
       </AppText>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 

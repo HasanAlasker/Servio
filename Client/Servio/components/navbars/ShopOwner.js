@@ -1,6 +1,6 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, StyleSheet, Pressable, Text } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 
 function ShopOwner({ onMenu, isMenu }) {
@@ -10,7 +10,7 @@ function ShopOwner({ onMenu, isMenu }) {
 
   return (
     <View style={styles.navbar}>
-      <TouchableOpacity
+      <Pressable
         style={styles.navbarBtn}
         onPress={() => navigation.navigate("ShopDash")}
       >
@@ -22,9 +22,9 @@ function ShopOwner({ onMenu, isMenu }) {
         <Text style={[styles.text, route.name === "ShopDash" && styles.active]}>
           Home
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity
+      <Pressable
         style={styles.navbarBtn}
         onPress={() => navigation.navigate("MyShop")}
       >
@@ -42,9 +42,9 @@ function ShopOwner({ onMenu, isMenu }) {
         >
           Shops
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity
+      <Pressable
         style={styles.navbarBtn}
         onPress={() => navigation.navigate("ShopBook")}
       >
@@ -66,9 +66,9 @@ function ShopOwner({ onMenu, isMenu }) {
         >
           Bookings
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity
+      <Pressable
         style={styles.navbarBtn}
         onPress={() => navigation.navigate("MyCars")}
       >
@@ -86,16 +86,16 @@ function ShopOwner({ onMenu, isMenu }) {
         >
           Cars
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity style={styles.navbarBtn} onPress={onMenu}>
+      <Pressable style={styles.navbarBtn} onPress={onMenu}>
         <Feather
           name="settings"
           size={30}
           style={[styles.icon, isMenu && styles.active]}
         />
         <Text style={[styles.text, isMenu && styles.active]}>More</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 }

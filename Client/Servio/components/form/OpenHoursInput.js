@@ -1,4 +1,4 @@
-import { View, Text, Switch, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Switch, StyleSheet, Pressable } from "react-native";
 import { useFormikContext } from "formik";
 import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
@@ -96,14 +96,14 @@ function OpenHoursInput({ name = "openHours", hasBeenSubmitted = false }) {
               </View>
 
               {index == 0 && (
-                <TouchableOpacity
+                <Pressable
                   onPress={() => copyToAllOpenDays(index)}
                   style={styles.copyButton}
                 >
                   <Text style={styles.copyButtonText}>
                     Copy to all open days
                   </Text>
-                </TouchableOpacity>
+                </Pressable>
               )}
             </>
           )}
