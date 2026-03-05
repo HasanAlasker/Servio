@@ -7,9 +7,20 @@ import { dontRemind, remind } from "../../api/upcomingService";
 import ServiceCard from "../../components/cards/ServiceCard";
 import SText from "../../components/text/SText";
 import { UseService } from "../../context/ServiceContext";
+import { useState } from "react";
 
 function Service(props) {
-  const { services, setServices, loading } = UseService();
+  const { services, setServices, loading, loadServices } = UseService();
+  const [refreshing, setRefreshing] = useState(false);
+  const handleRefresh = async () => {
+    try {
+      setRefreshing(true);
+      await loadServices();
+    } catch (error) {
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   const handleReminder = async (id, isActive) => {
     try {
@@ -47,7 +58,7 @@ function Service(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen>
+      <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
         <GapContainer>
           {RenderServices.length === 0 && !loading ? (
             <SText

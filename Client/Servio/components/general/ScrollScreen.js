@@ -1,11 +1,15 @@
-import { StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, RefreshControl } from "react-native";
+import { useTheme } from "../../context/ThemeContext";
 
 function ScrollScreen({
   children,
   stickyHeader,
   stickyHeaderIndices,
+  onRefresh,
+  refreshing,
   ...other
 }) {
+  const { theme } = useTheme();
   return (
     <ScrollView
       style={styles.container}
@@ -14,6 +18,16 @@ function ScrollScreen({
       scrollEventThrottle={30}
       stickyHeaderIndices={stickyHeaderIndices}
       stickyHeaderHiddenOnScroll={stickyHeader}
+      refreshControl={
+        onRefresh ? (
+          <RefreshControl
+            onRefresh={onRefresh}
+            refreshing={refreshing}
+            colors={[theme.blue]}
+            progressBackgroundColor={theme.white}
+          />
+        ) : null
+      }
       {...other}
     >
       {children}

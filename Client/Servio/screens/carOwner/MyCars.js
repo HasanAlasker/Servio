@@ -7,9 +7,20 @@ import GapContainer from "../../components/general/GapContainer";
 import SText from "../../components/text/SText";
 import CarCard from "../../components/cards/CarCard";
 import { UseCar } from "../../context/CarContext";
+import { useState } from "react";
 
 function MyCars(props) {
-  const { cars, loading } = UseCar();
+  const { cars, loading, loadCars } = UseCar();
+  const [refreshing, setRefreshing] = useState(false);
+  const handleRefresh = async () => {
+    try {
+      setRefreshing(true);
+      await loadCars();
+    } catch (error) {
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   const carsList = cars.map((car) => (
     <CarCard
@@ -28,7 +39,7 @@ function MyCars(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen>
+      <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
         <GapContainer>
           {carsList.length === 0 && !loading ? (
             <SText

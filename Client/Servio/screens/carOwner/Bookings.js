@@ -14,7 +14,18 @@ import { UseAppointment } from "../../context/AppointmentContext";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 
 function Bookings(props) {
-  const { upcoming, past, setUpcoming, setPast, loading } = UseAppointment();
+  const { upcoming, past, setUpcoming, setPast, loading, loadAppointments } =
+    UseAppointment();
+  const [refreshing, setRefreshing] = useState(false);
+  const handleRefresh = async () => {
+    try {
+      setRefreshing(true);
+      await loadAppointments();
+    } catch (error) {
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   const [activeTab, setTab] = useState("1");
   const [celebrate, setCelebrate] = useState(false);
@@ -98,7 +109,12 @@ function Bookings(props) {
   return (
     <SafeScreen>
       {celebrate && <Confetti isInfinite={false} />}
-      <ScrollScreen stickyHeader stickyHeaderIndices={[0]}>
+      <ScrollScreen
+        stickyHeader
+        stickyHeaderIndices={[0]}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
+      >
         <TabNav
           one={"Upcoming"}
           two={"Past"}

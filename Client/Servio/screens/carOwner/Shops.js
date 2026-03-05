@@ -29,6 +29,17 @@ function Shops(props) {
     setShops(fetchedShops);
   }, [fetchedShops]);
 
+  const [refreshing, setRefreshing] = useState(false);
+  const handleRefresh = async () => {
+    try {
+      setRefreshing(true);
+      await fetchShops();
+    } catch (error) {
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
   const RenderShops = shops.map((shop) => (
     <ShopCard
       key={shop._id}
@@ -47,7 +58,7 @@ function Shops(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen>
+      <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
         <GapContainer>
           {RenderShops}
           {loading && <LoadingSkeleton />}
