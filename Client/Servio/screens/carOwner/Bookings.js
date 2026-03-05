@@ -65,7 +65,7 @@ function Bookings(props) {
   };
 
   const handleCelebration = () => {
-    setTimeout(() => setCelebrate(true), 50);
+    setTimeout(() => setCelebrate(true), 100);
   };
 
   const RenderAppointments =
