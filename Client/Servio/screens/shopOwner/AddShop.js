@@ -15,6 +15,8 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import { formatServices, revertServices } from "../../functions/formatServices";
 import { UseShop } from "../../context/ShopContext";
+import PriBtn from "../../components/general/PriBtn";
+import useThemedStyles from "../../hooks/useThemedStyles";
 
 const validationSchema = Yup.object({
   image: Yup.string().required("Shop image is required"),
@@ -87,6 +89,7 @@ const formatValues = (values) => {
 };
 
 function AddShop(props) {
+  const styles = useThemedStyles(getStyles);
   const { loadShops } = UseShop();
   const [hasBeenSubmitted, setHasbeenSubmitted] = useState(false);
   const [isEdit, setEdit] = useState(false);
@@ -299,6 +302,15 @@ function AddShop(props) {
                 setHasBeenSubmitted={setHasbeenSubmitted}
               />
 
+              {isEdit && (
+                <PriBtn
+                  title={"Delete Shop"}
+                  style={styles.delete}
+                  disabled={hasBeenSubmitted}
+                  onPress={() => navigate.goBack()}
+                />
+              )}
+
               {err && <ErrorMessage error={errMsg} />}
             </GapContainer>
           )}
@@ -309,8 +321,12 @@ function AddShop(props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {},
-});
+const getStyles = (theme) =>
+  StyleSheet.create({
+    delete: {
+      backgroundColor: theme.red,
+      borderColor: theme.red,
+    },
+  });
 
 export default AddShop;

@@ -13,6 +13,8 @@ import {
   uploadToCloudinary,
 } from "../utils/cloudinary.js";
 import { sendPushNotification } from "../utils/notifications.js";
+import { use } from "react";
+import { deleteShop } from "../../Client/Servio/api/shop.js";
 
 const router = express.Router();
 
@@ -268,9 +270,10 @@ router.patch(
 );
 
 // delete shop
-router.patch("/delete/:id", [auth, admin], async (req, res) => {
+router.patch("/delete/:id", auth, async (req, res) => {
   try {
     const id = req.params.id;
+    const user = req.user;
 
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
@@ -279,41 +282,45 @@ router.patch("/delete/:id", [auth, admin], async (req, res) => {
       });
     }
 
-    const deletedShop = await ShopModel.findByIdAndUpdate(
-      id,
-      { isDeleted: true, isVerified: false },
-      {
-        runValidators: true,
-        new: true,
-      },
-    );
+    const deletedShop = await ShopModel.findById(id);
 
     if (!deletedShop)
       return res
         .status(404)
         .json({ success: false, message: "Failed to delete shop" });
 
-    try {
-      const shopOwner = await UserModel.findById(deletedShop.owner._id);
+    if (user.role !== "admin" && user._id !== deletedShop.owner._id)
+      return res.status(401).json({
+        success: false,
+        message: "You can't delete shop",
+      });
 
-      if (
-        shopOwner &&
-        shopOwner.pushNotificationTokens &&
-        shopOwner.pushNotificationTokens.length > 0
-      ) {
-        const tokens = shopOwner.pushNotificationTokens.map(
-          (tokenObj) => tokenObj.token,
-        );
+    deleteShop.isDeleted = true;
+    deletedShop.isVerified = false;
+    await deletedShop.save();
 
-        await sendPushNotification(
-          tokens,
-          `Shop Deleted`,
-          `Servio team has deleted your shop for a policy violation!`,
-        );
-        console.log("📤 Attempting to send notification to:", tokens);
+    if (user.role === "admin") {
+      try {
+        const shopOwner = await UserModel.findById(deletedShop.owner._id);
+
+        if (
+          shopOwner &&
+          shopOwner.pushNotificationTokens &&
+          shopOwner.pushNotificationTokens.length > 0
+        ) {
+          const tokens = shopOwner.pushNotificationTokens.map(
+            (tokenObj) => tokenObj.token,
+          );
+
+          await sendPushNotification(
+            tokens,
+            `Shop Deleted`,
+            `Servio team has deleted your shop for a policy violation!`,
+          );
+        }
+      } catch (notificationError) {
+        console.error("Failed to send push notification:", notificationError);
       }
-    } catch (notificationError) {
-      console.error("Failed to send push notification:", notificationError);
     }
 
     return res.status(200).json({ success: true, data: deletedShop });
