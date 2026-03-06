@@ -287,7 +287,7 @@ router.patch("/delete/:id", auth, async (req, res) => {
         .status(404)
         .json({ success: false, message: "Failed to delete shop" });
 
-    if (user.role !== "admin" && user._id !== deletedShop.owner._id)
+    if (user.role !== "admin" && user._id.toString() !== deletedShop.owner._id.toString())
       return res.status(401).json({
         success: false,
         message: "You can't delete shop",
