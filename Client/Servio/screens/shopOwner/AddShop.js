@@ -10,7 +10,7 @@ import FormikInput from "../../components/form/FormikInput";
 import GapContainer from "../../components/general/GapContainer";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import OpenHoursInput from "../../components/form/OpenHoursInput";
-import { editShop, openShop } from "../../api/shop";
+import { deleteShop, editShop, openShop } from "../../api/shop";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import { formatServices, revertServices } from "../../functions/formatServices";
@@ -146,6 +146,25 @@ function AddShop(props) {
         }
       }
     } catch (error) {}
+  };
+
+  const handleDelete = async (values) => {
+    setErr(false);
+    setErrMsg(null);
+
+    try {
+      const response = await deleteShop(params._id);
+      if (response.ok) {
+        await loadShops();
+        navigate.navigate("MyShop");
+      }
+      if (!response.ok) {
+        setErr(true);
+        setErrMsg(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const initialValues = {
@@ -295,7 +314,7 @@ function AddShop(props) {
                 name="openHours"
                 hasBeenSubmitted={hasBeenSubmitted}
               />
-
+              {err && <ErrorMessage error={errMsg} />}
               <SubmitBtn
                 defaultText={!isEdit ? "Send Request" : "Edit Shop"}
                 submittingText={!isEdit ? "Sending..." : "Editing..."}
@@ -307,11 +326,9 @@ function AddShop(props) {
                   title={"Delete Shop"}
                   style={styles.delete}
                   disabled={hasBeenSubmitted}
-                  onPress={() => navigate.goBack()}
+                  onPress={handleDelete}
                 />
               )}
-
-              {err && <ErrorMessage error={errMsg} />}
             </GapContainer>
           )}
         </AppForm>

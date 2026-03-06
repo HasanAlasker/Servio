@@ -13,8 +13,6 @@ import {
   uploadToCloudinary,
 } from "../utils/cloudinary.js";
 import { sendPushNotification } from "../utils/notifications.js";
-import { use } from "react";
-import { deleteShop } from "../../Client/Servio/api/shop.js";
 
 const router = express.Router();
 
@@ -295,7 +293,7 @@ router.patch("/delete/:id", auth, async (req, res) => {
         message: "You can't delete shop",
       });
 
-    deleteShop.isDeleted = true;
+    deletedShop.isDeleted = true;
     deletedShop.isVerified = false;
     await deletedShop.save();
 
