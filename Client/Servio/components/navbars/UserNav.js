@@ -64,7 +64,7 @@ function UserNav({ onMenu, isMenu }) {
         <Text style={[styles.text, route.name === "Bookings" && styles.active]}>
           Bookings
         </Text>
-        {isConfirmedAppointments && route.name !== "Bookings" && (
+        {isConfirmedAppointments() && route.name !== "Bookings" && (
           <MiniRedCircle />
         )}
       </Pressable>
