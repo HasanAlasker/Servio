@@ -44,6 +44,7 @@ function CarParts(props) {
 
           {RenderParts}
           {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
 
           <AddCarCard
             text={"Add Part"}

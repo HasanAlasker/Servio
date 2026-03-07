@@ -8,6 +8,7 @@ import ServiceCard from "../../components/cards/ServiceCard";
 import SText from "../../components/text/SText";
 import { UseService } from "../../context/ServiceContext";
 import { useState } from "react";
+import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 
 function Service(props) {
   const { services, setServices, loading, loadServices } = UseService();
@@ -71,7 +72,8 @@ function Service(props) {
           ) : (
             RenderServices
           )}
-          {loading && <SText>Loading</SText>}
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
         </GapContainer>
       </ScrollScreen>
       <Navbar />

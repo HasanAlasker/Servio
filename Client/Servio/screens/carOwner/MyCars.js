@@ -8,6 +8,7 @@ import SText from "../../components/text/SText";
 import CarCard from "../../components/cards/CarCard";
 import { UseCar } from "../../context/CarContext";
 import { useState } from "react";
+import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 
 function MyCars(props) {
   const { cars, loading, loadCars } = UseCar();
@@ -53,7 +54,7 @@ function MyCars(props) {
             carsList
           )}
 
-          {loading && <SText>Loading</SText>}
+          {loading && <LoadingSkeleton />}
 
           <AddCarCard
             text={"Add Car"}

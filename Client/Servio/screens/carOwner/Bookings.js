@@ -134,6 +134,7 @@ function Bookings(props) {
             RenderAppointments
           )}
           {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
         </GapContainer>
       </ScrollScreen>
       <Navbar />
