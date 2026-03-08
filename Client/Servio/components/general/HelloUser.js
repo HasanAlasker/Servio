@@ -28,7 +28,7 @@ function HelloUser(props) {
   };
 
   return (
-    <RowCont style={{ justifyContent: "space-between", marginBottom: 60 }}>
+    <RowCont style={{ justifyContent: "space-between", marginBottom: 40 }}>
       <MText color={'sec_text'} thin>{welcomePhrase() + "\n" + firstName}!</MText>
       <Pressable
         style={styles.btn}
