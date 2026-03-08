@@ -15,6 +15,7 @@ import { UseUser } from "../../context/UserContext";
 import { UseCar } from "../../context/CarContext";
 import { UseService } from "../../context/ServiceContext";
 import { UseShop } from "../../context/ShopContext";
+import HelloUser from "../../components/general/HelloUser";
 
 function Home(props) {
   const navigaiton = useNavigation();
@@ -40,6 +41,7 @@ function Home(props) {
   return (
     <SafeScreen>
       <ScrollScreen>
+        <HelloUser />
         <LText>Quick Actions</LText>
         <GapContainer style={[styles.container, styles.row]}>
           <SquareHome

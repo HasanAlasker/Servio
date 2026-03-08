@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import LText from "../../components/text/LText";
 import SquareHome from "../../components/cards/SquareHome";
 import { useNavigation } from "@react-navigation/native";
+import HelloUser from "../../components/general/HelloUser";
 
 function Dash(props) {
   const { user } = UseUser();
@@ -26,6 +27,7 @@ function Dash(props) {
   return (
     <SafeScreen>
       <ScrollScreen>
+        <HelloUser />
         <LText>Quick Actions</LText>
         <GapContainer style={[styles.container, styles.row]}>
           <SquareHome

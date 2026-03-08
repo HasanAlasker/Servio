@@ -34,7 +34,7 @@ function HelloUser(props) {
         style={styles.btn}
         onPress={() => navigate.navigate("Profile")}
       >
-        <Feather color={theme.sec_text} size={36} name="user" />
+        <Feather color={theme.sec_text} size={32} name="user" />
       </Pressable>
     </RowCont>
   );
@@ -45,7 +45,7 @@ const getStyles = (theme) =>
     btn: {
       backgroundColor: theme.post,
       borderRadius: 10,
-      padding: 5,
+      padding: 6,
 
       shadowColor: "#000",
       shadowOffset: {
