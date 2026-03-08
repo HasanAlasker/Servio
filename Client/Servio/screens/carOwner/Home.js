@@ -11,6 +11,8 @@ import OfflineModal from "../../components/general/OfflineModal";
 import { UseCar } from "../../context/CarContext";
 import { UseService } from "../../context/ServiceContext";
 import { UseAppointment } from "../../context/AppointmentContext";
+import HelloUser from "../../components/general/HelloUser";
+import MText from "../../components/text/MText";
 
 function Home(props) {
   const navigaiton = useNavigation();
@@ -21,14 +23,15 @@ function Home(props) {
   return (
     <SafeScreen>
       <ScrollScreen>
-        <LText>Quick Peek</LText>
+        <HelloUser />
+        <MText thin>Quick Peek</MText>
         <GapContainer style={styles.container}>
           <CardLeftBorder title={"Number of cars: "} data={cars?.length} />
           <CardLeftBorder title={"Appointments: "} data={countAppointments()} />
           <CardLeftBorder title={"Due services: "} data={countDueServices()} />
         </GapContainer>
 
-        <LText>Quick Actions</LText>
+        <MText thin>Quick Actions</MText>
         <GapContainer style={[styles.container, styles.row]}>
           <SquareHome
             title={"Add Car"}

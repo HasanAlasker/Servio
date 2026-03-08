@@ -421,9 +421,12 @@ export const UserProvider = ({ children }) => {
   const isAdmin = user?.role === "admin";
   const isUser = user?.role === "user";
   const isShopOwner = user?.role === "shopOwner";
+  const [firstName, lastName] = (user?.name ?? "").split(" ");
 
   const value = {
     user,
+    firstName,
+    lastName,
     token,
     isAuthenticated,
     loading,
