@@ -24,14 +24,14 @@ function Home(props) {
     <SafeScreen>
       <ScrollScreen>
         <HelloUser />
-        <MText thin>Quick Peek</MText>
+        <MText thin color={'sec_text'}>Quick Peek</MText>
         <GapContainer style={styles.container}>
           <CardLeftBorder title={"Number of cars: "} data={cars?.length} />
           <CardLeftBorder title={"Appointments: "} data={countAppointments()} />
           <CardLeftBorder title={"Due services: "} data={countDueServices()} />
         </GapContainer>
 
-        <MText thin>Quick Actions</MText>
+        <MText thin color={'sec_text'}>Quick Actions</MText>
         <GapContainer style={[styles.container, styles.row]}>
           <SquareHome
             title={"Add Car"}

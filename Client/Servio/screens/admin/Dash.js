@@ -13,6 +13,7 @@ import LText from "../../components/text/LText";
 import SquareHome from "../../components/cards/SquareHome";
 import { useNavigation } from "@react-navigation/native";
 import HelloUser from "../../components/general/HelloUser";
+import MText from "../../components/text/MText";
 
 function Dash(props) {
   const { user } = UseUser();
@@ -28,7 +29,9 @@ function Dash(props) {
     <SafeScreen>
       <ScrollScreen>
         <HelloUser />
-        <LText>Quick Actions</LText>
+        <MText thin color={"sec_text"}>
+          Quick Actions
+        </MText>
         <GapContainer style={[styles.container, styles.row]}>
           <SquareHome
             color={"lightBlue"}
@@ -50,7 +53,9 @@ function Dash(props) {
             onPress={() => navigate.navigate("Reports")}
           />
         </GapContainer>
-        <LText>Metrics</LText>
+        <MText thin color={"sec_text"}>
+          Metrics
+        </MText>
         <GapContainer style={styles.container}>
           <CardLeftBorder
             title={"Shop Requests:"}

@@ -16,6 +16,7 @@ import { UseCar } from "../../context/CarContext";
 import { UseService } from "../../context/ServiceContext";
 import { UseShop } from "../../context/ShopContext";
 import HelloUser from "../../components/general/HelloUser";
+import MText from "../../components/text/MText";
 
 function Home(props) {
   const navigaiton = useNavigation();
@@ -41,8 +42,8 @@ function Home(props) {
   return (
     <SafeScreen>
       <ScrollScreen>
-        <HelloUser />
-        <LText>Quick Actions</LText>
+        <HelloUser thin color={"sec_text"} />
+        <MText>Quick Actions</MText>
         <GapContainer style={[styles.container, styles.row]}>
           <SquareHome
             title={"Add Car"}
@@ -65,13 +66,17 @@ function Home(props) {
           />
         </GapContainer>
 
-        <LText>Personal Info</LText>
+        <MText thin color={"sec_text"}>
+          Personal Info
+        </MText>
         <GapContainer style={styles.container}>
           <CardLeftBorder title={"Number of cars: "} data={cars?.length} />
           <CardLeftBorder title={"Due services: "} data={countDueServices()} />
         </GapContainer>
 
-        <LText>Shop Info</LText>
+        <MText thin color={"sec_text"}>
+          Shop Info
+        </MText>
         <GapContainer style={styles.container}>
           <CardLeftBorder title={"Active Shops: "} data={countShops()} />
           {shopData.newShops > 0 && (
