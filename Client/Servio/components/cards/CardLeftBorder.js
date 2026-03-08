@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Pressable } from "react-native";
 import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import MText from "../text/MText";
@@ -17,6 +17,7 @@ function CardLeftBorder({
   data,
   status,
   parts,
+  onPress,
 }) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getstyles);
@@ -63,7 +64,8 @@ function CardLeftBorder({
   ));
 
   return (
-    <View
+    <Pressable
+      onPress={onPress}
       style={[
         styles.container,
         {
@@ -101,7 +103,7 @@ function CardLeftBorder({
       )}
       {title != null && <MText color={color}>{title}</MText>}
       {data != null && <MText color={color}>{data.toString()}</MText>}
-    </View>
+    </Pressable>
   );
 }
 

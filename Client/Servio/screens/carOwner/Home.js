@@ -44,6 +44,7 @@ function Home(props) {
       key={s._id}
       status={s.status}
       customText={capFirstLetter(s.car.make + " " + s.car.name)}
+      onPress={() => navigaiton.navigate("Service")}
     />
   ));
 
@@ -61,11 +62,13 @@ function Home(props) {
                   ServiceList[0].props.status === "soon" ? "orange" : "darkPink"
                 }
               >
-                Attention Needed
+                {ServiceList[0].props.status === "soon"
+                  ? "Coming Later"
+                  : "Attention Needed"}
               </MText>
               {ServiceList}
             </GapContainer>
-          ) : (
+          ) : !loading && ServiceList.length === 0 ? (
             <CardLeftBorder
               status={" "}
               icon={"checkbox-marked-circle-outline"}
@@ -73,7 +76,7 @@ function Home(props) {
               miniTitle={"You're all set"}
               customText={"No services required!"}
             />
-          )}
+          ) : null}
 
           <MText thin color={"sec_text"}>
             Quick Peek
