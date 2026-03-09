@@ -1,3 +1,3 @@
-../test/apiTesting.txt
+test/*.txt
 .env
 node_modules
