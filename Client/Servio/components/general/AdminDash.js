@@ -22,52 +22,52 @@ function AdminDash(props) {
       <CardLeftBorder
         title={"Shop Requests:"}
         titleIcon={"store-clock-outline"}
-        data={loading ? "..." : data.shopRequests}
+        data={loading ? "0" : data.shopRequests}
       />
       <CardLeftBorder
         title={"Reports:"}
         titleIcon={"flag-outline"}
-        data={loading ? "..." : data.reports}
+        data={loading ? "0" : data.reports}
       />
       <CardLeftBorder
         title={"Suggestions:"}
         titleIcon={"lightbulb-outline"}
-        data={loading ? "..." : data.suggestions}
+        data={loading ? "0" : data.suggestions}
       />
       <CardLeftBorder
         title={"Active Users:"}
         titleIcon={"account-check-outline"}
-        data={loading ? "..." : data.activeUsers}
+        data={loading ? "0" : data.activeUsers}
       />
       <CardLeftBorder
         title={"Car Owners:"}
         titleIcon={"car-outline"}
-        data={loading ? "..." : data.carOwners}
+        data={loading ? "0" : data.carOwners}
       />
       <CardLeftBorder
         title={"Shop Owners:"}
         titleIcon={"store-outline"}
-        data={loading ? "..." : data.shopOwners}
+        data={loading ? "0" : data.shopOwners}
       />
       <CardLeftBorder
         title={"Deleted Users:"}
         titleIcon={"account-remove-outline"}
-        data={loading ? "..." : data.deletedUsers}
+        data={loading ? "0" : data.deletedUsers}
       />
       <CardLeftBorder
         title={"Active Shops:"}
         titleIcon={"storefront-outline"}
-        data={loading ? "..." : data.activeShops}
+        data={loading ? "0" : data.activeShops}
       />
       <CardLeftBorder
         title={"Deleted Shops:"}
         titleIcon={"store-remove-outline"}
-        data={loading ? "..." : data.deletedShops}
+        data={loading ? "0" : data.deletedShops}
       />
       <CardLeftBorder
         title={"Registered Cars:"}
         titleIcon={"car-multiple"}
-        data={loading ? "..." : data.cars}
+        data={loading ? "0" : data.cars}
       />
     </GapContainer>
   );
