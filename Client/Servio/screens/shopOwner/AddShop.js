@@ -17,6 +17,7 @@ import { formatServices, revertServices } from "../../functions/formatServices";
 import { UseShop } from "../../context/ShopContext";
 import PriBtn from "../../components/general/PriBtn";
 import useThemedStyles from "../../hooks/useThemedStyles";
+import { UseUser } from "../../context/UserContext";
 
 const validationSchema = Yup.object({
   image: Yup.string().required("Shop image is required"),
@@ -89,6 +90,7 @@ const formatValues = (values) => {
 };
 
 function AddShop(props) {
+  const { isUser, isShopOwner } = UseUser();
   const styles = useThemedStyles(getStyles);
   const { loadShops } = UseShop();
   const [hasBeenSubmitted, setHasbeenSubmitted] = useState(false);
@@ -156,7 +158,8 @@ function AddShop(props) {
       const response = await deleteShop(params._id);
       if (response.ok) {
         await loadShops();
-        navigate.navigate("MyShop");
+        if (isUser) navigate.navigate("Home");
+        if (isShopOwner) navigate.navigate("ShopDash");
       }
       if (!response.ok) {
         setErr(true);
