@@ -19,6 +19,7 @@ function CardLeftBorder({
   status,
   parts,
   onPress,
+  showBtn,
 }) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getstyles);
@@ -98,7 +99,7 @@ function CardLeftBorder({
           {!customText ? (
             <View>{RenderParts}</View>
           ) : (
-            <SText>{customText}</SText>
+            <SText style={{marginTop: 5}}>{customText}</SText>
           )}
         </GapContainer>
       )}
@@ -114,6 +115,15 @@ function CardLeftBorder({
       )}
 
       {data != null && <MText color={color}>{data.toString()}</MText>}
+
+      {showBtn && (
+        <MaterialCommunityIcons
+          size={25}
+          name="chevron-right"
+          color={theme[color]}
+          style={styles.v}
+        />
+      )}
     </Pressable>
   );
 }
@@ -128,6 +138,9 @@ const getstyles = (theme) =>
       paddingVertical: 25,
       borderRadius: 15,
       borderLeftWidth: 4,
+    },
+    v: {
+      alignSelf: "flex-end",
     },
   });
 

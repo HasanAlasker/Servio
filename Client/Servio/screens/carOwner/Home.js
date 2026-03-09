@@ -45,6 +45,7 @@ function Home(props) {
       key={s._id}
       status={s.status}
       customText={capFirstLetter(s.car.make + " " + s.car.name)}
+      showBtn
       onPress={() => navigaiton.navigate("Service")}
     />
   ));
