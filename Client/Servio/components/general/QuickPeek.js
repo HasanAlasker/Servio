@@ -5,8 +5,10 @@ import CardLeftBorder from "../cards/CardLeftBorder";
 import { UseCar } from "../../context/CarContext";
 import { UseAppointment } from "../../context/AppointmentContext";
 import { UseService } from "../../context/ServiceContext";
+import { UseUser } from "../../context/UserContext";
 
 function QuickPeek(props) {
+  const { isShopOwner } = UseUser();
   const { cars } = UseCar();
   const { countAppointments } = UseAppointment();
   const { countDueServices } = UseService();
@@ -22,11 +24,13 @@ function QuickPeek(props) {
         titleIcon={"clock-outline"}
         data={countDueServices()}
       />
-      <CardLeftBorder
-        title={"Bookings: "}
-        titleIcon={"calendar-blank"}
-        data={countAppointments()}
-      />
+      {!isShopOwner && (
+        <CardLeftBorder
+          title={"Bookings: "}
+          titleIcon={"calendar-blank"}
+          data={countAppointments()}
+        />
+      )}
     </GapContainer>
   );
 }

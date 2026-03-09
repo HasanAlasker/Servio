@@ -2,93 +2,53 @@ import { StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import Navbar from "../../components/general/Navbar";
-import LText from "../../components/text/LText";
-import CardLeftBorder from "../../components/cards/CardLeftBorder";
 import GapContainer from "../../components/general/GapContainer";
 import SquareHome from "../../components/cards/SquareHome";
 import { useNavigation } from "@react-navigation/native";
-import useApi from "../../hooks/useApi";
-import { countDocs, shopCountDocs } from "../../api/user";
-import { useEffect } from "react";
 import OfflineModal from "../../components/general/OfflineModal";
-import { UseUser } from "../../context/UserContext";
-import { UseCar } from "../../context/CarContext";
-import { UseService } from "../../context/ServiceContext";
-import { UseShop } from "../../context/ShopContext";
-import HelloUser from "../../components/general/HelloUser";
 import MText from "../../components/text/MText";
+import UsersDash from "../../components/general/UsersDash";
+import QuickPeek from "../../components/general/QuickPeek";
+import RowCont from "../../components/general/RowCont";
+import ShopInfo from "../../components/general/ShopInfo";
 
 function Home(props) {
   const navigaiton = useNavigation();
-  const { user } = UseUser();
-  const { cars } = UseCar();
-  const { countDueServices } = UseService();
-  const { countShops } = UseShop();
-
-  const { data, request: fetchDocs, loading, error } = useApi(countDocs);
-
-  const {
-    data: shopData,
-    request: fetchShop,
-    loading: loadingShop,
-    error: errShop,
-  } = useApi(shopCountDocs);
-
-  useEffect(() => {
-    fetchDocs();
-    fetchShop();
-  }, [user]);
 
   return (
     <SafeScreen>
       <ScrollScreen>
-        <HelloUser thin color={"sec_text"} />
-        <MText>Quick Actions</MText>
-        <GapContainer style={[styles.container, styles.row]}>
-          <SquareHome
-            title={"Add Car"}
-            color={"lightBlue"}
-            icon={"plus-circle-outline"}
-            onPress={() => navigaiton.navigate("AddCar")}
-          />
+        <GapContainer gap={40}>
+          <UsersDash />
+          <QuickPeek />
+          <ShopInfo />
 
-          <SquareHome
-            title={"Services"}
-            color={"green"}
-            icon={"wrench-outline"}
-            onPress={() => navigaiton.navigate("Service")}
-          />
-          <SquareHome
-            title={"New"}
-            color={"pink"}
-            icon={"store-plus-outline"}
-            onPress={() => navigaiton.navigate("AddShop")}
-          />
-        </GapContainer>
+          <GapContainer>
+            <MText thin color={"sec_text"}>
+              Shop Info
+            </MText>
+            <RowCont style={styles.row}>
+              <SquareHome
+                title={"Add Car"}
+                color={"lightBlue"}
+                icon={"plus-circle-outline"}
+                onPress={() => navigaiton.navigate("AddCar")}
+              />
 
-        <MText thin color={"sec_text"}>
-          Personal Info
-        </MText>
-        <GapContainer style={styles.container}>
-          <CardLeftBorder title={"Number of cars: "} data={cars?.length} />
-          <CardLeftBorder title={"Due services: "} data={countDueServices()} />
-        </GapContainer>
-
-        <MText thin color={"sec_text"}>
-          Shop Info
-        </MText>
-        <GapContainer style={styles.container}>
-          <CardLeftBorder title={"Active Shops: "} data={countShops()} />
-          {shopData.newShops > 0 && (
-            <CardLeftBorder
-              title={"Unverified Shops: "}
-              data={loading ? "..." : shopData.newShops}
-            />
-          )}
-          <CardLeftBorder
-            title={"New Appointments: "}
-            data={loading ? "..." : shopData.requests}
-          />
+              <SquareHome
+                title={"Services"}
+                color={"green"}
+                icon={"wrench-outline"}
+                onPress={() => navigaiton.navigate("Service")}
+              />
+              <SquareHome
+                title={"New"}
+                color={"pink"}
+                icon={"store-plus-outline"}
+                onPress={() => navigaiton.navigate("AddShop")}
+              />
+            </RowCont>
+          </GapContainer>
         </GapContainer>
       </ScrollScreen>
       <Navbar />
