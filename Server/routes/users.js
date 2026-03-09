@@ -17,6 +17,7 @@ import UpcomingServiceModel from "../models/upcomingService.js";
 import ShopModel from "../models/shop.js";
 import SuggestionModel from "../models/suggestion.js";
 import ReportModel from "../models/report.js";
+import logIP from "../middleware/logIp.js";
 
 const router = express.Router();
 
@@ -266,97 +267,111 @@ router.get("/:id", admin, async (req, res) => {
 });
 
 // register
-router.post("/register", validate(userRegistrationSchema), async (req, res) => {
-  try {
-    const data = req.body;
+router.post(
+  "/register",
+  validate(userRegistrationSchema),
+  logIP("REGISTER"),
+  async (req, res) => {
+    try {
+      const data = req.body;
 
-    const existingUser = await UserModel.findOne({ email: data.email }).select(
-      "-password",
-    );
-    if (existingUser)
-      return res
-        .status(400)
-        .json({ success: false, message: "User already registered" });
+      const existingUser = await UserModel.findOne({
+        email: data.email,
+      }).select("-password");
+      if (existingUser)
+        return res
+          .status(400)
+          .json({ success: false, message: "User already registered" });
 
-    const usedPhone = await UserModel.findOne({ phone: data.phone });
-    if (usedPhone)
-      return res
-        .status(400)
-        .json({ success: false, message: "Phone number already used" });
+      const usedPhone = await UserModel.findOne({ phone: data.phone });
+      if (usedPhone)
+        return res
+          .status(400)
+          .json({ success: false, message: "Phone number already used" });
 
-    const newUser = new UserModel(data);
+      const newUser = new UserModel(data);
 
-    newUser.password = await newUser.hashPassword(data.password);
-    await newUser.save();
+      newUser.password = await newUser.hashPassword(data.password);
+      await newUser.save();
 
-    const token = newUser.generateAuthToken();
+      const token = newUser.generateAuthToken();
 
-    if (!newUser)
-      return res
-        .status(404)
-        .json({ success: false, message: "Failed to register" });
+      if (!newUser)
+        return res
+          .status(404)
+          .json({ success: false, message: "Failed to register" });
 
-    const response = _.omit(newUser.toObject(), ["password", "__v"]);
+      const response = _.omit(newUser.toObject(), ["password", "__v"]);
 
-    return res.status(201).header("x-auth-token", token).json({
-      success: true,
-      message: "Registered successfully",
-      data: response,
-    });
-  } catch (error) {
-    console.error(error);
+      return res.status(201).header("x-auth-token", token).json({
+        success: true,
+        message: "Registered successfully",
+        data: response,
+      });
+    } catch (error) {
+      console.error(error);
 
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // login
-router.post("/login", validate(userLoginSchema), async (req, res) => {
-  try {
-    const data = req.body;
+router.post(
+  "/login",
+  validate(userLoginSchema),
+  logIP("LOGIN"),
+  async (req, res) => {
+    try {
+      const data = req.body;
 
-    const user = await UserModel.findOne({ email: data.email });
-    if (!user)
+      const user = await UserModel.findOne({ email: data.email });
+      if (!user)
+        return res
+          .status(404)
+          .json({ success: false, message: "Invalid email or password" });
+
+      const validPassword = await user.comparePassword(data.password);
+
+      if (!validPassword)
+        return res
+          .status(404)
+          .json({ success: false, message: "Invalid email or password" });
+
+      if (user.isDeleted)
+        return res
+          .status(404)
+          .json({
+            success: false,
+            message: "This account has been deactivated",
+          });
+
+      const token = await user.generateAuthToken();
+
+      const response = _.omit(user.toObject(), ["password", "__v"]);
+
       return res
-        .status(404)
-        .json({ success: false, message: "Invalid email or password" });
-
-    const validPassword = await user.comparePassword(data.password);
-
-    if (!validPassword)
-      return res
-        .status(404)
-        .json({ success: false, message: "Invalid email or password" });
-
-    if (user.isDeleted)
-      return res
-        .status(404)
-        .json({ success: false, message: "This account has been deactivated" });
-
-    const token = await user.generateAuthToken();
-
-    const response = _.omit(user.toObject(), ["password", "__v"]);
-
-    return res
-      .status(201)
-      .header("x-auth-token", token)
-      .json({ success: true, message: "Login successful", data: response });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+        .status(201)
+        .header("x-auth-token", token)
+        .json({ success: true, message: "Login successful", data: response });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // edit
 router.patch(
   "/edit/:id",
   [auth, validate(userUpdateSchema)],
+  logIP("EDIT_PROFILE"),
   async (req, res) => {
     try {
       const id = req.params.id;
@@ -409,7 +424,7 @@ router.patch(
 );
 
 // soft delete
-router.patch("/delete/:id", auth, async (req, res) => {
+router.patch("/delete/:id", auth, logIP("DELETE_USER"), async (req, res) => {
   try {
     const id = req.params.id;
 
