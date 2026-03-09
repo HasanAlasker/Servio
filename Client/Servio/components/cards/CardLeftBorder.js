@@ -11,6 +11,7 @@ import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 function CardLeftBorder({
   icon,
   title,
+  titleIcon,
   customColor,
   miniTitle,
   customText,
@@ -101,7 +102,17 @@ function CardLeftBorder({
           )}
         </GapContainer>
       )}
-      {title != null && <MText color={color}>{title}</MText>}
+      {title != null && (
+        <RowCont gap={10}>
+          <MaterialCommunityIcons
+            name={titleIcon}
+            size={28}
+            color={theme[color]}
+          />
+          <MText color={color}>{title}</MText>
+        </RowCont>
+      )}
+
       {data != null && <MText color={color}>{data.toString()}</MText>}
     </Pressable>
   );

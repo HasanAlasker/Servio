@@ -28,8 +28,11 @@ function HelloUser(props) {
   };
 
   return (
-    <RowCont style={{ justifyContent: "space-between", marginBottom: 40 }}>
-      <MText color={'sec_text'} thin>{welcomePhrase() + "\n" + firstName}!</MText>
+    <RowCont style={{ justifyContent: "space-between", marginBottom: 10 }}>
+      <MText color={"sec_text"} thin>
+        {welcomePhrase()} {"\n"}
+        <MText color={"main_text"}>{firstName + "!"}</MText>
+      </MText>
       <Pressable
         style={styles.btn}
         onPress={() => navigate.navigate("Profile")}
@@ -56,6 +59,8 @@ const getStyles = (theme) =>
       shadowRadius: 2.22,
 
       elevation: 2,
+      borderWidth: 1,
+      borderColor: theme.faded,
     },
   });
 

@@ -13,6 +13,7 @@ import { UseAppointment } from "../../context/AppointmentContext";
 import HelloUser from "../../components/general/HelloUser";
 import MText from "../../components/text/MText";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
+import RowCont from "../../components/general/RowCont";
 
 function Home(props) {
   const navigaiton = useNavigation();
@@ -51,7 +52,7 @@ function Home(props) {
   return (
     <SafeScreen>
       <ScrollScreen>
-        <GapContainer gap={20}>
+        <GapContainer gap={40}>
           <HelloUser />
 
           {!loading && ServiceList.length > 0 ? (
@@ -78,44 +79,53 @@ function Home(props) {
             />
           ) : null}
 
-          <MText thin color={"sec_text"}>
-            Quick Peek
-          </MText>
           <GapContainer>
-            <CardLeftBorder title={"Number of cars: "} data={cars?.length} />
+            <MText thin color={"sec_text"}>
+              Quick Peek
+            </MText>
+
             <CardLeftBorder
-              title={"Appointments: "}
-              data={countAppointments()}
+              title={"Cars: "}
+              titleIcon={"car"}
+              data={cars?.length}
             />
             <CardLeftBorder
-              title={"Due services: "}
+              title={"Due: "}
+              titleIcon={"clock-outline"}
               data={countDueServices()}
+            />
+            <CardLeftBorder
+              title={"Appointments: "}
+              titleIcon={"calendar-blank"}
+              data={countAppointments()}
             />
           </GapContainer>
 
-          <MText thin color={"sec_text"}>
-            Quick Actions
-          </MText>
-          <GapContainer style={[styles.row]}>
-            <SquareHome
-              title={"Add Car"}
-              color={"lightBlue"}
-              icon={"plus-circle-outline"}
-              onPress={() => navigaiton.navigate("AddCar")}
-            />
+          <GapContainer>
+            <MText thin color={"sec_text"}>
+              Quick Actions
+            </MText>
+            <RowCont style={styles.row}>
+              <SquareHome
+                title={"Add Car"}
+                color={"lightBlue"}
+                icon={"plus-circle-outline"}
+                onPress={() => navigaiton.navigate("AddCar")}
+              />
 
-            <SquareHome
-              title={"Shops"}
-              color={"green"}
-              icon={"wrench-outline"}
-              onPress={() => navigaiton.navigate("Shops", { showBtn: false })}
-            />
-            <SquareHome
-              title={"History"}
-              color={"pink"}
-              icon={"folder-outline"}
-              onPress={() => navigaiton.navigate("Bookings", { active: "2" })}
-            />
+              <SquareHome
+                title={"Shops"}
+                color={"green"}
+                icon={"wrench-outline"}
+                onPress={() => navigaiton.navigate("Shops", { showBtn: false })}
+              />
+              <SquareHome
+                title={"History"}
+                color={"pink"}
+                icon={"folder-outline"}
+                onPress={() => navigaiton.navigate("Bookings", { active: "2" })}
+              />
+            </RowCont>
           </GapContainer>
         </GapContainer>
       </ScrollScreen>
