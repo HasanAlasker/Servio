@@ -25,7 +25,7 @@ function UserCard({
       style={{marginHorizontal: "auto" }}
       short={short}
     >
-      <GapContainer>
+      <GapContainer >
         <GapContainer gap={12}>
           <SquareInfo
             icon={"account"}
@@ -33,6 +33,7 @@ function UserCard({
             title={"Name"}
             text={passedUser?.name}
             fliped
+            flex
           />
           <SquareInfo
             icon={"phone"}
@@ -40,6 +41,7 @@ function UserCard({
             text={passedUser?.phone}
             title={"Phone"}
             fliped
+            flex
           />
           <SquareInfo
             icon={"email"}
@@ -47,6 +49,7 @@ function UserCard({
             text={passedUser?.email}
             title={"Email"}
             fliped
+            flex
           />
         </GapContainer>
         {passedUser?.role !== "user" && (
