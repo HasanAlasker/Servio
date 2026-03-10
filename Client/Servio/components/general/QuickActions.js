@@ -8,7 +8,11 @@ function QuickActions(props) {
 
   if (isAdmin)
     return (
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.cont}
+      >
         <RowCont style={styles.container}>
           <Pill
             icon={"message-circle"}
@@ -27,37 +31,53 @@ function QuickActions(props) {
 
   if (isUser)
     return (
-      <RowCont style={styles.container}>
-        <Pill icon={"plus-circle"} text={"Car"} navigateTo={"AddCar"} />
-        <Pill
-          icon={"folder"}
-          text={"History"}
-          navigateTo={"Bookings"}
-          params={{ active: "2" }}
-        />
-        <Pill
-          icon={"shopping-bag"}
-          text={"Shops"}
-          navigateTo={"Shops"}
-          params={{ showBtn: false }}
-        />
-      </RowCont>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.cont}
+      >
+        <RowCont style={styles.container}>
+          <Pill
+            icon={"folder"}
+            text={"History"}
+            navigateTo={"Bookings"}
+            params={{ active: "2" }}
+          />
+          <Pill icon={"plus-circle"} text={"Car"} navigateTo={"AddCar"} />
+          <Pill
+            icon={"shopping-bag"}
+            text={"Shops"}
+            navigateTo={"Shops"}
+            params={{ showBtn: false }}
+          />
+        </RowCont>
+      </ScrollView>
     );
 
   if (isShopOwner)
     return (
-      <RowCont style={styles.container}>
-        <Pill icon={"tool"} text={"Service"} navigateTo={"Service"} />
-        <Pill icon={"plus-circle"} text={"Car"} navigateTo={"AddCar"} />
-        <Pill icon={"plus-circle"} text={"Shop"} navigateTo={"AddShop"} />
-      </RowCont>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.cont}
+      >
+        <RowCont style={styles.container}>
+          <Pill icon={"tool"} text={"Service"} navigateTo={"Service"} />
+          <Pill icon={"plus-circle"} text={"Car"} navigateTo={"AddCar"} />
+          <Pill icon={"plus-circle"} text={"Shop"} navigateTo={"AddShop"} />
+        </RowCont>
+      </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
+  cont: {
+    width:'100%'
+  },
   container: {
     gap: 10,
     justifyContent: "space-between",
+    width:'100%'
   },
 });
 

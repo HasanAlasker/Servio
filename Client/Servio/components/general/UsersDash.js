@@ -4,7 +4,6 @@ import GapContainer from "../../components/general/GapContainer";
 import { useNavigation } from "@react-navigation/native";
 import { UseService } from "../../context/ServiceContext";
 import HelloUser from "../../components/general/HelloUser";
-import MText from "../../components/text/MText";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import QuickActions from "./QuickActions";
 import SText from "../text/SText";

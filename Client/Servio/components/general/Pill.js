@@ -26,11 +26,11 @@ const getStyles = (theme) =>
     container: {
       backgroundColor: theme.light_gray,
       paddingVertical: 10,
-      paddingHorizontal: 20,
+      paddingHorizontal: 22,
       borderRadius: 25,
       alignItems: "center",
       justifyContent: "center",
-      minWidth: "28%",
+      minWidth: "29%",
     },
   });
 
