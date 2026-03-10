@@ -126,23 +126,6 @@ const AuthStack = () => {
 };
 
 const AppNavigator = () => {
-  // useQuickActionCallback((action)=>{
-  //   console.log(action)
-  // })
-  // useEffect(() => {
-  //   QuickActions.setItems([
-  //     {
-  //       id: "0",
-  //       title: "My Appointments",
-  //       icon: "heart",
-  //     },
-  //     {
-  //       id: "1",
-  //       title: "My Cars",
-  //       icon: "heart",
-  //     },
-  //   ]);
-  // }, []);
   const {
     appStart,
     isUser,
@@ -160,12 +143,14 @@ const AppNavigator = () => {
   useEffect(() => {
     loadUserData();
     loadCars();
-  }, []);
-
-  useEffect(() => {
     loadServices();
     loadAppointments();
-  }, [isUser]);
+  }, []);
+
+  // useEffect(() => {
+  //   loadServices();
+  //   loadAppointments();
+  // }, [isUser]);
 
   useEffect(() => {
     loadShops();

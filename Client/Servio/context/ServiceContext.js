@@ -45,8 +45,12 @@ export const ServiceProvider = ({ children }) => {
   };
 
   const loadServices = async () => {
-    getStoredServices();
-    fetchServices();
+    try {
+      getStoredServices();
+      fetchServices();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {

@@ -137,7 +137,7 @@ const getstyles = (theme) =>
       paddingHorizontal: 22,
       paddingVertical: 25,
       borderRadius: 15,
-      borderLeftWidth: 4,
+      borderWidth: .5,
     },
     v: {
       alignSelf: "flex-end",
