@@ -23,6 +23,7 @@ const getStyles = (theme) =>
       position: "absolute",
       bottom: 35,
       left: 30,
+      zIndex:10
     },
   });
 

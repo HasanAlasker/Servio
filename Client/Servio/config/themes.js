@@ -1,5 +1,6 @@
 export const lightTheme = {
   blue: "#007bffff",
+  shade: "#ecf3ff",
   purple: "#AC2FFF",
   background: "#F4F6F8",
   post: "#ffffff",

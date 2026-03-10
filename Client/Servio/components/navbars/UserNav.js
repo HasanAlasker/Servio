@@ -27,6 +27,7 @@ function UserNav({ onMenu, isMenu }) {
         <Text style={[styles.text, route.name === "Home" && styles.active]}>
           Home
         </Text>
+        {/* {route.name === "Home" && <View style={styles.shade}></View>} */}
       </Pressable>
 
       <Pressable
@@ -47,6 +48,7 @@ function UserNav({ onMenu, isMenu }) {
         >
           Garage
         </Text>
+        {/* {route.name === "MyCars" && <View style={styles.shade}></View>} */}
       </Pressable>
 
       <Pressable
@@ -67,6 +69,7 @@ function UserNav({ onMenu, isMenu }) {
         {isConfirmedAppointments() && route.name !== "Bookings" && (
           <MiniRedCircle />
         )}
+        {/* {route.name === "Bookings" && <View style={styles.shade}></View>} */}
       </Pressable>
 
       <Pressable
@@ -84,6 +87,7 @@ function UserNav({ onMenu, isMenu }) {
         {countDueServices() > 0 && route.name !== "Service" && (
           <MiniRedCircle />
         )}
+        {/* {route.name === "Service" && <View style={styles.shade}></View>} */}
       </Pressable>
 
       <Pressable style={styles.navbarBtn} onPress={onMenu}>
@@ -93,6 +97,7 @@ function UserNav({ onMenu, isMenu }) {
           style={[styles.icon, isMenu && styles.active]}
         />
         <Text style={[styles.text, isMenu && styles.active]}>More</Text>
+        {/* {route.name === "settings" && <View style={styles.shade}></View>} */}
       </Pressable>
     </View>
   );
@@ -122,17 +127,28 @@ const getStyles = (theme) =>
     icon: {
       textAlign: "center",
       color: theme.sec_text,
-      fontWeight: "900",
+      zIndex: 1,
     },
     text: {
       color: theme.sec_text,
-      fontWeight: "700",
       fontSize: 12,
       textAlign: "center",
+      zIndex: 1,
     },
     active: {
       color: theme.blue,
     },
+    // shade: {
+    //   backgroundColor: theme.post,
+    //   opacity: 1,
+    //   width: 55,
+    //   height: 50,
+    //   borderRadius: 50,
+    //   position: "absolute",
+    //   alignSelf: "center",
+    //   top: 0,
+    //   zIndex: 0,
+    // },
   });
 
 export default UserNav;
