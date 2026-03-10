@@ -7,6 +7,7 @@ import admin from "../middleware/admin.js";
 import suggestionValidationSchema from "../validation/suggestion.js";
 import validate from "../middleware/joiValidation.js";
 import UserModel from "../models/user.js";
+import logIP from "../middleware/logIp.js";
 
 const router = express.Router();
 
@@ -27,6 +28,7 @@ router.get("/all", [auth, admin], async (req, res) => {
 router.post(
   "/add",
   [auth, validate(suggestionValidationSchema)],
+  logIP("SUGGESTION"),
   async (req, res) => {
     try {
       const data = req.body;
@@ -79,22 +81,28 @@ router.post(
 );
 
 // delete suggestion (admin)
-router.delete("/delete/:id", [auth, admin], async (req, res) => {
-  try {
-    const suggestionId = req.params.id;
+router.delete(
+  "/delete/:id",
+  [auth, admin],
+  logIP("DELETE_SUGGESTION"),
+  async (req, res) => {
+    try {
+      const suggestionId = req.params.id;
 
-    if (!suggestionId || !mongoose.Types.ObjectId.isValid(suggestionId)) {
-      return res.status(400).send("Invalid suggestion ID");
+      if (!suggestionId || !mongoose.Types.ObjectId.isValid(suggestionId)) {
+        return res.status(400).send("Invalid suggestion ID");
+      }
+
+      const deletedSuggestion =
+        await SuggestionModel.findByIdAndDelete(suggestionId);
+      if (!deletedSuggestion)
+        return res.status(400).send("Suggestion not found");
+
+      res.status(200).send("Suggestion deleted successfully");
+    } catch (err) {
+      res.status(500).send(err.message);
     }
-
-    const deletedSuggestion =
-      await SuggestionModel.findByIdAndDelete(suggestionId);
-    if (!deletedSuggestion) return res.status(400).send("Suggestion not found");
-
-    res.status(200).send("Suggestion deleted successfully");
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-});
+  },
+);
 
 export default router;

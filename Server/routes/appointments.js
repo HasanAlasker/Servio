@@ -15,6 +15,7 @@ import { deletedSlot } from "../services/deleteSlot.js";
 import UserModel from "../models/user.js";
 import { sendPushNotification } from "../utils/notifications.js";
 import { getTimeFromDate } from "../functions/formatTime.js";
+import logIP from "../middleware/logIp.js";
 
 const router = express.Router();
 
@@ -168,6 +169,7 @@ router.get("/pending/:id", [auth, shopOwner], async (req, res) => {
 router.post(
   "/book",
   [auth, validate(createAppointmentSchema)],
+  logIP("BOOK"),
   async (req, res) => {
     try {
       const data = req.body;
@@ -287,61 +289,67 @@ router.patch("/delete-many", auth, async (req, res) => {
 });
 
 // delete one (past)
-router.patch("/delete/:id", auth, async (req, res) => {
-  try {
-    const id = req.params.id;
+router.patch(
+  "/delete/:id",
+  logIP("DELETE_APPOINTMENT"),
+  auth,
+  async (req, res) => {
+    try {
+      const id = req.params.id;
 
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
+      if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid appointment ID",
+        });
+      }
+
+      const appointment = await AppointmentModel.findById(id);
+      if (!appointment) {
+        return res.status(404).json({
+          success: false,
+          message: "Appointment not found",
+        });
+      }
+
+      if (appointment.customer.toString() !== req.user._id) {
+        return res.status(403).json({
+          success: false,
+          message: "Not authorized",
+        });
+      }
+
+      if (new Date(appointment.scheduledDate) > Date.now()) {
+        return res.status(400).json({
+          success: false,
+          message: "You can't delete an appointment unless it's in the past",
+        });
+      }
+
+      appointment.isDeleted = true;
+      const saved = await appointment.save();
+
+      if (!saved)
+        return res
+          .status(400)
+          .json({ success: false, message: "Failed to delete appointment" });
+
+      return res.status(200).json({ success: true, data: appointment });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
         success: false,
-        message: "Invalid appointment ID",
+        message: "Server Error",
       });
     }
-
-    const appointment = await AppointmentModel.findById(id);
-    if (!appointment) {
-      return res.status(404).json({
-        success: false,
-        message: "Appointment not found",
-      });
-    }
-
-    if (appointment.customer.toString() !== req.user._id) {
-      return res.status(403).json({
-        success: false,
-        message: "Not authorized",
-      });
-    }
-
-    if (new Date(appointment.scheduledDate) > Date.now()) {
-      return res.status(400).json({
-        success: false,
-        message: "You can't delete an appointment unless it's in the past",
-      });
-    }
-
-    appointment.isDeleted = true;
-    const saved = await appointment.save();
-
-    if (!saved)
-      return res
-        .status(400)
-        .json({ success: false, message: "Failed to delete appointment" });
-
-    return res.status(200).json({ success: true, data: appointment });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+  },
+);
 
 // confirm appointment (shopOwner)
 router.patch(
   "/confirm/:id",
   [auth, shopOwner, validate(editAppointmentSchema)],
+  logIP("CONFIRM_APPOINTMENT"),
   async (req, res) => {
     try {
       const id = req.params.id;
@@ -413,76 +421,82 @@ router.patch(
 );
 
 // reject appointment (shopOwner)
-router.patch("/reject/:id", [auth, shopOwner], async (req, res) => {
-  try {
-    const id = req.params.id;
-
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid appointment ID", // Fixed message
-      });
-    }
-
-    const rejected = await AppointmentModel.findByIdAndUpdate(
-      id,
-      {
-        isRejected: true,
-        status: "rejected",
-      },
-      { runValidators: true, new: true },
-    );
-
-    if (!rejected) {
-      return res.status(404).json({
-        success: false,
-        message: "Appointment not found",
-      });
-    }
-
-    const slot = await SlotModel.findOne({ appointment: rejected._id });
-    if (slot) {
-      await deletedSlot(slot._id);
-    }
-
+router.patch(
+  "/reject/:id",
+  [auth, shopOwner],
+  logIP("REJECT_APPOINTMENT"),
+  async (req, res) => {
     try {
-      const customer = await UserModel.findById(rejected.customer._id);
-      const shop = await ShopModel.findById(rejected.shop._id);
+      const id = req.params.id;
 
-      if (
-        customer &&
-        customer.pushNotificationTokens &&
-        customer.pushNotificationTokens.length > 0
-      ) {
-        const tokens = customer.pushNotificationTokens.map(
-          (tokenObj) => tokenObj.token,
-        );
-
-        await sendPushNotification(
-          tokens,
-          `Appointment Rejected`,
-          `${shop.name} rejected your appointment at ${getTimeFromDate(rejected.scheduledDate)}, try another time!`,
-        );
-        console.log("📤 Attempting to send notification to:", tokens);
+      if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid appointment ID", // Fixed message
+        });
       }
-    } catch (notificationError) {
-      console.error("Failed to send push notification:", notificationError);
-    }
 
-    return res.status(200).json({ success: true, data: rejected });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+      const rejected = await AppointmentModel.findByIdAndUpdate(
+        id,
+        {
+          isRejected: true,
+          status: "rejected",
+        },
+        { runValidators: true, new: true },
+      );
+
+      if (!rejected) {
+        return res.status(404).json({
+          success: false,
+          message: "Appointment not found",
+        });
+      }
+
+      const slot = await SlotModel.findOne({ appointment: rejected._id });
+      if (slot) {
+        await deletedSlot(slot._id);
+      }
+
+      try {
+        const customer = await UserModel.findById(rejected.customer._id);
+        const shop = await ShopModel.findById(rejected.shop._id);
+
+        if (
+          customer &&
+          customer.pushNotificationTokens &&
+          customer.pushNotificationTokens.length > 0
+        ) {
+          const tokens = customer.pushNotificationTokens.map(
+            (tokenObj) => tokenObj.token,
+          );
+
+          await sendPushNotification(
+            tokens,
+            `Appointment Rejected`,
+            `${shop.name} rejected your appointment at ${getTimeFromDate(rejected.scheduledDate)}, try another time!`,
+          );
+          console.log("📤 Attempting to send notification to:", tokens);
+        }
+      } catch (notificationError) {
+        console.error("Failed to send push notification:", notificationError);
+      }
+
+      return res.status(200).json({ success: true, data: rejected });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // mark completed (shopOwner)
 router.patch(
   "/mark-completed/:id",
   [auth, shopOwner, validate(editAppointmentSchema)],
+  logIP("COMPLETE_APPOINTMENT"),
   async (req, res) => {
     try {
       const id = req.params.id;
@@ -551,6 +565,7 @@ router.patch(
 router.patch(
   "/no-show/:id",
   [auth, shopOwner, validate(editAppointmentSchema)],
+  logIP("NO_SHOW_APPOINTMENT"),
   async (req, res) => {
     try {
       const id = req.params.id;
@@ -616,57 +631,63 @@ router.patch(
 );
 
 // cancel (car owner if not accepted yet)
-router.patch("/cancel/:id", auth, async (req, res) => {
-  try {
-    const id = req.params.id;
 
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
+router.patch(
+  "/cancel/:id",
+  auth,
+  logIP("CANCEL_APPOINTMENT"),
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid appointment ID",
+        });
+      }
+
+      const appointment = await AppointmentModel.findById(id);
+      if (!appointment) {
+        return res.status(404).json({
+          success: false,
+          message: "Appointment not found",
+        });
+      }
+
+      if (appointment.status !== "pending") {
+        return res.status(400).json({
+          success: false,
+          message: "You can't cancel an appointment unless it's pending",
+        });
+      }
+
+      const canceled = await AppointmentModel.findByIdAndUpdate(
+        id,
+        {
+          status: "canceled",
+        },
+        { runValidators: true, new: true },
+      );
+      if (!canceled)
+        res
+          .status(400)
+          .json({ success: false, message: "Failed to confirm appointment" });
+
+      const slot = await SlotModel.findOne({ appointment: canceled._id });
+      if (slot) {
+        await deletedSlot(slot._id);
+      }
+
+      return res.status(200).json({ success: true, data: canceled });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
         success: false,
-        message: "Invalid appointment ID",
+        message: "Server Error",
       });
     }
-
-    const appointment = await AppointmentModel.findById(id);
-    if (!appointment) {
-      return res.status(404).json({
-        success: false,
-        message: "Appointment not found",
-      });
-    }
-
-    if (appointment.status !== "pending") {
-      return res.status(400).json({
-        success: false,
-        message: "You can't cancel an appointment unless it's pending",
-      });
-    }
-
-    const canceled = await AppointmentModel.findByIdAndUpdate(
-      id,
-      {
-        status: "canceled",
-      },
-      { runValidators: true, new: true },
-    );
-    if (!canceled)
-      res
-        .status(400)
-        .json({ success: false, message: "Failed to confirm appointment" });
-
-    const slot = await SlotModel.findOne({ appointment: canceled._id });
-    if (slot) {
-      await deletedSlot(slot._id);
-    }
-
-    return res.status(200).json({ success: true, data: canceled });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+  },
+);
 
 export default router;

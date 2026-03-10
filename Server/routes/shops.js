@@ -13,6 +13,7 @@ import {
   uploadToCloudinary,
 } from "../utils/cloudinary.js";
 import { sendPushNotification } from "../utils/notifications.js";
+import logIP from "../middleware/logIp.js";
 
 const router = express.Router();
 
@@ -130,6 +131,7 @@ router.post(
   "/openShop",
   upload.single("image"),
   [auth, validate(addShopSchema)],
+  logIP("OPEN_SHOP"),
   async (req, res) => {
     let uploadedImage = null;
 
@@ -210,6 +212,7 @@ router.patch(
   "/edit/:id",
   upload.single("image"),
   [auth, shopOwner, validate(editShopSchema)],
+  logIP("EDIT_SHOP"),
   async (req, res) => {
     let uploadedImage = null;
 
@@ -268,7 +271,7 @@ router.patch(
 );
 
 // delete shop
-router.patch("/delete/:id", auth, async (req, res) => {
+router.patch("/delete/:id", auth, logIP("DELETE_SHOP"), async (req, res) => {
   try {
     const id = req.params.id;
     const user = req.user;
@@ -287,7 +290,10 @@ router.patch("/delete/:id", auth, async (req, res) => {
         .status(404)
         .json({ success: false, message: "Failed to delete shop" });
 
-    if (user.role !== "admin" && user._id.toString() !== deletedShop.owner._id.toString())
+    if (
+      user.role !== "admin" &&
+      user._id.toString() !== deletedShop.owner._id.toString()
+    )
       return res.status(401).json({
         success: false,
         message: "You can't delete shop",
@@ -332,136 +338,146 @@ router.patch("/delete/:id", auth, async (req, res) => {
 });
 
 // undelete and verify shop
-router.patch("/un-delete/:id", [auth, admin], async (req, res) => {
-  try {
-    const id = req.params.id;
+router.patch(
+  "/un-delete/:id",
+  [auth, admin],
+  logIP("UN_DELETE_SHOP"),
+  async (req, res) => {
+    try {
+      const id = req.params.id;
 
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
+      if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid shop ID",
+        });
+      }
+
+      const deletedShop = await ShopModel.findByIdAndUpdate(
+        id,
+        { isDeleted: false, isVerified: true },
+        {
+          runValidators: true,
+          new: true,
+        },
+      );
+
+      if (!deletedShop)
+        return res
+          .status(404)
+          .json({ success: false, message: "Failed to un-delete shop" });
+
+      try {
+        const shopOwner = await UserModel.findById(deletedShop.owner._id);
+
+        if (
+          shopOwner &&
+          shopOwner.pushNotificationTokens &&
+          shopOwner.pushNotificationTokens.length > 0
+        ) {
+          const tokens = shopOwner.pushNotificationTokens.map(
+            (tokenObj) => tokenObj.token,
+          );
+
+          await sendPushNotification(
+            tokens,
+            `Shop Restored`,
+            `Servio team has restored your shop for after investigation!`,
+          );
+          console.log("📤 Attempting to send notification to:", tokens);
+        }
+      } catch (notificationError) {
+        console.error("Failed to send push notification:", notificationError);
+      }
+
+      return res.status(200).json({ success: true, data: deletedShop });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
         success: false,
-        message: "Invalid shop ID",
+        message: "Server Error",
       });
     }
-
-    const deletedShop = await ShopModel.findByIdAndUpdate(
-      id,
-      { isDeleted: false, isVerified: true },
-      {
-        runValidators: true,
-        new: true,
-      },
-    );
-
-    if (!deletedShop)
-      return res
-        .status(404)
-        .json({ success: false, message: "Failed to un-delete shop" });
-
-    try {
-      const shopOwner = await UserModel.findById(deletedShop.owner._id);
-
-      if (
-        shopOwner &&
-        shopOwner.pushNotificationTokens &&
-        shopOwner.pushNotificationTokens.length > 0
-      ) {
-        const tokens = shopOwner.pushNotificationTokens.map(
-          (tokenObj) => tokenObj.token,
-        );
-
-        await sendPushNotification(
-          tokens,
-          `Shop Restored`,
-          `Servio team has restored your shop for after investigation!`,
-        );
-        console.log("📤 Attempting to send notification to:", tokens);
-      }
-    } catch (notificationError) {
-      console.error("Failed to send push notification:", notificationError);
-    }
-
-    return res.status(200).json({ success: true, data: deletedShop });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+  },
+);
 
 // verify shop & make user shopOwner
-router.patch("/verify/:id", [auth, admin], async (req, res) => {
-  try {
-    const id = req.params.id;
+router.patch(
+  "/verify/:id",
+  [auth, admin],
+  logIP("VERIFY_SHOP"),
+  async (req, res) => {
+    try {
+      const id = req.params.id;
 
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
+      if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid shop ID",
+        });
+      }
+
+      const shop = await ShopModel.findById(id);
+      if (!shop)
+        return res
+          .status(404)
+          .json({ success: false, message: "Shop not found" });
+
+      await UserModel.findByIdAndUpdate(
+        shop.owner,
+        {
+          role: "shopOwner",
+        },
+        { runValidators: true, new: true },
+      );
+
+      const verifiedShop = await ShopModel.findByIdAndUpdate(
+        id,
+        { isVerified: true },
+        {
+          runValidators: true,
+          new: true,
+        },
+      );
+
+      if (!verifiedShop)
+        return res
+          .status(404)
+          .json({ success: false, message: "Failed to verify shop" });
+
+      try {
+        const shopOwner = await UserModel.findById(shop.owner._id);
+
+        if (
+          shopOwner &&
+          shopOwner.pushNotificationTokens &&
+          shopOwner.pushNotificationTokens.length > 0
+        ) {
+          const tokens = shopOwner.pushNotificationTokens.map(
+            (tokenObj) => tokenObj.token,
+          );
+
+          await sendPushNotification(
+            tokens,
+            `Shop Request Confirmed`,
+            `Servio team has reviewed and confirmed your shop opening request!`,
+          );
+          console.log("📤 Attempting to send notification to:", tokens);
+        }
+      } catch (notificationError) {
+        console.error("Failed to send push notification:", notificationError);
+      }
+
+      return res.status(200).json({ success: true, data: verifiedShop });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
         success: false,
-        message: "Invalid shop ID",
+        message: "Server Error",
       });
     }
-
-    const shop = await ShopModel.findById(id);
-    if (!shop)
-      return res
-        .status(404)
-        .json({ success: false, message: "Shop not found" });
-
-    await UserModel.findByIdAndUpdate(
-      shop.owner,
-      {
-        role: "shopOwner",
-      },
-      { runValidators: true, new: true },
-    );
-
-    const verifiedShop = await ShopModel.findByIdAndUpdate(
-      id,
-      { isVerified: true },
-      {
-        runValidators: true,
-        new: true,
-      },
-    );
-
-    if (!verifiedShop)
-      return res
-        .status(404)
-        .json({ success: false, message: "Failed to verify shop" });
-
-    try {
-      const shopOwner = await UserModel.findById(shop.owner._id);
-
-      if (
-        shopOwner &&
-        shopOwner.pushNotificationTokens &&
-        shopOwner.pushNotificationTokens.length > 0
-      ) {
-        const tokens = shopOwner.pushNotificationTokens.map(
-          (tokenObj) => tokenObj.token,
-        );
-
-        await sendPushNotification(
-          tokens,
-          `Shop Request Confirmed`,
-          `Servio team has reviewed and confirmed your shop opening request!`,
-        );
-        console.log("📤 Attempting to send notification to:", tokens);
-      }
-    } catch (notificationError) {
-      console.error("Failed to send push notification:", notificationError);
-    }
-
-    return res.status(200).json({ success: true, data: verifiedShop });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+  },
+);
 
 // rate shop
 

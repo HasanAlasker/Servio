@@ -342,12 +342,10 @@ router.post(
           .json({ success: false, message: "Invalid email or password" });
 
       if (user.isDeleted)
-        return res
-          .status(404)
-          .json({
-            success: false,
-            message: "This account has been deactivated",
-          });
+        return res.status(404).json({
+          success: false,
+          message: "This account has been deactivated",
+        });
 
       const token = await user.generateAuthToken();
 
@@ -482,40 +480,45 @@ router.patch("/delete/:id", auth, logIP("DELETE_USER"), async (req, res) => {
 });
 
 // un delete
-router.patch("/un-delete/:id", [auth, admin], async (req, res) => {
-  try {
-    const id = req.params.id;
+router.patch(
+  "/un-delete/:id",
+  [auth, admin],
+  logIP("UN_DELETE_USER"),
+  async (req, res) => {
+    try {
+      const id = req.params.id;
 
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
+      if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid user ID",
+        });
+      }
+
+      const deletedUser = await UserModel.findByIdAndUpdate(
+        id,
+        { isDeleted: false },
+        {
+          runValidators: true,
+          new: true,
+        },
+      ).select("-password");
+
+      if (!deletedUser)
+        return res
+          .status(404)
+          .json({ success: false, message: "Failed to delete" });
+
+      return res.status(200).json({ success: true, data: deletedUser });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
         success: false,
-        message: "Invalid user ID",
+        message: "Server Error",
       });
     }
-
-    const deletedUser = await UserModel.findByIdAndUpdate(
-      id,
-      { isDeleted: false },
-      {
-        runValidators: true,
-        new: true,
-      },
-    ).select("-password");
-
-    if (!deletedUser)
-      return res
-        .status(404)
-        .json({ success: false, message: "Failed to delete" });
-
-    return res.status(200).json({ success: true, data: deletedUser });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+  },
+);
 
 // Add push notification token
 router.post("/push-token", auth, async (req, res) => {

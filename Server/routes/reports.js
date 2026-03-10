@@ -5,6 +5,7 @@ import admin from "../middleware/admin.js";
 import ReportModel from "../models/report.js";
 import validate from "../middleware/joiValidation.js";
 import { createReport } from "../validation/report.js";
+import logIP from "../middleware/logIp.js";
 
 const router = express.Router();
 
@@ -25,27 +26,32 @@ router.get("/open", [auth, admin], async (req, res) => {
 });
 
 // make report
-router.post("/create", [auth, validate(createReport)], async (req, res) => {
-  try {
-    const data = req.body;
-    data.reporter = req.user._id;
+router.post(
+  "/create",
+  [auth, validate(createReport)],
+  logIP("REPORT"),
+  async (req, res) => {
+    try {
+      const data = req.body;
+      data.reporter = req.user._id;
 
-    const report = await ReportModel(data);
-    if (!report) {
-      return res.status(404).json({
+      const report = await ReportModel(data);
+      if (!report) {
+        return res.status(404).json({
+          success: false,
+          message: "Report not created",
+        });
+      }
+      return res.status(201).json({ success: true, data: report });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
         success: false,
-        message: "Report not created",
+        message: "Server Error",
       });
     }
-    return res.status(201).json({ success: true, data: report });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+  },
+);
 
 // close report
 router.patch("/close/:id", [auth, admin], async (req, res) => {

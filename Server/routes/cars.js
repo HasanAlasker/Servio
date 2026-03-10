@@ -13,6 +13,7 @@ import {
   uploadToCloudinary,
 } from "../utils/cloudinary.js";
 import { sendDueServiceNotifications } from "../services/notificationService.js";
+import logIP from "../middleware/logIp.js";
 
 const router = express.Router();
 
@@ -123,6 +124,7 @@ router.post(
   "/add",
   upload.single("image"),
   [auth, validate(addCarSchema)],
+  logIP("ADD_CAR"),
   async (req, res) => {
     let uploadedImage = null;
 
@@ -189,6 +191,7 @@ router.patch(
   "/edit/:id",
   upload.single("image"),
   [auth, validate(editCarSchema)],
+  logIP("EDIT_CAR"),
   async (req, res) => {
     let uploadedImage = null;
 
@@ -347,7 +350,7 @@ router.patch("/mileage/:id", auth, async (req, res) => {
 });
 
 // Delete car (soft delete)
-router.patch("/delete/:id", auth, async (req, res) => {
+router.patch("/delete/:id", auth, logIP("DELETE_CAR"), async (req, res) => {
   try {
     const carId = req.params.id;
     const userId = req.user._id;

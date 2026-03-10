@@ -7,6 +7,7 @@ import validate from "../middleware/joiValidation.js";
 import { earlyAccessSchema } from "../validation/earlyAccess.js";
 import UserModel from "../models/user.js";
 import { sendPushNotification } from "../utils/notifications.js";
+import logIP from "../middleware/logIp.js";
 
 const router = express.Router();
 
@@ -43,59 +44,64 @@ router.get("/sent", [auth, admin], async (req, res) => {
 });
 
 // make request
-router.post("/request", validate(earlyAccessSchema), async (req, res) => {
-  try {
-    const data = req.body;
-
-    const existingReq = await EarlyAccessModel.findOne({
-      $or: [{ phone: data.phone }, { email: data.email }],
-    });
-    if (existingReq) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Phone or email already used" });
-    }
-
-    const earlyAccessReq = new EarlyAccessModel(data);
-    await earlyAccessReq.save();
-
+router.post(
+  "/request",
+  validate(earlyAccessSchema),
+  logIP("EARLY_ACCESS"),
+  async (req, res) => {
     try {
-      const admins = await UserModel.find({ role: "admin" });
+      const data = req.body;
 
-      const tokens = [];
-      admins.forEach((admin) => {
-        if (
-          admin.pushNotificationTokens &&
-          admin.pushNotificationTokens.length > 0
-        ) {
-          admin.pushNotificationTokens.forEach((tokenObj) => {
-            tokens.push(tokenObj.token);
-          });
-        }
+      const existingReq = await EarlyAccessModel.findOne({
+        $or: [{ phone: data.phone }, { email: data.email }],
       });
-
-      if (tokens.length > 0) {
-        await sendPushNotification(
-          tokens,
-          `New Registration`,
-          `Someone registered for early access!`,
-        );
-        console.log("📤 Attempting to send notification to:", tokens);
+      if (existingReq) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Phone or email already used" });
       }
-    } catch (notificationError) {
-      console.error("Failed to send push notification:", notificationError);
+
+      const earlyAccessReq = new EarlyAccessModel(data);
+      await earlyAccessReq.save();
+
+      try {
+        const admins = await UserModel.find({ role: "admin" });
+
+        const tokens = [];
+        admins.forEach((admin) => {
+          if (
+            admin.pushNotificationTokens &&
+            admin.pushNotificationTokens.length > 0
+          ) {
+            admin.pushNotificationTokens.forEach((tokenObj) => {
+              tokens.push(tokenObj.token);
+            });
+          }
+        });
+
+        if (tokens.length > 0) {
+          await sendPushNotification(
+            tokens,
+            `New Registration`,
+            `Someone registered for early access!`,
+          );
+          console.log("📤 Attempting to send notification to:", tokens);
+        }
+      } catch (notificationError) {
+        console.error("Failed to send push notification:", notificationError);
+      }
+
+      return res.status(201).json({ success: true, data: earlyAccessReq });
+    } catch (error) {
+      console.error(error);
+
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
     }
-
-    return res.status(201).json({ success: true, data: earlyAccessReq });
-  } catch (error) {
-    console.error(error);
-
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+  },
+);
 
 // mark as sent
 router.patch("/mark-sent/:id", [auth, admin], async (req, res) => {
