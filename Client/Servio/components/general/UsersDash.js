@@ -6,6 +6,8 @@ import { UseService } from "../../context/ServiceContext";
 import HelloUser from "../../components/general/HelloUser";
 import MText from "../../components/text/MText";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
+import QuickActions from "./QuickActions";
+import SText from "../text/SText";
 
 function UsersDash(props) {
   const navigaiton = useNavigation();
@@ -43,18 +45,15 @@ function UsersDash(props) {
     <>
       <HelloUser />
 
+      <QuickActions />
+
       {!loading && ServiceList.length > 0 ? (
-        <GapContainer>
-          <MText
-            thin
-            color={
-              ServiceList[0].props.status === "soon" ? "orange" : "darkPink"
-            }
-          >
+        <GapContainer gap={20}>
+          <SText thin color={"sec_text"}>
             {ServiceList[0].props.status === "soon"
               ? "Coming Later"
               : "Attention Needed"}
-          </MText>
+          </SText>
           {ServiceList}
         </GapContainer>
       ) : !loading && ServiceList.length === 0 ? (

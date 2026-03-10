@@ -6,6 +6,7 @@ import { UseUser } from "../../context/UserContext";
 import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useNavigation } from "@react-navigation/native";
+import SText from "../text/SText";
 
 function HelloUser(props) {
   const { firstName } = UseUser();
@@ -29,15 +30,15 @@ function HelloUser(props) {
 
   return (
     <RowCont style={{ justifyContent: "space-between", marginBottom: 10 }}>
-      <MText color={"sec_text"} thin>
-        {welcomePhrase()} {"\n"}
+      <SText color={"sec_text"} thin>
+        {welcomePhrase()}, {"\n"}
         <MText color={"main_text"}>{firstName + "!"}</MText>
-      </MText>
+      </SText>
       <Pressable
         style={styles.btn}
         onPress={() => navigate.navigate("Profile")}
       >
-        <Feather color={theme.sec_text} size={32} name="user" />
+        <Feather color={theme.sec_text} size={34} name="user" />
       </Pressable>
     </RowCont>
   );
@@ -46,21 +47,7 @@ function HelloUser(props) {
 const getStyles = (theme) =>
   StyleSheet.create({
     btn: {
-      backgroundColor: theme.post,
-      borderRadius: 10,
-      padding: 6,
-
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 1,
-      },
-      shadowOpacity: 0.22,
-      shadowRadius: 2.22,
-
-      elevation: 2,
-      borderWidth: 1,
-      borderColor: theme.faded,
+      backgroundColor: theme.background,
     },
   });
 

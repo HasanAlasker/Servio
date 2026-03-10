@@ -6,6 +6,7 @@ import { UseCar } from "../../context/CarContext";
 import { UseAppointment } from "../../context/AppointmentContext";
 import { UseService } from "../../context/ServiceContext";
 import { UseUser } from "../../context/UserContext";
+import SText from "../text/SText";
 
 function QuickPeek(props) {
   const { isShopOwner } = UseUser();
@@ -13,10 +14,10 @@ function QuickPeek(props) {
   const { countAppointments } = UseAppointment();
   const { countDueServices } = UseService();
   return (
-    <GapContainer>
-      <MText thin color={"sec_text"}>
+    <GapContainer gap={20}>
+      <SText thin color={"sec_text"}>
         Quick Peek
-      </MText>
+      </SText>
 
       <CardLeftBorder title={"Cars: "} titleIcon={"car"} data={cars?.length} />
       <CardLeftBorder

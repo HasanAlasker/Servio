@@ -21,7 +21,7 @@ function Home(props) {
           <UsersDash />
           <QuickPeek />
 
-          <GapContainer>
+          {/* <GapContainer>
             <MText thin color={"sec_text"}>
               Quick Actions
             </MText>
@@ -45,8 +45,8 @@ function Home(props) {
                 icon={"folder-outline"}
                 onPress={() => navigaiton.navigate("Bookings", { active: "2" })}
               />
-            </RowCont>
-          </GapContainer>
+            </RowCont> 
+          </GapContainer>*/}
         </GapContainer>
       </ScrollScreen>
       <Navbar />
