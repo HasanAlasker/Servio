@@ -28,19 +28,9 @@ function QuickActions(props) {
   if (isShopOwner)
     return (
       <RowCont style={styles.container}>
+        <Pill icon={"tool"} text={"Service"} navigateTo={"Service"} />
         <Pill icon={"plus-circle"} text={"Car"} navigateTo={"AddCar"} />
-        <Pill
-          icon={"folder"}
-          text={"History"}
-          navigateTo={"Bookings"}
-          params={{ active: "2" }}
-        />
-        <Pill
-          icon={"shopping-bag"}
-          text={"Shops"}
-          navigateTo={"Shops"}
-          params={{ showBtn: false }}
-        />
+        <Pill icon={"plus-circle"} text={"Shop"} navigateTo={"AddShop"} />
       </RowCont>
     );
 
