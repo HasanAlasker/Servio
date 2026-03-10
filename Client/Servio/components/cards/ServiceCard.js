@@ -48,7 +48,9 @@ function ServiceCard({
           />
           <IconTextLabel
             icon={"gauge"}
-            text={dueBy.mileage.toLocaleString() + " " + capFirstLetter(car?.unit)}
+            text={
+              dueBy.mileage.toLocaleString() + " " + capFirstLetter(car?.unit)
+            }
           />
         </View>
 
@@ -63,6 +65,8 @@ function ServiceCard({
           <PriBtn
             full
             square
+            black
+            style={{ marginTop: 15 }}
             title={"Book Appointment"}
             onPress={() => navigate.navigate("Shops", sendParams)}
           />

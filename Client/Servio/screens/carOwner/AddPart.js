@@ -213,7 +213,7 @@ function AddPart(props) {
             />
             {isEdit && (
               <PriBtn
-                style={{ backgroundColor: theme.red, borderColor: theme.red }}
+                red
                 title={"Delete Part"}
                 onPress={handleDelete}
                 disabled={hasBeenSubmitted}

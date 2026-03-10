@@ -144,7 +144,7 @@ function AddCar(props) {
 
   const handleEdit = async (values) => {
     setIsSubmitting(true);
-    setValidationErr(null)
+    setValidationErr(null);
     try {
       const response = await editCar(params.id, values);
       if (response.data?.message === "Validation error") {
@@ -266,7 +266,7 @@ function AddCar(props) {
               {isEdit && (
                 <PriBtn
                   title={"Cancel"}
-                  style={styles.delete}
+                  red
                   disabled={loading || isSubmitting}
                   onPress={() => navigate.goBack()}
                 />
@@ -280,12 +280,6 @@ function AddCar(props) {
   );
 }
 
-const getStyles = (theme) =>
-  StyleSheet.create({
-    delete: {
-      backgroundColor: theme.red,
-      borderColor: theme.red,
-    },
-  });
+const getStyles = (theme) => StyleSheet.create({});
 
 export default AddCar;

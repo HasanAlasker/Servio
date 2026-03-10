@@ -10,7 +10,9 @@ function PriBtn({
   full,
   style,
   square,
-  blackText = false,
+  black = false,
+  red = false,
+  half,
 }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
@@ -23,13 +25,24 @@ function PriBtn({
         styles.container,
         disabled && styles.disabled,
         style,
-        { width: full ? "100%" : "90%", borderRadius: square ? 15 : 25 },
+        {
+          width: full ? "100%" : half ? "50%" : "90%",
+          borderRadius: square ? 15 : 25,
+        },
+        {
+          backgroundColor: black
+            ? theme.main_text
+            : red
+              ? theme.red
+              : theme.blue,
+          borderColor: black ? theme.main_text : red ? theme.red : theme.blue,
+        },
       ]}
     >
       <AppText
         style={[
           styles.text,
-          { color: blackText ? theme.white : theme.always_white },
+          { color: black ? theme.white : theme.always_white },
         ]}
       >
         {title || "Press"}

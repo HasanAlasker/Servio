@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import { deleteCar } from "../../api/car";
 import { useState } from "react";
 import { UseCar } from "../../context/CarContext";
+import RowCont from "../general/RowCont";
 
 function CarOptionsCard({ params }) {
   const { removeCar, cars } = UseCar();
@@ -49,23 +50,23 @@ function CarOptionsCard({ params }) {
           title={`${car?.mileage.toLocaleString() + " " + capFirstLetter(car?.unit)}`}
           text={"Mileage"}
         />
-        <GapContainer gap={10}>
+        <RowCont gap={10} style={{marginTop: 15}}>
           <PriBtn
             square
-            full
+            half
             title={"Edit"}
             disabled={isDeleting}
             onPress={() => navigate.navigate("AddCar", params)}
           />
           <PriBtn
             square
-            full
-            style={{ backgroundColor: theme.red, borderColor: theme.red }}
+            half
+            red
             title={!isDeleting ? "Delete" : "Deleting..."}
             disabled={isDeleting}
             onPress={handleDelete}
           />
-        </GapContainer>
+        </RowCont>
       </GapContainer>
     </CardComp>
   );

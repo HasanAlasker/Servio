@@ -36,7 +36,7 @@ function AppSummary({ params }) {
         <CardLeftBorder
           icon={"invoice-list-outline"}
           miniTitle={"Service Parts"}
-          customColor={"orange"}
+          customColor={"sec_text"}
           status={"status"}
           parts={params.parts}
         />

@@ -130,7 +130,7 @@ function AppointmentCard({
             <PriBtn
               square
               full
-              style={{ backgroundColor: theme.red, borderColor: theme.red }}
+              red
               title={"Cancel"}
               onPress={() => onCancel(id, type)}
             />
@@ -138,74 +138,52 @@ function AppointmentCard({
         )}
 
         {isUser && status === "confirmed" ? (
-          <PriBtn
-            square
-            blackText
-            full
-            style={{
-              backgroundColor: theme.main_text,
-              borderColor: theme.main_text,
-            }}
-            title={"Call Shop"}
-            onPress={handleCall}
-          />
+          <PriBtn square black full title={"Call Shop"} onPress={handleCall} />
         ) : (
           isShopOwner &&
           status === "confirmed" &&
           !isDue && (
-            <PriBtn
-              square
-              blackText
-              full
-              style={{
-                backgroundColor: theme.main_text,
-                borderColor: theme.main_text,
-              }}
-              title={"Call"}
-              onPress={handleCall}
-            />
+            <PriBtn square black full title={"Call"} onPress={handleCall} />
           )
         )}
 
         {isUser && showDelete && status !== "pending" && (
           <PriBtn
             square
-            blackText
+            red
             full
-            style={{
-              backgroundColor: theme.main_text,
-              borderColor: theme.main_text,
-            }}
             title={"Delete"}
             onPress={() => onDelete(id)}
           />
         )}
 
+        {Date.now() > new Date(scheuledAt) && (
+          <ErrorMessage full error={"Time has passed"} />
+        )}
         {isShopOwner && status === "pending" && (
-          <GapContainer gap={15}>
+          <RowCont>
             {Date.now() < new Date(scheuledAt) && (
               <PriBtn
                 square
-                full
+                half
                 title={"Accept"}
                 onPress={() => onApprove(id)}
               />
             )}
-            {Date.now() > new Date(scheuledAt) && (
-              <ErrorMessage full error={"Time has passed"} />
-            )}
+
             <PriBtn
               square
-              full
-              style={{ backgroundColor: theme.red, borderColor: theme.red }}
+              half={Date.now() < new Date(scheuledAt)}
+              full={Date.now() >= new Date(scheuledAt)}
+              red
               title={"Reject"}
               onPress={() => onReject(id)}
             />
-          </GapContainer>
+          </RowCont>
         )}
 
         {isShopOwner && status === "confirmed" && isDue && (
-          <GapContainer gap={15}>
+          <RowCont gap={15}>
             <PriBtn
               square
               full
@@ -216,11 +194,11 @@ function AppointmentCard({
             <PriBtn
               square
               full
-              style={{ backgroundColor: theme.red, borderColor: theme.red }}
+              red
               title={"No-Show"}
               onPress={() => onNoShow(id)}
             />
-          </GapContainer>
+          </RowCont>
         )}
       </GapContainer>
       <AppModal

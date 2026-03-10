@@ -131,11 +131,7 @@ function ShopCard({
               onPress={
                 isDeleted === null ? hadleVerification : () => onAction(id)
               }
-              style={
-                isVerified
-                  ? { backgroundColor: theme.red, borderColor: theme.red }
-                  : null
-              }
+              red={isVerified}
             />
           )}
         </GapContainer>

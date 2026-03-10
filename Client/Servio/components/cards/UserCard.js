@@ -21,11 +21,8 @@ function UserCard({
   const route = useRoute();
 
   return (
-    <CardComp
-      style={{marginHorizontal: "auto" }}
-      short={short}
-    >
-      <GapContainer >
+    <CardComp style={{ marginHorizontal: "auto" }} short={short}>
+      <GapContainer>
         <GapContainer gap={12}>
           <SquareInfo
             icon={"account"}
@@ -60,10 +57,8 @@ function UserCard({
             square
             full
             title={!isEdit ? "Edit Info" : "Cancel"}
-            style={{
-              backgroundColor: isEdit ? theme.red : theme.blue,
-              borderColor: isEdit ? theme.red : theme.blue,
-            }}
+            black={!isEdit}
+            red={isEdit}
             onPress={handleEditPress}
           />
         )}
@@ -74,10 +69,8 @@ function UserCard({
               square
               full
               title={isDeleted ? "Un-Delete" : "Delete User"}
-              style={{
-                backgroundColor: !isDeleted ? theme.red : theme.blue,
-                borderColor: !isDeleted ? theme.red : theme.blue,
-              }}
+              black={isDeleted}
+              red={!isDeleted}
               onPress={() => handleAction(isDeleted, passedUser._id)}
             />
           )}

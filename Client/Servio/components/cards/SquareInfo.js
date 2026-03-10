@@ -14,14 +14,14 @@ function SquareInfo({ icon, color, title, text, fliped = false, style, flex }) {
   const backColor = theme[color] + "15";
 
   return (
-    <RowCont>
+    <RowCont gap={10}>
       <View
         style={[
           styles.container,
-          { backgroundColor: backColor, borderColor: theme[color] },
+          { backgroundColor: theme.light_gray + 50, borderColor: theme["light_gray"] },
         ]}
       >
-        <MaterialCommunityIcons name={icon} color={theme[color]} size={30} />
+        <MaterialCommunityIcons name={icon} color={theme["main_text"]} size={30} />
       </View>
       <GapContainer flex={flex} gap={1}>
         {!fliped ? (

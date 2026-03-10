@@ -327,7 +327,7 @@ function AddShop(props) {
               {isEdit && (
                 <PriBtn
                   title={"Delete Shop"}
-                  style={styles.delete}
+                  red
                   disabled={hasBeenSubmitted}
                   onPress={handleDelete}
                 />
@@ -341,12 +341,6 @@ function AddShop(props) {
   );
 }
 
-const getStyles = (theme) =>
-  StyleSheet.create({
-    delete: {
-      backgroundColor: theme.red,
-      borderColor: theme.red,
-    },
-  });
+const getStyles = (theme) => StyleSheet.create({});
 
 export default AddShop;

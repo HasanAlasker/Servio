@@ -25,7 +25,7 @@ const getStyles = (theme) =>
     line: {
       width: "100%",
       backgroundColor: theme.faded_text,
-      height: 2,
+      height: 1.4,
       marginVertical: 10,
     },
     sep_cont: {
