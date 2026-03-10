@@ -20,33 +20,6 @@ function Home(props) {
         <GapContainer gap={40}>
           <UsersDash />
           <QuickPeek />
-
-          {/* <GapContainer>
-            <MText thin color={"sec_text"}>
-              Quick Actions
-            </MText>
-            <RowCont style={styles.row}>
-              <SquareHome
-                title={"Add Car"}
-                color={"lightBlue"}
-                icon={"plus-circle-outline"}
-                onPress={() => navigaiton.navigate("AddCar")}
-              />
-
-              <SquareHome
-                title={"Shops"}
-                color={"green"}
-                icon={"wrench-outline"}
-                onPress={() => navigaiton.navigate("Shops", { showBtn: false })}
-              />
-              <SquareHome
-                title={"History"}
-                color={"pink"}
-                icon={"folder-outline"}
-                onPress={() => navigaiton.navigate("Bookings", { active: "2" })}
-              />
-            </RowCont> 
-          </GapContainer>*/}
         </GapContainer>
       </ScrollScreen>
       <Navbar />

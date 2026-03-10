@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import OfflineModal from "../../components/general/OfflineModal";
 import Navbar from "../../components/general/Navbar";
@@ -10,6 +10,7 @@ import HelloUser from "../../components/general/HelloUser";
 import MText from "../../components/text/MText";
 import RowCont from "../../components/general/RowCont";
 import AdminDash from "../../components/general/AdminDash";
+import QuickActions from "../../components/general/QuickActions";
 
 function Dash(props) {
   const navigate = useNavigation();
@@ -19,34 +20,8 @@ function Dash(props) {
       <ScrollScreen>
         <GapContainer gap={40}>
           <HelloUser />
-
-          <GapContainer>
-            <MText thin color={"sec_text"}>
-              Quick Actions
-            </MText>
-            <RowCont style={styles.row}>
-              <SquareHome
-                color={"lightBlue"}
-                icon={"store-remove-outline"}
-                title={"Deleted"}
-                onPress={() => navigate.navigate("DeletedShops")}
-              />
-              <SquareHome
-                color={"green"}
-                icon={"chat-outline"}
-                title={"Received"}
-                onPress={() => navigate.navigate("SeeSuggestions")}
-              />
-
-              <SquareHome
-                color={"pink"}
-                icon={"close-circle-outline"}
-                title={"Closed"}
-                onPress={() => navigate.navigate("Reports")}
-              />
-            </RowCont>
-            <AdminDash />
-          </GapContainer>
+          <QuickActions />
+          <AdminDash />
         </GapContainer>
       </ScrollScreen>
       <Navbar />

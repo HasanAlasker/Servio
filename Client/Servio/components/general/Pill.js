@@ -30,7 +30,7 @@ const getStyles = (theme) =>
       borderRadius: 25,
       alignItems: "center",
       justifyContent: "center",
-      minWidth: "30%",
+      minWidth: "28%",
     },
   });
 

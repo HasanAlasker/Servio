@@ -6,6 +6,7 @@ import useApi from "../../hooks/useApi";
 import { adminCountDocs } from "../../api/user";
 import { useEffect } from "react";
 import MText from "../../components/text/MText";
+import SText from "../text/SText";
 
 function AdminDash(props) {
   const { user } = UseUser();
@@ -15,10 +16,10 @@ function AdminDash(props) {
     request();
   }, [user, error]);
   return (
-    <GapContainer>
-      <MText thin color={"sec_text"}>
+    <GapContainer gap={20}>
+      <SText thin color={"sec_text"}>
         Metrics
-      </MText>
+      </SText>
       <CardLeftBorder
         title={"Shop Requests:"}
         titleIcon={"store-clock-outline"}
