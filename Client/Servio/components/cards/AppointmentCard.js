@@ -122,6 +122,12 @@ function AppointmentCard({
           <GapContainer gap={1}>{partsList}</GapContainer>
         </View>
 
+        {Date.now() > new Date(scheuledAt) &&
+          isShopOwner &&
+          status === "pending" && (
+            <ErrorMessage full error={"Time has passed"} />
+          )}
+
         {isUser && status === "pending" && (
           <GapContainer gap={15}>
             {Date.now() > new Date(scheuledAt) && (
@@ -157,9 +163,6 @@ function AppointmentCard({
           />
         )}
 
-        {Date.now() > new Date(scheuledAt) && (
-          <ErrorMessage full error={"Time has passed"} />
-        )}
         {isShopOwner && status === "pending" && (
           <RowCont>
             {Date.now() < new Date(scheuledAt) && (
@@ -186,14 +189,14 @@ function AppointmentCard({
           <RowCont gap={15}>
             <PriBtn
               square
-              full
+              half
               title={"Completed"}
               onPress={() => onComplete(id)}
             />
 
             <PriBtn
               square
-              full
+              half
               red
               title={"No-Show"}
               onPress={() => onNoShow(id)}
