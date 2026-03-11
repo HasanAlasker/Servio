@@ -1,4 +1,3 @@
-import { Feather } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";

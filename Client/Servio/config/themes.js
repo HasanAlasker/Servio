@@ -27,6 +27,7 @@ export const lightTheme = {
 
 export const darkTheme = {
   blue: "#007bffff",
+  shade: "#353840",
   purple: "#AC2FFF",
   background: "#262626",
   post: "#3C3C3C",
