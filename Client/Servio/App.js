@@ -45,6 +45,7 @@ import {
 import { ShopProvider, UseShop } from "./context/ShopContext";
 import * as QuickActions from "expo-quick-actions";
 import { useQuickActionCallback } from "expo-quick-actions/hooks";
+import { ToastProvider } from "react-native-toast-notifications";
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -193,21 +194,23 @@ const AppNavigator = () => {
 export default function App() {
   return (
     <SafeAreaProvider>
-      <ThemeProvider>
-        <ServiceProvider>
-          <CarProvider>
-            <AppointmentProvider>
-              <ShopProvider>
-                <UserProvider>
-                  <NotificationProvider>
-                    <AppNavigator />
-                  </NotificationProvider>
-                </UserProvider>
-              </ShopProvider>
-            </AppointmentProvider>
-          </CarProvider>
-        </ServiceProvider>
-      </ThemeProvider>
+      <ToastProvider>
+        <ThemeProvider>
+          <ServiceProvider>
+            <CarProvider>
+              <AppointmentProvider>
+                <ShopProvider>
+                  <UserProvider>
+                    <NotificationProvider>
+                      <AppNavigator />
+                    </NotificationProvider>
+                  </UserProvider>
+                </ShopProvider>
+              </AppointmentProvider>
+            </CarProvider>
+          </ServiceProvider>
+        </ThemeProvider>
+      </ToastProvider>
     </SafeAreaProvider>
   );
 }

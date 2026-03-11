@@ -14,6 +14,8 @@ import { bookAppointment } from "../../api/appointment";
 import { checkSlot } from "../../api/slots";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import { UseAppointment } from "../../context/AppointmentContext";
+import { useToast } from "react-native-toast-notifications";
+import useAppToast from "../../hooks/useAppToast";
 
 const validationSchema = Yup.object({
   date: Yup.date()
@@ -38,6 +40,7 @@ const validationSchema = Yup.object({
 
 function MakeAppointment(props) {
   const { loadAppointments } = UseAppointment();
+  const toast = useAppToast()
 
   const [hasBeenSubmited, setHasBeenSubmited] = useState(false);
   const [err, setErr] = useState(null);
@@ -95,6 +98,7 @@ function MakeAppointment(props) {
       if (response.ok) {
         await loadAppointments();
         navigate.navigate("Bookings", { active: "1", celebrate: true });
+        toast.success("Appointment Booked!")
       } else {
         setErr("This car has another appointment in this time");
         console.log(response);

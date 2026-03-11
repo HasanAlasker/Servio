@@ -12,6 +12,7 @@ import SeparatorComp from "../../components/general/SeparatorComp";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import UserCard from "../../components/cards/UserCard";
 import ErrorMessage from "../../components/form/ErrorMessage";
+import useAppToast from "../../hooks/useAppToast";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -44,6 +45,7 @@ function Profile(props) {
   const [isEdit, setEdit] = useState(false);
   const [err, setErr] = useState(null);
   const { user, editProfile } = UseUser();
+  const toast = useAppToast();
 
   const initialValues = {
     name: user.name,
@@ -59,7 +61,10 @@ function Profile(props) {
     setHasBeenSubmited(true);
     try {
       const response = await editProfile(values);
-      if (response.success) setEdit(false);
+      if (response.success) {
+        setEdit(false);
+        toast.success("Saved!")
+      }
       if (!response.success) {
         setErr(response.message);
       }
