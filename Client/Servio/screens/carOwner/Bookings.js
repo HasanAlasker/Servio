@@ -36,6 +36,7 @@ function Bookings(props) {
     if (params) {
       if (params.active) setTab(params.active);
     }
+    loadAppointments();
   }, []);
 
   const handleCancel = async (id, type) => {
