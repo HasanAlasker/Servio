@@ -2,17 +2,14 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import RowCont from "./RowCont";
 import Pill from "./Pill";
 import { UseUser } from "../../context/UserContext";
+import HorizontalScroll from "./HorizontalScroll";
 
 function QuickActions(props) {
   const { isAdmin, isUser, isShopOwner } = UseUser();
 
   if (isAdmin)
     return (
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.cont}
-      >
+      <HorizontalScroll>
         <RowCont style={styles.container}>
           <Pill
             icon={"message-circle"}
@@ -26,45 +23,46 @@ function QuickActions(props) {
             navigateTo={"DeletedShops"}
           />
         </RowCont>
-      </ScrollView>
+      </HorizontalScroll>
     );
 
   if (isUser)
     return (
-      <RowCont style={styles.container}>
-        <Pill
-          icon={"folder"}
-          text={"History"}
-          navigateTo={"Bookings"}
-          params={{ active: "2" }}
-        />
-        <Pill icon={"plus-circle"} text={"Car"} navigateTo={"AddCar"} />
-        <Pill
-          icon={"shopping-bag"}
-          text={"Shops"}
-          navigateTo={"Shops"}
-          params={{ showBtn: false }}
-        />
-      </RowCont>
+      <HorizontalScroll>
+        <RowCont style={styles.container}>
+          <Pill
+            icon={"folder"}
+            text={"History"}
+            navigateTo={"Bookings"}
+            params={{ active: "2" }}
+          />
+          <Pill icon={"plus-circle"} text={"Car"} navigateTo={"AddCar"} />
+          <Pill
+            icon={"shopping-bag"}
+            text={"Shops"}
+            navigateTo={"Shops"}
+            params={{ showBtn: false }}
+          />
+        </RowCont>
+      </HorizontalScroll>
     );
 
   if (isShopOwner)
     return (
-      <RowCont style={styles.container}>
-        <Pill icon={"tool"} text={"Service"} navigateTo={"Service"} />
-        <Pill icon={"plus-circle"} text={"Car"} navigateTo={"AddCar"} />
-        <Pill icon={"plus-circle"} text={"Shop"} navigateTo={"AddShop"} />
-      </RowCont>
+      <HorizontalScroll>
+        <RowCont style={styles.container}>
+          <Pill icon={"tool"} text={"Service"} navigateTo={"Service"} />
+          <Pill icon={"plus-circle"} text={"Car"} navigateTo={"AddCar"} />
+          <Pill icon={"plus-circle"} text={"Shop"} navigateTo={"AddShop"} />
+        </RowCont>
+      </HorizontalScroll>
     );
 }
 
 const styles = StyleSheet.create({
-  cont: {
-    
-  },
   container: {
     justifyContent: "space-between",
-    gap:10
+    gap: 15,
   },
 });
 
