@@ -4,7 +4,7 @@ import { sendDueServiceNotifications } from "../services/notificationService.js"
 
 export function startServiceScheduler() {
     
-  // Run every day at 2 AM to recalculate all services
+  // Run every day at 5 AM to recalculate all services
   cron.schedule("0 2 * * *", async () => {
     console.log("Running daily service calculation...");
     try {
@@ -15,8 +15,8 @@ export function startServiceScheduler() {
     }
   });
 
-  // Run every day at 9 AM to send notifications
-  cron.schedule("0 9 * * *", async () => {
+  // Run every day at 9 AM to send notifications (account for gmt)
+  cron.schedule("0 6 * * *", async () => {
     console.log("Checking for services needing notifications...");
     try {
       await sendDueServiceNotifications();
