@@ -40,7 +40,7 @@ const validationSchema = Yup.object({
 
 function MakeAppointment(props) {
   const { loadAppointments } = UseAppointment();
-  const toast = useAppToast()
+  const toast = useAppToast();
 
   const [hasBeenSubmited, setHasBeenSubmited] = useState(false);
   const [err, setErr] = useState(null);
@@ -98,7 +98,7 @@ function MakeAppointment(props) {
       if (response.ok) {
         await loadAppointments();
         navigate.navigate("Bookings", { active: "1", celebrate: true });
-        toast.success("Booked!")
+        toast.success("Booked!");
       } else {
         setErr("This car has another appointment in this time");
         console.log(response);
@@ -123,6 +123,7 @@ function MakeAppointment(props) {
                 <AppSummary params={params} />
 
                 <FormikDatePicker
+                  full
                   name={"date"}
                   icon="calendar-outline"
                   hasBeenSubmitted={hasBeenSubmited}
@@ -130,6 +131,7 @@ function MakeAppointment(props) {
 
                 {values.date && (
                   <FormikDatePicker
+                    full
                     name={"time"}
                     mode="time"
                     placeholder="Select time"
@@ -139,6 +141,7 @@ function MakeAppointment(props) {
                 )}
 
                 <SubmitBtn
+                  square
                   defaultText="Confirm"
                   submittingText="Confirming..."
                   setHasBeenSubmitted={setHasBeenSubmited}

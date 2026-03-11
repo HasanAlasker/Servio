@@ -138,7 +138,7 @@ function AddImageBtn({
             <View style={styles.placeholderContainer}>
               <MaterialCommunityIcons
                 name={isLoading ? "loading" : "image-plus"}
-                color={theme.blue}
+                color={theme.da}
                 size={80}
               />
               <AppText style={styles.text}>
@@ -167,7 +167,7 @@ const getStyles = (theme) =>
     touchableArea: {
       flex: 1,
       backgroundColor: theme.post,
-      borderRadius: 20,
+      borderRadius: 15,
       borderWidth: 1,
       borderColor: theme.faded,
       overflow: "hidden",
@@ -181,7 +181,7 @@ const getStyles = (theme) =>
     text: {
       fontSize: 24,
       fontWeight: "bold",
-      color: theme.blue,
+      color: theme.darker_gray,
       marginTop: 10,
       textAlign: "center",
     },

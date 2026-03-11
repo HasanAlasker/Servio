@@ -257,6 +257,7 @@ function AddCar(props) {
               {validationErr && <ErrorMessage error={validationErr} />}
 
               <SubmitBtn
+                square
                 defaultText={!isEdit ? "Add Car" : "Edit Car"}
                 submittingText={!isEdit ? "Adding Car..." : "Editing Car..."}
                 disabled={loading}
@@ -267,6 +268,7 @@ function AddCar(props) {
                 <PriBtn
                   title={"Cancel"}
                   red
+                  square
                   disabled={loading || isSubmitting}
                   onPress={() => navigate.goBack()}
                 />

@@ -15,6 +15,9 @@ import BackContainer from "./BackContainer";
 import MenuBackBtn from "./MenuBackBtn";
 import SeparatorComp from "./SeparatorComp";
 import MenuOption from "./MenuOption";
+import InputCont from "./InputCont";
+import TText from "../text/TText";
+import SText from "../text/SText";
 
 function DropBox({
   placeholder,
@@ -23,6 +26,7 @@ function DropBox({
   onSelectItem,
   selectedValue,
   disabled,
+  lable = placeholder,
   icon,
 }) {
   const styles = useThemedStyles(getStyles);
@@ -57,7 +61,10 @@ function DropBox({
 
   return (
     <>
-      <View>
+      <InputCont style={styles.whole}>
+        <TText thin color={"darker_gray"}>
+          {lable}
+        </TText>
         <Pressable
           onPress={handlePress}
           style={[styles.container, disabled && styles.disabled]}
@@ -69,7 +76,7 @@ function DropBox({
               <MaterialCommunityIcons
                 name={icon}
                 size={24}
-                color={theme.blue}
+                color={theme.main_text}
               />
             )}
             <AppText
@@ -82,9 +89,9 @@ function DropBox({
               {displayText}
             </AppText>
           </View>
-          <Feather name="chevron-down" size={26} color={theme.blue} />
+          <Feather name="chevron-down" size={26} color={theme.main_text} />
         </Pressable>
-      </View>
+      </InputCont>
 
       <Modal visible={modal && !disabled} animationType="slide" transparent>
         <View style={styles.modalContent}>
@@ -118,20 +125,19 @@ const getStyles = (theme) =>
     },
     container: {
       flexDirection: "row",
-      borderRadius: 25,
+      borderRadius: 15,
       borderColor: theme.faded,
       borderWidth: 1,
       justifyContent: "space-between",
       backgroundColor: theme.post,
-      paddingVertical: 8,
+      paddingVertical: 10,
       paddingHorizontal: 15,
-      width: "90%",
+      width: "100%",
       marginHorizontal: "auto",
       overflow: "hidden",
     },
     text: {
-      color: theme.blue,
-      fontWeight: "bold",
+      color: theme.darker_gray,
       fontSize: 16,
       textAlignVertical: "center",
     },

@@ -96,6 +96,7 @@ function Login(props) {
               />
 
               <SubmitBtn
+                square
                 disabled={isButtonDisabled}
                 defaultText={
                   connecting
@@ -124,6 +125,7 @@ function Login(props) {
               <SeparatorComp children={"Or"} />
 
               <SecBtn
+                square
                 title={"Create Account?"}
                 onPress={() => navigation.navigate("Register")}
               />

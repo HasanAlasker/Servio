@@ -172,6 +172,7 @@ function AddPart(props) {
             />
 
             <FormikDatePicker
+              full
               name={"lastChangeDate"}
               placeholder="Last change date"
               hasBeenSubmitted={hasBeenSubmitted}
@@ -210,6 +211,7 @@ function AddPart(props) {
             {errMsg && <ErrorMessage error={errMsg} />}
 
             <SubmitBtn
+              square
               defaultText={!isEdit ? "Add Part" : "Edit Part"}
               submittingText={!isEdit ? "Adding Part..." : "Editing Part..."}
               setHasBeenSubmitted={setHasBeenSubmited}
@@ -217,6 +219,7 @@ function AddPart(props) {
             {isEdit && (
               <PriBtn
                 red
+                square
                 title={"Delete Part"}
                 onPress={handleDelete}
                 disabled={hasBeenSubmitted}

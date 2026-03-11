@@ -6,10 +6,13 @@ import { useFormikContext } from "formik";
 import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import ErrorMessage from "./ErrorMessage";
+import InputCont from "../general/InputCont";
+import TText from "../text/TText";
 
 function FormikDatePicker({
   name,
   placeholder = "Select date",
+  lable=placeholder,
   icon = "calendar-outline",
   mode = "date",
   minimumDate,
@@ -105,14 +108,21 @@ function FormikDatePicker({
   };
 
   return (
-    <View>
+    <InputCont>
+      <TText thin color={"darker_gray"}>
+        {lable}
+      </TText>
       <Pressable
         style={[styles.container, { width: full ? "100%" : "90%" }]}
         onPress={handlePress}
         activeOpacity={0.7}
       >
         {icon && (
-          <MaterialCommunityIcons name={icon} size={24} color={theme.blue} />
+          <MaterialCommunityIcons
+            name={icon}
+            size={24}
+            color={theme.main_text}
+          />
         )}
         <Text style={[styles.text, !selectedDate && styles.placeholder]}>
           {formatDate(selectedDate)}
@@ -131,7 +141,7 @@ function FormikDatePicker({
           display={Platform.OS === "ios" ? "spinner" : "default"}
         />
       )}
-    </View>
+    </InputCont>
   );
 }
 
@@ -139,7 +149,7 @@ const getStyles = (theme) =>
   StyleSheet.create({
     container: {
       flexDirection: "row",
-      borderRadius: 25,
+      borderRadius: 15,
       borderColor: theme.faded,
       borderWidth: 1,
       backgroundColor: theme.post,
@@ -149,9 +159,10 @@ const getStyles = (theme) =>
       minHeight: 40,
       alignItems: "center",
       marginHorizontal: "auto",
+      width:'100%'
     },
     text: {
-      color: theme.blue,
+      color: theme.darker_gray,
       fontWeight: "bold",
       fontSize: 16,
       flex: 1,

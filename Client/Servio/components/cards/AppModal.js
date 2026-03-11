@@ -69,6 +69,7 @@ function AppModal({ from, isVisible, onClose, id, onApproval }) {
             />
           </View>
           <FormikDatePicker
+            full
             name={"to"}
             icon="clock-outline"
             placeholder="Select finish time"
@@ -77,6 +78,7 @@ function AppModal({ from, isVisible, onClose, id, onApproval }) {
           />
           <GapContainer gap={15}>
             <SubmitBtn
+              square
               defaultText="Confirm"
               submittingText="Confirming..."
               setHasBeenSubmitted={setHasBeenSubmited}

@@ -122,7 +122,6 @@ function Register(props) {
     try {
       const response = await register(values);
       if (!response.success) {
-        
         setRegErr(response.message || "Registration Failed");
       }
     } catch (error) {
@@ -184,6 +183,7 @@ function Register(props) {
               />
 
               <SubmitBtn
+                square
                 disabled={isButtonDisabled}
                 defaultText={
                   connecting
@@ -205,6 +205,7 @@ function Register(props) {
               <SeparatorComp children={"Or"} />
 
               <SecBtn
+                square
                 title={"Have an Account?"}
                 onPress={() => navigation.navigate("Login")}
               />

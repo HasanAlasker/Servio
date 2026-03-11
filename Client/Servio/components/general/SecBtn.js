@@ -3,11 +3,14 @@ import AppText from "../../config/AppText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "@react-navigation/native";
 
-function SecBtn({ title, onPress }) {
+function SecBtn({ title, onPress, square }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
   return (
-    <Pressable onPress={onPress} style={styles.container}>
+    <Pressable
+      onPress={onPress}
+      style={[styles.container, { borderRadius: square ? 15 : 25 }]}
+    >
       <AppText style={styles.text}>{title || "Press"}</AppText>
     </Pressable>
   );

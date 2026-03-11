@@ -128,8 +128,7 @@ const getStyles = (theme) =>
     title: {
       fontSize: 18,
       fontWeight: "700",
-      color: theme.blue,
-      paddingLeft: 5,
+      color: theme.main_text,
     },
     dayRow: {
       gap: 10,
@@ -141,7 +140,6 @@ const getStyles = (theme) =>
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
-      paddingHorizontal: 5,
     },
     dayName: {
       fontSize: 16,
@@ -158,13 +156,11 @@ const getStyles = (theme) =>
     },
     label: {
       fontSize: 12,
-      paddingLeft: 15,
       opacity: 0.7,
       color: theme.main_text,
     },
     copyButton: {
       paddingVertical: 8,
-      paddingHorizontal: 15,
       backgroundColor: theme.backgroundColor,
       borderRadius: 15,
     },

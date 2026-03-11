@@ -3,6 +3,8 @@ import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
+import TText from "../text/TText";
+import InputCont from "./InputCont";
 
 function InputBox({
   placeholder,
@@ -11,6 +13,7 @@ function InputBox({
   value,
   isPassword,
   isBox,
+  lable = placeholder,
   ...rest
 }) {
   const styles = useThemedStyles(getStyles);
@@ -22,43 +25,48 @@ function InputBox({
   };
 
   return (
-    <View style={styles.container}>
-      {penOn && <Feather name="edit-3" size={24} color={theme.blue} />}
-      {icon && (
-        <MaterialCommunityIcons
-          name={icon}
-          size={24}
-          color={theme.blue}
-          style={isBox && styles.padding}
-        />
-      )}
-      <TextInput
-        style={[
-          styles.text,
-          isBox && {
-            textAlignVertical: "top",
-            paddingTop: 6,
-            flexWrap: "wrap",
-          },
-          !value && styles.placeholder,
-        ]}
-        multiline={isBox}
-        placeholder={placeholder}
-        placeholderTextColor={theme.blue}
-        value={value}
-        secureTextEntry={isHidden}
-        {...rest}
-      />
-      {isPassword && (
-        <Pressable onPress={handleHidden}>
-          <Feather
-            name={isHidden ? "eye" : "eye-off"}
+    <InputCont style={styles.whole}>
+      <TText thin color={"darker_gray"}>
+        {lable}
+      </TText>
+      <View style={styles.container}>
+        {penOn && <Feather name="edit-3" size={24} color={theme.main_text} />}
+        {icon && (
+          <MaterialCommunityIcons
+            name={icon}
             size={24}
-            color={theme.blue}
+            color={theme.main_text}
+            style={isBox && styles.padding}
           />
-        </Pressable>
-      )}
-    </View>
+        )}
+        <TextInput
+          style={[
+            styles.text,
+            isBox && {
+              textAlignVertical: "top",
+              paddingTop: 6,
+              flexWrap: "wrap",
+            },
+            !value && styles.placeholder,
+          ]}
+          multiline={isBox}
+          placeholder={placeholder}
+          placeholderTextColor={theme.darker_gray}
+          value={value}
+          secureTextEntry={isHidden}
+          {...rest}
+        />
+        {isPassword && (
+          <Pressable onPress={handleHidden}>
+            <Feather
+              name={isHidden ? "eye" : "eye-off"}
+              size={24}
+              color={theme.main_text}
+            />
+          </Pressable>
+        )}
+      </View>
+    </InputCont>
   );
 }
 
@@ -66,21 +74,20 @@ const getStyles = (theme) =>
   StyleSheet.create({
     container: {
       flexDirection: "row",
-      borderRadius: 25,
+      borderRadius: 15,
       borderColor: theme.faded,
       borderWidth: 1,
       backgroundColor: theme.post,
-      paddingVertical: 8,
+      paddingVertical: 10,
       paddingHorizontal: 15,
-      width: "90%",
+      width: "100%",
       marginHorizontal: "auto",
       // marginTop: 20,
       gap: 10,
       minHeight: 40,
     },
     text: {
-      color: theme.blue,
-      fontWeight: "bold",
+      color: theme.darker_gray,
       fontSize: 16,
       flex: 1,
       padding: 0,
