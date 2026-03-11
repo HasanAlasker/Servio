@@ -16,7 +16,7 @@ function ShopOwner({ onMenu, isMenu }) {
       >
         <Feather
           name="home"
-          size={30}
+          size={26}
           style={[styles.icon, route.name === "ShopDash" && styles.active]}
         />
         <Text style={[styles.text, route.name === "ShopDash" && styles.active]}>
@@ -30,14 +30,14 @@ function ShopOwner({ onMenu, isMenu }) {
       >
         <Ionicons
           name="storefront-outline"
-          size={35}
+          size={30}
           style={[styles.icon, route.name === "MyShop" && styles.active]}
         />
         <Text
           style={[
             styles.text,
             route.name === "MyShop" && styles.active,
-            { bottom: 3 },
+            { bottom: 2 },
           ]}
         >
           Shops
@@ -50,7 +50,7 @@ function ShopOwner({ onMenu, isMenu }) {
       >
         <Feather
           name="calendar"
-          size={30}
+          size={26}
           style={[
             styles.icon,
             (route.name === "ShopBook" || route.name === "ShopAppointments") &&
@@ -74,7 +74,7 @@ function ShopOwner({ onMenu, isMenu }) {
       >
         <Ionicons
           name="car-outline"
-          size={38}
+          size={35}
           style={[styles.icon, route.name === "MyCars" && styles.active]}
         />
         <Text
@@ -90,8 +90,8 @@ function ShopOwner({ onMenu, isMenu }) {
 
       <Pressable style={styles.navbarBtn} onPress={onMenu}>
         <Feather
-          name="settings"
-          size={30}
+          name="more-horizontal"
+          size={26}
           style={[styles.icon, isMenu && styles.active]}
         />
         <Text style={[styles.text, isMenu && styles.active]}>More</Text>

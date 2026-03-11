@@ -21,13 +21,13 @@ function UserNav({ onMenu, isMenu }) {
       >
         <Feather
           name="home"
-          size={30}
+          size={26}
           style={[styles.icon, route.name === "Home" && styles.active]}
         />
         <Text style={[styles.text, route.name === "Home" && styles.active]}>
           Home
         </Text>
-        {/* {route.name === "Home" && <View style={styles.shade}></View>} */}
+        {route.name === "Home" && <View style={styles.shade}></View>}
       </Pressable>
 
       <Pressable
@@ -36,7 +36,7 @@ function UserNav({ onMenu, isMenu }) {
       >
         <Ionicons
           name="car-outline"
-          size={38}
+          size={35}
           style={[styles.icon, route.name === "MyCars" && styles.active]}
         />
         <Text
@@ -48,7 +48,7 @@ function UserNav({ onMenu, isMenu }) {
         >
           Garage
         </Text>
-        {/* {route.name === "MyCars" && <View style={styles.shade}></View>} */}
+        {route.name === "MyCars" && <View style={styles.shade}></View>}
       </Pressable>
 
       <Pressable
@@ -60,7 +60,7 @@ function UserNav({ onMenu, isMenu }) {
       >
         <Feather
           name="calendar"
-          size={30}
+          size={26}
           style={[styles.icon, route.name === "Bookings" && styles.active]}
         />
         <Text style={[styles.text, route.name === "Bookings" && styles.active]}>
@@ -69,7 +69,7 @@ function UserNav({ onMenu, isMenu }) {
         {isConfirmedAppointments() && route.name !== "Bookings" && (
           <MiniRedCircle />
         )}
-        {/* {route.name === "Bookings" && <View style={styles.shade}></View>} */}
+        {route.name === "Bookings" && <View style={styles.shade}></View>}
       </Pressable>
 
       <Pressable
@@ -78,7 +78,7 @@ function UserNav({ onMenu, isMenu }) {
       >
         <Feather
           name="clock"
-          size={30}
+          size={26}
           style={[styles.icon, route.name === "Service" && styles.active]}
         />
         <Text style={[styles.text, route.name === "Service" && styles.active]}>
@@ -87,17 +87,17 @@ function UserNav({ onMenu, isMenu }) {
         {countDueServices() > 0 && route.name !== "Service" && (
           <MiniRedCircle />
         )}
-        {/* {route.name === "Service" && <View style={styles.shade}></View>} */}
+        {route.name === "Service" && <View style={styles.shade}></View>}
       </Pressable>
 
       <Pressable style={styles.navbarBtn} onPress={onMenu}>
         <Feather
-          name="settings"
-          size={30}
+          name="more-horizontal"
+          size={26}
           style={[styles.icon, isMenu && styles.active]}
         />
         <Text style={[styles.text, isMenu && styles.active]}>More</Text>
-        {/* {route.name === "settings" && <View style={styles.shade}></View>} */}
+        {route.name === "settings" && <View style={styles.shade}></View>}
       </Pressable>
     </View>
   );
@@ -138,17 +138,17 @@ const getStyles = (theme) =>
     active: {
       color: theme.blue,
     },
-    // shade: {
-    //   backgroundColor: theme.post,
-    //   opacity: 1,
-    //   width: 55,
-    //   height: 50,
-    //   borderRadius: 50,
-    //   position: "absolute",
-    //   alignSelf: "center",
-    //   top: 0,
-    //   zIndex: 0,
-    // },
+    shade: {
+      backgroundColor: theme.shade,
+      opacity: 1,
+      width: 44,
+      height: 30,
+      borderRadius: 10,
+      position: "absolute",
+      alignSelf: "center",
+      top: 0,
+      zIndex: 0,
+    },
   });
 
 export default UserNav;

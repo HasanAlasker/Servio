@@ -16,7 +16,7 @@ function Admin({onMenu, isMenu}) {
       >
         <Feather
           name="home"
-          size={30}
+          size={26}
           style={[styles.icon, route.name === "Dash" && styles.active]}
         />
         <Text style={[styles.text, route.name === "Dash" && styles.active]}>
@@ -30,7 +30,7 @@ function Admin({onMenu, isMenu}) {
       >
         <Ionicons
           name="storefront-outline"
-          size={35}
+          size={30}
           style={[styles.icon, route.name === "AdminShops" && styles.active]}
         />
         <Text
@@ -50,7 +50,7 @@ function Admin({onMenu, isMenu}) {
       >
         <MaterialCommunityIcons
           name="bullhorn-variant-outline"
-          size={30}
+          size={26}
           style={[styles.icon, route.name === "Reports" && styles.active]}
         />
         <Text style={[styles.text, route.name === "Reports" && styles.active]}>
@@ -64,7 +64,7 @@ function Admin({onMenu, isMenu}) {
       >
         <Feather
           name="users"
-          size={30}
+          size={26}
           style={[styles.icon, route.name === "Users" && styles.active]}
         />
         <Text style={[styles.text, route.name === "Users" && styles.active]}>
@@ -77,8 +77,8 @@ function Admin({onMenu, isMenu}) {
         onPress={onMenu}
       >
         <Feather
-          name="settings"
-          size={30}
+          name="more-horizontal"
+          size={26}
           style={[styles.icon, isMenu && styles.active]}
         />
         <Text style={[styles.text, isMenu && styles.active]}>More</Text>

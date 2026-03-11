@@ -21,8 +21,8 @@ const getStyles = (theme) =>
       borderColor: theme.post,
       borderWidth: 2.5,
       position: "absolute",
-      bottom: 35,
-      left: 30,
+      bottom: 32,
+      left: 29,
       zIndex:10
     },
   });
