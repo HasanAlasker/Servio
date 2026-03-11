@@ -63,13 +63,13 @@ function Profile(props) {
       const response = await editProfile(values);
       if (response.success) {
         setEdit(false);
-        toast.success("Saved!")
       }
       if (!response.success) {
         setErr(response.message);
       }
     } catch (error) {
       console.log(error);
+      toast.error("Failed!");
     }
   };
 

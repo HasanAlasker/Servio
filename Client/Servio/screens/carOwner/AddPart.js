@@ -16,6 +16,7 @@ import PriBtn from "../../components/general/PriBtn";
 import { useTheme } from "../../context/ThemeContext";
 import FormikDatePicker from "../../components/form/FormikDatePicker";
 import { UseService } from "../../context/ServiceContext";
+import useAppToast from "../../hooks/useAppToast";
 
 const validationSchema = Yup.object({
   name: Yup.string().trim().lowercase().required("Part name is required"),
@@ -71,6 +72,7 @@ function AddPart(props) {
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
   const [errMsg, setErrMsg] = useState(null);
   const [isEdit, setEdit] = useState(false);
+  const toast = useAppToast();
 
   const navigate = useNavigation();
   const route = useRoute();
@@ -132,6 +134,7 @@ function AddPart(props) {
       if (response.ok) {
         await loadServices();
         navigate.navigate("CarParts", params?.parentParams);
+        toast.success("Part Updated!");
       }
       if (!response.ok) {
         setErrMsg(response.data.errors[0].message);

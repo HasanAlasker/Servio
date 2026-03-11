@@ -98,7 +98,7 @@ function MakeAppointment(props) {
       if (response.ok) {
         await loadAppointments();
         navigate.navigate("Bookings", { active: "1", celebrate: true });
-        toast.success("Appointment Booked!")
+        toast.success("Booked!")
       } else {
         setErr("This car has another appointment in this time");
         console.log(response);
