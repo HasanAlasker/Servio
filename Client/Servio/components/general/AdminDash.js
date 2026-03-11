@@ -16,7 +16,7 @@ function AdminDash(props) {
     request();
   }, [user, error]);
   return (
-    <GapContainer gap={20}>
+    <GapContainer>
       <SText thin color={"sec_text"}>
         Metrics
       </SText>

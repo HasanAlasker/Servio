@@ -18,7 +18,7 @@ function SquareInfo({ icon, color, title, text, fliped = false, style, flex }) {
       <View
         style={[
           styles.container,
-          { backgroundColor: theme.light_gray + 50, borderColor: theme["light_gray"] },
+          { backgroundColor: theme.light_gray + 50, borderColor: theme["faded"] },
         ]}
       >
         <MaterialCommunityIcons name={icon} color={theme["main_text"]} size={30} />

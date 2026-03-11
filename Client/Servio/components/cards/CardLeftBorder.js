@@ -3,10 +3,11 @@ import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import MText from "../text/MText";
 import RowCont from "../general/RowCont";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import SText from "../text/SText";
 import GapContainer from "../general/GapContainer";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
+import { UseUser } from "../../context/UserContext";
 
 function CardLeftBorder({
   icon,
@@ -20,9 +21,11 @@ function CardLeftBorder({
   parts,
   onPress,
   showBtn,
+  style,
 }) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getstyles);
+  const { isAdmin } = UseUser();
 
   let color = "";
   let text = "";
@@ -54,8 +57,8 @@ function CardLeftBorder({
 
     backColor = theme[color] + 20;
   } else {
-    color = "blue";
-    backColor = theme.post;
+    color = "main_text";
+    backColor = theme.light_gray;
   }
 
   const RenderParts = parts?.map((part) => (
@@ -73,9 +76,10 @@ function CardLeftBorder({
         {
           backgroundColor: backColor,
           borderColor: theme[color],
-          paddingVertical: status ? 15 : 25,
-          paddingHorizontal: status ? 14 : 22,
+          paddingVertical: status ? 20 : 25,
+          paddingHorizontal: status ? 18 : 22,
         },
+        style,
       ]}
     >
       {status && (
@@ -99,22 +103,27 @@ function CardLeftBorder({
           {!customText ? (
             <View>{RenderParts}</View>
           ) : (
-            <SText style={{marginTop: 5}}>{customText}</SText>
+            <SText thin style={{ marginTop: 5, }}>{customText}</SText>
           )}
         </GapContainer>
       )}
       {title != null && (
         <RowCont gap={10}>
-          <MaterialCommunityIcons
-            name={titleIcon}
-            size={28}
-            color={theme[color]}
-          />
-          <MText color={color}>{title}</MText>
+          {isAdmin ? (
+            <MaterialCommunityIcons
+              name={titleIcon}
+              size={26}
+              color={theme[color]}
+            />
+          ) : (
+            <Feather name={titleIcon} size={24} color={theme[color]} />
+          )}
+
+          <SText thin color={color}>{title}</SText>
         </RowCont>
       )}
 
-      {data != null && <MText color={color}>{data.toString()}</MText>}
+      {data != null && <SText color={color}>{data.toString()}</SText>}
 
       {showBtn && (
         <MaterialCommunityIcons
@@ -137,7 +146,6 @@ const getstyles = (theme) =>
       paddingHorizontal: 22,
       paddingVertical: 25,
       borderRadius: 15,
-      borderWidth: .5,
     },
     v: {
       alignSelf: "flex-end",

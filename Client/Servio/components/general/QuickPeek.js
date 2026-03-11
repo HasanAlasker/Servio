@@ -19,25 +19,42 @@ function QuickPeek(props) {
         Quick Peek
       </SText>
 
-      <CardLeftBorder title={"Cars: "} titleIcon={"car"} data={cars?.length} />
-      <CardLeftBorder
-        title={"Due: "}
-        titleIcon={"clock-outline"}
-        data={countDueServices()}
-      />
-      {!isShopOwner && (
+      <View style={styles.grid}>
         <CardLeftBorder
-          title={"Bookings: "}
-          titleIcon={"calendar-blank"}
-          data={countAppointments()}
+          title={"Cars: "}
+          titleIcon={"archive"}
+          data={cars?.length}
+          style={styles.container}
         />
-      )}
+        <CardLeftBorder
+          title={"Due: "}
+          titleIcon={"alert-circle"}
+          data={countDueServices()}
+          style={styles.container}
+        />
+        {!isShopOwner && (
+          <CardLeftBorder
+            title={"Bookings: "}
+            titleIcon={"book-open"}
+            data={countAppointments()}
+            style={styles.container}
+          />
+        )}
+      </View>
     </GapContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  grid: {
+    flexDirection: "row",
+    width: "100%",
+    flexWrap: "wrap",
+    gap: 20,
+  },
+  container: {
+    flexGrow:1
+  },
 });
 
 export default QuickPeek;

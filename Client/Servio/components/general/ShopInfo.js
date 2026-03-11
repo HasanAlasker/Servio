@@ -14,10 +14,7 @@ function ShopInfo(props) {
 
   const { data, request: fetchDocs, loading } = useApi(countDocs);
 
-  const {
-    data: shopData,
-    request: fetchShop,
-  } = useApi(shopCountDocs);
+  const { data: shopData, request: fetchShop } = useApi(shopCountDocs);
 
   useEffect(() => {
     fetchDocs();
@@ -29,29 +26,42 @@ function ShopInfo(props) {
         Shop Info
       </MText>
 
-      <CardLeftBorder
-        title={"Active Shops: "}
-        titleIcon={"storefront-check-outline"}
-        data={countShops()}
-      />
-      {shopData.newShops > 0 && (
+      <View style={styles.grid}>
         <CardLeftBorder
-          title={"Unverified: "}
-          titleIcon={"store-remove-outline"}
-          data={loading ? "0" : shopData.newShops}
+          title={"Active Shops: "}
+          titleIcon={"zap"}
+          data={countShops()}
+          style={styles.container}
         />
-      )}
-      <CardLeftBorder
-        title={"New Books: "}
-        titleIcon={"calendar-outline"}
-        data={loading ? "0" : shopData.requests}
-      />
+        {shopData.newShops > 0 && (
+          <CardLeftBorder
+            title={"Unverified: "}
+            titleIcon={"store-remove-outline"}
+            data={loading ? "0" : shopData.newShops}
+            style={styles.container}
+          />
+        )}
+        <CardLeftBorder
+          title={"New Books: "}
+          titleIcon={"book-open"}
+          data={loading ? "0" : shopData.requests}
+          style={styles.container}
+        />
+      </View>
     </GapContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  grid: {
+    flexDirection: "row",
+    width: "100%",
+    flexWrap: "wrap",
+    gap: 20,
+  },
+  container: {
+    flexGrow: 1,
+  },
 });
 
 export default ShopInfo;
