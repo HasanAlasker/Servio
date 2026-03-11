@@ -2,11 +2,12 @@ import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
+import Shade from "./Shade";
 
-function Admin({onMenu, isMenu}) {
+function Admin({ onMenu, isMenu }) {
   const navigation = useNavigation();
   const route = useRoute();
-  const styles = useThemedStyles(getStyles)
+  const styles = useThemedStyles(getStyles);
 
   return (
     <View style={styles.navbar}>
@@ -22,6 +23,8 @@ function Admin({onMenu, isMenu}) {
         <Text style={[styles.text, route.name === "Dash" && styles.active]}>
           Home
         </Text>
+
+        {route.name === "Dash" && <Shade />}
       </Pressable>
 
       <Pressable
@@ -42,6 +45,7 @@ function Admin({onMenu, isMenu}) {
         >
           Shops
         </Text>
+        {route.name === "AdminShops" && <Shade />}
       </Pressable>
 
       <Pressable
@@ -56,6 +60,7 @@ function Admin({onMenu, isMenu}) {
         <Text style={[styles.text, route.name === "Reports" && styles.active]}>
           Reports
         </Text>
+        {route.name === "Reports" && <Shade />}
       </Pressable>
 
       <Pressable
@@ -70,12 +75,10 @@ function Admin({onMenu, isMenu}) {
         <Text style={[styles.text, route.name === "Users" && styles.active]}>
           Users
         </Text>
+        {route.name === "Users" && <Shade />}
       </Pressable>
 
-      <Pressable
-        style={styles.navbarBtn}
-        onPress={onMenu}
-      >
+      <Pressable style={styles.navbarBtn} onPress={onMenu}>
         <Feather
           name="more-horizontal"
           size={26}
@@ -122,7 +125,6 @@ const getStyles = (theme) =>
     active: {
       color: theme.blue,
     },
-
   });
 
 export default Admin;

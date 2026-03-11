@@ -5,6 +5,7 @@ import useThemedStyles from "../../hooks/useThemedStyles";
 import { UseService } from "../../context/ServiceContext";
 import MiniRedCircle from "../general/MiniRedCircle";
 import { UseAppointment } from "../../context/AppointmentContext";
+import Shade from "./Shade";
 
 function UserNav({ onMenu, isMenu }) {
   const { countDueServices } = UseService();
@@ -27,7 +28,7 @@ function UserNav({ onMenu, isMenu }) {
         <Text style={[styles.text, route.name === "Home" && styles.active]}>
           Home
         </Text>
-        {route.name === "Home" && <View style={styles.shade}></View>}
+        {route.name === "Home" && <Shade />}
       </Pressable>
 
       <Pressable
@@ -48,7 +49,7 @@ function UserNav({ onMenu, isMenu }) {
         >
           Garage
         </Text>
-        {route.name === "MyCars" && <View style={styles.shade}></View>}
+        {route.name === "MyCars" && <Shade />}
       </Pressable>
 
       <Pressable
@@ -69,7 +70,7 @@ function UserNav({ onMenu, isMenu }) {
         {isConfirmedAppointments() && route.name !== "Bookings" && (
           <MiniRedCircle />
         )}
-        {route.name === "Bookings" && <View style={styles.shade}></View>}
+        {route.name === "Bookings" && <Shade />}
       </Pressable>
 
       <Pressable
@@ -87,7 +88,7 @@ function UserNav({ onMenu, isMenu }) {
         {countDueServices() > 0 && route.name !== "Service" && (
           <MiniRedCircle />
         )}
-        {route.name === "Service" && <View style={styles.shade}></View>}
+        {route.name === "Service" && <Shade />}
       </Pressable>
 
       <Pressable style={styles.navbarBtn} onPress={onMenu}>
@@ -97,7 +98,6 @@ function UserNav({ onMenu, isMenu }) {
           style={[styles.icon, isMenu && styles.active]}
         />
         <Text style={[styles.text, isMenu && styles.active]}>More</Text>
-        {route.name === "settings" && <View style={styles.shade}></View>}
       </Pressable>
     </View>
   );
@@ -137,17 +137,6 @@ const getStyles = (theme) =>
     },
     active: {
       color: theme.blue,
-    },
-    shade: {
-      backgroundColor: theme.shade,
-      opacity: 1,
-      width: 44,
-      height: 30,
-      borderRadius: 10,
-      position: "absolute",
-      alignSelf: "center",
-      top: 0,
-      zIndex: 0,
     },
   });
 

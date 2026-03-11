@@ -2,6 +2,7 @@ import { Feather, Ionicons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
+import Shade from "./Shade";
 
 function ShopOwner({ onMenu, isMenu }) {
   const navigation = useNavigation();
@@ -22,6 +23,7 @@ function ShopOwner({ onMenu, isMenu }) {
         <Text style={[styles.text, route.name === "ShopDash" && styles.active]}>
           Home
         </Text>
+        {route.name === "ShopDash" && <Shade />}
       </Pressable>
 
       <Pressable
@@ -42,6 +44,7 @@ function ShopOwner({ onMenu, isMenu }) {
         >
           Shops
         </Text>
+        {route.name === "MyShop" && <Shade />}
       </Pressable>
 
       <Pressable
@@ -66,6 +69,7 @@ function ShopOwner({ onMenu, isMenu }) {
         >
           Bookings
         </Text>
+        {route.name === "ShopBook" && <Shade />}
       </Pressable>
 
       <Pressable
@@ -86,6 +90,7 @@ function ShopOwner({ onMenu, isMenu }) {
         >
           Cars
         </Text>
+        {route.name === "MyCars" && <Shade />}
       </Pressable>
 
       <Pressable style={styles.navbarBtn} onPress={onMenu}>
