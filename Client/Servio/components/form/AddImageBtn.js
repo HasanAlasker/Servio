@@ -9,7 +9,6 @@ import {
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 import AppText from "../../config/AppText";
-import * as FileSystem from "expo-file-system/legacy";
 
 function AddImageBtn({
   image,
@@ -46,8 +45,6 @@ function AddImageBtn({
     }
   };
 
-  const MAX_SIZE_BYTES = 5 * 1024 * 1024; // 5MB
-
   const handleLibraryPress = async () => {
     setIsLoading(true);
     try {
@@ -57,13 +54,8 @@ function AddImageBtn({
         aspect: [31, 20],
       });
 
-      if (imageUri) {
-        const fileInfo = await FileSystem.getInfoAsync(imageUri);
-        if (fileInfo.size > MAX_SIZE_BYTES) {
-          Alert.alert("Image too large", "Please choose an image under 5MB");
-          return;
-        }
-        onImageChange?.(imageUri);
+      if (imageUri && onImageChange) {
+        onImageChange(imageUri);
       }
     } catch (error) {
       console.error("Error selecting image from library:", error);
@@ -81,13 +73,8 @@ function AddImageBtn({
         aspect: [31, 20],
       });
 
-      if (imageUri) {
-        const fileInfo = await FileSystem.getInfoAsync(imageUri);
-        if (fileInfo.size > MAX_SIZE_BYTES) {
-          Alert.alert("Image too large", "Please choose an image under 5MB");
-          return;
-        }
-        onImageChange?.(imageUri);
+      if (imageUri && onImageChange) {
+        onImageChange(imageUri);
       }
     } catch (error) {
       console.error("Error taking photo:", error);
