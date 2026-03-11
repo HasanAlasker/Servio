@@ -7,6 +7,7 @@ import useApi from "../../hooks/useApi";
 import { countDocs, shopCountDocs } from "../../api/user";
 import { useEffect } from "react";
 import { UseUser } from "../../context/UserContext";
+import SText from "../text/SText";
 
 function ShopInfo(props) {
   const { countShops } = UseShop();
@@ -22,9 +23,9 @@ function ShopInfo(props) {
   }, [user]);
   return (
     <GapContainer>
-      <MText thin color={"sec_text"}>
+      <SText thin color={"sec_text"}>
         Shop Info
-      </MText>
+      </SText>
 
       <View style={styles.grid}>
         <CardLeftBorder

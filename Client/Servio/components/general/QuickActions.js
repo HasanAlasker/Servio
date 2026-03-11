@@ -17,7 +17,7 @@ function QuickActions(props) {
           <Pill
             icon={"message-circle"}
             text={"FeedBack"}
-            navigateTo={"Suggestions"}
+            navigateTo={"SeeSuggestions"}
           />
           <Pill icon={"folder"} text={"Reports"} navigateTo={"Reports"} />
           <Pill

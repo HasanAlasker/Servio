@@ -28,7 +28,6 @@ function Bookings(props) {
   };
 
   const [activeTab, setTab] = useState("1");
-  const [celebrate, setCelebrate] = useState(false);
 
   const route = useRoute();
   const params = route.params;
@@ -36,7 +35,6 @@ function Bookings(props) {
   useEffect(() => {
     if (params) {
       if (params.active) setTab(params.active);
-      if (params.celebrate) handleCelebration();
     }
   }, []);
 
@@ -62,10 +60,6 @@ function Bookings(props) {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleCelebration = () => {
-    setTimeout(() => setCelebrate(true), 100);
   };
 
   const RenderAppointments =
@@ -108,7 +102,6 @@ function Bookings(props) {
 
   return (
     <SafeScreen>
-      {celebrate && <Confetti isInfinite={false} />}
       <ScrollScreen
         stickyHeader
         stickyHeaderIndices={[0]}
