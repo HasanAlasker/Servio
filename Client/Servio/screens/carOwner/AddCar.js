@@ -19,6 +19,7 @@ import useThemedStyles from "../../hooks/useThemedStyles";
 import { UseCar } from "../../context/CarContext";
 import { unitTypes } from "../../constants/dropList";
 import ErrorMessage from "../../components/form/ErrorMessage";
+import useAppToast from "../../hooks/useAppToast";
 
 export const validationSchema = Yup.object({
   make: Yup.string().trim().required("Car make is required"),
@@ -51,6 +52,7 @@ export const validationSchema = Yup.object({
 function AddCar(props) {
   const styles = useThemedStyles(getStyles);
   const { addNewCar, updateCars } = UseCar();
+  const toast = useAppToast();
 
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
   const [cars, setCars] = useState([]);
@@ -135,6 +137,7 @@ function AddCar(props) {
         addNewCar(response.data.data);
         navigate.navigate("MyCars");
       }
+      if (!response.ok) toast.error("Image too big");
     } catch (error) {
       console.log(error);
     } finally {
@@ -155,6 +158,7 @@ function AddCar(props) {
         updateCars(response.data.data);
         navigate.navigate("CarParts", params);
       }
+      if (!response.ok) toast.error("Image too big");
     } catch (error) {
       console.log(error);
     } finally {

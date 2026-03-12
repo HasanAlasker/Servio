@@ -13,7 +13,9 @@ function HorizontalScroll({ children }) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  cont: {
+    paddingRight:25,
+  },
 });
 
 export default HorizontalScroll;
