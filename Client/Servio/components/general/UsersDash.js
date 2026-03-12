@@ -44,8 +44,6 @@ function UsersDash(props) {
     <>
       <HelloUser />
 
-      <QuickActions />
-
       {!loading && ServiceList.length > 0 ? (
         <GapContainer gap={20}>
           <SText thin color={"sec_text"}>
@@ -64,6 +62,8 @@ function UsersDash(props) {
           customText={"No services required!"}
         />
       ) : null}
+
+      <QuickActions />
     </>
   );
 }

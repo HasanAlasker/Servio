@@ -38,7 +38,7 @@ function HelloUser(props) {
         style={styles.btn}
         onPress={() => navigate.navigate("Profile")}
       >
-        <Feather color={theme.sec_text} size={34} name="user" />
+        <Feather color={theme.main_text} size={32} name="user" />
       </Pressable>
     </RowCont>
   );

@@ -1,35 +1,18 @@
-import { View, StyleSheet, ScrollView } from "react-native";
+import { StyleSheet } from "react-native";
 import RowCont from "./RowCont";
 import Pill from "./Pill";
 import { UseUser } from "../../context/UserContext";
 import HorizontalScroll from "./HorizontalScroll";
+import SText from "../text/SText";
+import GapContainer from "./GapContainer";
 
 function QuickActions(props) {
   const { isAdmin, isUser, isShopOwner } = UseUser();
 
-  if (isAdmin)
-    return (
-      <HorizontalScroll>
-        <RowCont style={styles.container}>
-          <Pill
-            icon={"message-circle"}
-            text={"FeedBack"}
-            navigateTo={"SeeSuggestions"}
-          />
-          <Pill icon={"folder"} text={"Reports"} navigateTo={"Reports"} />
-          <Pill
-            icon={"shopping-bag"}
-            text={"Closed"}
-            navigateTo={"DeletedShops"}
-          />
-        </RowCont>
-      </HorizontalScroll>
-    );
-
-  if (isUser)
-    return (
-      <HorizontalScroll>
-        <RowCont style={styles.container}>
+  const RenderedActions = () => {
+    if (isUser)
+      return (
+        <>
           <Pill
             icon={"folder"}
             text={"History"}
@@ -43,20 +26,44 @@ function QuickActions(props) {
             navigateTo={"Shops"}
             params={{ showBtn: false }}
           />
-        </RowCont>
-      </HorizontalScroll>
-    );
+        </>
+      );
 
-  if (isShopOwner)
-    return (
-      <HorizontalScroll>
-        <RowCont style={styles.container}>
+    if (isShopOwner)
+      return (
+        <>
           <Pill icon={"tool"} text={"Service"} navigateTo={"Service"} />
           <Pill icon={"plus-circle"} text={"Car"} navigateTo={"AddCar"} />
           <Pill icon={"plus-circle"} text={"Shop"} navigateTo={"AddShop"} />
-        </RowCont>
+        </>
+      );
+
+    if (isAdmin)
+      return (
+        <>
+          <Pill
+            icon={"message-circle"}
+            text={"FeedBack"}
+            navigateTo={"SeeSuggestions"}
+          />
+          <Pill icon={"folder"} text={"Reports"} navigateTo={"Reports"} />
+          <Pill
+            icon={"shopping-bag"}
+            text={"Closed"}
+            navigateTo={"DeletedShops"}
+          />
+        </>
+      );
+  };
+
+  return (
+    <GapContainer gap={20}>
+      <SText thin color={'sec_text'}>Quick Actions</SText>
+      <HorizontalScroll>
+        <RowCont style={styles.container}>{RenderedActions()}</RowCont>
       </HorizontalScroll>
-    );
+    </GapContainer>
+  );
 }
 
 const styles = StyleSheet.create({
