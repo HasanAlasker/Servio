@@ -9,6 +9,7 @@ import {
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 import AppText from "../../config/AppText";
+import SText from "../text/SText";
 
 function AddImageBtn({
   image,
@@ -138,12 +139,12 @@ function AddImageBtn({
             <View style={styles.placeholderContainer}>
               <MaterialCommunityIcons
                 name={isLoading ? "loading" : "image-plus"}
-                color={theme.da}
-                size={80}
+                color={theme.sec_text}
+                size={50}
               />
-              <AppText style={styles.text}>
+              <SText thin color={'sec_text'}>
                 {isLoading ? "Loading..." : "Add Image"}
-              </AppText>
+              </SText>
             </View>
           )}
         </Pressable>

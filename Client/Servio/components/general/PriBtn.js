@@ -13,6 +13,8 @@ function PriBtn({
   black = false,
   red = false,
   half,
+  auto,
+  styleText,
 }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
@@ -26,7 +28,7 @@ function PriBtn({
         disabled && styles.disabled,
         style,
         {
-          width: full ? "100%" : half ? "50%" : "90%",
+          width: full ? "100%" : half ? "50%" : auto ? "auto " : "90%",
           borderRadius: square ? 15 : 25,
         },
         {
@@ -43,6 +45,7 @@ function PriBtn({
         style={[
           styles.text,
           { color: black ? theme.white : theme.always_white },
+          styleText,
         ]}
       >
         {title || "Press"}
@@ -54,7 +57,7 @@ function PriBtn({
 const getStyles = (theme) =>
   StyleSheet.create({
     container: {
-      width: "90%",
+      width: "",
       marginHorizontal: "auto",
       backgroundColor: theme.blue,
       padding: 9,

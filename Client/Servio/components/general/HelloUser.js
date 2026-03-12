@@ -29,7 +29,9 @@ function HelloUser(props) {
   };
 
   return (
-    <RowCont style={{ justifyContent: "space-between", marginBottom: 10 }}>
+    <RowCont
+      style={{ justifyContent: "space-between", marginBottom: 10, zIndex: 100 }}
+    >
       <SText color={"sec_text"} thin>
         {welcomePhrase()}, {"\n"}
         <MText color={"main_text"}>{firstName + "!"}</MText>

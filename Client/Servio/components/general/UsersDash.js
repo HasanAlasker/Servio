@@ -7,10 +7,13 @@ import HelloUser from "../../components/general/HelloUser";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import QuickActions from "./QuickActions";
 import SText from "../text/SText";
+import { UseCar } from "../../context/CarContext";
+import QuickPeek from "./QuickPeek";
 
 function UsersDash(props) {
   const navigaiton = useNavigation();
   const { services, loading } = UseService();
+  const { countCars } = UseCar();
 
   const statusPriority = { overdue: 0, soon: 1, upcoming: 2 };
 
@@ -42,8 +45,6 @@ function UsersDash(props) {
   ));
   return (
     <>
-      <HelloUser />
-
       {!loading && ServiceList.length > 0 ? (
         <GapContainer gap={20}>
           <SText thin color={"sec_text"}>
@@ -64,6 +65,8 @@ function UsersDash(props) {
       ) : null}
 
       <QuickActions />
+
+      <QuickPeek />
     </>
   );
 }

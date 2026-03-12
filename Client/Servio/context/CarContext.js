@@ -83,6 +83,10 @@ export const CarProvider = ({ children }) => {
     await loadServices();
   };
 
+  const countCars = () => {
+    return cars.length;
+  };
+
   const value = {
     cars,
     error,
@@ -92,6 +96,7 @@ export const CarProvider = ({ children }) => {
     addNewCar,
     updateCars,
     removeCar,
+    countCars,
   };
 
   return <CarContext.Provider value={value}>{children}</CarContext.Provider>;
