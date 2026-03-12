@@ -211,6 +211,7 @@ function AddCar(props) {
 
               <FormikInput
                 name={"model"}
+                lable={"Model"}
                 placeholder={"Model (Year of make)"}
                 icon={"timer-cog-outline"}
                 autoCapitalize={"none"}
@@ -228,6 +229,7 @@ function AddCar(props) {
 
               <FormikInput
                 name={"mileage"}
+                lable={"Odometer"}
                 placeholder={"Mileage (Odometer)"}
                 icon={"gauge"}
                 autoCapitalize={"none"}
