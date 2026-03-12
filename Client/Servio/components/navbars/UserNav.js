@@ -3,6 +3,7 @@ import { UseService } from "../../context/ServiceContext";
 import { UseAppointment } from "../../context/AppointmentContext";
 import NavBtn from "./NavBtn";
 import NavCont from "./NavCont";
+import MoreBtn from "./MoreBtn";
 
 function UserNav({ onMenu }) {
   const { countDueServices } = UseService();
@@ -31,12 +32,7 @@ function UserNav({ onMenu }) {
         notificationCondition={countDueServices() > 0}
       />
 
-      <NavBtn
-        name="More"
-        icon={<Feather name="more-horizontal" size={26} />}
-        isSettings
-        onPress={onMenu}
-      />
+      <MoreBtn onMenu={onMenu} />
     </NavCont>
   );
 }
