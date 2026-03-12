@@ -103,6 +103,7 @@ function Profile(props) {
                 />
 
                 <SubmitBtn
+                  square
                   defaultText="Save"
                   submittingText="Saving..."
                   disabled={!isEdit}

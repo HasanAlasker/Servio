@@ -22,7 +22,7 @@ const getStyles = (theme) =>
       width: "90%",
       marginHorizontal: "auto",
       backgroundColor: theme.bacground,
-      padding: 6,
+      padding: 9,
       borderRadius: 25,
       borderColor: theme.blue,
       borderWidth: 1,
