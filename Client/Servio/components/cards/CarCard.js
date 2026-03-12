@@ -6,6 +6,9 @@ import RowCont from "../general/RowCont";
 import SquareInfo from "./SquareInfo";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import { useNavigation } from "@react-navigation/native";
+import { Feather } from "@expo/vector-icons";
+import { useTheme } from "../../context/ThemeContext";
+import GapContainer from "../general/GapContainer";
 
 function CarCard({
   id,
@@ -19,6 +22,7 @@ function CarCard({
   unit,
 }) {
   const navigate = useNavigation();
+  const { theme } = useTheme();
 
   const passToEdit = {
     id,
@@ -41,14 +45,23 @@ function CarCard({
     >
       {image && <Image style={styles.image} source={{ uri: image }} />}
       <View style={styles.textCont}>
-        <RowCont>
-          <MText>{capFirstLetter(make)}</MText>
-          <MText>{capFirstLetter(name)}</MText>
+        <RowCont style={{ justifyContent: "space-between" }}>
+          <GapContainer gap={3}>
+            <RowCont>
+              <MText>{capFirstLetter(make)}</MText>
+              <MText>{capFirstLetter(name)}</MText>
+            </RowCont>
+            <SText color={"sec_text"}>{plateNumber}</SText>
+          </GapContainer>
+
+          <Feather
+            name="chevron-right"
+            color={theme.sec_text}
+            size={30}
+            style={{alignSelf:"flex-start", top:5}}
+          />
         </RowCont>
-        <SText color={"sec_text"}>{plateNumber}</SText>
-        {/* <MText thin style={{ marginVertical: 10 }}>
-          {model}
-        </MText> */}
+
         <RowCont gap={25} style={{ marginTop: 20, flexWrap: "wrap" }}>
           <SquareInfo
             icon={"gauge"}

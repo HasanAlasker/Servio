@@ -58,7 +58,6 @@ function SettingsMenu({ isVisible, onClose }) {
             <MenuOption
               text={"Open Shop"}
               icon={"storefront-plus-outline"}
-              color={"blue"}
               onPress={() => navigate.navigate("AddShop")}
             />
           )}
@@ -68,7 +67,6 @@ function SettingsMenu({ isVisible, onClose }) {
             <MenuOption
               text={"Upcoming Services"}
               icon={"clock-outline"}
-              color={"blue"}
               onPress={() => navigate.navigate("Service")}
             />
           )}
@@ -77,7 +75,6 @@ function SettingsMenu({ isVisible, onClose }) {
           <MenuOption
             text={"Help"}
             icon={"headphones"}
-            color={"green"}
             onPress={() =>
               openURL("https://servio-maintenance.netlify.app/how-it-works")
             }

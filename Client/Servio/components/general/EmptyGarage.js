@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     marginVertical: "auto",
-    bottom: 40,
   },
   imgCont: {
     width: "100%",
