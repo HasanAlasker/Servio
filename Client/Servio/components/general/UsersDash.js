@@ -1,19 +1,15 @@
-import { StyleSheet } from "react-native";
 import CardLeftBorder from "../../components/cards/CardLeftBorder";
 import GapContainer from "../../components/general/GapContainer";
 import { useNavigation } from "@react-navigation/native";
 import { UseService } from "../../context/ServiceContext";
-import HelloUser from "../../components/general/HelloUser";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import QuickActions from "./QuickActions";
 import SText from "../text/SText";
-import { UseCar } from "../../context/CarContext";
 import QuickPeek from "./QuickPeek";
 
 function UsersDash(props) {
   const navigaiton = useNavigation();
   const { services, loading } = UseService();
-  const { countCars } = UseCar();
 
   const statusPriority = { overdue: 0, soon: 1, upcoming: 2 };
 
@@ -70,9 +66,5 @@ function UsersDash(props) {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {},
-});
 
 export default UsersDash;

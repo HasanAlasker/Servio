@@ -1,11 +1,8 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import Navbar from "../../components/general/Navbar";
 import { useNavigation } from "@react-navigation/native";
-import { useEffect, useState } from "react";
-import useApi from "../../hooks/useApi";
-import { getMyShops } from "../../api/shop";
 import ShopCard from "../../components/cards/ShopCard";
 import GapContainer from "../../components/general/GapContainer";
 import { UseShop } from "../../context/ShopContext";

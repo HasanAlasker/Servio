@@ -14,7 +14,6 @@ import { bookAppointment } from "../../api/appointment";
 import { checkSlot } from "../../api/slots";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import { UseAppointment } from "../../context/AppointmentContext";
-import { useToast } from "react-native-toast-notifications";
 import useAppToast from "../../hooks/useAppToast";
 
 const validationSchema = Yup.object({

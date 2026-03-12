@@ -9,7 +9,6 @@ import GapContainer from "../../components/general/GapContainer";
 import TabNav from "../../components/general/TabNav";
 import { useRoute } from "@react-navigation/native";
 import SText from "../../components/text/SText";
-import { Confetti } from "react-native-fast-confetti";
 import { UseAppointment } from "../../context/AppointmentContext";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 
