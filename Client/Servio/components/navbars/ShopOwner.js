@@ -29,6 +29,7 @@ function ShopOwner({ onMenu }) {
         icon={<Ionicons name="car-outline" size={35} />}
         name={"MyCars"}
         lable={"Cars"}
+        textStyle={{bottom: 2}}
       />
 
       <MoreBtn onMenu={onMenu} />
