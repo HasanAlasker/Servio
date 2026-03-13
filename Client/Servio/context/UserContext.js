@@ -5,6 +5,7 @@ import {
   loginUser,
   refreshToken,
   registerUser,
+  removePushToken,
 } from "../api/user";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { isServerAwake } from "../api/upcomingService";
@@ -13,6 +14,8 @@ import { UseCar } from "./CarContext";
 import { UseService } from "./ServiceContext";
 import { UseAppointment } from "./AppointmentContext";
 import { UseShop } from "./ShopContext";
+import { getPushTokenForDevice, unregisterPushToken } from "../functions/notificationToken";
+import { unregisterForNotificationsAsync } from "expo-notifications";
 
 export const UserContext = createContext();
 
@@ -411,6 +414,8 @@ export const UserProvider = ({ children }) => {
       setToken(null);
       setIsAuthenticated(false);
 
+      // remove push token when user logout
+      await unregisterPushToken();
       await removeUserData();
     } catch (error) {
       console.error("Error logging out user", error);

@@ -5,7 +5,7 @@ export const removePushToken = async (token, userId) => {
     const updatedUser = await UserModel.findByIdAndUpdate(
       userId,
       {
-        $pull: { pushNotificationTokens: token },
+        $pull: { pushNotificationTokens: { token: token } },
       },
       { new: true },
     );
