@@ -4,29 +4,32 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
+import SText from "../text/SText";
 
 function MenuOption({ text, icon, color, onPress, disabled, showLock }) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getStyles);
 
   return (
-    <Pressable 
-      style={[styles.container, disabled && styles.disabledContainer]} 
-      onPress={onPress} 
+    <Pressable
+      style={[styles.container, disabled && styles.disabledContainer]}
+      onPress={onPress}
       disabled={disabled}
     >
-      <AppText style={[styles.text, { color: color ? theme[color] : theme['main_text']}, disabled && styles.disabledText]}>
+      <SText
+        thin
+        color={color ? color : "main_text"}
+        style={disabled && styles.disabledText}
+      >
         {text}
-      </AppText>
+      </SText>
       <View style={styles.iconContainer}>
-        {showLock && (
-          <Feather name="lock" size={20} color={theme.sec_text} />
-        )}
+        {showLock && <Feather name="lock" size={20} color={theme.sec_text} />}
         {icon && (
           <MaterialCommunityIcons
             name={icon}
-            size={26}
-            color={color ? theme[color] : theme['main_text']}
+            size={24}
+            color={color ? theme[color] : theme["main_text"]}
           />
         )}
       </View>
@@ -40,20 +43,6 @@ const getStyles = (theme) =>
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
-
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 12,
-      },
-      shadowOpacity: 0.58,
-      shadowRadius: 16.0,
-
-      elevation: 24,
-    },
-    text: {
-      fontSize: 18,
-      fontWeight: "bold",
     },
     disabledContainer: {
       opacity: 0.4,
