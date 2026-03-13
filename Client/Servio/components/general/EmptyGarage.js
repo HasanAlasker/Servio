@@ -5,9 +5,11 @@ import SText from "../text/SText";
 import PriBtn from "./PriBtn";
 import TText from "../text/TText";
 import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "../../context/ThemeContext";
 
 function EmptyGarage(props) {
   const navigaiton = useNavigation();
+  const { isDarkMode } = useTheme();
   return (
     <View style={styles.container}>
       <GapContainer gap={20} style={{ marginVertical: "auto" }}>
@@ -15,7 +17,11 @@ function EmptyGarage(props) {
           <View style={styles.imgCont}>
             <Image
               style={styles.img}
-              source={require("../../assets/emptyGarage.png")}
+              source={
+                isDarkMode
+                  ? require("../../assets/emptyGarage_dark.png")
+                  : require("../../assets/emptyGarage.png")
+              }
             />
           </View>
 
