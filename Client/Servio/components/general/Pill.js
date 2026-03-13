@@ -6,13 +6,18 @@ import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 import { useNavigation } from "@react-navigation/native";
 
-function Pill({ icon, text, navigateTo, params }) {
+function Pill({ icon, text, navigateTo, params, onPress }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
   const navigate = useNavigation();
 
+  const handlePress = () => {
+    if (onPress) onPress();
+    else navigate.navigate(navigateTo, params);
+  };
+
   return (
-    <Pressable onPress={() => navigate.navigate(navigateTo, params)}>
+    <Pressable onPress={handlePress}>
       <RowCont style={styles.container}>
         <Feather color={theme.main_text} size={20} name={icon} />
         <SText thin>{text}</SText>
@@ -30,7 +35,6 @@ const getStyles = (theme) =>
       borderRadius: 25,
       alignItems: "center",
       justifyContent: "center",
-      minWidth: "28%",
     },
   });
 

@@ -5,9 +5,11 @@ import { UseUser } from "../../context/UserContext";
 import HorizontalScroll from "./HorizontalScroll";
 import SText from "../text/SText";
 import GapContainer from "./GapContainer";
+import { useTheme } from "../../context/ThemeContext";
 
 function QuickActions(props) {
   const { isAdmin, isUser, isShopOwner } = UseUser();
+  const { isDarkMode, toggleTheme } = useTheme();
 
   const RenderedActions = () => {
     if (isUser)
@@ -19,13 +21,18 @@ function QuickActions(props) {
             navigateTo={"Bookings"}
             params={{ active: "2" }}
           />
-          <Pill icon={"plus-circle"} text={"Car"} navigateTo={"AddCar"} />
           <Pill
             icon={"shopping-bag"}
             text={"Shops"}
             navigateTo={"Shops"}
             params={{ showBtn: false }}
           />
+          <Pill
+            icon={isDarkMode ? "sun" : "moon"}
+            text={isDarkMode ? "Light" : "Dark"}
+            onPress={toggleTheme}
+          />
+          <Pill icon={"plus-circle"} text={"Car"} navigateTo={"AddCar"} />
         </>
       );
 
@@ -33,6 +40,11 @@ function QuickActions(props) {
       return (
         <>
           <Pill icon={"tool"} text={"Service"} navigateTo={"Service"} />
+          <Pill
+            icon={isDarkMode ? "sun" : "moon"}
+            text={isDarkMode ? "Light" : "Dark"}
+            onPress={toggleTheme}
+          />
           <Pill icon={"plus-circle"} text={"Car"} navigateTo={"AddCar"} />
           <Pill icon={"plus-circle"} text={"Shop"} navigateTo={"AddShop"} />
         </>
@@ -52,13 +64,20 @@ function QuickActions(props) {
             text={"Closed"}
             navigateTo={"DeletedShops"}
           />
+          <Pill
+            icon={isDarkMode ? "sun" : "moon"}
+            text={isDarkMode ? "Light" : "Dark"}
+            onPress={toggleTheme}
+          />
         </>
       );
   };
 
   return (
     <GapContainer gap={20}>
-      <SText thin color={'sec_text'}>Quick Actions</SText>
+      <SText thin color={"sec_text"}>
+        Quick Actions
+      </SText>
       <HorizontalScroll>
         <RowCont style={styles.container}>{RenderedActions()}</RowCont>
       </HorizontalScroll>
