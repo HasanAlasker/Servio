@@ -11,7 +11,7 @@ function UsersDash(props) {
   const navigaiton = useNavigation();
   const { services, loading } = UseService();
 
-  const statusPriority = { overdue: 0, soon: 1, upcoming: 2 };
+  const statusPriority = { overdue: 0, due: 1, soon: 2 };
 
   const goThrough = () => {
     const carMap = {};
