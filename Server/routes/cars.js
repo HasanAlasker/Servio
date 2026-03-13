@@ -12,13 +12,12 @@ import {
   upload,
   uploadToCloudinary,
 } from "../utils/cloudinary.js";
-import { sendDueServiceNotifications } from "../services/notificationService.js";
 import logIP from "../middleware/logIp.js";
 
 const router = express.Router();
 
 // Get all cars (admin only)
-router.get("/all", [auth, admin], async (req, res) => {
+router.get("/all", [auth, admin], logIP("GET_ALL_CARS"), async (req, res) => {
   try {
     const cars = await CarModel.find({ isDeleted: false });
     return res.status(200).json({ success: true, data: cars });
@@ -32,7 +31,7 @@ router.get("/all", [auth, admin], async (req, res) => {
 });
 
 // Get car makes and models
-router.get("/car-makes", auth, async (req, res) => {
+router.get("/car-makes", auth, logIP("GET_CAR_MAKES"), async (req, res) => {
   try {
     const carsData = await CarMakeModel.find()
       .select("make name")
@@ -56,7 +55,7 @@ router.get("/car-makes", auth, async (req, res) => {
 });
 
 // Get my cars
-router.get("/mine", auth, async (req, res) => {
+router.get("/mine", auth, logIP("GET_MY_CARS"), async (req, res) => {
   try {
     const userId = req.user._id;
 
@@ -76,7 +75,7 @@ router.get("/mine", auth, async (req, res) => {
 });
 
 // Get car by id
-router.get("/:id", auth, async (req, res) => {
+router.get("/:id", auth, logIP("GET_CAR_BY_ID"), async (req, res) => {
   try {
     const id = req.params.id;
 

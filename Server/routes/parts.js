@@ -10,7 +10,7 @@ import logIP from "../middleware/logIp.js";
 const router = express.Router();
 
 // get part by id
-router.get("/:id", auth, async (req, res) => {
+router.get("/:id", auth, logIP("GET_PART_BY_ID"), async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -43,7 +43,7 @@ router.get("/:id", auth, async (req, res) => {
 });
 
 // get tracked parts for a car
-router.get("/tracked/:id", auth, async (req, res) => {
+router.get("/tracked/:id", auth, logIP("GET_CAR_PARTS"), async (req, res) => {
   try {
     const carId = req.params.id;
 
@@ -70,31 +70,36 @@ router.get("/tracked/:id", auth, async (req, res) => {
 });
 
 // get my untracked parts
-router.get("/un-tracked/:id", auth, async (req, res) => {
-  try {
-    const carId = req.params.id;
+router.get(
+  "/un-tracked/:id",
+  auth,
+  logIP("GET_DELETED_CAR_PARTS"),
+  async (req, res) => {
+    try {
+      const carId = req.params.id;
 
-    if (!carId || !mongoose.Types.ObjectId.isValid(carId)) {
-      return res.status(400).json({
+      if (!carId || !mongoose.Types.ObjectId.isValid(carId)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid resource ID",
+        });
+      }
+
+      const parts = await PartModel.find({
+        car: carId,
+        isTracked: false,
+      }).populate("car", "owner make name model plateNumber mileage");
+
+      return res.status(200).json({ success: true, data: parts });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
         success: false,
-        message: "Invalid resource ID",
+        message: "Server Error",
       });
     }
-
-    const parts = await PartModel.find({
-      car: carId,
-      isTracked: false,
-    }).populate("car", "owner make name model plateNumber mileage");
-
-    return res.status(200).json({ success: true, data: parts });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+  },
+);
 
 // add part
 router.post(

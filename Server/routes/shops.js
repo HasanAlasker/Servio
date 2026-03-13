@@ -18,7 +18,7 @@ import logIP from "../middleware/logIp.js";
 const router = express.Router();
 
 // get all verified shops
-router.get("/verified", auth, async (req, res) => {
+router.get("/verified", auth, logIP("GET_VERIFIED_SHOPS"), async (req, res) => {
   try {
     const shops = await ShopModel.find({
       isVerified: true,
@@ -37,66 +37,81 @@ router.get("/verified", auth, async (req, res) => {
 });
 
 // get all unverified shops
-router.get("/un-verified", [auth, admin], async (req, res) => {
-  try {
-    const shops = await ShopModel.find({
-      isVerified: false,
-      isDeleted: false,
-    })
-      .sort("-createdAt")
-      .populate("owner", "name email phone role");
-    return res.status(200).json({ success: true, data: shops });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+router.get(
+  "/un-verified",
+  [auth, admin],
+  logIP("GET_UNVERIFIED_SHOPS"),
+  async (req, res) => {
+    try {
+      const shops = await ShopModel.find({
+        isVerified: false,
+        isDeleted: false,
+      })
+        .sort("-createdAt")
+        .populate("owner", "name email phone role");
+      return res.status(200).json({ success: true, data: shops });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // get my shop
-router.get("/mine", [auth, shopOwner], async (req, res) => {
-  try {
-    const userId = req.user._id;
+router.get(
+  "/mine",
+  [auth, shopOwner],
+  logIP("GET_MY_SHOPS"),
+  async (req, res) => {
+    try {
+      const userId = req.user._id;
 
-    const myShop = await ShopModel.find({
-      owner: userId,
-      isVerified: true,
-      isDeleted: false,
-    });
-    if (!myShop)
-      return res
-        .status(404)
-        .json({ success: false, message: "Shop not found" });
+      const myShop = await ShopModel.find({
+        owner: userId,
+        isVerified: true,
+        isDeleted: false,
+      });
+      if (!myShop)
+        return res
+          .status(404)
+          .json({ success: false, message: "Shop not found" });
 
-    return res.status(200).json({ success: true, data: myShop });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+      return res.status(200).json({ success: true, data: myShop });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // get deleted shops
-router.get("/deleted", [auth, admin], async (req, res) => {
-  try {
-    const shops = await ShopModel.find({ isDeleted: true });
+router.get(
+  "/deleted",
+  [auth, admin],
+  logIP("GET_DELETED_SHOPS"),
+  async (req, res) => {
+    try {
+      const shops = await ShopModel.find({ isDeleted: true });
 
-    return res.status(200).json({ success: true, data: shops });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+      return res.status(200).json({ success: true, data: shops });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // get shop by id
-router.get("/:id", auth, async (req, res) => {
+router.get("/:id", auth, logIP("GET_SHOP_BY_ID"), async (req, res) => {
   try {
     const id = req.params.id;
 

@@ -12,7 +12,7 @@ import logIP from "../middleware/logIp.js";
 const router = express.Router();
 
 // get all suggestions (admin)
-router.get("/all", [auth, admin], async (req, res) => {
+router.get("/all", [auth, admin], logIP("GET_SUGGESTIONS"), async (req, res) => {
   try {
     const suggestions = await SuggestionModel.find()
       .sort("-createdAt")

@@ -12,36 +12,46 @@ import logIP from "../middleware/logIp.js";
 const router = express.Router();
 
 // get pending
-router.get("/pending", [auth, admin], async (req, res) => {
-  try {
-    const pending = await EarlyAccessModel.find({
-      isInvitationSent: false,
-    }).sort("createdAt");
-    return res.status(200).json({ success: true, data: pending });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+router.get(
+  "/pending",
+  [auth, admin],
+  logIP("GET_PENDING_EARLY_ACCESS"),
+  async (req, res) => {
+    try {
+      const pending = await EarlyAccessModel.find({
+        isInvitationSent: false,
+      }).sort("createdAt");
+      return res.status(200).json({ success: true, data: pending });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // get sent
-router.get("/sent", [auth, admin], async (req, res) => {
-  try {
-    const sent = await EarlyAccessModel.find({
-      isInvitationSent: true,
-    }).sort("createdAt");
-    return res.status(200).json({ success: true, data: sent });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+router.get(
+  "/sent",
+  [auth, admin],
+  logIP("GET_SENT_EARLY_ACCESS"),
+  async (req, res) => {
+    try {
+      const sent = await EarlyAccessModel.find({
+        isInvitationSent: true,
+      }).sort("createdAt");
+      return res.status(200).json({ success: true, data: sent });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // make request
 router.post(
@@ -104,7 +114,8 @@ router.post(
 );
 
 // mark as sent
-router.patch("/mark-sent/:id", [auth, admin], async (req, res) => {
+router.patch("/mark-sent/:id", [auth, admin],
+  logIP("MARK_SENT_EARLY_ACCESS"), async (req, res) => {
   try {
     const requestId = req.params.id;
 

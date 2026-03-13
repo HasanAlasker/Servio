@@ -1,11 +1,12 @@
 import express from "express";
 import auth from "../middleware/auth.js";
 import { SlotModel } from "../models/slots.js";
+import logIP from "../middleware/logIp.js";
 
 const router = express.Router();
 
 // get busy slots
-router.get("/busy/:id", auth, async (req, res) => {
+router.get("/busy/:id", auth, logIP("GET_BUSY_SLOTS"), async (req, res) => {
   try {
     const shopId = req.params.id;
     const { date } = req.query;
@@ -43,7 +44,7 @@ router.get("/busy/:id", auth, async (req, res) => {
 });
 
 // check slot
-router.post("/checkSlot/:id", auth, async (req, res) => {
+router.post("/checkSlot/:id", auth, logIP("CHECK_SLOT"), async (req, res) => {
   try {
     const shopId = req.params.id;
     const { date, from } = req.body;
@@ -59,13 +60,13 @@ router.post("/checkSlot/:id", auth, async (req, res) => {
     const appointmentDate = new Date(date);
     const startOfDay = new Date(appointmentDate);
     startOfDay.setHours(0, 0, 0, 0);
-    
+
     const endOfDay = new Date(appointmentDate);
     endOfDay.setHours(23, 59, 59, 999);
 
     // Calculate end time as string (2 hours after from)
     const [hours, minutes] = from.split(":");
-    const endHour = (parseInt(hours, 10) + 2).toString().padStart(2, '0');
+    const endHour = (parseInt(hours, 10) + 2).toString().padStart(2, "0");
     const to = `${endHour}:${minutes}`;
 
     // Find overlapping slots on the same date
