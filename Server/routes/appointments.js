@@ -20,49 +20,59 @@ import logIP from "../middleware/logIp.js";
 const router = express.Router();
 
 // get all
-router.get("/all", [auth, admin], async (req, res) => {
-  try {
-    const appointments = await AppointmentModel.find();
-    return res.status(200).json({ success: true, data: appointments });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+router.get(
+  "/all",
+  [auth, admin],
+  logIP("GET_ALL_APPOINTMENTS"),
+  async (req, res) => {
+    try {
+      const appointments = await AppointmentModel.find();
+      return res.status(200).json({ success: true, data: appointments });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // get upcoming
-router.get("/upcoming", auth, async (req, res) => {
-  try {
-    const userId = req.user._id;
+router.get(
+  "/upcoming",
+  auth,
+  logIP("GET_UPCOMING_APPOINTMENTS"),
+  async (req, res) => {
+    try {
+      const userId = req.user._id;
 
-    const upcoming = await AppointmentModel.find({
-      customer: userId,
-      $and: [
-        { scheduledDate: { $gte: new Date() } },
-        { status: { $nin: ["completed", "canceled"] } },
-      ],
-    })
-      .sort({ scheduledDate: 1 })
-      .populate("car", "make name model plateNumber mileage color")
-      .populate("customer", "name phone")
-      .populate("shop")
-      .populate("serviceParts");
+      const upcoming = await AppointmentModel.find({
+        customer: userId,
+        $and: [
+          { scheduledDate: { $gte: new Date() } },
+          { status: { $nin: ["completed", "canceled"] } },
+        ],
+      })
+        .sort({ scheduledDate: 1 })
+        .populate("car", "make name model plateNumber mileage color")
+        .populate("customer", "name phone")
+        .populate("shop")
+        .populate("serviceParts");
 
-    return res.status(200).json({ success: true, data: upcoming });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+      return res.status(200).json({ success: true, data: upcoming });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // get past
-router.get("/past", auth, async (req, res) => {
+router.get("/past", auth, logIP("GET_PAST_APPOINTMENTS"), async (req, res) => {
   try {
     const userId = req.user._id;
 
@@ -91,85 +101,100 @@ router.get("/past", auth, async (req, res) => {
 });
 
 // get confiremd
-router.get("/confirmed/:id", [auth, shopOwner], async (req, res) => {
-  try {
-    const shopId = req.params.id;
+router.get(
+  "/confirmed/:id",
+  [auth, shopOwner],
+  logIP("GET_CONFIRMED_APPOINTMENTS"),
+  async (req, res) => {
+    try {
+      const shopId = req.params.id;
 
-    const confimed = await AppointmentModel.find({
-      shop: shopId,
-      status: "confirmed",
-    })
-      .sort("scheduledDate")
-      .populate("car", "make name model plateNumber mileage color")
-      .populate("customer", "name phone")
-      .populate("shop", "owner name services address rating ratingCount")
-      .populate("serviceParts");
+      const confimed = await AppointmentModel.find({
+        shop: shopId,
+        status: "confirmed",
+      })
+        .sort("scheduledDate")
+        .populate("car", "make name model plateNumber mileage color")
+        .populate("customer", "name phone")
+        .populate("shop", "owner name services address rating ratingCount")
+        .populate("serviceParts");
 
-    return res.status(200).json({ success: true, data: confimed });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+      return res.status(200).json({ success: true, data: confimed });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // get comleted
-router.get("/completed/:id", [auth, shopOwner], async (req, res) => {
-  try {
-    const shopId = req.params.id;
+router.get(
+  "/completed/:id",
+  [auth, shopOwner],
+  logIP("GET_COMPLETED_APPOINTMENTS"),
+  async (req, res) => {
+    try {
+      const shopId = req.params.id;
 
-    const completed = await AppointmentModel.find({
-      shop: shopId,
-      status: "completed",
-    })
-      .sort("-createdAt")
-      .populate("car", "make name model plateNumber mileage color")
-      .populate("customer", "name phone")
-      .populate("shop", "owner name services address rating ratingCount")
-      .populate("serviceParts");
+      const completed = await AppointmentModel.find({
+        shop: shopId,
+        status: "completed",
+      })
+        .sort("-createdAt")
+        .populate("car", "make name model plateNumber mileage color")
+        .populate("customer", "name phone")
+        .populate("shop", "owner name services address rating ratingCount")
+        .populate("serviceParts");
 
-    return res.status(200).json({ success: true, data: completed });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+      return res.status(200).json({ success: true, data: completed });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // get pending
-router.get("/pending/:id", [auth, shopOwner], async (req, res) => {
-  try {
-    const shopId = req.params.id;
+router.get(
+  "/pending/:id",
+  [auth, shopOwner],
+  logIP("GET_PENDING_APPOINTMENTS"),
+  async (req, res) => {
+    try {
+      const shopId = req.params.id;
 
-    const pending = await AppointmentModel.find({
-      shop: shopId,
-      status: "pending",
-      isRejected: false,
-    })
-      .populate("car", "make name model plateNumber mileage color")
-      .populate("customer", "name phone")
-      .populate("shop", "owner name services address rating ratingCount")
-      .populate("serviceParts");
+      const pending = await AppointmentModel.find({
+        shop: shopId,
+        status: "pending",
+        isRejected: false,
+      })
+        .populate("car", "make name model plateNumber mileage color")
+        .populate("customer", "name phone")
+        .populate("shop", "owner name services address rating ratingCount")
+        .populate("serviceParts");
 
-    return res.status(200).json({ success: true, data: pending });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+      return res.status(200).json({ success: true, data: pending });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // make appointment
 router.post(
   "/book",
   [auth, validate(createAppointmentSchema)],
-  logIP("BOOK"),
+  logIP("BOOK_APPOINTMENT"),
   async (req, res) => {
     try {
       const data = req.body;
@@ -251,48 +276,53 @@ router.post(
 );
 
 // delete many (past)
-router.patch("/delete-many", auth, async (req, res) => {
-  try {
-    const userId = req.user._id;
+router.patch(
+  "/delete-many",
+  auth,
+  logIP("DELETE_APPOINTMENTS"),
+  async (req, res) => {
+    try {
+      const userId = req.user._id;
 
-    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({
+      if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid user ID",
+        });
+      }
+
+      const appointments = await AppointmentModel.updateMany(
+        {
+          customer: userId,
+          scheduledDate: { $lt: new Date() },
+        },
+        { $set: { isDeleted: true } },
+      );
+
+      if (appointments.modifiedCount === 0)
+        return res
+          .status(200)
+          .json({ success: true, message: "No past appointments" });
+
+      return res.status(200).json({
+        success: true,
+        message: "Deleted all past appointments successfully",
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
         success: false,
-        message: "Invalid user ID",
+        message: "Server Error",
       });
     }
-
-    const appointments = await AppointmentModel.updateMany(
-      {
-        customer: userId,
-        scheduledDate: { $lt: new Date() },
-      },
-      { $set: { isDeleted: true } },
-    );
-
-    if (appointments.modifiedCount === 0)
-      return res
-        .status(200)
-        .json({ success: true, message: "No past appointments" });
-
-    return res.status(200).json({
-      success: true,
-      message: "Deleted all past appointments successfully",
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+  },
+);
 
 // delete one (past)
 router.patch(
   "/delete/:id",
   auth,
-  logIP("DELETE_APPOINTMENT"),
+  logIP("DELETE_ONE_APPOINTMENT"),
   async (req, res) => {
     try {
       const id = req.params.id;
