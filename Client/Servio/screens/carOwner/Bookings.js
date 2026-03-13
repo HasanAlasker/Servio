@@ -11,8 +11,10 @@ import { useRoute } from "@react-navigation/native";
 import SText from "../../components/text/SText";
 import { UseAppointment } from "../../context/AppointmentContext";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
+import useAppToast from "../../hooks/useAppToast";
 
 function Bookings(props) {
+  const toast = useAppToast();
   const { upcoming, past, setUpcoming, setPast, loading, loadAppointments } =
     UseAppointment();
   const [refreshing, setRefreshing] = useState(false);
@@ -57,7 +59,7 @@ function Bookings(props) {
     try {
       setPast((prev) => prev.filter((app) => app._id !== id));
       const res = await deleteAppointment(id);
-      console.log(res.data)
+      if (!res.ok) toast.error("Appointment in future or active");
     } catch (error) {
       console.log(error);
     }

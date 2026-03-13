@@ -5,7 +5,6 @@ import {
   loginUser,
   refreshToken,
   registerUser,
-  removePushToken,
 } from "../api/user";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { isServerAwake } from "../api/upcomingService";
@@ -14,11 +13,7 @@ import { UseCar } from "./CarContext";
 import { UseService } from "./ServiceContext";
 import { UseAppointment } from "./AppointmentContext";
 import { UseShop } from "./ShopContext";
-import {
-  getPushTokenForDevice,
-  unregisterPushToken,
-} from "../functions/notificationToken";
-import { unregisterForNotificationsAsync } from "expo-notifications";
+import { unregisterPushToken } from "../functions/notificationToken";
 
 export const UserContext = createContext();
 
