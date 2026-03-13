@@ -75,13 +75,13 @@ function AppointmentCard({
       <GapContainer gap={20}>
         <SquareInfo
           color={"lightBlue"}
-          icon={"car"}
+          icon={"car-outline"}
           title={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
           text={car?.plateNumber}
         />
         <SquareInfo
           color={"green"}
-          icon={isUser ? "store" : "account"}
+          icon={isUser ? "store-outline" : "account"}
           title={
             isUser ? capFirstLetter(shop?.name) : capFirstLetter(customer?.name)
           }
@@ -92,17 +92,13 @@ function AppointmentCard({
           }
           flex
         />
-
-        <View>
-          <IconTextLabel
-            icon={"calendar-blank-outline"}
-            text={formatDate(scheuledAt)}
-          />
-          <IconTextLabel
-            icon={"clock-outline"}
-            text={getTimeFromDate(scheuledAt)}
-          />
-        </View>
+        <SquareInfo
+          color={"green"}
+          icon={"clock-outline"}
+          title={formatDate(scheuledAt)}
+          text={getTimeFromDate(scheuledAt)}
+          flex
+        />
 
         <StatusLabel status={status} />
 
