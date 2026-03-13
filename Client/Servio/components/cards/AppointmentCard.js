@@ -39,7 +39,7 @@ function AppointmentCard({
 }) {
   const styles = useThemedStyles(getstyles);
   const { isShopOwner, isUser } = UseUser();
-  const { theme } = useTheme();
+  const { theme, isDarkMode } = useTheme();
   const [modal, setModal] = useState(false);
 
   const handleCall = async () => {
@@ -107,8 +107,15 @@ function AppointmentCard({
           new Date() < new Date(scheuledAt) && (
             <Pressable onPress={() => openURL(shop?.link)}>
               <Image
-                style={styles.map}
-                source={require("../../assets/map.png")}
+                style={[
+                  styles.map,
+                  { borderColor: isDarkMode ? theme.sec_text : theme.gold },
+                ]}
+                source={
+                  isDarkMode
+                    ? require("../../assets/map_dark.png")
+                    : require("../../assets/map.png")
+                }
               />
             </Pressable>
           )}
