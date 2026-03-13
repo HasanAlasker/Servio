@@ -10,6 +10,7 @@ import CardLeftBorder from "./CardLeftBorder";
 import { useNavigation } from "@react-navigation/native";
 import { UseUser } from "../../context/UserContext";
 import Reminder from "../general/Reminder";
+import { getTimeFromDate } from "../../functions/fromatTime";
 
 function ServiceCard({
   id,
@@ -34,25 +35,32 @@ function ServiceCard({
   return (
     <CardComp style={styles.container}>
       <GapContainer>
-        <SquareInfo
-          color={"lightBlue"}
-          icon={"car"}
-          title={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
-          text={car?.plateNumber}
-        />
-
-        <View>
-          <IconTextLabel
-            icon={"calendar-blank-outline"}
-            text={formatDate(dueBy.date)}
+        <GapContainer gap={20}>
+          <SquareInfo
+            color={"lightBlue"}
+            icon={"car-outline"}
+            title={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
+            text={car?.plateNumber}
           />
-          <IconTextLabel
-            icon={"gauge"}
-            text={
+
+          <SquareInfo
+            color={"green"}
+            icon={"calendar-outline"}
+            title={formatDate(dueBy.date)}
+            text={"Change Date"}
+            flex
+          />
+
+          <SquareInfo
+            color={"green"}
+            icon={"clock-outline"}
+            title={
               dueBy.mileage.toLocaleString() + " " + capFirstLetter(car?.unit)
             }
+            text={"Change Mileage"}
+            flex
           />
-        </View>
+        </GapContainer>
 
         <Reminder
           isActive={sendNotifications}

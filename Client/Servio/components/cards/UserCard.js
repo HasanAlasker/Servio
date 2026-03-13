@@ -25,7 +25,7 @@ function UserCard({
       <GapContainer>
         <GapContainer gap={12}>
           <SquareInfo
-            icon={"account"}
+            icon={"account-outline"}
             color={"lightBlue"}
             title={"Name"}
             text={passedUser?.name}
@@ -33,7 +33,7 @@ function UserCard({
             flex
           />
           <SquareInfo
-            icon={"phone"}
+            icon={"phone-outline"}
             color={"green"}
             text={passedUser?.phone}
             title={"Phone"}
@@ -41,7 +41,7 @@ function UserCard({
             flex
           />
           <SquareInfo
-            icon={"email"}
+            icon={"email-outline"}
             color={"pink"}
             text={passedUser?.email}
             title={"Email"}
