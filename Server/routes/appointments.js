@@ -319,9 +319,12 @@ router.patch(
         });
       }
 
-      const isActiveStatus = !["canceled", "rejected"].includes(
-        appointment.status,
-      );
+      const isActiveStatus = ![
+        "canceled",
+        "rejected",
+        "no-show",
+        "completed",
+      ].includes(appointment.status);
       const isFuture = new Date(appointment.scheduledDate) > Date.now();
 
       if (isActiveStatus && isFuture) {
