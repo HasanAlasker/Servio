@@ -88,6 +88,7 @@ function Suggestions(props) {
             />
 
             <SubmitBtn
+              square
               setHasBeenSubmitted={setHasBeenSubmited}
               defaultText="Submit Suggestion"
               submittingText="Submitting..."

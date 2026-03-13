@@ -319,6 +319,7 @@ function AddShop(props) {
               />
               {err && <ErrorMessage error={errMsg} />}
               <SubmitBtn
+                square
                 defaultText={!isEdit ? "Send Request" : "Edit Shop"}
                 submittingText={!isEdit ? "Sending..." : "Editing..."}
                 setHasBeenSubmitted={setHasbeenSubmitted}
@@ -326,6 +327,7 @@ function AddShop(props) {
 
               {isEdit && (
                 <PriBtn
+                  square
                   title={"Delete Shop"}
                   red
                   disabled={hasBeenSubmitted}
