@@ -319,7 +319,12 @@ router.patch(
         });
       }
 
-      if (new Date(appointment.scheduledDate) > Date.now()) {
+      const isActiveStatus = !["canceled", "rejected"].includes(
+        appointment.status,
+      );
+      const isFuture = new Date(appointment.scheduledDate) > Date.now();
+
+      if (isActiveStatus && isFuture) {
         return res.status(400).json({
           success: false,
           message: "You can't delete an appointment unless it's in the past",
