@@ -291,8 +291,8 @@ router.patch("/delete-many", auth, async (req, res) => {
 // delete one (past)
 router.patch(
   "/delete/:id",
-  logIP("DELETE_APPOINTMENT"),
   auth,
+  logIP("DELETE_APPOINTMENT"),
   async (req, res) => {
     try {
       const id = req.params.id;

@@ -22,7 +22,7 @@ import logIP from "../middleware/logIp.js";
 const router = express.Router();
 
 // get all users
-router.get("/all", [auth, admin], async (req, res) => {
+router.get("/all", [auth, admin], logIP("GET_ALL_USERS"), async (req, res) => {
   try {
     const users = await UserModel.find({ isDeleted: false })
       .sort("-createdAt")
@@ -38,23 +38,28 @@ router.get("/all", [auth, admin], async (req, res) => {
 });
 
 // get deleted users
-router.get("/deleted", [auth, admin], async (req, res) => {
-  try {
-    const deletedUsers = await UserModel.find({ isDeleted: true })
-      .sort("-createdAt")
-      .select("-password");
-    return res.status(200).json({ success: true, data: deletedUsers });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+router.get(
+  "/deleted",
+  [auth, admin],
+  logIP("GET_DELETED_USERS"),
+  async (req, res) => {
+    try {
+      const deletedUsers = await UserModel.find({ isDeleted: true })
+        .sort("-createdAt")
+        .select("-password");
+      return res.status(200).json({ success: true, data: deletedUsers });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // get me
-router.get("/me", auth, async (req, res) => {
+router.get("/me", auth, logIP("GET_ME"), async (req, res) => {
   try {
     const id = req.user._id;
 
@@ -73,7 +78,7 @@ router.get("/me", auth, async (req, res) => {
 });
 
 // count docs
-router.get("/count", auth, async (req, res) => {
+router.get("/count", auth, logIP("COUNT_DOCS"), async (req, res) => {
   try {
     const userId = req.user._id;
 
@@ -106,140 +111,155 @@ router.get("/count", auth, async (req, res) => {
 });
 
 // count docs (admin)
-router.get("/admin/count", [auth, admin], async (req, res) => {
-  try {
-    const activeUsers = await UserModel.countDocuments({ isDeleted: false });
-    const deletedUsers = await UserModel.countDocuments({ isDeleted: true });
-    const carOwners = await UserModel.countDocuments({
-      role: "user",
-      isDeleted: false,
-    });
-    const shopOwners = await UserModel.countDocuments({
-      role: "shopOwner",
-      isDeleted: false,
-    });
-    const activeShops = await ShopModel.countDocuments({
-      isVerified: true,
-      isDeleted: false,
-    });
-    const deletedShops = await ShopModel.countDocuments({
-      isVerified: false,
-      isDeleted: true,
-    });
-    const shopRequests = await ShopModel.countDocuments({
-      isVerified: false,
-      isDeleted: false,
-    });
-    const suggestions = await SuggestionModel.countDocuments();
-    const reports = await ReportModel.countDocuments({ status: "open" });
-    const cars = await CarModel.countDocuments();
+router.get(
+  "/admin/count",
+  [auth, admin],
+  logIP("ADMIN_COUNT_DOCS"),
+  async (req, res) => {
+    try {
+      const activeUsers = await UserModel.countDocuments({ isDeleted: false });
+      const deletedUsers = await UserModel.countDocuments({ isDeleted: true });
+      const carOwners = await UserModel.countDocuments({
+        role: "user",
+        isDeleted: false,
+      });
+      const shopOwners = await UserModel.countDocuments({
+        role: "shopOwner",
+        isDeleted: false,
+      });
+      const activeShops = await ShopModel.countDocuments({
+        isVerified: true,
+        isDeleted: false,
+      });
+      const deletedShops = await ShopModel.countDocuments({
+        isVerified: false,
+        isDeleted: true,
+      });
+      const shopRequests = await ShopModel.countDocuments({
+        isVerified: false,
+        isDeleted: false,
+      });
+      const suggestions = await SuggestionModel.countDocuments();
+      const reports = await ReportModel.countDocuments({ status: "open" });
+      const cars = await CarModel.countDocuments();
 
-    const response = {
-      activeUsers: activeUsers,
-      deletedUsers: deletedUsers,
-      deletedShops: deletedShops,
-      activeShops: activeShops,
-      shopRequests: shopRequests,
-      shopOwners: shopOwners,
-      carOwners: carOwners,
-      suggestions: suggestions,
-      reports: reports,
-      cars: cars,
-    };
+      const response = {
+        activeUsers: activeUsers,
+        deletedUsers: deletedUsers,
+        deletedShops: deletedShops,
+        activeShops: activeShops,
+        shopRequests: shopRequests,
+        shopOwners: shopOwners,
+        carOwners: carOwners,
+        suggestions: suggestions,
+        reports: reports,
+        cars: cars,
+      };
 
-    return res.status(200).json({ success: true, data: response });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
-
-// count docs (shopOwner)
-router.get("/shopOwner/count", [auth, shopOwner], async (req, res) => {
-  try {
-    const userId = req.user._id;
-
-    const activeShops = await ShopModel.countDocuments({
-      owner: userId,
-      isDeleted: false,
-      isVerified: true,
-    });
-    const newShops = await ShopModel.countDocuments({
-      owner: userId,
-      isDeleted: false,
-      isVerified: false,
-    });
-    const myShopsId = await ShopModel.find({
-      owner: userId,
-      isDeleted: false,
-      isVerified: true,
-    }).select("_id");
-
-    let idList = [];
-    myShopsId.map((shop) => idList.push(shop._id));
-
-    const requests = await AppointmentModel.countDocuments({
-      shop: { $in: myShopsId },
-      status: "pending",
-    });
-
-    const response = {
-      activeShops: activeShops,
-      newShops: newShops,
-      activeShops: activeShops,
-      requests: requests,
-    };
-
-    return res.status(200).json({ success: true, data: response });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
-
-// refresh user token
-router.get("/refreshToken/:id", auth, async (req, res) => {
-  try {
-    const userId = req.params.id;
-
-    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({
+      return res.status(200).json({ success: true, data: response });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
         success: false,
-        message: "Invalid resource ID",
+        message: "Server Error",
       });
     }
+  },
+);
 
-    const user = await UserModel.findById(userId);
+// count docs (shopOwner)
+router.get(
+  "/shopOwner/count",
+  [auth, shopOwner],
+  logIP("SHOP_COUNT_DOCS"),
+  async (req, res) => {
+    try {
+      const userId = req.user._id;
 
-    if (!user)
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
+      const activeShops = await ShopModel.countDocuments({
+        owner: userId,
+        isDeleted: false,
+        isVerified: true,
+      });
+      const newShops = await ShopModel.countDocuments({
+        owner: userId,
+        isDeleted: false,
+        isVerified: false,
+      });
+      const myShopsId = await ShopModel.find({
+        owner: userId,
+        isDeleted: false,
+        isVerified: true,
+      }).select("_id");
 
-    const token = user.generateAuthToken();
-    const response = _.omit(user.toObject(), ["password", "__v"]);
-    return res.status(201).header("x-auth-token", token).json({
-      success: true,
-      message: "Token refreshed successfully",
-      data: response,
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+      let idList = [];
+      myShopsId.map((shop) => idList.push(shop._id));
+
+      const requests = await AppointmentModel.countDocuments({
+        shop: { $in: myShopsId },
+        status: "pending",
+      });
+
+      const response = {
+        activeShops: activeShops,
+        newShops: newShops,
+        activeShops: activeShops,
+        requests: requests,
+      };
+
+      return res.status(200).json({ success: true, data: response });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
+
+// refresh user token
+router.get(
+  "/refreshToken/:id",
+  logIP("REFRESH_TOKEN"),
+  auth,
+  async (req, res) => {
+    try {
+      const userId = req.params.id;
+
+      if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid resource ID",
+        });
+      }
+
+      const user = await UserModel.findById(userId);
+
+      if (!user)
+        return res
+          .status(404)
+          .json({ success: false, message: "User not found" });
+
+      const token = user.generateAuthToken();
+      const response = _.omit(user.toObject(), ["password", "__v"]);
+      return res.status(201).header("x-auth-token", token).json({
+        success: true,
+        message: "Token refreshed successfully",
+        data: response,
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // get by id
-router.get("/:id", admin, async (req, res) => {
+router.get("/:id", admin, logIP("GET_USER_BY_ID"), async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -521,7 +541,7 @@ router.patch(
 );
 
 // Add push notification token
-router.post("/push-token", auth, async (req, res) => {
+router.post("/push-token", auth, logIP("ADD_PUSH_TOKEN"), async (req, res) => {
   try {
     const { token, platform } = req.body;
     const userId = req.user._id;
@@ -569,30 +589,35 @@ router.post("/push-token", auth, async (req, res) => {
 });
 
 // Remove push notification token (when user logs out on a device)
-router.delete("/push-token/:token", auth, async (req, res) => {
-  try {
-    const { token } = req.params;
-    const userId = req.user._id;
+router.delete(
+  "/push-token/:token",
+  auth,
+  logIP("LOG_OUT"),
+  async (req, res) => {
+    try {
+      const { token } = req.params;
+      const userId = req.user._id;
 
-    const updatedUser = await UserModel.findByIdAndUpdate(
-      userId,
-      {
-        $pull: {
-          pushNotificationTokens: { token: token },
+      const updatedUser = await UserModel.findByIdAndUpdate(
+        userId,
+        {
+          $pull: {
+            pushNotificationTokens: { token: token },
+          },
         },
-      },
-      { new: true },
-    );
+        { new: true },
+      );
 
-    if (!updatedUser) return res.status(404).send("User not found");
+      if (!updatedUser) return res.status(404).send("User not found");
 
-    return res.status(200).send({
-      message: "Push token removed successfully",
-      tokens: updatedUser.pushNotificationTokens,
-    });
-  } catch (err) {
-    return res.status(500).send(err.message);
-  }
-});
+      return res.status(200).send({
+        message: "Push token removed successfully",
+        tokens: updatedUser.pushNotificationTokens,
+      });
+    } catch (err) {
+      return res.status(500).send(err.message);
+    }
+  },
+);
 
 export default router;
