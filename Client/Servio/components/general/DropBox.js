@@ -17,7 +17,7 @@ import SeparatorComp from "./SeparatorComp";
 import MenuOption from "./MenuOption";
 import InputCont from "./InputCont";
 import TText from "../text/TText";
-import SText from "../text/SText";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 function DropBox({
   placeholder,
@@ -31,6 +31,7 @@ function DropBox({
 }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
+  const insets = useSafeAreaInsets();
 
   const [modal, setModal] = useState(false);
 
@@ -94,7 +95,9 @@ function DropBox({
       </InputCont>
 
       <Modal visible={modal && !disabled} animationType="slide" transparent>
-        <View style={styles.modalContent}>
+        <View
+          style={[styles.modalContent, { paddingBottom: insets.bottom + 5 }]}
+        >
           <BackContainer style={styles.back}>
             <MenuBackBtn
               onClose={() => {
