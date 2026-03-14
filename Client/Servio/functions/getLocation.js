@@ -30,5 +30,8 @@ export async function getApproximateLocation() {
     countryCode: place.isoCountryCode,
     region: place.region,
     district: place.district,
+    latitude: coords.coords.latitude,
+    longitude: coords.coords.longitude,
+    altitude: coords.coords.altitude,
   };
 }
