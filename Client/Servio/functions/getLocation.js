@@ -2,8 +2,14 @@ import * as Location from "expo-location";
 
 export async function getApproximateLocation() {
   // Request permission
-  const { status } = await Location.requestForegroundPermissionsAsync();
+  const { status, canAskAgain } =
+    await Location.requestForegroundPermissionsAsync();
+
   if (status !== "granted") {
+    if (!canAskAgain) {
+      // Permanently denied — must go to device settings
+      return { denied: true };
+    }
     return null;
   }
 

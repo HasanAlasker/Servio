@@ -16,6 +16,7 @@ import { UseShop } from "./ShopContext";
 import { unregisterPushToken } from "../functions/notificationToken";
 import { getApproximateLocation } from "../functions/getLocation";
 import useAppToast from "../hooks/useAppToast";
+import { Alert, Linking } from "react-native";
 
 export const UserContext = createContext();
 
@@ -63,10 +64,30 @@ export const UserProvider = ({ children }) => {
   };
 
   const fetchUserLocation = async () => {
-    const location = await getApproximateLocation();
-    if (!location) toast.error("Nearby shops unknown");
-    
-    setUserLocation(location);
+    try {
+      const location = await getApproximateLocation();
+
+      if (!location) {
+        toast.error("Nearby shops unknown");
+        return;
+      }
+
+      if (location.denied) {
+        Alert.alert(
+          "Location Permission",
+          "Please enable location access in your device settings to find shops nearby.",
+          [
+            { text: "Cancel", style: "cancel" },
+            { text: "Open Settings", onPress: () => Linking.openSettings() },
+          ],
+        );
+        return;
+      }
+
+      setUserLocation(location);
+    } catch (e) {
+      toast.error("Nearby shops unknown");
+    }
   };
 
   const refreshUserToken = async (userId) => {
