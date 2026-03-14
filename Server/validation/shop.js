@@ -170,6 +170,9 @@ export const addShopSchema = Joi.object({
       "array.length": "Open hours must contain exactly 7 days",
       "any.required": "Open hours are required",
     }),
+
+  lng: Joi.string().required(),
+  lat: Joi.string().required(),
 });
 
 export const editShopSchema = Joi.object({
@@ -218,6 +221,9 @@ export const editShopSchema = Joi.object({
     "string.max": "Link can't be longer than 500 characters",
     "any.required": "Shop link is required",
   }),
+
+  lng: Joi.string().required(),
+  lat: Joi.string().required(),
 
   services: Joi.array()
     .items(

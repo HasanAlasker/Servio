@@ -101,6 +101,14 @@ const shopSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    lng: {
+      type: String,
+      required: true,
+    },
+    lat: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true },
 );
