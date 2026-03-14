@@ -10,7 +10,6 @@ export async function getApproximateLocation() {
       // Permanently denied — must go to device settings
       return { denied: true };
     }
-    return null;
   }
 
   // Get coordinates (low accuracy = faster + battery friendly)
@@ -27,7 +26,9 @@ export async function getApproximateLocation() {
   return {
     city: place.city,
     country: place.country,
+    street: place.street || null,
     countryCode: place.isoCountryCode,
     region: place.region,
+    district: place.district,
   };
 }

@@ -9,8 +9,10 @@ import { useEffect, useState } from "react";
 import GapContainer from "../../components/general/GapContainer";
 import { useRoute } from "@react-navigation/native";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
+import { UseUser } from "../../context/UserContext";
 
 function Shops(props) {
+  const { userLocation } = UseUser();
   const [shops, setShops] = useState([]);
   const route = useRoute();
   const params = route?.params;
