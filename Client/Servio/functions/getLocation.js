@@ -4,7 +4,7 @@ export async function getApproximateLocation() {
   // Request permission
   const { status } = await Location.requestForegroundPermissionsAsync();
   if (status !== "granted") {
-    throw new Error("Permission denied");
+    return null;
   }
 
   // Get coordinates (low accuracy = faster + battery friendly)

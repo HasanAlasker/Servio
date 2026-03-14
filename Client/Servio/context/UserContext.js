@@ -14,6 +14,8 @@ import { UseService } from "./ServiceContext";
 import { UseAppointment } from "./AppointmentContext";
 import { UseShop } from "./ShopContext";
 import { unregisterPushToken } from "../functions/notificationToken";
+import { getApproximateLocation } from "../functions/getLocation";
+import useAppToast from "../hooks/useAppToast";
 
 export const UserContext = createContext();
 
@@ -47,15 +49,24 @@ export const UserProvider = ({ children }) => {
   const [status, setStatus] = useState(null);
   const [serverAwake, setServerAwake] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userLocation, setUserLocation] = useState(null);
 
   const { loadCars } = UseCar();
   const { loadServices } = UseService();
   const { loadAppointments } = UseAppointment();
   const { loadShops } = UseShop();
+  const toast = useAppToast();
 
   const STORAGE_KEYS = {
     USER: "@servio_user",
     TOKEN: "@servio_token",
+  };
+
+  const fetchUserLocation = async () => {
+    const location = await getApproximateLocation();
+    if (!location) toast.error("Nearby shops unknown");
+    
+    setUserLocation(location);
   };
 
   const refreshUserToken = async (userId) => {
@@ -449,6 +460,8 @@ export const UserProvider = ({ children }) => {
     loadUserData,
     serverAwake,
     checkServerConnection,
+    userLocation,
+    fetchUserLocation,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

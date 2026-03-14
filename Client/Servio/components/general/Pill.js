@@ -13,7 +13,7 @@ function Pill({ icon, text, navigateTo, params, onPress }) {
 
   const handlePress = () => {
     if (onPress) onPress();
-    else navigate.navigate(navigateTo, params);
+    if (navigateTo) navigate.navigate(navigateTo, params);
   };
 
   return (

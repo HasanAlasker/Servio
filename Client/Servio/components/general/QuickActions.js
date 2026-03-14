@@ -8,8 +8,13 @@ import GapContainer from "./GapContainer";
 import { useTheme } from "../../context/ThemeContext";
 
 function QuickActions(props) {
-  const { isAdmin, isUser, isShopOwner } = UseUser();
+  const { isAdmin, isUser, isShopOwner, userLocation, fetchUserLocation } =
+    UseUser();
   const { isDarkMode, toggleTheme } = useTheme();
+
+  const handlePress = async () => {
+    if (!userLocation) await fetchUserLocation();
+  };
 
   const RenderedActions = () => {
     if (isUser)
@@ -26,6 +31,7 @@ function QuickActions(props) {
             text={"Shops"}
             navigateTo={"Shops"}
             params={{ showBtn: false }}
+            onPress={handlePress}
           />
           <Pill
             icon={isDarkMode ? "sun" : "moon"}

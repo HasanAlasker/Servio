@@ -24,7 +24,7 @@ function ServiceCard({
   handleReminder,
 }) {
   const navigate = useNavigation();
-  const { isShopOwner } = UseUser();
+  const { isShopOwner, userLocation, fetchUserLocation } = UseUser();
 
   const sendParams = {
     car: car,
@@ -34,9 +34,8 @@ function ServiceCard({
   };
 
   const handlePress = async () => {
-    const location = await getApproximateLocation();
-    console.log(location)
-    navigate.navigate("Shops", { sendParams, location });
+    if (!userLocation) await fetchUserLocation();
+    navigate.navigate("Shops", { sendParams, location: userLocation });
   };
 
   return (
