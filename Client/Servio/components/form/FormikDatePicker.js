@@ -163,7 +163,6 @@ const getStyles = (theme) =>
     },
     text: {
       color: theme.darker_gray,
-      fontWeight: "bold",
       fontSize: 16,
       flex: 1,
     },

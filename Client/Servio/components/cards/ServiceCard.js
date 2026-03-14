@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { UseUser } from "../../context/UserContext";
 import Reminder from "../general/Reminder";
 import { getTimeFromDate } from "../../functions/fromatTime";
+import { getApproximateLocation } from "../../functions/getLocation";
 
 function ServiceCard({
   id,
@@ -30,6 +31,12 @@ function ServiceCard({
     customer,
     parts,
     showBtn: true,
+  };
+
+  const handlePress = async () => {
+    const location = await getApproximateLocation();
+    console.log(location)
+    navigate.navigate("Shops", { sendParams, location });
   };
 
   return (
@@ -76,7 +83,7 @@ function ServiceCard({
             black
             style={{ marginTop: 15 }}
             title={"Book Appointment"}
-            onPress={() => navigate.navigate("Shops", sendParams)}
+            onPress={handlePress}
           />
         )}
       </GapContainer>
