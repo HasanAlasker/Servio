@@ -62,13 +62,14 @@ router.post(
     try {
       const data = req.body;
 
-      const existingReq = await EarlyAccessModel.findOne({
-        $or: [{ phone: data.phone }, { email: data.email }],
-      });
+      // const existingReq = await EarlyAccessModel.findOne({
+      //   $or: [{ phone: data.phone }, { email: data.email }],
+      // });
+      const existingReq = await EarlyAccessModel.findOne({ email: data.email });
       if (existingReq) {
         return res
           .status(400)
-          .json({ success: false, message: "Phone or email already used" });
+          .json({ success: false, message: "Email already registered" });
       }
 
       const earlyAccessReq = new EarlyAccessModel(data);
@@ -114,37 +115,41 @@ router.post(
 );
 
 // mark as sent
-router.patch("/mark-sent/:id", [auth, admin],
-  logIP("MARK_SENT_EARLY_ACCESS"), async (req, res) => {
-  try {
-    const requestId = req.params.id;
+router.patch(
+  "/mark-sent/:id",
+  [auth, admin],
+  logIP("MARK_SENT_EARLY_ACCESS"),
+  async (req, res) => {
+    try {
+      const requestId = req.params.id;
 
-    if (!requestId || !mongoose.Types.ObjectId.isValid(requestId)) {
-      return res.status(400).json({
+      if (!requestId || !mongoose.Types.ObjectId.isValid(requestId)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid request ID",
+        });
+      }
+
+      const updatedRequest = await EarlyAccessModel.findByIdAndUpdate(
+        requestId,
+        { isInvitationSent: true },
+        { runValidators: true, new: true },
+      );
+      if (!updatedRequest) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Failed to update" });
+      }
+
+      return res.status(200).json({ success: true, data: updatedRequest });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
         success: false,
-        message: "Invalid request ID",
+        message: "Server Error",
       });
     }
-
-    const updatedRequest = await EarlyAccessModel.findByIdAndUpdate(
-      requestId,
-      { isInvitationSent: true },
-      { runValidators: true, new: true },
-    );
-    if (!updatedRequest) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Failed to update" });
-    }
-
-    return res.status(200).json({ success: true, data: updatedRequest });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+  },
+);
 
 export default router;

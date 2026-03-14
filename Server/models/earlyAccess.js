@@ -16,16 +16,16 @@ const EarlyAccessSchema = new mongoose.Schema({
     trim: true,
     required: true,
   },
-  phone: {
-    type: String,
-    trim: true,
-    required: true,
-    match: [
-      /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/,
-      "Please enter a valid phone number",
-    ],
-    unique: true,
-  },
+  // phone: {
+  //   type: String,
+  //   trim: true,
+  //   required: true,
+  //   match: [
+  //     /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/,
+  //     "Please enter a valid phone number",
+  //   ],
+  //   unique: true,
+  // },
   isInvitationSent: {
     type: Boolean,
     default: false,

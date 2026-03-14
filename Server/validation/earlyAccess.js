@@ -15,14 +15,14 @@ export const earlyAccessSchema = Joi.object({
       "any.required": "Email is required",
     }),
 
-  phone: Joi.string()
-    .pattern(/^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/)
-    .required()
-    .trim()
-    .messages({
-      "string.pattern.base": "Please enter a valid phone number",
-      "any.required": "Phone number is required",
-    }),
+  // phone: Joi.string()
+  //   .pattern(/^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/)
+  //   .required()
+  //   .trim()
+  //   .messages({
+  //     "string.pattern.base": "Please enter a valid phone number",
+  //     "any.required": "Phone number is required",
+  //   }),
 
   platform: Joi.string().required().valid("android", "ios").messages({
     "any.only": "Invalid platform type",

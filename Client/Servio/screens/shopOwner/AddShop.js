@@ -120,7 +120,7 @@ function AddShop(props) {
       if (response.ok) {
         await loadShops();
         if (isUser) navigate.navigate("Home");
-        if (isShopOwner) navigate.navigate("ShopDash");
+        if (isShopOwner) navigate.navigate("MyShops");
       }
       if (!response.ok) {
         setErr(true);
@@ -150,7 +150,7 @@ function AddShop(props) {
       if (response.ok) {
         await loadShops();
         if (isUser) navigate.navigate("Home");
-        if (isShopOwner) navigate.navigate("ShopDash");
+        if (isShopOwner) navigate.navigate("MyShops");
       } else {
         setErr(true);
         if (response.data?.message === "Validation error") {
