@@ -67,9 +67,8 @@ export const UserProvider = ({ children }) => {
     try {
       const location = await getApproximateLocation();
 
-      if (!location) {
+      if (!location || location.denied) {
         toast.error("Nearby shops unknown");
-        return;
       }
 
       if (location.denied) {

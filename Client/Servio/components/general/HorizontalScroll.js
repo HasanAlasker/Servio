@@ -14,7 +14,7 @@ function HorizontalScroll({ children }) {
 
 const styles = StyleSheet.create({
   cont: {
-    paddingRight:25,
+    // paddingRight:25,
   },
 });
 
