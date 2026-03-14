@@ -5,7 +5,11 @@ import useThemedStyles from "../../hooks/useThemedStyles";
 import FormikDatePicker from "./FormikDatePicker";
 import ErrorMessage from "./ErrorMessage";
 
-function OpenHoursInput({ name = "openHours", hasBeenSubmitted = false }) {
+function OpenHoursInput({
+  name = "openHours",
+  hasBeenSubmitted = false,
+  dontShowLable,
+}) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
   const { values, errors, setFieldValue } = useFormikContext();
@@ -73,6 +77,7 @@ function OpenHoursInput({ name = "openHours", hasBeenSubmitted = false }) {
                 <View style={styles.timeGroup}>
                   <Text style={styles.label}>From</Text>
                   <FormikDatePicker
+                    dontShowLable
                     name={`${name}[${index}].from`}
                     mode="time"
                     icon="clock-time-four-outline"
@@ -85,6 +90,7 @@ function OpenHoursInput({ name = "openHours", hasBeenSubmitted = false }) {
                 <View style={styles.timeGroup}>
                   <Text style={styles.label}>To</Text>
                   <FormikDatePicker
+                    dontShowLable
                     name={`${name}[${index}].to`}
                     mode="time"
                     icon="clock-time-four-outline"

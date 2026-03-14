@@ -12,13 +12,14 @@ import TText from "../text/TText";
 function FormikDatePicker({
   name,
   placeholder = "Select date",
-  lable=placeholder,
+  lable = placeholder,
   icon = "calendar-outline",
   mode = "date",
   minimumDate,
   maximumDate,
   hasBeenSubmitted = false,
   full,
+  dontShowLable,
 }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
@@ -109,9 +110,11 @@ function FormikDatePicker({
 
   return (
     <InputCont>
-      <TText thin color={"darker_gray"}>
-        {lable}
-      </TText>
+      {!dontShowLable && (
+        <TText thin color={"darker_gray"}>
+          {lable}
+        </TText>
+      )}
       <Pressable
         style={[styles.container, { width: full ? "100%" : "90%" }]}
         onPress={handlePress}
@@ -159,7 +162,7 @@ const getStyles = (theme) =>
       minHeight: 40,
       alignItems: "center",
       marginHorizontal: "auto",
-      width:'100%'
+      width: "100%",
     },
     text: {
       color: theme.darker_gray,
