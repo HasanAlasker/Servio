@@ -113,7 +113,7 @@ function AddPart(props) {
         navigate.navigate("CarParts", params);
       }
       if (!response.ok) {
-        setErrMsg(response.data.errors[0].message);
+        setErrMsg(response.data.errors.map((e) => e.message).join(", "));
       }
     } catch (error) {}
   };
@@ -137,7 +137,7 @@ function AddPart(props) {
         toast.success("Part Updated!");
       }
       if (!response.ok) {
-        setErrMsg(response.data.errors[0].message);
+        setErrMsg(response.data.errors.map((e) => e.message).join(", "));
       }
     } catch (error) {}
   };
@@ -150,7 +150,7 @@ function AddPart(props) {
         navigate.navigate("CarParts", params?.parentParams);
       }
       if (!response.ok) {
-        setErrMsg(response.data.errors[0].message);
+        setErrMsg(response.data.errors.map((e) => e.message).join(", "));
       }
     } catch (error) {}
   };

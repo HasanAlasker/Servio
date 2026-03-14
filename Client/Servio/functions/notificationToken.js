@@ -49,7 +49,6 @@ export const unregisterPushToken = async () => {
 
     if (token?.data) {
       await removePushToken(token.data);
-      console.log("Push token removed");
     }
   } catch (error) {
     console.error("Failed to remove push token:", error);

@@ -18,6 +18,7 @@ import { UseShop } from "../../context/ShopContext";
 import PriBtn from "../../components/general/PriBtn";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { UseUser } from "../../context/UserContext";
+import { getLatLngFromGoogleMapsLink } from "../../functions/getCoordsFromLink";
 
 const validationSchema = Yup.object({
   image: Yup.string().required("Shop image is required"),
@@ -76,16 +77,12 @@ const validationSchema = Yup.object({
 });
 
 const formatValues = (values) => {
-  const { city, area, street, services, ...rest } = values;
+  const { city, area, street, ...rest } = values;
 
   return {
-    ...values,
+    ...rest,
     services: formatServices(values.services),
-    address: {
-      city: values.city,
-      area: values.area,
-      street: values.street,
-    },
+    address: { city, area, street },
   };
 };
 
@@ -109,18 +106,26 @@ function AddShop(props) {
   const handleSubmit = async (values) => {
     setErr(false);
     setErrMsg(null);
-    const formattedValues = formatValues(values);
+
+    const coords = await getLatLngFromGoogleMapsLink(values.link);
+
+    const formattedValues = {
+      ...formatValues(values),
+      lat: coords?.lat,
+      lng: coords?.lng,
+    };
 
     try {
       const response = await openShop(formattedValues);
       if (response.ok) {
         await loadShops();
-        navigate.navigate("MyShop");
+        if (isUser) navigate.navigate("Home");
+        if (isShopOwner) navigate.navigate("ShopDash");
       }
       if (!response.ok) {
         setErr(true);
         if (response.data?.message === "Validation error") {
-          setErrMsg(response.data.errors[0].message);
+          setErrMsg(response.data.errors.map((e) => e.message).join(", "));
         } else {
           setErrMsg("An error occurred. Please try again.");
         }
@@ -131,25 +136,35 @@ function AddShop(props) {
   const handleEdit = async (values) => {
     setErr(false);
     setErrMsg(null);
-    const formattedValues = formatValues(values);
+
+    const coords = await getLatLngFromGoogleMapsLink(values.link);
+
+    const formattedValues = {
+      ...formatValues(values),
+      lat: coords?.lat,
+      lng: coords?.lng,
+    };
 
     try {
       const response = await editShop(params._id, formattedValues);
       if (response.ok) {
         await loadShops();
-        navigate.navigate("MyShop");
-      }
-      if (!response.ok) {
+        if (isUser) navigate.navigate("Home");
+        if (isShopOwner) navigate.navigate("ShopDash");
+      } else {
         setErr(true);
         if (response.data?.message === "Validation error") {
-          setErrMsg(response.data.errors[0].message);
+          setErrMsg(response.data.errors.map((e) => e.message).join(", "));
         } else {
           setErrMsg("An error occurred. Please try again.");
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+      setErr(true);
+      setErrMsg("An error occurred. Please try again.");
+    }
   };
-
   const handleDelete = async (values) => {
     setErr(false);
     setErrMsg(null);

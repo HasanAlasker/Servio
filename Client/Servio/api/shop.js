@@ -23,6 +23,8 @@ export const openShop = (data) => {
   formData.append("address[city]", data.address.city);
   formData.append("address[area]", data.address.area);
   formData.append("address[street]", data.address.street);
+  formData.append("lat", data?.lat);
+  formData.append("lng", data?.lng);
 
   // Handle services array
   if (data.services && Array.isArray(data.services)) {
@@ -75,6 +77,8 @@ export const editShop = (id, data) => {
   formData.append("address[city]", data.address.city);
   formData.append("address[area]", data.address.area);
   formData.append("address[street]", data.address.street);
+  formData.append("lng", data?.lng);
+  formData.append("lat", data?.lat);
 
   // Handle services array
   if (data.services && Array.isArray(data.services)) {
