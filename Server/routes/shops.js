@@ -307,7 +307,7 @@ router.patch("/delete/:id", auth, logIP("DELETE_SHOP"), async (req, res) => {
 
     if (
       user.role !== "admin" &&
-      user._id.toString() !== deletedShop.owner._id.toString()
+      user._id.toString() !== deletedShop.owner.toString()
     )
       return res.status(401).json({
         success: false,
