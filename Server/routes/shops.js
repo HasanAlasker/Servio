@@ -202,6 +202,7 @@ router.post(
         data: newShop,
       });
     } catch (error) {
+      console.error(error);
       // If post creation fails and image was uploaded, delete it from Cloudinary
       if (uploadedImage && uploadedImage.public_id) {
         await deleteImageFromCloudinary(uploadedImage.public_id);
@@ -213,7 +214,6 @@ router.post(
         });
       }
 
-      console.error(error);
       return res.status(500).json({
         success: false,
         message: "Server Error",
@@ -300,6 +300,9 @@ router.patch("/delete/:id", auth, logIP("DELETE_SHOP"), async (req, res) => {
     }
 
     const deletedShop = await ShopModel.findById(id);
+    console.log("Shop found:", deletedShop);
+    console.log("Shop owner:", deletedShop?.owner);
+    console.log("User:", user._id, user.role);
 
     if (!deletedShop)
       return res
