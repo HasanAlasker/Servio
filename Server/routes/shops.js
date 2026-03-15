@@ -266,6 +266,7 @@ router.patch(
 
       return res.status(200).json({ success: true, data: updatedShop });
     } catch (error) {
+      console.error(error);
       // If post creation fails and image was uploaded, delete it from Cloudinary
       if (uploadedImage && uploadedImage.public_id) {
         await deleteImageFromCloudinary(uploadedImage.public_id);
@@ -276,7 +277,7 @@ router.patch(
           message: "Shop number already exists",
         });
       }
-      console.error(error);
+
       return res.status(500).json({
         success: false,
         message: "Server Error",
@@ -307,7 +308,7 @@ router.patch("/delete/:id", auth, logIP("DELETE_SHOP"), async (req, res) => {
 
     if (
       user.role !== "admin" &&
-      user._id.toString() !== deletedShop.owner.toString()
+      user._id.toString() !== deletedShop.owner._id.toString()
     )
       return res.status(401).json({
         success: false,
