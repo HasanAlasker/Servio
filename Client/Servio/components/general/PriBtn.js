@@ -57,7 +57,6 @@ function PriBtn({
 const getStyles = (theme) =>
   StyleSheet.create({
     container: {
-      width: "",
       marginHorizontal: "auto",
       backgroundColor: theme.blue,
       padding: 9,
