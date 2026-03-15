@@ -129,7 +129,7 @@ function ShopCard({
               square
               title={isVerified ? "Delete Shop" : "Verify Shop"}
               onPress={
-                isDeleted === null ? hadleVerification : () => onAction(id)
+                !isDeleted ? hadleVerification : () => onAction(id)
               }
               red={isVerified}
             />

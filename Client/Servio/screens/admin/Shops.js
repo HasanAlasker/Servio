@@ -20,6 +20,7 @@ function Shops(props) {
   const [tab, setTab] = useState("1");
   const [Verified, setVerified] = useState([]);
   const [unverified, setUnverified] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const {
     data: vShops,
@@ -36,6 +37,11 @@ function Shops(props) {
   } = useApi(getUnVerifiedShops);
 
   let loading = loadingUv || loadingV;
+
+  const refresh = async () => {
+    fetchVshops();
+    fetchUvshops();
+  };
 
   useEffect(() => {
     fetchVshops();
@@ -81,6 +87,7 @@ function Shops(props) {
             services={shop.services}
             isVerified={shop.isVerified}
             onAction={handleAction}
+            isDeleted={shop.isDeleted}
           />
         ))
       : Verified.map((shop) => (
@@ -96,13 +103,19 @@ function Shops(props) {
             ratingCount={shop.ratingCount}
             services={shop.services}
             isVerified={shop.isVerified}
+            isDeleted={shop.isDeleted}
             onAction={handleAction}
           />
         ));
 
   return (
     <SafeScreen>
-      <ScrollScreen stickyHeader stickyHeaderIndices={[0]}>
+      <ScrollScreen
+        refreshing={refreshing}
+        onRefresh={refresh}
+        stickyHeader
+        stickyHeaderIndices={[0]}
+      >
         <TabNav
           one={"Unverified"}
           two={"Verified"}
