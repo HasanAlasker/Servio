@@ -28,6 +28,8 @@ function ShopCard({
   isVerified = null,
   isDeleted = null,
   onAction,
+  onVerify,
+  onDelete,
   onCardPress,
   mini,
   serviceData,
@@ -54,14 +56,8 @@ function ShopCard({
   const days = openHours.filter((day) => day.isOpen === true);
   const groupDays = formatOpenDays(days);
 
-  const hadleVerification = () => {
-    try {
-      if (isVerified) {
-        onAction("delete", id);
-      } else {
-        onAction("verify", id);
-      }
-    } catch (error) {}
+  const hadlePress = (type) => {
+    onAction(type, id);
   };
 
   return (
@@ -124,15 +120,26 @@ function ShopCard({
           )}
 
           {isVerified !== null && (
-            <PriBtn
-              full
-              square
-              title={isVerified ? "Delete Shop" : "Verify Shop"}
-              onPress={
-                !isDeleted ? hadleVerification : () => onAction(id)
-              }
-              red={isVerified}
-            />
+            <GapContainer gap={15}>
+              {!isVerified && (
+                <PriBtn
+                  full
+                  square
+                  title={"Verify"}
+                  onPress={() => onVerify(id)}
+                />
+              )}
+
+              {!isDeleted && (
+                <PriBtn
+                  full
+                  square
+                  title={"Delete"}
+                  onPress={() => onDelete(id)}
+                  red
+                />
+              )}
+            </GapContainer>
           )}
         </GapContainer>
       </View>

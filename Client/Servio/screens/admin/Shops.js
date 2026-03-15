@@ -59,9 +59,11 @@ function Shops(props) {
   };
 
   const handleAction = async (type, id) => {
+    console.log(type, id);
     if (type === "delete") {
       setVerified((p) => p.filter((shop) => shop._id !== id));
-      await deleteShop(id);
+      const res = await deleteShop(id);
+      console.log(res);
     } else if (type === "verify") {
       setUnverified((p) => p.filter((shop) => shop._id !== id));
       let shop = unverified.find((shop) => shop._id === id);
@@ -69,6 +71,19 @@ function Shops(props) {
       setVerified((p) => [shop, ...p]);
       await verifyShop(id);
     }
+  };
+  const handleVerify = async (id) => {
+    setUnverified((p) => p.filter((shop) => shop._id !== id));
+    let shop = unverified.find((shop) => shop._id === id);
+    shop.isVerified = true;
+    setVerified((p) => [shop, ...p]);
+    await verifyShop(id);
+  };
+
+  const handleDelete = async (id) => {
+    setVerified((p) => p.filter((shop) => shop._id !== id));
+    const res = await deleteShop(id);
+    console.log(res);
   };
 
   const RenderShops =
@@ -88,6 +103,8 @@ function Shops(props) {
             isVerified={shop.isVerified}
             onAction={handleAction}
             isDeleted={shop.isDeleted}
+            onVerify={handleVerify}
+            onDelete={handleDelete}
           />
         ))
       : Verified.map((shop) => (
@@ -105,6 +122,7 @@ function Shops(props) {
             isVerified={shop.isVerified}
             isDeleted={shop.isDeleted}
             onAction={handleAction}
+            onDelete={handleDelete}
           />
         ));
 

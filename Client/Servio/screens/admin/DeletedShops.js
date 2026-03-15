@@ -46,7 +46,7 @@ function DeletedShops(props) {
       services={shop.services}
       isVerified={shop.isVerified}
       isDeleted={shop.isDeleted}
-      onAction={handleUndelete}
+      onVerify={handleUndelete}
     />
   ));
 
