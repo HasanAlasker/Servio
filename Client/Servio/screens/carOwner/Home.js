@@ -7,13 +7,24 @@ import UsersDash from "../../components/general/UsersDash";
 import HelloUser from "../../components/general/HelloUser";
 import { UseCar } from "../../context/CarContext";
 import EmptyGarage from "../../components/general/EmptyGarage";
+import { useState } from "react";
 
 function Home(props) {
-  const { countCars } = UseCar();
+  const { countCars, loadCars } = UseCar();
+  const [refreshing, setRefreshing] = useState(false);
+  const handleRefresh = async () => {
+    try {
+      setRefreshing(true);
+      await loadCars();
+    } catch (error) {
+    } finally {
+      setRefreshing(false);
+    }
+  };
   return (
     <SafeScreen>
-      <ScrollScreen>
-        <GapContainer gap={40} style={{hieght:"100%"}}>
+      <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
+        <GapContainer gap={40} fullHeight>
           <HelloUser />
           {countCars() > 0 && <UsersDash />}
           {countCars() === 0 && <EmptyGarage />}

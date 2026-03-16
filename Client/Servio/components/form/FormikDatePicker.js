@@ -132,7 +132,7 @@ function FormikDatePicker({
         </Text>
       </Pressable>
 
-      {shouldShowError && <ErrorMessage error={errors[name]} />}
+      {shouldShowError && <ErrorMessage full error={errors[name]} />}
 
       {show && (
         <RNDateTimePicker

@@ -46,7 +46,10 @@ const validationSchema = Yup.object({
     .typeError("Miles must be a number"),
 
   lastChangeDate: Yup.date()
-    .max(new Date(), "Last change date cannot be in the future")
+    .max(
+      new Date(new Date().setHours(23, 59, 59, 999)),
+      "Last change date cannot be in the future",
+    )
     .required("Last change date is required")
     .typeError("Last change date must be a valid date"),
 
