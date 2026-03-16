@@ -7,15 +7,39 @@ import { formatDate } from "../../functions/formatDate";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import { useNavigation } from "@react-navigation/native";
 import CardLeftBorder from "./CardLeftBorder";
+import { UseCar } from "../../context/CarContext";
 
 function PartCard({ part, parentParams, unit }) {
+  const { cars } = UseCar();
   const navigate = useNavigation();
+
+  const car = cars.find((c) => c._id === parentParams?.id);
 
   const addMonthsToDate = (dateString, monthsToAdd) => {
     const date = new Date(dateString);
     date.setMonth(date.getMonth() + monthsToAdd);
     return date;
   };
+
+  let nextChangeDate = addMonthsToDate(
+    part?.lastChangeDate,
+    part?.recommendedChangeInterval.months,
+  );
+
+  let nextChangeMileage =
+    part?.lastChangeMileage + part.recommendedChangeInterval.miles;
+
+  const isDangerDate = () => new Date() >= new Date(nextChangeDate);
+  const isDangerMileage = () => car?.mileage >= nextChangeMileage;
+
+  const isSoonDate = () => {
+    const oneMonthFromNow = new Date();
+    oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1);
+    return nextChangeDate <= oneMonthFromNow && nextChangeDate > new Date();
+  };
+
+  const isSoonMileage = () =>
+    car?.mileage + 500 >= nextChangeMileage && car?.mileage < nextChangeMileage;
 
   const passPart = {
     partId: part._id,
@@ -36,21 +60,18 @@ function PartCard({ part, parentParams, unit }) {
     >
       <GapContainer gap={15}>
         <SquareInfo
-          color={"lightBlue"}
           icon={"engine-outline"}
           title={"Part Name"}
           text={capFirstLetter(part?.name)}
           fliped
         />
         <SquareInfo
-          color={"green"}
           icon={"calendar-outline"}
           title={"Last Change Date"}
           text={formatDate(part?.lastChangeDate)}
           fliped
         />
         <SquareInfo
-          color={"pink"}
           icon={"gauge"}
           title={"Last Change Mileage"}
           text={
@@ -62,28 +83,19 @@ function PartCard({ part, parentParams, unit }) {
         />
         <SeparatorComp children={"Next Change"} full />
         <SquareInfo
-          color={"gold"}
+          danger={isDangerDate()}
+          soon={isSoonDate()}
           icon={"calendar"}
           title={"Next Change Date"}
-          text={formatDate(
-            addMonthsToDate(
-              part?.lastChangeDate,
-              part?.recommendedChangeInterval.months,
-            ),
-          )}
+          text={formatDate(nextChangeDate)}
           fliped
         />
         <SquareInfo
-          color={"gold"}
+          danger={isDangerMileage()}
+          soon={isSoonMileage()}
           icon={"gauge"}
           title={"Next Change Mileage"}
-          text={
-            (
-              part?.lastChangeMileage + part.recommendedChangeInterval.miles
-            ).toLocaleString() +
-            " " +
-            capFirstLetter(unit)
-          }
+          text={nextChangeMileage.toLocaleString() + " " + capFirstLetter(unit)}
           fliped
         />
         {part?.note && (

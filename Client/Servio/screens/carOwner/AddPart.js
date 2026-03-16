@@ -114,6 +114,7 @@ function AddPart(props) {
       if (response.ok) {
         await loadServices();
         navigate.navigate("CarParts", params);
+        toast.success("Part Added!");
       }
       if (!response.ok) {
         setErrMsg(response.data.errors.map((e) => e.message).join(", "));
@@ -151,6 +152,7 @@ function AddPart(props) {
       if (response.ok) {
         await loadServices();
         navigate.navigate("CarParts", params?.parentParams);
+        toast.success("Part Deleted!");
       }
       if (!response.ok) {
         setErrMsg(response.data.errors.map((e) => e.message).join(", "));

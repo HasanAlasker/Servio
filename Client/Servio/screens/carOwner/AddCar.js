@@ -51,7 +51,7 @@ export const validationSchema = Yup.object({
 
 function AddCar(props) {
   const styles = useThemedStyles(getStyles);
-  const { addNewCar, updateCars } = UseCar();
+  const { addNewCar, updateCars, cars: contextCars } = UseCar();
   const toast = useAppToast();
 
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
@@ -73,15 +73,17 @@ function AddCar(props) {
     }
   }, []);
 
+  const car = contextCars.find((c) => c._id === params?.id);
+
   const initialValues = {
-    make: params?.make || "",
-    name: params?.name || "",
-    model: params?.model?.toString() || "",
-    color: params?.color || "",
-    plateNumber: params?.plateNumber || "",
-    mileage: params?.mileage?.toString() || "",
-    unit: params?.unit || "",
-    image: params?.image || "",
+    make: car?.make || "",
+    name: car?.name || "",
+    model: car?.model?.toString() || "",
+    color: car?.color || "",
+    plateNumber: car?.plateNumber || "",
+    mileage: car?.mileage?.toString() || "",
+    unit: car?.unit || "",
+    image: car?.image || "",
   };
 
   const {
