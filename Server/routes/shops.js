@@ -300,9 +300,6 @@ router.patch("/delete/:id", auth, logIP("DELETE_SHOP"), async (req, res) => {
     }
 
     const deletedShop = await ShopModel.findById(id);
-    console.log("Shop found:", deletedShop);
-    console.log("Shop owner:", deletedShop?.owner);
-    console.log("User:", user._id, user.role);
 
     if (!deletedShop)
       return res

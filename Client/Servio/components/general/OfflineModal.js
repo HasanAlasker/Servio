@@ -1,18 +1,37 @@
 import { useState, useEffect } from "react";
 import { View, StyleSheet, Modal } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import AppText from "../../config/AppText";
 import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useNetInfo } from "@react-native-community/netinfo";
 import PriBtn from "./PriBtn";
+import SText from "../text/SText";
+import { UseCar } from "../../context/CarContext";
+import { UseService } from "../../context/ServiceContext";
+import { UseAppointment } from "../../context/AppointmentContext";
+import { UseShop } from "../../context/ShopContext";
+import { UseUser } from "../../context/UserContext";
 
 function OfflineModal(props) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getStyles);
   const netinfo = useNetInfo();
 
+  const { loadUserData, isShopOwner } = UseUser();
+  const { loadCars } = UseCar();
+  const { loadServices } = UseService();
+  const { loadAppointments } = UseAppointment();
+  const { loadShops } = UseShop();
+
   const [showOffline, setShowOffline] = useState(false);
+
+  const handleRetry = async () => {
+    loadUserData();
+    loadCars();
+    loadServices();
+    loadAppointments();
+    if (isShopOwner) loadShops();
+  };
 
   useEffect(() => {
     let timer;
@@ -33,8 +52,15 @@ function OfflineModal(props) {
     <Modal transparent>
       <View style={styles.container}>
         <Feather name="wifi-off" size={100} color={theme.red} />
-        <AppText style={styles.text}>Please connect to the internet</AppText>
-        <PriBtn style={styles.btn} full title={"Retry"} />
+        <SText>Check your network</SText>
+        <PriBtn
+          square
+          black
+          style={styles.btn}
+          full
+          title={"Retry"}
+          onPress={handleRetry}
+        />
       </View>
       <View style={styles.overlay} />
     </Modal>
@@ -71,8 +97,6 @@ const getStyles = (theme) =>
     },
     btn: {
       marginTop: 20,
-      backgroundColor: theme.red,
-      borderColor: theme.red,
     },
   });
 
