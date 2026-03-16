@@ -14,6 +14,7 @@ function CardLeftBorder({
   title,
   titleIcon,
   customColor,
+  customTextColor,
   miniTitle,
   customText,
   data,
@@ -103,7 +104,7 @@ function CardLeftBorder({
           {!customText ? (
             <View>{RenderParts}</View>
           ) : (
-            <SText thin style={{ marginTop: 5, }}>{customText}</SText>
+            <SText thin style={{ marginTop: 5, color: theme[customTextColor || "main_text"] }}>{customText}</SText>
           )}
         </GapContainer>
       )}

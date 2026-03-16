@@ -11,6 +11,8 @@ import { getTrackedParts } from "../../api/part";
 import PartCard from "../../components/cards/PartCard";
 import CarOptionsCard from "../../components/cards/CarOptionsCard";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
+import CardLeftBorder from "../../components/cards/CardLeftBorder";
+import InfoCard from "../../components/cards/InfoCard";
 
 function CarParts(props) {
   const [parts, setParts] = useState([]);
@@ -33,7 +35,12 @@ function CarParts(props) {
   }, [fetchedParts]);
 
   const RenderParts = parts.map((part) => (
-    <PartCard key={part._id} part={part} parentParams={params} unit={params.unit} />
+    <PartCard
+      key={part._id}
+      part={part}
+      parentParams={params}
+      unit={params.unit}
+    />
   ));
 
   return (
@@ -45,7 +52,14 @@ function CarParts(props) {
           {RenderParts}
           {loading && <LoadingSkeleton />}
           {loading && <LoadingSkeleton />}
-
+          {RenderParts.length === 0 && !loading && (
+            <InfoCard
+              title={"How it works?"}
+              text={
+                "Add your car parts and we'll automatically calculate when they're next due for service."
+              }
+            />
+          )}
           <AddCarCard
             text={"Add Part"}
             icon={"car-cog"}

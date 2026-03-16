@@ -1,5 +1,5 @@
 export const lightTheme = {
-  blue: "#007bffff",
+  blue: "#007bff",
   shade: "#ecf3ff",
   purple: "#AC2FFF",
   background: "#F4F6F8",
@@ -26,7 +26,7 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
-  blue: "#007bffff",
+  blue: "#007bff",
   shade: "#353840",
   purple: "#AC2FFF",
   background: "#262626",

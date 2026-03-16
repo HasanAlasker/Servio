@@ -9,6 +9,8 @@ import SText from "../../components/text/SText";
 import { UseService } from "../../context/ServiceContext";
 import { useState } from "react";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
+import CardLeftBorder from "../../components/cards/CardLeftBorder";
+import InfoCard from "../../components/cards/InfoCard";
 
 function Service(props) {
   const { services, setServices, loading, loadServices } = UseService();
@@ -74,6 +76,12 @@ function Service(props) {
           )}
           {loading && <LoadingSkeleton />}
           {loading && <LoadingSkeleton />}
+          {RenderServices.length !== 0 && (
+            <InfoCard
+              title={"Completed a service?"}
+              text={"Make sure to update your parts so it gets recalculated."}
+            />
+          )}
         </GapContainer>
       </ScrollScreen>
       <Navbar />
