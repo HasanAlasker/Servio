@@ -49,7 +49,7 @@ function SimpleTitleText({
       1,
     );
 
-    // Worst case drives the bar
+    // worst case drives the bar
     return Math.max(timeUsed, mileageUsed);
   };
 
