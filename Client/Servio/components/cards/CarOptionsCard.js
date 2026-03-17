@@ -10,6 +10,9 @@ import { deleteCar } from "../../api/car";
 import { useState } from "react";
 import { UseCar } from "../../context/CarContext";
 import RowCont from "../general/RowCont";
+import SecBtn from "../general/SecBtn";
+import GhostBtn from "../general/GhostBtn";
+import VerticalLine from "../general/VerticalLine";
 
 function CarOptionsCard({ params }) {
   const { removeCar, cars } = UseCar();
@@ -51,16 +54,17 @@ function CarOptionsCard({ params }) {
           text={"Mileage"}
         />
         <RowCont gap={10} style={{marginTop: 15}}>
-          <PriBtn
+          <GhostBtn
             square
-            half
+            auto
             title={"Edit"}
             disabled={isDeleting}
             onPress={() => navigate.navigate("AddCar", params)}
           />
-          <PriBtn
+          <VerticalLine color="faded" />
+          <GhostBtn
             square
-            half
+            auto
             red
             title={!isDeleting ? "Delete" : "Deleting..."}
             disabled={isDeleting}

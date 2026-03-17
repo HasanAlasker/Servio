@@ -3,7 +3,7 @@ import AppText from "../../config/AppText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 
-function SecBtn({
+function GhostBtn({
   title,
   onPress,
   square,
@@ -31,9 +31,6 @@ function SecBtn({
           width: full ? "100%" : half ? "50%" : auto ? "auto " : "90%",
           borderRadius: square ? 15 : 25,
         },
-        {
-          borderColor: black ? theme.main_text : red ? theme.red : theme.blue,
-        },
       ]}
     >
       <AppText
@@ -55,10 +52,9 @@ const getStyles = (theme) =>
       width: "90%",
       marginHorizontal: "auto",
       backgroundColor: theme.bacground,
-      padding: 9,
       borderRadius: 25,
-      borderColor: theme.blue,
-      borderWidth: 1,
+      paddingVertical: 5,
+      paddingHorizontal: 25
     },
     text: {
       color: theme.blue,
@@ -68,4 +64,4 @@ const getStyles = (theme) =>
     },
   });
 
-export default SecBtn;
+export default GhostBtn;

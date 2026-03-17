@@ -51,34 +51,26 @@ function CarCard({
               <MText>{capFirstLetter(make)}</MText>
               <MText>{capFirstLetter(name)}</MText>
             </RowCont>
-            <SText color={"sec_text"}>{plateNumber}</SText>
+            <RowCont>
+              <SText thin color={"sec_text"}>
+                {plateNumber}
+              </SText>
+              <SText color={"sec_text"}>{"\u2022"}</SText>
+              <SText thin color={"sec_text"}>
+                {capFirstLetter(color)}
+              </SText>
+            </RowCont>
           </GapContainer>
 
           <Feather
             name="chevron-right"
             color={theme.sec_text}
             size={30}
-            style={{alignSelf:"flex-start", top:5}}
+            style={{ alignSelf: "flex-start", top: 5 }}
           />
         </RowCont>
 
-        <RowCont gap={25} style={{ marginTop: 20, flexWrap: "wrap" }}>
-          <SquareInfo
-            icon={"gauge"}
-            color={"lightBlue"}
-            title={"Mileage"}
-            text={`${mileage.toLocaleString() + " " + capFirstLetter(unit)}`}
-            fliped
-          />
 
-          <SquareInfo
-            icon={"palette-outline"}
-            color={"pink"}
-            title={"Color"}
-            text={capFirstLetter(color)}
-            fliped
-          />
-        </RowCont>
       </View>
     </CardComp>
   );

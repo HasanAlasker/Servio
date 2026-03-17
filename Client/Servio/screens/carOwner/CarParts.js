@@ -48,10 +48,16 @@ function CarParts(props) {
       <ScrollScreen>
         <GapContainer>
           <CarOptionsCard params={params} />
-
           {RenderParts}
           {loading && <LoadingSkeleton />}
           {loading && <LoadingSkeleton />}
+          <AddCarCard
+            text={"Add Part"}
+            icon={"car-cog"}
+            color={"blue"}
+            navigateTo={"AddPart"}
+            params={params}
+          />
           {RenderParts.length === 0 && !loading && (
             <InfoCard
               title={"How it works?"}
@@ -60,13 +66,6 @@ function CarParts(props) {
               }
             />
           )}
-          <AddCarCard
-            text={"Add Part"}
-            icon={"car-cog"}
-            color={"blue"}
-            navigateTo={"AddPart"}
-            params={params}
-          />
         </GapContainer>
       </ScrollScreen>
       <Navbar />

@@ -61,7 +61,7 @@ function SimpleTitleText({
   const color = () => {
     const width = progressWidth();
     if (width >= 35) return "green";
-    else if (width >= 20) return "orange";
+    else if (width >= 10) return "orange";
     else return "darkPink";
   };
 
