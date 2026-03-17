@@ -8,6 +8,8 @@ import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import { useNavigation } from "@react-navigation/native";
 import CardLeftBorder from "./CardLeftBorder";
 import { UseCar } from "../../context/CarContext";
+import SquareTitle from "../general/SquareTitle";
+import SimpleTitleText from "../general/SimpleTitleText";
 
 function PartCard({ part, parentParams, unit }) {
   const { cars } = UseCar();
@@ -29,18 +31,6 @@ function PartCard({ part, parentParams, unit }) {
   let nextChangeMileage =
     part?.lastChangeMileage + part.recommendedChangeInterval.miles;
 
-  const isDangerDate = () => new Date() >= new Date(nextChangeDate);
-  const isDangerMileage = () => car?.mileage >= nextChangeMileage;
-
-  const isSoonDate = () => {
-    const oneMonthFromNow = new Date();
-    oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1);
-    return nextChangeDate <= oneMonthFromNow && nextChangeDate > new Date();
-  };
-
-  const isSoonMileage = () =>
-    car?.mileage + 500 >= nextChangeMileage && car?.mileage < nextChangeMileage;
-
   const passPart = {
     partId: part._id,
     partName: part.name,
@@ -58,55 +48,37 @@ function PartCard({ part, parentParams, unit }) {
     <CardComp
       onPress={() => navigate.navigate("AddPart", { passPart, parentParams })}
     >
-      <GapContainer gap={15}>
-        <SquareInfo
+      <GapContainer gap={8}>
+        <SquareTitle
           icon={"engine-outline"}
-          title={"Part Name"}
-          text={capFirstLetter(part?.name)}
-          fliped
+          title={capFirstLetter(part?.name)}
         />
-        <SquareInfo
-          icon={"calendar-outline"}
-          title={"Last Change Date"}
-          text={formatDate(part?.lastChangeDate)}
-          fliped
+        <SeparatorComp full color="faded" />
+        <SimpleTitleText
+          showStatus
+          title={"Next Change"}
+          text1={formatDate(nextChangeDate)}
+          text2={
+            nextChangeMileage.toLocaleString() + " " + capFirstLetter(unit)
+          }
+          carMileage={car?.mileage}
+          nextChangeDate={nextChangeDate}
+          nextChangeMileage={nextChangeMileage}
+          recomendedMileage={part.recommendedChangeInterval.miles}
+          recomendedMonths={part.recommendedChangeInterval.months}
         />
-        <SquareInfo
-          icon={"gauge"}
-          title={"Last Change Mileage"}
-          text={
+        <SeparatorComp full color="faded" />
+        <SimpleTitleText
+          title={"Last Change"}
+          text1={formatDate(part?.lastChangeDate)}
+          text2={
             part?.lastChangeMileage.toLocaleString() +
             " " +
             capFirstLetter(unit)
           }
-          fliped
         />
-        <SeparatorComp children={"Next Change"} full />
-        <SquareInfo
-          danger={isDangerDate()}
-          soon={isSoonDate()}
-          icon={"calendar"}
-          title={"Next Change Date"}
-          text={formatDate(nextChangeDate)}
-          fliped
-        />
-        <SquareInfo
-          danger={isDangerMileage()}
-          soon={isSoonMileage()}
-          icon={"gauge"}
-          title={"Next Change Mileage"}
-          text={nextChangeMileage.toLocaleString() + " " + capFirstLetter(unit)}
-          fliped
-        />
-        {part?.note && (
-          <CardLeftBorder
-            icon={"information-outline"}
-            miniTitle={"Note"}
-            customColor={"sec_text"}
-            status={"s"}
-            customText={part.note}
-          />
-        )}
+        {part?.note && <SeparatorComp full color="faded" />}
+        {part?.note && <SimpleTitleText title={"Note"} text1={part?.note} />}
       </GapContainer>
     </CardComp>
   );
