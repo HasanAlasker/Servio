@@ -67,7 +67,7 @@ function CarCard({
           <Feather
             name="chevron-right"
             color={theme.sec_text}
-            size={30}
+            size={25}
             style={{ alignSelf: "flex-start", top: 5 }}
           />
         </RowCont>

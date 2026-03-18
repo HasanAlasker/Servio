@@ -61,8 +61,8 @@ function PartCard({ part, parentParams, unit }) {
           <Feather
             name="chevron-right"
             color={theme.sec_text}
-            size={30}
-            style={{ alignSelf: "flex-start", top: 5 }}
+            size={25}
+            style={{ alignSelf: "center" }}
           />
         </RowCont>
 
