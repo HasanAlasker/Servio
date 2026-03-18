@@ -1,12 +1,8 @@
 import {
-  View,
   StyleSheet,
-  TouchableWithoutFeedback,
-  StatusBar,
   Linking,
 } from "react-native";
 import MenuBackBtn from "../../components/general/MenuBackBtn";
-import MenuOption from "../../components/general/MenuOption";
 import SeparatorComp from "../../components/general/SeparatorComp";
 import { useNavigation } from "@react-navigation/native";
 import useThemedStyles from "../../hooks/useThemedStyles";
@@ -29,7 +25,7 @@ function Settings(props) {
     <SafeScreen>
       <ScrollScreen>
         <MenuBackBtn onClose={() => navigate.goBack()} />
-        <GapContainer>
+        <GapContainer gap={20}>
           <SettingsGroup label={"Account"}>
             <SettingsOption
               icon={"user"}

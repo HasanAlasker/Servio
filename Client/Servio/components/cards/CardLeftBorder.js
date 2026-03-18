@@ -59,7 +59,7 @@ function CardLeftBorder({
     backColor = theme[color] + 20;
   } else {
     color = "main_text";
-    backColor = theme.light_gray;
+    backColor = theme.post;
   }
 
   const RenderParts = parts?.map((part) => (
@@ -104,7 +104,15 @@ function CardLeftBorder({
           {!customText ? (
             <View>{RenderParts}</View>
           ) : (
-            <SText thin style={{ marginTop: 5, color: theme[customTextColor || "main_text"] }}>{customText}</SText>
+            <SText
+              thin
+              style={{
+                marginTop: 5,
+                color: theme[customTextColor || "main_text"],
+              }}
+            >
+              {customText}
+            </SText>
           )}
         </GapContainer>
       )}
@@ -120,7 +128,9 @@ function CardLeftBorder({
             <Feather name={titleIcon} size={24} color={theme[color]} />
           )}
 
-          <SText thin color={color}>{title}</SText>
+          <SText thin color={color}>
+            {title}
+          </SText>
         </RowCont>
       )}
 

@@ -29,12 +29,22 @@ function Pill({ icon, text, navigateTo, params, onPress }) {
 const getStyles = (theme) =>
   StyleSheet.create({
     container: {
-      backgroundColor: theme.light_gray,
+      backgroundColor: theme.post,
       paddingVertical: 10,
       paddingHorizontal: 20,
       borderRadius: 25,
       alignItems: "center",
       justifyContent: "center",
+
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 1,
+      },
+      shadowOpacity: 0.18,
+      shadowRadius: 1.0,
+
+      elevation: 1,
     },
   });
 
