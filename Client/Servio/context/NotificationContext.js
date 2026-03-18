@@ -4,6 +4,7 @@ import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 import { UseUser } from "./UserContext";
 import { addPushToken } from "../api/user";
+import { scheduleMonthlyNotification } from "../functions/ScheduleMonthly";
 
 // Configure how notifications should be handled when app is in foreground
 Notifications.setNotificationHandler({
@@ -86,6 +87,15 @@ export const NotificationProvider = ({ children }) => {
           setExpoPushToken(token);
           saveTokenToBackend(token);
         }
+
+        scheduleMonthlyNotification({
+          dayOfMonth: 1,
+          hour: 9,
+          minute: 0,
+          title: "Update Your Mileage",
+          body: "Don't forget to update your cars mileage!",
+          data: { type: "update_mileage", isMonthly: true },
+        })
       });
 
       // Listen for notifications received while app is in foreground
