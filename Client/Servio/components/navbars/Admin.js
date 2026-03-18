@@ -24,7 +24,7 @@ function Admin({ onMenu }) {
 
       <NavBtn icon={<Feather name="users" size={26} />} name={"Users"} />
 
-      <MoreBtn onMenu={onMenu} />
+      <MoreBtn />
     </NavCont>
   );
 }

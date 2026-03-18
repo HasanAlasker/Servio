@@ -6,13 +6,13 @@ import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import SText from "../text/SText";
 
-function MenuOption({ text, icon, color, onPress, disabled, showLock }) {
+function MenuOption({ text, icon, color, onPress, disabled, showLock, style }) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getStyles);
 
   return (
     <Pressable
-      style={[styles.container, disabled && styles.disabledContainer]}
+      style={[styles.container, disabled && styles.disabledContainer, style]}
       onPress={onPress}
       disabled={disabled}
     >

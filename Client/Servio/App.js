@@ -47,6 +47,7 @@ import {
 } from "./context/AppointmentContext";
 import { ShopProvider, UseShop } from "./context/ShopContext";
 import { ToastProvider } from "react-native-toast-notifications";
+import Settings from "./screens/shared/Settings";
 
 export const navigationRef = createNavigationContainerRef();
 SplashScreen.preventAutoHideAsync();
@@ -65,6 +66,7 @@ const AdminStack = () => {
       <Stack.Screen name="Reports" component={Reports} />
       <Stack.Screen name="DeletedShops" component={DeletedShops} />
       <Stack.Screen name="SeeSuggestions" component={SeeSuggestions} />
+      <Stack.Screen name="Settings" component={Settings} />
     </Stack.Navigator>
   );
 };
@@ -88,6 +90,7 @@ const CarOwnerStack = () => {
       <Stack.Screen name="AddPart" component={AddPart} />
       <Stack.Screen name="AddShop" component={AddShop} />
       <Stack.Screen name="MakeAppointment" component={MakeAppointment} />
+      <Stack.Screen name="Settings" component={Settings} />
     </Stack.Navigator>
   );
 };
@@ -111,6 +114,7 @@ const ShopOwnerStack = () => {
       <Stack.Screen name="AddPart" component={AddPart} />
       <Stack.Screen name="Service" component={Service} />
       <Stack.Screen name="ShopAppointments" component={ShopAppointments} />
+      <Stack.Screen name="Settings" component={Settings} />
     </Stack.Navigator>
   );
 };

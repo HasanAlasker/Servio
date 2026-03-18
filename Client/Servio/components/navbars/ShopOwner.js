@@ -32,7 +32,7 @@ function ShopOwner({ onMenu }) {
         textStyle={{bottom: 2}}
       />
 
-      <MoreBtn onMenu={onMenu} />
+      <MoreBtn/>
     </NavCont>
   );
 }

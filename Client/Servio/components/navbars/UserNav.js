@@ -32,7 +32,7 @@ function UserNav({ onMenu }) {
         notificationCondition={countDueServices() > 0}
       />
 
-      <MoreBtn onMenu={onMenu} />
+      <MoreBtn />
     </NavCont>
   );
 }
