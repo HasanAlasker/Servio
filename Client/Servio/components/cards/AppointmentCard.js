@@ -222,7 +222,7 @@ const getstyles = (theme) =>
   StyleSheet.create({
     map: {
       width: "100%",
-      height: 120,
+      height: 90,
       borderRadius: 15,
       borderWidth: 1,
       borderColor: theme.gold,

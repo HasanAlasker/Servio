@@ -10,10 +10,14 @@ import CardLeftBorder from "./CardLeftBorder";
 import { UseCar } from "../../context/CarContext";
 import SquareTitle from "../general/SquareTitle";
 import SimpleTitleText from "../general/SimpleTitleText";
+import { Feather } from "@expo/vector-icons";
+import { useTheme } from "../../context/ThemeContext";
+import RowCont from "../general/RowCont";
 
 function PartCard({ part, parentParams, unit }) {
   const { cars } = UseCar();
   const navigate = useNavigation();
+  const { theme } = useTheme();
 
   const car = cars.find((c) => c._id === parentParams?.id);
 
@@ -49,10 +53,19 @@ function PartCard({ part, parentParams, unit }) {
       onPress={() => navigate.navigate("AddPart", { passPart, parentParams })}
     >
       <GapContainer gap={8}>
-        <SquareTitle
-          icon={"engine-outline"}
-          title={capFirstLetter(part?.name)}
-        />
+        <RowCont style={{ justifyContent: "space-between" }}>
+          <SquareTitle
+            icon={"engine-outline"}
+            title={capFirstLetter(part?.name)}
+          />
+          <Feather
+            name="chevron-right"
+            color={theme.sec_text}
+            size={30}
+            style={{ alignSelf: "flex-start", top: 5 }}
+          />
+        </RowCont>
+
         <SeparatorComp full color="faded" />
         <SimpleTitleText
           showStatus

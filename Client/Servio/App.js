@@ -5,7 +5,10 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { UserProvider, UseUser } from "./context/UserContext";
 import LoadingCircle from "./components/general/LoadingCircle";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  createNavigationContainerRef,
+  NavigationContainer,
+} from "@react-navigation/native";
 import Home from "./screens/carOwner/Home";
 import Shops from "./screens/carOwner/Shops";
 import AddCar from "./screens/carOwner/AddCar";
@@ -43,10 +46,9 @@ import {
   UseAppointment,
 } from "./context/AppointmentContext";
 import { ShopProvider, UseShop } from "./context/ShopContext";
-import * as QuickActions from "expo-quick-actions";
-import { useQuickActionCallback } from "expo-quick-actions/hooks";
 import { ToastProvider } from "react-native-toast-notifications";
 
+export const navigationRef = createNavigationContainerRef();
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
 
@@ -174,7 +176,7 @@ const AppNavigator = () => {
   return (
     <>
       <SystemBars style={isDarkMode ? "light" : "dark"} />
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         {!isAuthenticated ? (
           <AuthStack />
         ) : isUser ? (

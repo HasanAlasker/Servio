@@ -46,10 +46,12 @@ function CarCard({
       {image && <Image style={styles.image} source={{ uri: image }} />}
       <View style={styles.textCont}>
         <RowCont style={{ justifyContent: "space-between" }}>
-          <GapContainer gap={3}>
+          <GapContainer gap={3} flex>
             <RowCont>
               <MText>{capFirstLetter(make)}</MText>
-              <MText>{capFirstLetter(name)}</MText>
+              <MText flex numberOfLines={1}>
+                {capFirstLetter(name)}
+              </MText>
             </RowCont>
             <RowCont>
               <SText thin color={"sec_text"}>
@@ -69,8 +71,6 @@ function CarCard({
             style={{ alignSelf: "flex-start", top: 5 }}
           />
         </RowCont>
-
-
       </View>
     </CardComp>
   );

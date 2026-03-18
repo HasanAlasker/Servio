@@ -8,7 +8,8 @@ import { addPushToken } from "../api/user";
 // Configure how notifications should be handled when app is in foreground
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
-    shouldShowAlert: true,
+    shouldShowBanner: true,
+    shouldShowList: true,
     shouldPlaySound: true,
     shouldSetBadge: true,
   }),
@@ -37,7 +38,8 @@ export const NotificationProvider = ({ children }) => {
       }
 
       // Request permissions
-      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
 
       if (existingStatus !== "granted") {
@@ -52,7 +54,7 @@ export const NotificationProvider = ({ children }) => {
 
       // Get the token
       const token = await Notifications.getExpoPushTokenAsync({
-        projectId: "bba45793-f511-4f58-be49-7e5320905842"
+        projectId: "bba45793-f511-4f58-be49-7e5320905842",
       });
 
       // console.log("Push notification token:", token.data);
@@ -87,20 +89,18 @@ export const NotificationProvider = ({ children }) => {
       });
 
       // Listen for notifications received while app is in foreground
-      notificationListener.current = Notifications.addNotificationReceivedListener(
-        (notification) => {
+      notificationListener.current =
+        Notifications.addNotificationReceivedListener((notification) => {
           // console.log("Notification received:", notification);
           setNotification(notification);
-        }
-      );
+        });
 
       // Listen for user interactions with notifications
-      responseListener.current = Notifications.addNotificationResponseReceivedListener(
-        (response) => {
+      responseListener.current =
+        Notifications.addNotificationResponseReceivedListener((response) => {
           // console.log("Notification tapped:", response);
           handleNotificationTap(response);
-        }
-      );
+        });
 
       return () => {
         notificationListener.current?.remove();
@@ -112,7 +112,7 @@ export const NotificationProvider = ({ children }) => {
   // Handle notification tap (navigate to relevant screen)
   const handleNotificationTap = (response) => {
     const data = response.notification.request.content.data;
-    
+
     // Navigate based on notification type
     if (data.type === "request_accepted") {
       // navigation.navigate("Requests");
@@ -121,7 +121,7 @@ export const NotificationProvider = ({ children }) => {
     } else if (data.type === "new_message") {
       // navigation.navigate("Chat", { chatId: data.chatId });
     }
-    
+
     // You'll need to pass navigation ref here
   };
 
