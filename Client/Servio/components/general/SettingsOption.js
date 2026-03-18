@@ -21,7 +21,7 @@ function SettingsOption({ icon, text, onPress, red }) {
             {text}
           </SText>
         </RowCont>
-        <Feather name={"chevron-right"} size={20} color={theme.sec_text} />
+        <Feather name={"chevron-right"} size={20} color={red ? theme.red : theme.main_text} />
       </RowCont>
     </Pressable>
   );

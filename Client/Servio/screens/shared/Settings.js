@@ -40,7 +40,9 @@ function Settings(props) {
             <SettingsOption
               icon={"message-circle"}
               text={"Suggestions"}
-              onPress={() => navigate.navigate("Suggestions")}
+              onPress={() =>
+                navigate.navigate(!isAdmin ? "Suggestions" : "SeeSuggestions")
+              }
             />
             <SeparatorComp full color="light_gray" />
             <SettingsOption
@@ -58,13 +60,17 @@ function Settings(props) {
             />
           </SettingsGroup>
 
-          <SettingsGroup label={"Business"}>
-            <SettingsOption
-              icon={"shopping-bag"}
-              text={"Open Shop"}
-              onPress={() => navigate.navigate("AddShop")}
-            />
-          </SettingsGroup>
+          {!isAdmin && (
+            <SettingsGroup label={!isShopOwner ? "Business" : "Cars"}>
+              <SettingsOption
+                icon={!isShopOwner ? "shopping-bag" : "clock"}
+                text={!isShopOwner ? "Open Shop" : "Upcoming Services"}
+                onPress={() =>
+                  navigate.navigate(!isShopOwner ? "AddShop" : "Service")
+                }
+              />
+            </SettingsGroup>
+          )}
 
           <SettingsGroup label={"Support"}>
             <SettingsOption
@@ -91,77 +97,21 @@ function Settings(props) {
               onPress={logout}
               red
             />
-            <SeparatorComp full color="light_gray" />
-            <SettingsOption
-              icon={"user-x"}
-              text={"Delete Account"}
-              red
-              onPress={() =>
-                openURL("https://servio-maintenance.netlify.app/delete-account")
-              }
-            />
+            {isUser && <SeparatorComp full color="light_gray" />}
+            {isUser && (
+              <SettingsOption
+                icon={"user-x"}
+                text={"Delete Account"}
+                red
+                onPress={() =>
+                  openURL(
+                    "https://servio-maintenance.netlify.app/delete-account",
+                  )
+                }
+              />
+            )}
           </SettingsGroup>
         </GapContainer>
-
-        {/*        <MenuBackBtn onClose={() => navigate.goBack()} />
-        <GapContainer gap={5}>
-          <MenuOption
-            text={isDarkMode ? "Light mode" : "Dark mode"}
-            icon={"circle-half-full"}
-            onPress={toggleTheme}
-          />
-          <SeparatorComp full color="faded" />
-
-          <MenuOption
-            text={"My Profile"}
-            icon={"account-circle-outline"}
-            onPress={() => navigate.navigate("Profile")}
-          />
-          <SeparatorComp full color="faded" />
-
-          <MenuOption
-            text={"Suggestions"}
-            icon={"chat-outline"}
-            onPress={() =>
-              navigate.navigate(!isAdmin ? "Suggestions" : "SeeSuggestions")
-            }
-          />
-          <SeparatorComp full color="faded" />
-
-          {isUser && (
-            <MenuOption
-              text={"Open Shop"}
-              icon={"storefront-plus-outline"}
-              onPress={() => navigate.navigate("AddShop")}
-            />
-          )}
-          {isUser && <SeparatorComp full color="faded" />}
-
-          {isShopOwner && (
-            <MenuOption
-              text={"Upcoming Services"}
-              icon={"clock-outline"}
-              onPress={() => navigate.navigate("Service")}
-            />
-          )}
-          {isShopOwner && <SeparatorComp full color="faded" />}
-
-          <MenuOption
-            text={"Help"}
-            icon={"headphones"}
-            onPress={() =>
-              openURL("https://servio-maintenance.netlify.app/how-it-works")
-            }
-          />
-          <SeparatorComp full color="faded" />
-
-          <MenuOption
-            text={"Log out"}
-            icon={"logout"}
-            color={"red"}
-            onPress={logout}
-          />
-        </GapContainer> */}
       </ScrollScreen>
     </SafeScreen>
   );
