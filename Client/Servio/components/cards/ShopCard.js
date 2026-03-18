@@ -16,6 +16,7 @@ import {
 import { useTheme } from "../../context/ThemeContext";
 import RowCont from "../general/RowCont";
 import { Feather } from "@expo/vector-icons";
+import { UseUser } from "../../context/UserContext";
 
 function ShopCard({
   id,
@@ -37,6 +38,7 @@ function ShopCard({
   serviceData,
 }) {
   const { theme } = useTheme();
+  const { isShopOwner } = UseUser();
   const [showBtn, setShowBtn] = useState(false);
   const navigate = useNavigation();
 
@@ -69,16 +71,18 @@ function ShopCard({
       <View style={styles.textCont}>
         <GapContainer>
           <RowCont style={{ justifyContent: "space-between" }}>
-            <GapContainer gap={10}>
+            <GapContainer gap={5}>
               <MText>{capFirstLetter(name)}</MText>
               <SText color={"sec_text"}>{description}</SText>
             </GapContainer>
-            <Feather
-              name="chevron-right"
-              color={theme.sec_text}
-              size={25}
-              style={{ alignSelf: "flex-start", top: 5 }}
-            />
+            {isShopOwner && (
+              <Feather
+                name="chevron-right"
+                color={theme.sec_text}
+                size={25}
+                style={{ alignSelf: "flex-start", top: 5 }}
+              />
+            )}
           </RowCont>
 
           {!mini && (

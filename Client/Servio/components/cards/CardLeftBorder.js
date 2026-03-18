@@ -77,7 +77,7 @@ function CardLeftBorder({
         {
           backgroundColor: backColor,
           borderColor: theme[color],
-          paddingVertical: status ? 20 : 25,
+          paddingVertical: status ? 15 : 20,
           paddingHorizontal: status ? 18 : 22,
         },
         style,
