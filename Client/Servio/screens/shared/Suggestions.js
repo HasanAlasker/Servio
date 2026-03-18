@@ -12,6 +12,7 @@ import { suggestionTypes } from "../../constants/dropList";
 import SubmitBtn from "../../components/form/SubmitBtn";
 import { makeSuggestion } from "../../api/suggestion";
 import { useNavigation } from "@react-navigation/native";
+import useAppToast from "../../hooks/useAppToast";
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -37,6 +38,7 @@ const validationSchema = Yup.object({
 function Suggestions(props) {
   const [hasBeenSubmitted, setHasBeenSubmited] = useState(false);
   const navigate = useNavigation();
+  const toast = useAppToast();
 
   const initialValues = {
     type: "",
@@ -47,8 +49,11 @@ function Suggestions(props) {
   const handleSubmit = async (values) => {
     try {
       const response = await makeSuggestion(values);
-      if (response.ok) navigate.goBack();
-      if (!response.ok) console.log(response);
+      if (response.ok) {
+        navigate.goBack();
+        toast.success("Sent!");
+      }
+      if (!response.ok) toast.error("Failed!");
     } catch (error) {
       console.log(error);
     }
