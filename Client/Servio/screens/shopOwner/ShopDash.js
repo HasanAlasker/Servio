@@ -7,16 +7,27 @@ import OfflineModal from "../../components/general/OfflineModal";
 import UsersDash from "../../components/general/UsersDash";
 import ShopInfo from "../../components/general/ShopInfo";
 import HelloUser from "../../components/general/HelloUser";
+import { UseShop } from "../../context/ShopContext";
+import EmptyGarage from "../../components/general/EmptyGarage";
 
 function Home(props) {
+  const { shops } = UseShop();
 
   return (
     <SafeScreen>
       <ScrollScreen>
         <GapContainer gap={40}>
           <HelloUser />
-          <UsersDash />
-          <ShopInfo />
+          {shops.length > 0 && <UsersDash />}
+          {shops.length > 0 && <ShopInfo />}
+          {shops.length === 0 && (
+            <EmptyGarage
+              title={"You have no shops yet!"}
+              text={"Open your first shop to start tracking appointments"}
+              btn={"Open Shop"}
+              navigateTo={"AddShop"}
+            />
+          )}
         </GapContainer>
       </ScrollScreen>
       <Navbar />

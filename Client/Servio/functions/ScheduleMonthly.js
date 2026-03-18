@@ -12,7 +12,6 @@ export const scheduleMonthlyNotification = async ({
 }) => {
   try {
     if (Platform.OS === "android" && !Device.isDevice) {
-      console.log("Skipping — Android emulator");
       return null;
     }
 

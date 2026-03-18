@@ -7,7 +7,7 @@ import TText from "../text/TText";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../../context/ThemeContext";
 
-function EmptyGarage(props) {
+function EmptyGarage({ title, text, btn, navigateTo }) {
   const navigaiton = useNavigation();
   const { isDarkMode } = useTheme();
   return (
@@ -25,17 +25,17 @@ function EmptyGarage(props) {
             />
           </View>
 
-          <SText style={{ textAlign: "center" }}>You have no cars yet!</SText>
+          <SText style={{ textAlign: "center" }}>{title || "You have no cars yet!"}</SText>
           <TText style={{ textAlign: "center" }} thin color={"sec_text"}>
-            Add your first car to start tracking maintenance
+            {text || "Add your first car to start tracking maintenance"}
           </TText>
         </GapContainer>
         <PriBtn
           auto
           styleText={{ fontSize: 15 }}
           style={{ marginTop: 10, paddingHorizontal: 16 }}
-          title={"Add Car"}
-          onPress={() => navigaiton.navigate("AddCar")}
+          title={btn || "Add Car"}
+          onPress={() => navigaiton.navigate(navigateTo || "AddCar")}
         />
       </GapContainer>
     </View>

@@ -6,10 +6,12 @@ import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import QuickActions from "./QuickActions";
 import SText from "../text/SText";
 import QuickPeek from "./QuickPeek";
+import { UseCar } from "../../context/CarContext";
 
 function UsersDash(props) {
   const navigaiton = useNavigation();
   const { services, loading } = UseService();
+  const { cars } = UseCar();
 
   const statusPriority = { overdue: 0, due: 1, soon: 2 };
 
@@ -50,7 +52,7 @@ function UsersDash(props) {
           </SText>
           {ServiceList}
         </GapContainer>
-      ) : !loading && ServiceList.length === 0 ? (
+      ) : !loading && ServiceList.length === 0 && cars.length > 0 ? (
         <CardLeftBorder
           status={" "}
           icon={"checkbox-marked-circle-outline"}
@@ -59,10 +61,10 @@ function UsersDash(props) {
           customText={"No services required!"}
         />
       ) : null}
-
+      
       <QuickActions />
 
-      <QuickPeek />
+      {cars.length > 0 && <QuickPeek />}
     </>
   );
 }

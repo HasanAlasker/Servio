@@ -10,7 +10,7 @@ import EmptyGarage from "../../components/general/EmptyGarage";
 import { useState } from "react";
 
 function Home(props) {
-  const { countCars, loadCars } = UseCar();
+  const { loadCars, cars } = UseCar();
   const [refreshing, setRefreshing] = useState(false);
   const handleRefresh = async () => {
     try {
@@ -26,8 +26,8 @@ function Home(props) {
       <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
         <GapContainer gap={40} fullHeight>
           <HelloUser />
-          {countCars() > 0 && <UsersDash />}
-          {countCars() === 0 && <EmptyGarage />}
+          {cars.length > 0 &&  <UsersDash />}
+          {cars.length === 0 && <EmptyGarage />}
         </GapContainer>
       </ScrollScreen>
       <Navbar />
