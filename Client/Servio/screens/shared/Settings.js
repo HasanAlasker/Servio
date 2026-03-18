@@ -118,17 +118,7 @@ function Settings(props) {
 }
 const getStyles = (theme) =>
   StyleSheet.create({
-    sep: {
-      width: "100%",
-      marginTop: 5,
-    },
-    overlay: {
-      position: "absolute",
-      inset: 0,
-      backgroundColor: theme.background,
-      zIndex: 90,
-      opacity: 0.5,
-    },
+
   });
 
 export default Settings;
