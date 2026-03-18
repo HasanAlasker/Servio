@@ -22,6 +22,7 @@ function ShopAppointments(props) {
   const [tab, setTab] = useState("1");
   const [pending, setPending] = useState([]);
   const [confirmed, setConfirmed] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const route = useRoute();
   const { shopId } = route.params;
@@ -41,6 +42,17 @@ function ShopAppointments(props) {
   } = useApi(getConfirmedAppointments);
 
   const loading = lConfirmed || lPeding;
+
+  const handleRefresh = async () => {
+    try {
+      setRefreshing(true);
+      await fetchConfirmed(shopId);
+      await fetchPending(shopId);
+    } catch (error) {
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   useEffect(() => {
     fetchConfirmed(shopId);
@@ -129,7 +141,12 @@ function ShopAppointments(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen stickyHeader stickyHeaderIndices={[0]}>
+      <ScrollScreen
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
+        stickyHeader
+        stickyHeaderIndices={[0]}
+      >
         <TabNav
           one={"Confirmed"}
           two={"Pending"}

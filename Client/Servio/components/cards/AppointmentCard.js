@@ -19,6 +19,9 @@ import { openURL } from "../../functions/openURL";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import RowCont from "../general/RowCont";
 import MText from "../text/MText";
+import GhostBtn from "../general/GhostBtn";
+import SecBtn from "../general/SecBtn";
+import VerticalLine from "../general/VerticalLine";
 
 function AppointmentCard({
   id,
@@ -101,7 +104,9 @@ function AppointmentCard({
         />
 
         <StatusLabel status={status} />
-
+        {Date.now() > new Date(scheuledAt) && status === "pending" && (
+          <ErrorMessage full error={"Time has passed"} />
+        )}
         {isUser &&
           status === "confirmed" &&
           new Date() < new Date(scheuledAt) && (
@@ -125,17 +130,8 @@ function AppointmentCard({
           <GapContainer gap={1}>{partsList}</GapContainer>
         </View>
 
-        {Date.now() > new Date(scheuledAt) &&
-          isShopOwner &&
-          status === "pending" && (
-            <ErrorMessage full error={"Time has passed"} />
-          )}
-
         {isUser && status === "pending" && (
           <GapContainer gap={15}>
-            {Date.now() > new Date(scheuledAt) && (
-              <ErrorMessage full error={"Time has passed"} />
-            )}
             <PriBtn
               square
               full
@@ -169,18 +165,12 @@ function AppointmentCard({
         {isShopOwner && status === "pending" && (
           <RowCont>
             {Date.now() < new Date(scheuledAt) && (
-              <PriBtn
-                square
-                half
-                title={"Accept"}
-                onPress={() => onApprove(id)}
-              />
+              <GhostBtn auto title={"Accept"} onPress={() => onApprove(id)} />
             )}
-
-            <PriBtn
+            {Date.now() < new Date(scheuledAt) && <VerticalLine />}
+            <GhostBtn
               square
-              half={Date.now() < new Date(scheuledAt)}
-              full={Date.now() >= new Date(scheuledAt)}
+              auto
               red
               title={"Reject"}
               onPress={() => onReject(id)}
@@ -190,20 +180,9 @@ function AppointmentCard({
 
         {isShopOwner && status === "confirmed" && isDue && (
           <RowCont gap={15}>
-            <PriBtn
-              square
-              half
-              title={"Completed"}
-              onPress={() => onComplete(id)}
-            />
-
-            <PriBtn
-              square
-              half
-              red
-              title={"No-Show"}
-              onPress={() => onNoShow(id)}
-            />
+            <GhostBtn auto title={"Completed"} onPress={() => onComplete(id)} />
+            <VerticalLine />
+            <GhostBtn auto red title={"No-Show"} onPress={() => onNoShow(id)} />
           </RowCont>
         )}
       </GapContainer>

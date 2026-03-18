@@ -6,7 +6,6 @@ import { useTheme } from "../../context/ThemeContext";
 function GhostBtn({
   title,
   onPress,
-  square,
   disabled,
   full,
   style,
@@ -29,7 +28,6 @@ function GhostBtn({
         style,
         {
           width: full ? "100%" : half ? "50%" : auto ? "auto " : "90%",
-          borderRadius: square ? 15 : 25,
         },
       ]}
     >
@@ -54,7 +52,7 @@ const getStyles = (theme) =>
       backgroundColor: theme.bacground,
       borderRadius: 25,
       paddingVertical: 5,
-      paddingHorizontal: 25
+      paddingHorizontal: 25,
     },
     text: {
       color: theme.blue,

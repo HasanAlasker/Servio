@@ -14,6 +14,8 @@ import {
   formatOpenDays,
 } from "../../functions/formatOpenHours";
 import { useTheme } from "../../context/ThemeContext";
+import RowCont from "../general/RowCont";
+import { Feather } from "@expo/vector-icons";
 
 function ShopCard({
   id,
@@ -66,10 +68,18 @@ function ShopCard({
 
       <View style={styles.textCont}>
         <GapContainer>
-          <View>
-            <MText>{capFirstLetter(name)}</MText>
-            <SText color={"sec_text"}>{description}</SText>
-          </View>
+          <RowCont style={{ justifyContent: "space-between" }}>
+            <GapContainer gap={10}>
+              <MText>{capFirstLetter(name)}</MText>
+              <SText color={"sec_text"}>{description}</SText>
+            </GapContainer>
+            <Feather
+              name="chevron-right"
+              color={theme.sec_text}
+              size={25}
+              style={{ alignSelf: "flex-start", top: 5 }}
+            />
+          </RowCont>
 
           {!mini && (
             <GapContainer gap={10}>

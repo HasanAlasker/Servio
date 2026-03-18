@@ -2,7 +2,7 @@ import { View, StyleSheet } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 
-function VerticalLine({ color = "darker_gray", full, style }) {
+function VerticalLine({ color = "faded", full, style }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
   return (

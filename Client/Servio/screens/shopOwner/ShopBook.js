@@ -6,9 +6,15 @@ import { useNavigation } from "@react-navigation/native";
 import ShopCard from "../../components/cards/ShopCard";
 import GapContainer from "../../components/general/GapContainer";
 import { UseShop } from "../../context/ShopContext";
+import { useState } from "react";
 
 function ShopBook(props) {
-  const { shops } = UseShop();
+  const { shops, loadShops } = UseShop();
+  const [refreshing, setRefresing] = useState(false);
+
+  const handleRefresh = async () => {
+    loadShops();
+  };
 
   const navigate = useNavigation();
 
@@ -32,7 +38,7 @@ function ShopBook(props) {
   ));
   return (
     <SafeScreen>
-      <ScrollScreen>
+      <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
         <GapContainer>{RenderShops}</GapContainer>
       </ScrollScreen>
       <Navbar />
