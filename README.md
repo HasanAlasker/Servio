@@ -164,4 +164,4 @@ You can also help the platform grow by inviting your mechanic or local service c
 
 ## License
 
-Private academic project. All rights reserved © Hasan Alasker.
+Private project. All rights reserved © Hasan Alasker.
