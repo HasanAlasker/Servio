@@ -245,7 +245,7 @@ router.patch(
   },
 );
 
-router.put("/service/:id", auth, async (req, res) => {
+router.patch("/service/:id", auth, async (req, res) => {
   try {
     const partId = req.params.id;
     const part = await PartModel.findById(partId);
