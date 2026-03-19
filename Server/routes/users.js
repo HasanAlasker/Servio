@@ -221,8 +221,8 @@ router.get(
 // refresh user token
 router.get(
   "/refreshToken/:id",
-  logIP("REFRESH_TOKEN"),
   auth,
+  logIP("REFRESH_TOKEN"),
   async (req, res) => {
     try {
       const userId = req.params.id;
