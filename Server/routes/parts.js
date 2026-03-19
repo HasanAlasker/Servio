@@ -6,6 +6,7 @@ import validate from "../middleware/joiValidation.js";
 import { addPartSchema, editPartSchema } from "../validation/part.js";
 import { updateServicesForCar } from "../services/upcomingServiceManager.js";
 import logIP from "../middleware/logIp.js";
+import CarModel from "../models/car.js";
 
 const router = express.Router();
 
@@ -243,5 +244,41 @@ router.patch(
     }
   },
 );
+
+router.put("/service/:id", auth, async (req, res) => {
+  try {
+    const partId = req.params.id;
+    const part = await PartModel.findById(partId);
+    if (!part)
+      return res
+        .status(404)
+        .json({ success: false, message: "Part not found" });
+
+    const carId = part.car._id;
+    const car = await CarModel.findById(carId);
+    if (car.owner._id.toString() !== req.user._id.toString())
+      return res.status(401).json({
+        success: false,
+        message: "You are not allowed to edit this part",
+      });
+
+    part.lastChangeDate = new Date();
+    part.lastChangeMileage = car.mileage;
+    const savedPart = await part.save();
+
+    if (!savedPart)
+      return res
+        .status(400)
+        .json({ success: false, message: "Part not edited" });
+
+    return res.status(200).json({ success: true, data: savedPart });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 
 export default router;
