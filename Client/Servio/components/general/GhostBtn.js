@@ -2,6 +2,7 @@ import { StyleSheet, Pressable } from "react-native";
 import AppText from "../../config/AppText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
+import { Feather } from "@expo/vector-icons";
 
 function GhostBtn({
   title,
@@ -14,10 +15,12 @@ function GhostBtn({
   half,
   auto,
   styleText,
+  icon,
 }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
 
+  let color = red ? theme.red : black ? theme.main_text : theme.blue;
   return (
     <Pressable
       onPress={onPress}
@@ -31,15 +34,12 @@ function GhostBtn({
         },
       ]}
     >
-      <AppText
-        style={[
-          styles.text,
-          { color: red ? theme.red : black ? theme.main_text : theme.blue },
-          styleText,
-        ]}
-      >
-        {title || "Press"}
-      </AppText>
+      {title && (
+        <AppText style={[styles.text, { color }, styleText]}>
+          {title || "Press"}
+        </AppText>
+      )}
+      {!title && <Feather name={icon} size={20} color={color} />}
     </Pressable>
   );
 }
@@ -52,7 +52,7 @@ const getStyles = (theme) =>
       backgroundColor: theme.bacground,
       borderRadius: 25,
       paddingVertical: 5,
-      paddingHorizontal: 25,
+      paddingHorizontal: 20,
     },
     text: {
       color: theme.blue,

@@ -53,7 +53,7 @@ function CarOptionsCard({ params }) {
           title={`${car?.mileage.toLocaleString() + " " + capFirstLetter(car?.unit)}`}
           text={"Mileage"}
         />
-        <RowCont gap={10} style={{marginTop: 15}}>
+        <RowCont gap={10}>
           <GhostBtn
             square
             auto

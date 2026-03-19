@@ -7,18 +7,24 @@ import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import GapContainer from "../../components/general/GapContainer";
 import useApi from "../../hooks/useApi";
-import { getTrackedParts } from "../../api/part";
+import { getTrackedParts, servicePart } from "../../api/part";
 import PartCard from "../../components/cards/PartCard";
 import CarOptionsCard from "../../components/cards/CarOptionsCard";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 import CardLeftBorder from "../../components/cards/CardLeftBorder";
 import InfoCard from "../../components/cards/InfoCard";
+import { UseService } from "../../context/ServiceContext";
+import useAppToast from "../../hooks/useAppToast";
 
 function CarParts(props) {
   const [parts, setParts] = useState([]);
+  const { loadServices } = UseService();
+  const toast = useAppToast();
 
   const route = useRoute();
   const params = route?.params;
+
+  const [refreshing, setRefreshing] = useState(false);
 
   const {
     data: fetchedParts,
@@ -34,18 +40,57 @@ function CarParts(props) {
     setParts(fetchedParts);
   }, [fetchedParts]);
 
+  const handleRefresh = async () => {
+    try {
+      setRefreshing(true);
+      fetchParts();
+    } catch (error) {
+      toast.error("Error!");
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
+  const handleService = async (partId) => {
+    try {
+      const updatedMileage = params.mileage;
+      const updatedDate = new Date();
+      const updatedPart = parts.find((p) => p._id === partId);
+      setParts((prev) =>
+        prev.map((p) =>
+          p._id === updatedPart._id
+            ? {
+                ...p,
+                lastChangeDate: updatedDate,
+                lastChangeMileage: updatedMileage,
+              }
+            : p,
+        ),
+      );
+
+      const response = await servicePart(partId);
+      if (response.ok) {
+        loadServices();
+      }
+      if (!response.ok) toast.error("Failed!");
+    } catch (error) {
+      console.error("handleService error:", error);
+    }
+  };
+
   const RenderParts = parts.map((part) => (
     <PartCard
       key={part._id}
       part={part}
       parentParams={params}
       unit={params.unit}
+      handleService={handleService}
     />
   ));
 
   return (
     <SafeScreen>
-      <ScrollScreen>
+      <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
         <GapContainer>
           <CarOptionsCard params={params} />
           {RenderParts}

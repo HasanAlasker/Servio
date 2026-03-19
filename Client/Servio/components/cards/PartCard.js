@@ -1,23 +1,25 @@
 import { StyleSheet } from "react-native";
-import SquareInfo from "./SquareInfo";
 import SeparatorComp from "../general/SeparatorComp";
 import GapContainer from "../general/GapContainer";
 import CardComp from "./CardComp";
 import { formatDate } from "../../functions/formatDate";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import { useNavigation } from "@react-navigation/native";
-import CardLeftBorder from "./CardLeftBorder";
 import { UseCar } from "../../context/CarContext";
 import SquareTitle from "../general/SquareTitle";
 import SimpleTitleText from "../general/SimpleTitleText";
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "../../context/ThemeContext";
 import RowCont from "../general/RowCont";
+import GhostBtn from "../general/GhostBtn";
+import VerticalLine from "../general/VerticalLine";
+import { useState } from "react";
 
-function PartCard({ part, parentParams, unit }) {
+function PartCard({ part, parentParams, unit, handleService }) {
   const { cars } = UseCar();
   const navigate = useNavigation();
   const { theme } = useTheme();
+  const [showBtns, setShowBtns] = useState(false);
 
   const car = cars.find((c) => c._id === parentParams?.id);
 
@@ -49,9 +51,7 @@ function PartCard({ part, parentParams, unit }) {
   };
 
   return (
-    <CardComp
-      onPress={() => navigate.navigate("AddPart", { passPart, parentParams })}
-    >
+    <CardComp onPress={() => setShowBtns(!showBtns)}>
       <GapContainer gap={8}>
         <RowCont style={{ justifyContent: "space-between" }}>
           <SquareTitle
@@ -59,7 +59,7 @@ function PartCard({ part, parentParams, unit }) {
             title={capFirstLetter(part?.name)}
           />
           <Feather
-            name="chevron-right"
+            name={!showBtns ? "chevron-right": "chevron-down"}
             color={theme.sec_text}
             size={25}
             style={{ alignSelf: "center" }}
@@ -92,13 +92,34 @@ function PartCard({ part, parentParams, unit }) {
         />
         {part?.note && <SeparatorComp full color="faded" />}
         {part?.note && <SimpleTitleText title={"Note"} text1={part?.note} />}
+        {showBtns && <SeparatorComp full color="faded" />}
+        {showBtns && (
+          <RowCont>
+            <GhostBtn
+              style={styles.btn}
+              auto
+              title={"Fixed"}
+              onPress={() => handleService(part._id)}
+            />
+            <VerticalLine />
+            <GhostBtn
+              style={styles.btn}
+              auto
+              black
+              title={"Edit"}
+              onPress={() =>
+                navigate.navigate("AddPart", { passPart, parentParams })
+              }
+            />
+          </RowCont>
+        )}
       </GapContainer>
     </CardComp>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  btn: {},
 });
 
 export default PartCard;
