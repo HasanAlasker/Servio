@@ -1,3 +1,4 @@
+
 <p align="center">
   <img src="https://img.shields.io/badge/Servio-Smart%20Maintenance-007BFF?style=for-the-badge&logo=car&logoColor=white" alt="Servio" />
 </p>
@@ -15,6 +16,9 @@
   <img src="https://img.shields.io/badge/Status-Closed%20Testing-orange?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
   <img src="https://img.shields.io/badge/Built%20With-React%20Native-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+</p>
+<p align="center">
+  <img src="./Client/Servio/assets/preview.png" alt="Servio App Preview" width="800" />
 </p>
 
 ---
