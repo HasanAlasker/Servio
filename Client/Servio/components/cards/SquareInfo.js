@@ -1,51 +1,13 @@
-import { View, StyleSheet } from "react-native";
-import { useTheme } from "../../context/ThemeContext";
-import useThemedStyles from "../../hooks/useThemedStyles";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import RowCont from "../general/RowCont";
 import GapContainer from "../general/GapContainer";
 import SText from "../text/SText";
 import TText from "../text/TText";
+import SquareIcon from "../general/SquareIcon";
 
-function SquareInfo({
-  icon,
-  danger,
-  soon,
-  title,
-  text,
-  fliped = false,
-  flex,
-}) {
-  const styles = useThemedStyles(getStyles);
-  const { theme } = useTheme();
-
-  const backColor = danger
-    ? theme.darkPink + "15"
-    : soon
-      ? theme.orange + "15"
-      : theme.light_gray + "50"
-
+function SquareInfo({ icon, danger, soon, title, text, fliped = false, flex }) {
   return (
     <RowCont gap={10}>
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: backColor,
-            borderColor: danger
-              ? theme.darkPink
-              : soon
-                ? theme.orange
-                : theme["faded"],
-          },
-        ]}
-      >
-        <MaterialCommunityIcons
-          name={icon}
-          color={danger ? theme.darkPink : soon ? theme.orange : theme["main_text"]}
-          size={30}
-        />
-      </View>
+      <SquareIcon icon={icon} />
       <GapContainer flex={flex} gap={1}>
         {!fliped ? (
           <SText
@@ -76,7 +38,15 @@ function SquareInfo({
           <SText
             numberOfLines={1}
             thin={!fliped}
-            color={danger ? 'red' : soon? 'orange' : !fliped ? 'sec_tex' : "main_text"}
+            color={
+              danger
+                ? "red"
+                : soon
+                  ? "orange"
+                  : !fliped
+                    ? "sec_tex"
+                    : "main_text"
+            }
           >
             {text}
           </SText>
@@ -85,17 +55,5 @@ function SquareInfo({
     </RowCont>
   );
 }
-
-const getStyles = (theme) =>
-  StyleSheet.create({
-    container: {
-      alignItems: "center",
-      aspectRatio: 1,
-      borderRadius: 10,
-      justifyContent: "center",
-      borderWidth: 1.5,
-      padding: 4,
-    },
-  });
 
 export default SquareInfo;
