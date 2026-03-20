@@ -11,9 +11,9 @@ const getStyles = (theme) =>
     shade: {
       backgroundColor: theme.shade,
       opacity: 1,
-      width: 44,
+      width: 47,
       height: 30,
-      borderRadius: 10,
+      borderRadius: 25,
       position: "absolute",
       alignSelf: "center",
       top: 0,
