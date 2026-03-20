@@ -1,7 +1,4 @@
-import {
-  StyleSheet,
-  Linking,
-} from "react-native";
+import { StyleSheet, Linking } from "react-native";
 import MenuBackBtn from "../../components/general/MenuBackBtn";
 import SeparatorComp from "../../components/general/SeparatorComp";
 import { useNavigation } from "@react-navigation/native";
@@ -31,14 +28,6 @@ function Settings(props) {
               icon={"user"}
               text={"My Profile"}
               onPress={() => navigate.navigate("Profile")}
-            />
-            <SeparatorComp full color="light_gray" />
-            <SettingsOption
-              icon={"message-circle"}
-              text={"Suggestions"}
-              onPress={() =>
-                navigate.navigate(!isAdmin ? "Suggestions" : "SeeSuggestions")
-              }
             />
             <SeparatorComp full color="light_gray" />
             <SettingsOption
@@ -78,6 +67,14 @@ function Settings(props) {
             />
             <SeparatorComp full color="light_gray" />
             <SettingsOption
+              icon={"message-circle"}
+              text={"Suggestions"}
+              onPress={() =>
+                navigate.navigate(!isAdmin ? "Suggestions" : "SeeSuggestions")
+              }
+            />
+            <SeparatorComp full color="light_gray" />
+            <SettingsOption
               icon={"file-text"}
               text={"Privacy & Terms"}
               onPress={() =>
@@ -112,9 +109,6 @@ function Settings(props) {
     </SafeScreen>
   );
 }
-const getStyles = (theme) =>
-  StyleSheet.create({
-
-  });
+const getStyles = (theme) => StyleSheet.create({});
 
 export default Settings;
