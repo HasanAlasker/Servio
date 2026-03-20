@@ -79,7 +79,7 @@ function Service(props) {
           {RenderServices.length !== 0 && (
             <InfoCard
               title={"Completed a service?"}
-              text={'Press "Fix" on the parts to recalculate.'}
+              text={'Press "Fixed" on the parts to recalculate.'}
             />
           )}
         </GapContainer>
