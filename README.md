@@ -18,7 +18,7 @@
   <img src="https://img.shields.io/badge/Built%20With-React%20Native-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
 </p>
 <p align="center">
-  <img src="./Client/Servio/assets/preview.png" alt="Servio App Preview" width="800" />
+  <img src="./Client/Servio/assets/preview1.png" alt="Servio App Preview" width="800" />
 </p>
 
 ---
@@ -164,4 +164,4 @@ You can also help the platform grow by inviting your mechanic or local service c
 
 ## License
 
-Private academic project. All rights reserved © Hasan Alasker.
+Private project. All rights reserved © Hasan Alasker.
