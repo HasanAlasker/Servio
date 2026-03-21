@@ -1,6 +1,5 @@
 import { View, StyleSheet, Image } from "react-native";
 import GapContainer from "./GapContainer";
-import MText from "../text/MText";
 import SText from "../text/SText";
 import PriBtn from "./PriBtn";
 import TText from "../text/TText";
