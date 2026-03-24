@@ -66,7 +66,7 @@ function SimpleTitleText({
   };
 
   return (
-    <GapContainer gap={5} style={styles.container}>
+    <GapContainer gap={5} flex style={styles.container}>
       <RowCont gap={10}>
         {showStatus && (
           <View style={[styles.dot, { backgroundColor: theme[color()] }]} />
@@ -77,10 +77,10 @@ function SimpleTitleText({
           </TText>
         )}
       </RowCont>
-      <RowCont gap={10}>
+      <RowCont gap={10} style={{flex:1}}>
         <SText>{text1}</SText>
         {text2 && <SText color={"sec_text"}>{"\u2022"}</SText>}
-        {text2 && <SText>{text2}</SText>}
+        {text2 && <SText numberOfLines={1} style={{flex:1}}>{text2}</SText>}
       </RowCont>
       {showStatus && (
         <View style={styles.bar}>

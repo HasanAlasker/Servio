@@ -23,6 +23,7 @@ import GhostBtn from "../general/GhostBtn";
 import SecBtn from "../general/SecBtn";
 import VerticalLine from "../general/VerticalLine";
 import SimpleTitleText from "../general/SimpleTitleText";
+import { Feather } from "@expo/vector-icons";
 
 function AppointmentCard({
   id,
@@ -45,6 +46,7 @@ function AppointmentCard({
   const { isShopOwner, isUser } = UseUser();
   const { theme, isDarkMode } = useTheme();
   const [modal, setModal] = useState(false);
+  const [showBtns, setShowBtns] = useState(false);
 
   const handleCall = async () => {
     try {
@@ -88,11 +90,23 @@ function AppointmentCard({
               : capFirstLetter(shop?.name)
           }
         />
-        <SimpleTitleText
-          text1={getTimeFromDate(scheuledAt)}
-          text2={formatDate(scheuledAt)}
-          title={<StatusLabel status={status} />}
-        />
+        <RowCont>
+          <SimpleTitleText
+            text1={getTimeFromDate(scheuledAt)}
+            text2={formatDate(scheuledAt)}
+            title={<StatusLabel status={status} />}
+          />
+          {!isShopOwner && (
+            <Feather
+              name={!showBtns ? "chevron-right" : "chevron-down"}
+              onPress={() => setShowBtns(!showBtns)}
+              color={theme.sec_text}
+              size={25}
+              style={{ alignSelf: "flex-end" }}
+            />
+          )}
+        </RowCont>
+
         {Date.now() > new Date(scheuledAt) && status === "pending" && (
           <ErrorMessage full error={"Time has passed"} />
         )}
@@ -119,7 +133,7 @@ function AppointmentCard({
           <GapContainer gap={1}>{partsList}</GapContainer>
         </View>
 
-        {isUser && status === "pending" && (
+        {showBtns && isUser && status === "pending" && (
           <GapContainer gap={15}>
             <PriBtn
               square
@@ -131,7 +145,7 @@ function AppointmentCard({
           </GapContainer>
         )}
 
-        {isUser && status === "confirmed" ? (
+        {showBtns && isUser && status === "confirmed" ? (
           <PriBtn square black full title={"Call Shop"} onPress={handleCall} />
         ) : (
           isShopOwner &&
@@ -141,7 +155,7 @@ function AppointmentCard({
           )
         )}
 
-        {isUser && showDelete && status !== "pending" && (
+        {showBtns && isUser && showDelete && status !== "pending" && (
           <PriBtn
             square
             red
