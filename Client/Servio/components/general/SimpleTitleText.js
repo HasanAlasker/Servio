@@ -71,9 +71,11 @@ function SimpleTitleText({
         {showStatus && (
           <View style={[styles.dot, { backgroundColor: theme[color()] }]} />
         )}
-        <TText thin color={"sec_text"}>
-          {title}
-        </TText>
+        {title && (
+          <TText thin color={"sec_text"}>
+            {title}
+          </TText>
+        )}
       </RowCont>
       <RowCont gap={10}>
         <SText>{text1}</SText>

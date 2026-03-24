@@ -29,13 +29,13 @@ function StatusLabel({ status }) {
       color = "lightBlue";
   }
 
-  let backColor = theme[color] + 20;
+  let backColor = theme[color] + 15;
 
   return (
     <View
       style={[
         styles.container,
-        { backgroundColor: backColor, borderColor: theme[color] },
+        { backgroundColor: theme.post, borderColor: theme[color] },
       ]}
     >
       <TText style={{ color: theme[color] }}>
@@ -48,13 +48,12 @@ function StatusLabel({ status }) {
 const getStyles = (theme) =>
   StyleSheet.create({
     container: {
-      borderRadius: 25,
-      paddingVertical: 2,
-      paddingHorizontal: 10,
-      borderWidth: 1.4,
+      borderRadius: 5,
+      // paddingVertical: 2,
+      // paddingHorizontal: 10,
       justifyContent: "center",
       alignItems: "center",
-      alignSelf: "flex-start",
+      alignSelf: "center",
     },
   });
 

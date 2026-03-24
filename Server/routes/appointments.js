@@ -51,7 +51,7 @@ router.get(
         customer: userId,
         $and: [
           { scheduledDate: { $gte: new Date() } },
-          { status: { $nin: ["completed", "canceled"] } },
+          { status: { $nin: ["completed", "canceled", "rejected"] } },
         ],
       })
         .sort({ scheduledDate: 1 })
@@ -81,7 +81,7 @@ router.get("/past", auth, logIP("GET_PAST_APPOINTMENTS"), async (req, res) => {
       isDeleted: false,
       $or: [
         { scheduledDate: { $lte: new Date() } },
-        { status: { $in: ["completed", "no-show", "canceled"] } },
+        { status: { $in: ["completed", "no-show", "canceled", "rejected"] } },
       ],
     })
       .sort("-scheduledDate")

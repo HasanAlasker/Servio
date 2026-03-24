@@ -22,6 +22,7 @@ import MText from "../text/MText";
 import GhostBtn from "../general/GhostBtn";
 import SecBtn from "../general/SecBtn";
 import VerticalLine from "../general/VerticalLine";
+import SimpleTitleText from "../general/SimpleTitleText";
 
 function AppointmentCard({
   id,
@@ -76,34 +77,22 @@ function AppointmentCard({
   return (
     <CardComp>
       <GapContainer gap={20}>
-        <SquareInfo
-          color={"lightBlue"}
-          icon={"car-outline"}
-          title={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
-          text={car?.plateNumber}
-        />
-        <SquareInfo
-          color={"green"}
-          icon={isUser ? "store-outline" : "account"}
-          title={
+        <SimpleTitleText
+          text1={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
+          text2={
             isUser ? capFirstLetter(shop?.name) : capFirstLetter(customer?.name)
           }
-          text={
+          title={
             isUser
               ? shop?.address.area + " " + shop?.address.street
               : capFirstLetter(shop?.name)
           }
-          flex
         />
-        <SquareInfo
-          color={"green"}
-          icon={"clock-outline"}
-          title={formatDate(scheuledAt)}
-          text={getTimeFromDate(scheuledAt)}
-          flex
+        <SimpleTitleText
+          text1={getTimeFromDate(scheuledAt)}
+          text2={formatDate(scheuledAt)}
+          title={<StatusLabel status={status} />}
         />
-
-        <StatusLabel status={status} />
         {Date.now() > new Date(scheuledAt) && status === "pending" && (
           <ErrorMessage full error={"Time has passed"} />
         )}
