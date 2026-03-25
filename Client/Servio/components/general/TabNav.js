@@ -9,7 +9,7 @@ function TabNav({ active, onTabChange, one, two }) {
   const { theme } = useTheme();
 
   return (
-    <RowCont gap={"none"} style={[styles.container, { marginBottom: 20 }]}>
+    <RowCont gap={"none"} style={[styles.container, { marginBottom: 40 }]}>
       <Pressable
         onPress={onTabChange}
         style={[

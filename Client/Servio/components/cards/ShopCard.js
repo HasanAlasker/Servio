@@ -17,6 +17,7 @@ import { useTheme } from "../../context/ThemeContext";
 import RowCont from "../general/RowCont";
 import { Feather } from "@expo/vector-icons";
 import { UseUser } from "../../context/UserContext";
+import SimpleTitleText from "../general/SimpleTitleText";
 
 function ShopCard({
   id,
@@ -86,33 +87,31 @@ function ShopCard({
           </RowCont>
 
           {!mini && (
-            <GapContainer gap={10}>
-              <SquareInfo
-                icon={"map-marker"}
-                color={"red"}
-                title={address.area + " " + address.street}
-                text={address.city}
-                flex
+            <GapContainer gap={15}>
+              <SimpleTitleText
+                title={address.city}
+                text1={address.area + " " + address.street}
               />
-              <SquareInfo
+              {/* <SquareInfo
                 icon={"star"}
                 color={"gold"}
                 title={ratingCount === 0 ? "Not rated" : rating + "Star Rating"}
                 text={
                   ratingCount === 0 ? "No one rated this shop" : ratingCount
                 }
-              />
+              /> */}
+              {!mini && (
+                <RowCont gap={5} style={{ flexWrap: "wrap" }}>
+                  {groupDays.map((group, index) => (
+                    <SimpleTitleText
+                      key={index}
+                      title={formatDayRange(group)}
+                      text1={group[0].from + " - " + group[0].to}
+                    />
+                  ))}
+                </RowCont>
+              )}
             </GapContainer>
-          )}
-
-          {!mini && (
-            <View>
-              {groupDays.map((group, index) => (
-                <SText key={index}>
-                  {formatDayRange(group)}: {group[0].from} - {group[0].to}
-                </SText>
-              ))}
-            </View>
           )}
 
           {!mini && (

@@ -102,7 +102,7 @@ function CardLeftBorder({
             <SText color={color}>{text}</SText>
           </RowCont>
           {!customText ? (
-            <View>{RenderParts}</View>
+            <RowCont style={{ flexWrap: "wrap" }}>{RenderParts}</RowCont>
           ) : (
             <SText
               thin
