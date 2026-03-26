@@ -37,7 +37,6 @@ function History(props) {
     try {
       const res = await getCarHistory(id);
       setPast(res.data.data);
-      console.log(past)
     } catch (error) {
       setPast([]); // fallback to empty array on error
     } finally {
@@ -61,7 +60,7 @@ function History(props) {
   ));
 
   const RenderAppointments = () => {
-    if (past.length > 0)
+    if (past.length !== 0)
       return past?.map((appointment) => (
         <AppointmentCard
           key={appointment._id}
