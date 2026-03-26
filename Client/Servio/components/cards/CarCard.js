@@ -3,7 +3,6 @@ import CardComp from "./CardComp";
 import MText from "../text/MText";
 import SText from "../text/SText";
 import RowCont from "../general/RowCont";
-import SquareInfo from "./SquareInfo";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
@@ -20,6 +19,7 @@ function CarCard({
   color,
   mileage,
   unit,
+  onPress,
 }) {
   const navigate = useNavigation();
   const { theme } = useTheme();
@@ -40,7 +40,7 @@ function CarCard({
     <CardComp
       style={styles.container}
       onPress={() => {
-        navigate.navigate("CarParts", passToEdit);
+        !onPress ? navigate.navigate("CarParts", passToEdit) : onPress(id);
       }}
     >
       {image && <Image style={styles.image} source={{ uri: image }} />}

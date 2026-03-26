@@ -48,6 +48,7 @@ import {
 import { ShopProvider, UseShop } from "./context/ShopContext";
 import { ToastProvider } from "react-native-toast-notifications";
 import Settings from "./screens/shared/Settings";
+import History from "./screens/carOwner/History";
 
 export const navigationRef = createNavigationContainerRef();
 SplashScreen.preventAutoHideAsync();
@@ -91,6 +92,7 @@ const CarOwnerStack = () => {
       <Stack.Screen name="AddShop" component={AddShop} />
       <Stack.Screen name="MakeAppointment" component={MakeAppointment} />
       <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="History" component={History} />
     </Stack.Navigator>
   );
 };

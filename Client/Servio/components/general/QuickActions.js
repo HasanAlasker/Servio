@@ -23,7 +23,7 @@ function QuickActions(props) {
           <Pill
             icon={"folder"}
             text={"History"}
-            navigateTo={"Bookings"}
+            navigateTo={"History"}
             params={{ active: "2" }}
           />
           <Pill

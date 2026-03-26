@@ -16,6 +16,7 @@ import UserModel from "../models/user.js";
 import { sendPushNotification } from "../utils/notifications.js";
 import { getTimeFromDate } from "../functions/formatTime.js";
 import logIP from "../middleware/logIp.js";
+import CarModel from "../models/car.js";
 
 const router = express.Router();
 
@@ -106,8 +107,19 @@ router.get("/history/:id", auth, logIP("GET_CAR_HISTORY"), async (req, res) => {
     const userId = req.user._id;
     const carId = req.params.id;
 
+    const car = await CarModel.findById(carId);
+    if (!car)
+      return res.status(404).json({
+        success: false,
+        message: "Car not found",
+      });
+    if (car.owner._id !== userId)
+      return res.status(403).json({
+        success: false,
+        message: "You're not the car owner",
+      });
+
     const past = await AppointmentModel.find({
-      customer: userId,
       car: carId,
       $or: [
         { scheduledDate: { $lte: new Date() } },

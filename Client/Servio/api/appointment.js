@@ -6,6 +6,8 @@ export const getAllAppointments = () => apiClient.get(`${endpoint}/all`);
 
 export const getPastAppointments = () => apiClient.get(`${endpoint}/past`);
 
+export const getCarHistory = (id) => apiClient.get(`${endpoint}/history/${id}`);
+
 export const getUpcomingAppointments = () =>
   apiClient.get(`${endpoint}/upcoming`);
 
@@ -38,7 +40,6 @@ export const markAppointmentNoShow = (id) =>
 
 export const cancelAppointment = (id) =>
   apiClient.patch(`${endpoint}/cancel/${id}`);
-
 
 export const deleteAppointment = (id) =>
   apiClient.patch(`${endpoint}/delete/${id}`);

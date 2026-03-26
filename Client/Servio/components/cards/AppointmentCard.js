@@ -24,6 +24,7 @@ import SecBtn from "../general/SecBtn";
 import VerticalLine from "../general/VerticalLine";
 import SimpleTitleText from "../general/SimpleTitleText";
 import { Feather } from "@expo/vector-icons";
+import { useRoute } from "@react-navigation/native";
 
 function AppointmentCard({
   id,
@@ -47,6 +48,8 @@ function AppointmentCard({
   const { theme, isDarkMode } = useTheme();
   const [modal, setModal] = useState(false);
   const [showBtns, setShowBtns] = useState(false);
+
+  const route = useRoute()
 
   const handleCall = async () => {
     try {
@@ -96,7 +99,7 @@ function AppointmentCard({
             text2={formatDate(scheuledAt)}
             title={<StatusLabel status={status} />}
           />
-          {!isShopOwner && (
+          {(!isShopOwner && route.name !== "History") && (
             <Feather
               name={!showBtns ? "chevron-right" : "chevron-down"}
               onPress={() => setShowBtns(!showBtns)}
