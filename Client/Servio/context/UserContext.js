@@ -67,11 +67,13 @@ export const UserProvider = ({ children }) => {
     try {
       const location = await getApproximateLocation();
 
-      if (!location || location.denied) {
+      if (!location) {
         toast.error("Nearby shops unknown");
+        return;
       }
 
       if (location.denied) {
+        toast.error("Nearby shops unknown");
         Alert.alert(
           "Location Permission",
           "Please enable location access in your device settings to find shops nearby.",
@@ -84,6 +86,8 @@ export const UserProvider = ({ children }) => {
       }
 
       setUserLocation(location);
+
+      console.log(location)
     } catch (e) {
       toast.error("Nearby shops unknown");
     }

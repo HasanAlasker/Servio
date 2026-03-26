@@ -113,7 +113,7 @@ router.get("/history/:id", auth, logIP("GET_CAR_HISTORY"), async (req, res) => {
         success: false,
         message: "Car not found",
       });
-    if (car.owner._id !== userId)
+    if (car.owner._id.toString() !== userId.toString())
       return res.status(403).json({
         success: false,
         message: "You're not the car owner",

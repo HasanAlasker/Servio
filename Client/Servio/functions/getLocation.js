@@ -25,7 +25,7 @@ export async function getApproximateLocation() {
   });
 
   return {
-    city: place.city,
+    city: place.city ?? place.subregion ?? place.region,
     country: place.country,
     street: place.street || null,
     countryCode: place.isoCountryCode,

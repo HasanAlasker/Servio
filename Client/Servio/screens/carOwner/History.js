@@ -37,6 +37,7 @@ function History(props) {
     try {
       const res = await getCarHistory(id);
       setPast(res.data.data);
+      console.log(past)
     } catch (error) {
       setPast([]); // fallback to empty array on error
     } finally {
