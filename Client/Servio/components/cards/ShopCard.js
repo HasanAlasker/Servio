@@ -2,7 +2,6 @@ import { View, StyleSheet, Image } from "react-native";
 import CardComp from "./CardComp";
 import MText from "../text/MText";
 import SText from "../text/SText";
-import SquareInfo from "./SquareInfo";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import GapContainer from "../general/GapContainer";
@@ -15,9 +14,11 @@ import {
 } from "../../functions/formatOpenHours";
 import { useTheme } from "../../context/ThemeContext";
 import RowCont from "../general/RowCont";
-import { Feather } from "@expo/vector-icons";
+import { Feather, Octicons } from "@expo/vector-icons";
 import { UseUser } from "../../context/UserContext";
 import SimpleTitleText from "../general/SimpleTitleText";
+import useThemedStyles from "../../hooks/useThemedStyles";
+import TText from "../text/TText";
 
 function ShopCard({
   id,
@@ -39,6 +40,7 @@ function ShopCard({
   serviceData,
 }) {
   const { theme } = useTheme();
+  const styles = useThemedStyles(getStyles);
   const { isShopOwner } = UseUser();
   const [showBtn, setShowBtn] = useState(false);
   const navigate = useNavigation();
@@ -67,7 +69,19 @@ function ShopCard({
 
   return (
     <CardComp style={styles.container} onPress={onCardPress}>
-      {image && <Image style={styles.image} source={{ uri: image }} />}
+      <View style={styles.imageCont}>
+        {image && <Image style={styles.image} source={{ uri: image }} />}
+        <RowCont style={styles.rating}>
+          <Octicons
+            name={rating ? "star-fill" : "star"}
+            color={theme.always_white}
+            size={15}
+          />
+          <TText color={"always_white"}>
+            {rating ? rating + ` (${ratingCount})` : "Unrated"}
+          </TText>
+        </RowCont>
+      </View>
 
       <View style={styles.textCont}>
         <GapContainer>
@@ -160,21 +174,34 @@ function ShopCard({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 0,
-    paddingHorizontal: 0,
-    overflow: "hidden",
-  },
-  textCont: {
-    paddingHorizontal: 22,
-    paddingVertical: 25,
-  },
-  image: {
-    width: "100%",
-    aspectRatio: 31 / 20,
-    objectFit: "cover",
-  },
-});
+const getStyles = (theme) =>
+  StyleSheet.create({
+    container: {
+      paddingVertical: 0,
+      paddingHorizontal: 0,
+      overflow: "hidden",
+    },
+    textCont: {
+      paddingHorizontal: 22,
+      paddingVertical: 25,
+    },
+    image: {
+      width: "100%",
+      aspectRatio: 31 / 20,
+      objectFit: "cover",
+    },
+    imageCont: {
+      width: "100%",
+      flex: 1,
+      position: "relative",
+    },
+    rating: {
+      backgroundColor: theme.always_black,
+      paddingVertical: 6,
+      paddingHorizontal: 12,
+      position: "absolute",
+      bottom:0,
+    },
+  });
 
 export default ShopCard;
