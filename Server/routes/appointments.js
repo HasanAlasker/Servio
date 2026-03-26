@@ -100,6 +100,36 @@ router.get("/past", auth, logIP("GET_PAST_APPOINTMENTS"), async (req, res) => {
   }
 });
 
+// get car history
+router.get("/history/:id", auth, logIP("GET_CAR_HISTORY"), async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const carId = req.params.id;
+
+    const past = await AppointmentModel.find({
+      customer: userId,
+      car: carId,
+      $or: [
+        { scheduledDate: { $lte: new Date() } },
+        { status: { $nin: ["pending", "confirmed"] } },
+      ],
+    })
+      .sort("-scheduledDate")
+      .populate("car", "make name model plateNumber mileage color")
+      .populate("customer", "name phone")
+      .populate("shop", "owner name services address rating ratingCount")
+      .populate("serviceParts", "name");
+
+    return res.status(200).json({ success: true, data: past });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
 // get confiremd
 router.get(
   "/confirmed/:id",
