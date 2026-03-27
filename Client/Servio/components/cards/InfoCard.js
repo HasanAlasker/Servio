@@ -4,6 +4,7 @@ import CardLeftBorder from "./CardLeftBorder";
 function InfoCard({ title, text }) {
   return (
     <CardLeftBorder
+      transparent
       icon={"information-outline"}
       customColor={"blue"}
       customTextColor={"blue"}

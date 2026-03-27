@@ -8,6 +8,7 @@ import SText from "../text/SText";
 import GapContainer from "../general/GapContainer";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import { UseUser } from "../../context/UserContext";
+import TText from "../text/TText";
 
 function CardLeftBorder({
   icon,
@@ -23,6 +24,8 @@ function CardLeftBorder({
   onPress,
   showBtn,
   style,
+  noPadding,
+  transparent,
 }) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getstyles);
@@ -75,16 +78,18 @@ function CardLeftBorder({
       style={[
         styles.container,
         {
-          backgroundColor: backColor,
+          backgroundColor: transparent ? theme[customColor] + 15 : theme.post,
           borderColor: theme[color],
-          paddingVertical: status ? 15 : 20,
-          paddingHorizontal: status ? 18 : 22,
+          paddingVertical: noPadding ? 0 : 15,
+          paddingHorizontal: noPadding ? 0 : 18,
+          // borderWidth:
+          //   status == "soon" || status == "due" || status == "overdue" ? 3 : 0,
         },
         style,
       ]}
     >
       {status && (
-        <GapContainer gap={10}>
+        <GapContainer gap={5}>
           <RowCont>
             <MaterialCommunityIcons
               name={
@@ -92,14 +97,16 @@ function CardLeftBorder({
                   ? icon
                   : text === "Dangerous"
                     ? "alert-outline"
+                    : text === "Check Immediately"
+                      ? "car-brake-alert"
                     : text === "Check Soon"
                       ? "alert-circle-outline"
                       : "toolbox-outline"
               }
-              size={24}
+              size={20}
               color={theme[color]}
             />
-            <SText color={color}>{text}</SText>
+            <TText thin color={color}>{text}</TText>
           </RowCont>
           {!customText ? (
             <RowCont style={{ flexWrap: "wrap", columnGap: 15 }}>
@@ -142,7 +149,7 @@ function CardLeftBorder({
         <MaterialCommunityIcons
           size={25}
           name="chevron-right"
-          color={theme[color]}
+          color={theme["sec_text"]}
           style={styles.v}
         />
       )}

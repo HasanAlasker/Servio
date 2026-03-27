@@ -13,12 +13,14 @@ function UsersDash(props) {
   const { services, loading } = UseService();
   const { cars } = UseCar();
 
-  const statusPriority = { overdue: 0, due: 1, soon: 2 };
+  const impServices = services.filter((s) => s.status !== "soon");
+
+  const statusPriority = { overdue: 0, due: 1 };
 
   const goThrough = () => {
     const carMap = {};
 
-    for (const service of services) {
+    for (const service of impServices) {
       const carId = service.car._id;
       if (
         !carMap[carId] ||
@@ -61,7 +63,7 @@ function UsersDash(props) {
           customText={"No services required!"}
         />
       ) : null}
-      
+
       <QuickActions />
 
       {cars.length > 0 && <QuickPeek />}
