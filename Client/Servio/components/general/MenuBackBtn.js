@@ -3,7 +3,7 @@ import { StyleSheet, Pressable } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 
-function MenuBackBtn({ onClose, x, style }) {
+function MenuBackBtn({ onClose, x, style, ninty }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
 

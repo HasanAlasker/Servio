@@ -17,6 +17,8 @@ import { useTheme } from "../../context/ThemeContext";
 import FormikDatePicker from "../../components/form/FormikDatePicker";
 import { UseService } from "../../context/ServiceContext";
 import useAppToast from "../../hooks/useAppToast";
+import MenuBackBtn from "../../components/general/MenuBackBtn";
+import BackContainer from "../../components/general/BackContainer";
 
 const validationSchema = Yup.object({
   name: Yup.string().trim().lowercase().required("Part name is required"),
@@ -163,6 +165,9 @@ function AddPart(props) {
   return (
     <SafeScreen>
       <KeyboardScrollScreen>
+        <BackContainer>
+          <MenuBackBtn onClose={() => navigate.navigate("MyCars")} />
+        </BackContainer>
         <AppForm
           initialValues={initialValues}
           validationSchema={validationSchema}

@@ -20,6 +20,8 @@ import { UseCar } from "../../context/CarContext";
 import { unitTypes } from "../../constants/dropList";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import useAppToast from "../../hooks/useAppToast";
+import BackContainer from "../../components/general/BackContainer";
+import MenuBackBtn from "../../components/general/MenuBackBtn";
 
 export const validationSchema = Yup.object({
   make: Yup.string().trim().required("Car make is required"),
@@ -171,6 +173,9 @@ function AddCar(props) {
   return (
     <SafeScreen>
       <KeyboardScrollScreen>
+        <BackContainer>
+          <MenuBackBtn onClose={() => navigate.goBack()} />
+        </BackContainer>
         <AppForm
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -271,16 +276,6 @@ function AddCar(props) {
                 disabled={loading}
                 setHasBeenSubmitted={setHasBeenSubmited}
               />
-
-              {isEdit && (
-                <PriBtn
-                  title={"Cancel"}
-                  red
-                  square
-                  disabled={loading || isSubmitting}
-                  onPress={() => navigate.goBack()}
-                />
-              )}
             </GapContainer>
           )}
         </AppForm>

@@ -106,7 +106,7 @@ function CardLeftBorder({
               size={20}
               color={theme[color]}
             />
-            <TText thin color={color}>{text}</TText>
+            <TText thin={!customColor} color={color}>{text}</TText>
           </RowCont>
           {!customText ? (
             <RowCont style={{ flexWrap: "wrap", columnGap: 15 }}>
