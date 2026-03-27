@@ -3,7 +3,7 @@ import SafeScreen from "../../components/general/SafeScreen";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import Navbar from "../../components/general/Navbar";
 import AddCarCard from "../../components/cards/AddCarCard";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import GapContainer from "../../components/general/GapContainer";
 import useApi from "../../hooks/useApi";
@@ -11,16 +11,16 @@ import { getTrackedParts, servicePart } from "../../api/part";
 import PartCard from "../../components/cards/PartCard";
 import CarOptionsCard from "../../components/cards/CarOptionsCard";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
-import CardLeftBorder from "../../components/cards/CardLeftBorder";
 import InfoCard from "../../components/cards/InfoCard";
 import { UseService } from "../../context/ServiceContext";
 import useAppToast from "../../hooks/useAppToast";
+import MenuBackBtn from "../../components/general/MenuBackBtn";
 
 function CarParts(props) {
   const [parts, setParts] = useState([]);
   const { loadServices } = UseService();
   const toast = useAppToast();
-
+  const navigate = useNavigation();
   const route = useRoute();
   const params = route?.params;
 
@@ -91,6 +91,7 @@ function CarParts(props) {
   return (
     <SafeScreen>
       <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
+        <MenuBackBtn onClose={() => navigate.navigate("MyCars")} />
         <GapContainer>
           <CarOptionsCard params={params} />
           {RenderParts}

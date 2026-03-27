@@ -7,6 +7,13 @@ import StatusLabel from "../general/StatusLabel";
 import { useTheme } from "../../context/ThemeContext";
 import { UseUser } from "../../context/UserContext";
 import { useRoute } from "@react-navigation/native";
+import SquareTitle from "../general/SquareTitle";
+import SeparatorComp from "../general/SeparatorComp";
+import SimpleTitleText from "../general/SimpleTitleText";
+import { useState } from "react";
+import { Feather } from "@expo/vector-icons";
+import RowCont from "../general/RowCont";
+import GhostBtn from "../general/GhostBtn";
 
 function UserCard({
   passedUser,
@@ -15,54 +22,66 @@ function UserCard({
   handleAction,
   isDeleted = null,
   short,
+  setIsEdit
 }) {
   const { theme } = useTheme();
   const { user, isAdmin } = UseUser();
   const route = useRoute();
+  const [showBtns, setShowBtns] = useState(false);
 
   return (
-    <CardComp style={{ marginHorizontal: "auto" }} short={short}>
+    <CardComp
+      style={{ marginHorizontal: "auto" }}
+      short={short}
+      onPress={() => {
+        setShowBtns(!showBtns);
+        if (isEdit) {
+          setIsEdit(false)
+        }
+      }}
+    >
       <GapContainer>
-        <GapContainer gap={12}>
-          <SquareInfo
-            icon={"account-outline"}
-            color={"lightBlue"}
-            title={"Name"}
-            text={passedUser?.name}
-            fliped
-            flex
-          />
-          <SquareInfo
+        <GapContainer gap={5}>
+          <RowCont style={{ justifyContent: "space-between" }}>
+            <SquareTitle icon={"account-outline"} title={passedUser?.name} />
+            <Feather
+              name={!showBtns ? "chevron-right" : "chevron-down"}
+              color={theme.sec_text}
+              size={25}
+              style={{ alignSelf: "center" }}
+            />
+          </RowCont>
+          <SeparatorComp full color="faded" />
+
+          <SimpleTitleText
             icon={"phone-outline"}
-            color={"green"}
-            text={passedUser?.phone}
+            text1={passedUser?.phone}
             title={"Phone"}
-            fliped
-            flex
           />
-          <SquareInfo
+          <SeparatorComp full color="faded" />
+          <SimpleTitleText
             icon={"email-outline"}
-            color={"pink"}
-            text={passedUser?.email}
+            text1={passedUser?.email}
             title={"Email"}
-            fliped
-            flex
           />
         </GapContainer>
         {passedUser?.role !== "user" && (
           <StatusLabel status={passedUser?.role} />
         )}
-        {user._id === passedUser._id && route.name !== "Users" && (
-          <PriBtn
-            square
-            full
-            title={!isEdit ? "Edit Info" : "Cancel"}
-            black={!isEdit}
-            red={isEdit}
-            onPress={handleEditPress}
-          />
+        {showBtns && user._id === passedUser._id && route.name !== "Users" && (
+          <View>
+            <SeparatorComp full color="faded" />
+            <GhostBtn
+              full
+              title={!isEdit ? "Edit Info" : "Cancel"}
+              bule={!isEdit}
+              red={isEdit}
+              onPress={handleEditPress}
+            />
+          </View>
         )}
-        {isDeleted !== null &&
+        {showBtns &&
+          isDeleted !== null &&
           route.name === "Users" &&
           passedUser.role !== "admin" && (
             <PriBtn

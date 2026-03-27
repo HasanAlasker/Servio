@@ -3,20 +3,23 @@ import CardComp from "./CardComp";
 import GapContainer from "../general/GapContainer";
 import SquareInfo from "./SquareInfo";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
-import PriBtn from "../general/PriBtn";
 import { useTheme } from "../../context/ThemeContext";
 import { useNavigation } from "@react-navigation/native";
 import { deleteCar } from "../../api/car";
 import { useState } from "react";
 import { UseCar } from "../../context/CarContext";
 import RowCont from "../general/RowCont";
-import SecBtn from "../general/SecBtn";
 import GhostBtn from "../general/GhostBtn";
 import VerticalLine from "../general/VerticalLine";
+import SimpleTitleText from "../general/SimpleTitleText";
+import { Feather } from "@expo/vector-icons";
+import SeparatorComp from "../general/SeparatorComp";
 
 function CarOptionsCard({ params }) {
   const { removeCar, cars } = UseCar();
   const { theme } = useTheme();
+  const [showBtns, setShowBtns] = useState(false);
+
   const navigate = useNavigation();
 
   const car = cars.find((c) => c._id === params?.id);
@@ -39,38 +42,43 @@ function CarOptionsCard({ params }) {
   };
 
   return (
-    <CardComp>
-      <GapContainer gap={25}>
-        <SquareInfo
-          color={"lightBlue"}
-          icon={"car-outline"}
-          title={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
-          text={car?.model + " - " + capFirstLetter(car?.color)}
-        />
-        <SquareInfo
-          color={"pink"}
-          icon={"gauge"}
-          title={`${car?.mileage.toLocaleString() + " " + capFirstLetter(car?.unit)}`}
-          text={"Mileage"}
-        />
-        <RowCont gap={10}>
-          <GhostBtn
-            square
-            auto
-            title={"Edit"}
-            disabled={isDeleting}
-            onPress={() => navigate.navigate("AddCar", params)}
+    <CardComp onPress={() => setShowBtns(!showBtns)}>
+      <GapContainer gap={8}>
+        <RowCont style={{ justifyContent: "space-between" }}>
+          <SquareInfo
+            icon={"gauge"}
+            title={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
+            text={`${car?.mileage.toLocaleString() + " " + capFirstLetter(car?.unit)}`}
+            fliped
           />
-          <VerticalLine color="faded" />
-          <GhostBtn
-            square
-            auto
-            red
-            title={!isDeleting ? "Delete" : "Deleting..."}
-            disabled={isDeleting}
-            onPress={handleDelete}
+          <Feather
+            name={!showBtns ? "chevron-right" : "chevron-down"}
+            color={theme.sec_text}
+            size={25}
+            style={{ alignSelf: "center" }}
           />
         </RowCont>
+        {showBtns && <SeparatorComp full color="faded" />}
+        {showBtns && (
+          <RowCont gap={10}>
+            <GhostBtn
+              square
+              auto
+              title={"Edit"}
+              disabled={isDeleting}
+              onPress={() => navigate.navigate("AddCar", params)}
+            />
+            <VerticalLine color="faded" />
+            <GhostBtn
+              square
+              auto
+              red
+              title={!isDeleting ? "Delete" : "Deleting..."}
+              disabled={isDeleting}
+              onPress={handleDelete}
+            />
+          </RowCont>
+        )}
       </GapContainer>
     </CardComp>
   );

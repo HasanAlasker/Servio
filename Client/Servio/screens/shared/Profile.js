@@ -81,6 +81,7 @@ function Profile(props) {
             passedUser={user}
             handleEditPress={handleEditPress}
             isEdit={isEdit}
+            setIsEdit={setEdit}
             short
           />
           {isEdit && (
