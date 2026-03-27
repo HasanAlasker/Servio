@@ -35,10 +35,10 @@ function StatusLabel({ status }) {
     <View
       style={[
         styles.container,
-        { backgroundColor: theme.post, borderColor: theme[color] },
+        { backgroundColor: theme[color], borderColor: theme[color] },
       ]}
     >
-      <TText style={{ color: theme[color] }}>
+      <TText style={{ color: theme.always_white }}>
         {capFirstLetter(status || "...")}
       </TText>
     </View>
@@ -48,9 +48,9 @@ function StatusLabel({ status }) {
 const getStyles = (theme) =>
   StyleSheet.create({
     container: {
-      borderRadius: 5,
-      // paddingVertical: 2,
-      // paddingHorizontal: 10,
+      borderRadius: 15,
+      paddingVertical: 2,
+      paddingHorizontal: 10,
       justifyContent: "center",
       alignItems: "center",
       alignSelf: "center",

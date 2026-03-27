@@ -49,7 +49,7 @@ function AppointmentCard({
   const [modal, setModal] = useState(false);
   const [showBtns, setShowBtns] = useState(false);
 
-  const route = useRoute()
+  const route = useRoute();
 
   const handleCall = async () => {
     try {
@@ -99,7 +99,7 @@ function AppointmentCard({
             text2={formatDate(scheuledAt)}
             title={<StatusLabel status={status} />}
           />
-          {(!isShopOwner && route.name !== "History") && (
+          {!isShopOwner && route.name !== "History" && (
             <Feather
               name={!showBtns ? "chevron-right" : "chevron-down"}
               onPress={() => setShowBtns(!showBtns)}
@@ -113,7 +113,7 @@ function AppointmentCard({
         {Date.now() > new Date(scheuledAt) && status === "pending" && (
           <ErrorMessage full error={"Time has passed"} />
         )}
-        {isUser &&
+        {/* {isUser &&
           status === "confirmed" &&
           new Date() < new Date(scheuledAt) && (
             <Pressable onPress={() => openURL(shop?.link)}>
@@ -129,12 +129,27 @@ function AppointmentCard({
                 }
               />
             </Pressable>
-          )}
+          )} */}
 
         <View>
           <SeparatorComp children={"Service Parts"} full color="sec_text" />
           <GapContainer gap={1}>{partsList}</GapContainer>
         </View>
+
+        {showBtns &&
+          isUser &&
+          status === "confirmed" &&
+          new Date() < new Date(scheuledAt) && (
+            <RowCont>
+              <GhostBtn
+                auto
+                title={"Directions"}
+                onPress={() => openURL(shop?.link)}
+              />
+              <VerticalLine />
+              <GhostBtn auto black title={"Call Shop"} onPress={handleCall} />
+            </RowCont>
+          )}
 
         {showBtns && isUser && status === "pending" && (
           <GapContainer gap={15}>
@@ -148,14 +163,8 @@ function AppointmentCard({
           </GapContainer>
         )}
 
-        {showBtns && isUser && status === "confirmed" ? (
-          <PriBtn square black full title={"Call Shop"} onPress={handleCall} />
-        ) : (
-          isShopOwner &&
-          status === "confirmed" &&
-          !isDue && (
-            <PriBtn square black full title={"Call"} onPress={handleCall} />
-          )
+        {isShopOwner && status === "confirmed" && !isDue && (
+          <PriBtn square black full title={"Call"} onPress={handleCall} />
         )}
 
         {showBtns && isUser && showDelete && status !== "pending" && (
@@ -207,9 +216,9 @@ const getstyles = (theme) =>
   StyleSheet.create({
     map: {
       width: "100%",
-      height: 90,
+      height: 100,
       borderRadius: 15,
-      borderWidth: 1,
+      // borderWidth: 1,
       borderColor: theme.gold,
     },
   });
