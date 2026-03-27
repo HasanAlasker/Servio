@@ -121,9 +121,9 @@ router.get("/history/:id", auth, logIP("GET_CAR_HISTORY"), async (req, res) => {
 
     const past = await AppointmentModel.find({
       car: carId,
-      $or: [
+      $and: [
         { scheduledDate: { $lte: new Date() } },
-        { status: { $nin: ["pending", "confirmed"] } },
+        { status: { $in: ["completed", "confirmed"] } },
       ],
     })
       .sort("-scheduledDate")

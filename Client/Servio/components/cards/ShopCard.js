@@ -124,6 +124,7 @@ function ShopCard({
 
           {!mini && (
             <CardLeftBorder
+              noPadding
               miniTitle={"Services"}
               customColor={"sec_text"}
               parts={services}
