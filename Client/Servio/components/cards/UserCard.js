@@ -22,7 +22,7 @@ function UserCard({
   handleAction,
   isDeleted = null,
   short,
-  setIsEdit
+  setIsEdit,
 }) {
   const { theme } = useTheme();
   const { user, isAdmin } = UseUser();
@@ -36,7 +36,7 @@ function UserCard({
       onPress={() => {
         setShowBtns(!showBtns);
         if (isEdit) {
-          setIsEdit(false)
+          setIsEdit(false);
         }
       }}
     >
@@ -51,6 +51,9 @@ function UserCard({
               style={{ alignSelf: "center" }}
             />
           </RowCont>
+          {passedUser?.role !== "user" && (
+            <StatusLabel status={passedUser?.role} style={{marginTop:10}}/>
+          )}
           <SeparatorComp full color="faded" />
 
           <SimpleTitleText
@@ -65,9 +68,7 @@ function UserCard({
             title={"Email"}
           />
         </GapContainer>
-        {passedUser?.role !== "user" && (
-          <StatusLabel status={passedUser?.role} />
-        )}
+
         {showBtns && user._id === passedUser._id && route.name !== "Users" && (
           <View>
             <SeparatorComp full color="faded" />

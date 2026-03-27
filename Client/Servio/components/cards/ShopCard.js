@@ -71,16 +71,18 @@ function ShopCard({
     <CardComp style={styles.container} onPress={onCardPress}>
       <View style={styles.imageCont}>
         {image && <Image style={styles.image} source={{ uri: image }} />}
-        <RowCont style={styles.rating}>
-          <Octicons
-            name={rating ? "star-fill" : "star"}
-            color={theme.always_white}
-            size={15}
-          />
-          <TText color={"always_white"}>
-            {rating ? rating + ` (${ratingCount})` : "Unrated"}
-          </TText>
-        </RowCont>
+        {!mini && (
+          <RowCont style={styles.rating}>
+            <Octicons
+              name={rating ? "star-fill" : "star"}
+              color={theme.always_white}
+              size={15}
+            />
+            <TText color={"always_white"}>
+              {rating ? rating + ` (${ratingCount})` : "Unrated"}
+            </TText>
+          </RowCont>
+        )}
       </View>
 
       <View style={styles.textCont}>
@@ -106,14 +108,6 @@ function ShopCard({
                 title={address.city}
                 text1={address.area + " " + address.street}
               />
-              {/* <SquareInfo
-                icon={"star"}
-                color={"gold"}
-                title={ratingCount === 0 ? "Not rated" : rating + "Star Rating"}
-                text={
-                  ratingCount === 0 ? "No one rated this shop" : ratingCount
-                }
-              /> */}
               {!mini && (
                 <RowCont gap={5} style={{ flexWrap: "wrap" }}>
                   {groupDays.map((group, index) => (
@@ -200,7 +194,7 @@ const getStyles = (theme) =>
       paddingVertical: 6,
       paddingHorizontal: 12,
       position: "absolute",
-      bottom:0,
+      bottom: 0,
     },
   });
 

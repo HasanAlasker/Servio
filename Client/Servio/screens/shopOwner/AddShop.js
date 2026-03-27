@@ -19,6 +19,8 @@ import PriBtn from "../../components/general/PriBtn";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { UseUser } from "../../context/UserContext";
 import { getLatLngFromGoogleMapsLink } from "../../functions/getCoordsFromLink";
+import BackContainer from "../../components/general/BackContainer";
+import MenuBackBtn from "../../components/general/MenuBackBtn";
 
 const validationSchema = Yup.object({
   image: Yup.string().required("Shop image is required"),
@@ -251,6 +253,9 @@ function AddShop(props) {
   return (
     <SafeScreen>
       <KeyboardScrollScreen>
+        <BackContainer>
+          <MenuBackBtn onClose={() => navigate.goBack()} />
+        </BackContainer>
         <AppForm
           initialValues={initialValues}
           validationSchema={validationSchema}

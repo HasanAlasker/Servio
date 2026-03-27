@@ -13,6 +13,8 @@ import SubmitBtn from "../../components/form/SubmitBtn";
 import { makeSuggestion } from "../../api/suggestion";
 import { useNavigation } from "@react-navigation/native";
 import useAppToast from "../../hooks/useAppToast";
+import BackContainer from "../../components/general/BackContainer";
+import MenuBackBtn from "../../components/general/MenuBackBtn";
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -62,6 +64,9 @@ function Suggestions(props) {
   return (
     <SafeScreen>
       <KeyboardScrollScreen>
+        <BackContainer>
+          <MenuBackBtn onClose={() => navigate.goBack()} />
+        </BackContainer>
         <AppForm
           initialValues={initialValues}
           validationSchema={validationSchema}

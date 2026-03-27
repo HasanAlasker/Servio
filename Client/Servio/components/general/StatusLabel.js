@@ -4,7 +4,7 @@ import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 
-function StatusLabel({ status }) {
+function StatusLabel({ status,style }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
 
@@ -35,7 +35,7 @@ function StatusLabel({ status }) {
     <View
       style={[
         styles.container,
-        { backgroundColor: theme[color], borderColor: theme[color] },
+        { backgroundColor: theme[color], borderColor: theme[color] },style
       ]}
     >
       <TText style={{ color: theme.always_white }}>
@@ -53,7 +53,7 @@ const getStyles = (theme) =>
       paddingHorizontal: 10,
       justifyContent: "center",
       alignItems: "center",
-      alignSelf: "center",
+      alignSelf: "flex-start",
     },
   });
 
