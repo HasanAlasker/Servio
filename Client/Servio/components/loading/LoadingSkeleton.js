@@ -66,11 +66,6 @@ export default function LoadingSkeleton() {
             <AnimatedBox style={styles.iconCircle} />
             <AnimatedBox style={styles.infoText} />
           </View>
-          {/* Availability */}
-          <View style={styles.infoRow}>
-            <AnimatedBox style={styles.iconCircle} />
-            <AnimatedBox style={styles.infoTextShort} />
-          </View>
           {/* Rating */}
           <View style={styles.infoRow}>
             <AnimatedBox style={styles.iconCircle} />
@@ -81,7 +76,7 @@ export default function LoadingSkeleton() {
         </View>
       </GapContainer>
 
-      <AnimatedBox style={styles.disableButton} />
+      {/* <AnimatedBox style={styles.disableButton} /> */}
     </View>
   );
 }

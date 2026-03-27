@@ -24,6 +24,7 @@ function TabNav({ active, onTabChange, one, two }) {
             styles.text,
             { color: active === "1" ? theme.always_white : theme.sec_text },
           ]}
+          thin={active === "2"}
         >
           {one}
         </SText>
@@ -43,6 +44,7 @@ function TabNav({ active, onTabChange, one, two }) {
             styles.text,
             { color: active === "2" ? theme.always_white : theme.sec_text },
           ]}
+          thin={active === "1"}
         >
           {two}
         </SText>
