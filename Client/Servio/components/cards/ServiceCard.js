@@ -65,6 +65,8 @@ function ServiceCard({
 
         <SeparatorComp full color="faded" />
 
+        <CardLeftBorder noPadding status={status} parts={parts} />
+        <SeparatorComp full color="faded" />
         <SimpleTitleText
           text1={formatDate(dueBy.date)}
           text2={
@@ -72,9 +74,7 @@ function ServiceCard({
           }
           title={"Service at"}
         />
-        <SeparatorComp full color="faded" />
 
-        <CardLeftBorder noPadding status={status} parts={parts} />
         {showBtns && (
           <>
             <SeparatorComp full color="faded" />
