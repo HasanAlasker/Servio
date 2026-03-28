@@ -8,40 +8,42 @@ import MText from "../text/MText";
 
 function AppSummary({ params }) {
   return (
-    <CardComp short>
-      <MText>Booking Details</MText>
-      <GapContainer gap={15} style={{ marginTop: 35 }}>
-        <SquareInfo
-          color={"lightBlue"}
-          icon={"car"}
-          fliped
-          title={"Car"}
-          text={
-            capFirstLetter(params.car.make) +
-            " " +
-            capFirstLetter(params.car.name) +
-            " - " +
-            params.car.model
-          }
-        />
-        <SquareInfo
-          color={"green"}
-          icon={"store"}
-          fliped
-          title={"Shop"}
-          text={capFirstLetter(params.shop.name)}
-        />
-      </GapContainer>
-      <GapContainer style={{ marginTop: 35 }}>
-        <CardLeftBorder
-          icon={"invoice-list-outline"}
-          miniTitle={"Service Parts"}
-          customColor={"sec_text"}
-          status={"status"}
-          parts={params.parts}
-        />
-      </GapContainer>
-    </CardComp>
+    <>
+      <CardComp short>
+        <GapContainer gap={15}>
+          <SquareInfo
+            color={"lightBlue"}
+            icon={"car"}
+            fliped
+            title={"Car"}
+            text={
+              capFirstLetter(params.car.make) +
+              " " +
+              capFirstLetter(params.car.name) +
+              " - " +
+              params.car.model
+            }
+          />
+          <SquareInfo
+            color={"green"}
+            icon={"store"}
+            fliped
+            title={"Shop"}
+            text={capFirstLetter(params.shop.name)}
+          />
+        </GapContainer>
+        <GapContainer style={{ marginTop: 35 }}>
+          <CardLeftBorder
+            noPadding
+            icon={"invoice-list-outline"}
+            miniTitle={"Service Parts"}
+            customColor={"sec_text"}
+            status={"status"}
+            parts={params.parts}
+          />
+        </GapContainer>
+      </CardComp>
+    </>
   );
 }
 

@@ -15,6 +15,8 @@ import { checkSlot } from "../../api/slots";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import { UseAppointment } from "../../context/AppointmentContext";
 import useAppToast from "../../hooks/useAppToast";
+import MenuBackBtn from "../../components/general/MenuBackBtn";
+import BackContainer from "../../components/general/BackContainer";
 
 const validationSchema = Yup.object({
   date: Yup.date()
@@ -111,6 +113,13 @@ function MakeAppointment(props) {
   return (
     <SafeScreen>
       <KeyboardScrollScreen>
+        <BackContainer style={styles.back}>
+          <MenuBackBtn
+            onClose={() => {
+              navigate.goBack();
+            }}
+          />
+        </BackContainer>
         <GapContainer style={{ marginVertical: "auto" }}>
           <AppForm
             initialValues={initialValues}

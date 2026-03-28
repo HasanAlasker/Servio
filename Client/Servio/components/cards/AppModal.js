@@ -14,6 +14,9 @@ import IconTextLabel from "../general/IconTextLabel";
 import { confirmAppointment } from "../../api/appointment";
 import ErrorMessage from "../form/ErrorMessage";
 import { addOneHour, to24Hour } from "../../functions/addOneHour";
+import BackContainer from "../general/BackContainer";
+import MenuBackBtn from "../general/MenuBackBtn";
+import SimpleTitleText from "../general/SimpleTitleText";
 
 const validationSchema = Yup.object({
   to: Yup.string().required("Please select a time"),
@@ -56,8 +59,15 @@ function AppModal({ from, isVisible, onClose, id, onApproval }) {
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
-          <SText style={{ textAlign: "center" }}>Confirmation</SText>
-
+          {/* <SText style={{ textAlign: "center" }}>Confirmation</SText> */}
+          <BackContainer>
+            <MenuBackBtn
+              style={{ marginBottom: 0 }}
+              onClose={() => {
+                onClose();
+              }}
+            />
+          </BackContainer>
           <View style={styles.grayBox}>
             <IconTextLabel
               icon={"calendar-blank-outline"}

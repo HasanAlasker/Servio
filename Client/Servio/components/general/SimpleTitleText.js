@@ -16,6 +16,7 @@ function SimpleTitleText({
   recomendedMonths,
   recomendedMileage,
   carMileage,
+  flex = true
 }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
@@ -66,7 +67,7 @@ function SimpleTitleText({
   };
 
   return (
-    <GapContainer gap={5} flex style={styles.container}>
+    <GapContainer gap={5} flex={flex} style={styles.container}>
       <RowCont gap={10}>
         {showStatus && (
           <View style={[styles.dot, { backgroundColor: theme[color()] }]} />
