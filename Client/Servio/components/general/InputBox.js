@@ -19,6 +19,7 @@ function InputBox({
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
   const [isHidden, setIsHidden] = useState(isPassword ? true : false);
+  const [isFocused, setFocus] = useState(false);
 
   const handleHidden = () => {
     setIsHidden(!isHidden);
@@ -29,7 +30,7 @@ function InputBox({
       <TText thin color={"darker_gray"}>
         {lable}
       </TText>
-      <View style={styles.container}>
+      <View style={[styles.container, isFocused && styles.focus]}>
         {penOn && <Feather name="edit-3" size={24} color={theme.main_text} />}
         {icon && (
           <MaterialCommunityIcons
@@ -40,6 +41,8 @@ function InputBox({
           />
         )}
         <TextInput
+          onFocus={() => setFocus(true)}
+          onEndEditing={() => setFocus(false)}
           style={[
             styles.text,
             isBox && {
@@ -99,6 +102,10 @@ const getStyles = (theme) =>
     },
     padding: {
       marginTop: 5,
+    },
+    focus: {
+      borderColor: theme.blue,
+      borderWidth: 1.5,
     },
   });
 
