@@ -47,6 +47,7 @@ router.get("/nearby", auth, logIP("GET_NEARBY_SHOPS"), async (req, res) => {
       ...(city && { "address.city": city }),
     };
 
+    console.log("Query: ", query)
     const shops = await ShopModel.find(query)
       .sort("-createdAt")
       .populate("owner", "name email phone role");
@@ -55,7 +56,7 @@ router.get("/nearby", auth, logIP("GET_NEARBY_SHOPS"), async (req, res) => {
       return res.status(200).json({
         success: true,
         message:
-          "No shops in your country, ask your favorite mechanic to join Servio!",
+          "No shops in your area, ask your favorite mechanic to join Servio!",
         data: shops,
       });
 

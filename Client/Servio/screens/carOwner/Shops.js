@@ -17,6 +17,7 @@ function Shops(props) {
   const route = useRoute();
   const params = route?.params;
 
+  console.log(userLocation)
   const {
     data: fetchedShops,
     request: fetchShops,
