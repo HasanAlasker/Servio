@@ -42,31 +42,21 @@ router.get("/nearby", auth, logIP("GET_NEARBY_SHOPS"), async (req, res) => {
   try {
     const { lat, lng, city } = req.query;
 
-    // DEBUG 1: check what's coming in
-    console.log("📍 Incoming query params:", { lat, lng, city });
-
     const query = {
       isVerified: true,
       isDeleted: false,
       ...(city && { "address.city": city }),
     };
 
-    console.log("🔍 MongoDB query:", query);
-
     let shops = await ShopModel.find(query)
       .sort("-createdAt")
       .populate("owner", "name email phone role");
 
-    // DEBUG 2: check raw shops from DB
-    console.log(`🏪 Shops found: ${shops.length}`);
-    shops.forEach((s) =>
-      console.log(`  - ${s.name} | lat: ${s.lat} | lng: ${s.lng} | city: ${s.address?.city}`)
-    );
-
     if (shops.length === 0)
       return res.status(200).json({
         success: true,
-        message: "No shops in your area, ask your favorite mechanic to join Servio!",
+        message:
+          "No shops in your area, ask your favorite mechanic to join Servio!",
         data: shops,
       });
 
@@ -74,34 +64,21 @@ router.get("/nearby", auth, logIP("GET_NEARBY_SHOPS"), async (req, res) => {
       const userLat = parseFloat(lat);
       const userLng = parseFloat(lng);
 
-      // DEBUG 3: check parsed user coordinates
-      console.log("👤 User coordinates:", { userLat, userLng });
-
       shops = shops
         .map((shop) => {
           const shopLat = parseFloat(shop.lat);
           const shopLng = parseFloat(shop.lng);
           const distance = haversine(userLat, userLng, shopLat, shopLng);
 
-          // DEBUG 4: check each shop's distance calculation
-          console.log(`  📏 ${shop.name}: shopLat=${shopLat}, shopLng=${shopLng}, distance=${distance.toFixed(2)}km`);
-
           const shopObj = shop.toObject();
           shopObj.distance = parseFloat(distance.toFixed(2)); // include in response
           return shopObj;
         })
         .sort((a, b) => a.distance - b.distance);
-
-      // DEBUG 5: check final sorted order
-      console.log("✅ Sorted shops:");
-      shops.forEach((s) => console.log(`  - ${s.name}: ${s.distance}km`));
-    } else {
-      console.log("⚠️ No lat/lng provided, skipping distance sort");
     }
 
     return res.status(200).json({ success: true, data: shops });
   } catch (error) {
-    console.error("❌ Server error:", error);
     return res.status(500).json({ success: false, message: "Server Error" });
   }
 });

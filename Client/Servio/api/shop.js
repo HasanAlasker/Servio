@@ -2,11 +2,20 @@ import { apiClient } from "./client";
 
 const endpoint = "/shops";
 
-export const getVerifiedShops = () =>
-  apiClient.get(`${endpoint}/verified`);
+export const getVerifiedShops = () => apiClient.get(`${endpoint}/verified`);
 
-export const getNearbyShops = (location) =>
-  apiClient.get(`${endpoint}/verified`, { params: location });
+export const getNearbyShops = (location) => {
+  if (!location?.lat || !location?.lng)
+    return Promise.resolve({ data: { data: [] } });
+
+  const query = new URLSearchParams({
+    lat: location.lat,
+    lng: location.lng,
+    city: location.city,
+  }).toString();
+
+  return apiClient.get(`${endpoint}/nearby?${query}`);
+};
 
 export const getUnVerifiedShops = () =>
   apiClient.get(`${endpoint}/un-verified`);

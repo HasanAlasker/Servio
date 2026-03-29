@@ -17,7 +17,7 @@ function Shops(props) {
   const route = useRoute();
   const params = route?.params;
 
-  console.log(userLocation)
+  console.log(userLocation);
   const {
     data: fetchedShops,
     request: fetchShops,
@@ -25,8 +25,9 @@ function Shops(props) {
   } = useApi(getNearbyShops);
 
   useEffect(() => {
+    if (!userLocation) return;
     fetchShops(userLocation);
-  }, []);
+  }, [userLocation]);
 
   useEffect(() => {
     setShops(fetchedShops);
@@ -36,7 +37,7 @@ function Shops(props) {
   const handleRefresh = async () => {
     try {
       setRefreshing(true);
-      await fetchShops(userLocation);
+      if (userLocation) await fetchShops(userLocation);
     } catch (error) {
     } finally {
       setRefreshing(false);
