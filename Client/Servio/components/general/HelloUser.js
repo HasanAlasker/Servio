@@ -1,7 +1,7 @@
-import { View, StyleSheet, Pressable } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 import RowCont from "./RowCont";
 import MText from "../text/MText";
-import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { UseUser } from "../../context/UserContext";
 import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";

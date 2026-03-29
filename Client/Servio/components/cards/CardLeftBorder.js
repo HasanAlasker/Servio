@@ -1,4 +1,4 @@
-import { View, StyleSheet, Pressable } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import MText from "../text/MText";
@@ -99,14 +99,16 @@ function CardLeftBorder({
                     ? "alert-outline"
                     : text === "Check Immediately"
                       ? "car-brake-alert"
-                    : text === "Check Soon"
-                      ? "alert-circle-outline"
-                      : "toolbox-outline"
+                      : text === "Check Soon"
+                        ? "alert-circle-outline"
+                        : "toolbox-outline"
               }
               size={20}
               color={theme[color]}
             />
-            <TText thin={!customColor} color={color}>{text}</TText>
+            <TText thin={!customColor} color={color}>
+              {text}
+            </TText>
           </RowCont>
           {!customText ? (
             <RowCont style={{ flexWrap: "wrap", columnGap: 15 }}>

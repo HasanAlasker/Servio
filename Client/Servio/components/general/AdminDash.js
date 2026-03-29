@@ -5,7 +5,6 @@ import GapContainer from "../../components/general/GapContainer";
 import useApi from "../../hooks/useApi";
 import { adminCountDocs } from "../../api/user";
 import { useEffect } from "react";
-import MText from "../../components/text/MText";
 import SText from "../text/SText";
 
 function AdminDash(props) {

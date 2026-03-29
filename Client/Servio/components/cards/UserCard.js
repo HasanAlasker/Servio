@@ -1,7 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import CardComp from "./CardComp";
 import GapContainer from "../general/GapContainer";
-import SquareInfo from "./SquareInfo";
 import PriBtn from "../general/PriBtn";
 import StatusLabel from "../general/StatusLabel";
 import { useTheme } from "../../context/ThemeContext";

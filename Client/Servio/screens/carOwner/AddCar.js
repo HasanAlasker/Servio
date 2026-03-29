@@ -14,7 +14,6 @@ import { addCar, editCar, getMakeAndModels } from "../../api/car";
 import useApi from "../../hooks/useApi";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import PriBtn from "../../components/general/PriBtn";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { UseCar } from "../../context/CarContext";
 import { unitTypes } from "../../constants/dropList";

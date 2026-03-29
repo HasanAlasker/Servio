@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import CardComp from "./CardComp";
 import SquareInfo from "./SquareInfo";
 import { formatDate } from "../../functions/formatDate";

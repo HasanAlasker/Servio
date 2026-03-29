@@ -11,7 +11,6 @@ import { UseCar } from "../../context/CarContext";
 import RowCont from "../general/RowCont";
 import GhostBtn from "../general/GhostBtn";
 import VerticalLine from "../general/VerticalLine";
-import SimpleTitleText from "../general/SimpleTitleText";
 import { Feather } from "@expo/vector-icons";
 import SeparatorComp from "../general/SeparatorComp";
 

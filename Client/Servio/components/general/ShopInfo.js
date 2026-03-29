@@ -1,7 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import GapContainer from "./GapContainer";
 import CardLeftBorder from "../cards/CardLeftBorder";
-import MText from "../text/MText";
 import { UseShop } from "../../context/ShopContext";
 import useApi from "../../hooks/useApi";
 import { countDocs, shopCountDocs } from "../../api/user";

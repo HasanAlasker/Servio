@@ -1,4 +1,4 @@
-import { View, StyleSheet, Pressable } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 import RowCont from "./RowCont";
 import { Feather } from "@expo/vector-icons";
 import SText from "../text/SText";

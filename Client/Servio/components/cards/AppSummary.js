@@ -1,10 +1,9 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import CardComp from "../../components/cards/CardComp";
 import SquareInfo from "../../components/cards/SquareInfo";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import CardLeftBorder from "../../components/cards/CardLeftBorder";
 import GapContainer from "../general/GapContainer";
-import MText from "../text/MText";
 
 function AppSummary({ params }) {
   return (

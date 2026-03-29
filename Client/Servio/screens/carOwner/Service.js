@@ -9,7 +9,6 @@ import SText from "../../components/text/SText";
 import { UseService } from "../../context/ServiceContext";
 import { useState } from "react";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
-import CardLeftBorder from "../../components/cards/CardLeftBorder";
 import InfoCard from "../../components/cards/InfoCard";
 
 function Service(props) {

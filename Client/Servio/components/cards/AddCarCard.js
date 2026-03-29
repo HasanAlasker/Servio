@@ -4,7 +4,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "../../context/ThemeContext";
 import MText from "../../components/text/MText";
 import { useNavigation } from "@react-navigation/native";
-import SText from "../text/SText";
 
 function AddCarCard({ text, icon, navigateTo, color, params, onPress }) {
   const { theme } = useTheme();

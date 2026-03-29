@@ -1,6 +1,5 @@
 import { View, StyleSheet } from "react-native";
 import GapContainer from "./GapContainer";
-import MText from "../text/MText";
 import CardLeftBorder from "../cards/CardLeftBorder";
 import { UseCar } from "../../context/CarContext";
 import { UseAppointment } from "../../context/AppointmentContext";

@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import { UseCar } from "../../context/CarContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CarCard from "../../components/cards/CarCard";
 import GapContainer from "../../components/general/GapContainer";
 import SText from "../../components/text/SText";

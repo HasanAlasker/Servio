@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import CardLeftBorder from "./CardLeftBorder";
 
 function InfoCard({ title, text }) {

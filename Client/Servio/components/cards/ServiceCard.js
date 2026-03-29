@@ -1,14 +1,11 @@
 import { StyleSheet } from "react-native";
 import CardComp from "./CardComp";
-import SquareInfo from "./SquareInfo";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import { formatDate } from "../../functions/formatDate";
 import GapContainer from "../general/GapContainer";
-import PriBtn from "../general/PriBtn";
 import CardLeftBorder from "./CardLeftBorder";
 import { useNavigation } from "@react-navigation/native";
 import { UseUser } from "../../context/UserContext";
-import Reminder from "../general/Reminder";
 import SimpleTitleText from "../general/SimpleTitleText";
 import RowCont from "../general/RowCont";
 import GhostBtn from "../general/GhostBtn";
