@@ -39,8 +39,16 @@ function Shops(props) {
   let loading = loadingUv || loadingV;
 
   const refresh = async () => {
-    fetchVshops();
-    fetchUvshops();
+    setRefreshing(true)
+    try {
+      fetchVshops();
+      fetchUvshops();
+    } catch (error) {
+      console.log(error)
+    }
+    finally{
+      setRefreshing(false)
+    }
   };
 
   useEffect(() => {

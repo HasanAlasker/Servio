@@ -14,6 +14,7 @@ import {
 } from "../utils/cloudinary.js";
 import { sendPushNotification } from "../utils/notifications.js";
 import logIP from "../middleware/logIp.js";
+import { haversine } from "../functions/findShopDistance.js";
 
 const router = express.Router();
 
@@ -26,6 +27,57 @@ router.get("/verified", auth, logIP("GET_VERIFIED_SHOPS"), async (req, res) => {
     })
       .sort("-createdAt")
       .populate("owner", "name email phone role");
+    return res.status(200).json({ success: true, data: shops });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// get nearby shops
+router.get("/nearby", auth, logIP("GET_NEARBY_SHOPS"), async (req, res) => {
+  try {
+    const { lat, lng, city } = req.query;
+    const query = {
+      isVerified: true,
+      isDeleted: false,
+      ...(city && { "address.city": city }),
+    };
+
+    const shops = await ShopModel.find(query)
+      .sort("-createdAt")
+      .populate("owner", "name email phone role");
+
+    if (shops.length === 0)
+      return res.status(200).json({
+        success: true,
+        message:
+          "No shops in your country, ask your favorite mechanic to join Servio!",
+        data: shops,
+      });
+
+    // If user location is provided, calculate distance and sort
+    if (lat && lng) {
+      const userLat = parseFloat(lat);
+      const userLng = parseFloat(lng);
+
+      shops = shops
+        .map((shop) => {
+          const shopObj = shop.toObject();
+          shopObj.distance = haversine(
+            userLat,
+            userLng,
+            parseFloat(shop.lat),
+            parseFloat(shop.lng),
+          );
+          return shopObj;
+        })
+        .sort((a, b) => a.distance - b.distance);
+    }
+
     return res.status(200).json({ success: true, data: shops });
   } catch (error) {
     console.error(error);

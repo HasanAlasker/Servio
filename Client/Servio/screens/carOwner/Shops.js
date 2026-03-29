@@ -4,7 +4,7 @@ import Navbar from "../../components/general/Navbar";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import ShopCard from "../../components/cards/ShopCard";
 import useApi from "../../hooks/useApi";
-import { getVerifiedShops } from "../../api/shop";
+import { getNearbyShops } from "../../api/shop";
 import { useEffect, useState } from "react";
 import GapContainer from "../../components/general/GapContainer";
 import { useRoute } from "@react-navigation/native";
@@ -21,10 +21,10 @@ function Shops(props) {
     data: fetchedShops,
     request: fetchShops,
     loading,
-  } = useApi(getVerifiedShops);
+  } = useApi(getNearbyShops);
 
   useEffect(() => {
-    fetchShops();
+    fetchShops(userLocation);
   }, []);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function Shops(props) {
   const handleRefresh = async () => {
     try {
       setRefreshing(true);
-      await fetchShops();
+      await fetchShops(userLocation);
     } catch (error) {
     } finally {
       setRefreshing(false);

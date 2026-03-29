@@ -2,7 +2,11 @@ import { apiClient } from "./client";
 
 const endpoint = "/shops";
 
-export const getVerifiedShops = () => apiClient.get(`${endpoint}/verified`);
+export const getVerifiedShops = () =>
+  apiClient.get(`${endpoint}/verified`);
+
+export const getNearbyShops = (location) =>
+  apiClient.get(`${endpoint}/verified`, { params: location });
 
 export const getUnVerifiedShops = () =>
   apiClient.get(`${endpoint}/un-verified`);
