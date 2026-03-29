@@ -45,7 +45,7 @@ router.get("/nearby", auth, logIP("GET_NEARBY_SHOPS"), async (req, res) => {
     const query = {
       isVerified: true,
       isDeleted: false,
-      ...(city && { "address.city": city }),
+      ...(city && { "address.city": city.toLowerCase() }),
     };
 
     let shops = await ShopModel.find(query)

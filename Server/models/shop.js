@@ -40,6 +40,7 @@ const shopSchema = new mongoose.Schema(
       city: {
         type: String,
         required: true,
+        lowercase: true,
       },
       area: {
         type: String,

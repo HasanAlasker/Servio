@@ -10,6 +10,7 @@ import GapContainer from "../../components/general/GapContainer";
 import { useRoute } from "@react-navigation/native";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 import { UseUser } from "../../context/UserContext";
+import SText from "../../components/text/SText";
 
 function Shops(props) {
   const { userLocation } = UseUser();
@@ -17,7 +18,6 @@ function Shops(props) {
   const route = useRoute();
   const params = route?.params;
 
-  console.log(userLocation);
   const {
     data: fetchedShops,
     request: fetchShops,
@@ -64,6 +64,15 @@ function Shops(props) {
     <SafeScreen>
       <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
         <GapContainer>
+          {!userLocation && !loading && (
+            <SText
+              thin
+              color={"sec_text"}
+              style={{ margin: "auto", textAlign: "center" }}
+            >
+              location required to find nearby shops
+            </SText>
+          )}
           {RenderShops}
           {loading && <LoadingSkeleton />}
           {loading && <LoadingSkeleton />}
