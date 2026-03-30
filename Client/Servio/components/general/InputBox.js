@@ -105,7 +105,7 @@ const getStyles = (theme) =>
     },
     focus: {
       borderColor: theme.blue,
-      borderWidth: 1.5,
+      // borderWidth: 1.5,
     },
   });
 
