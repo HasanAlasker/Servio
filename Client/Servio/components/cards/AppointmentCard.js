@@ -133,70 +133,77 @@ function AppointmentCard({
           <GapContainer gap={1}>{partsList}</GapContainer>
         </View>
 
-        {showBtns &&
-          isUser &&
-          status === "confirmed" &&
-          new Date() < new Date(scheuledAt) && (
-            <RowCont>
-              <GhostBtn
-                auto
-                title={"Directions"}
-                onPress={() => openURL(shop?.link)}
+        <GapContainer gap={5}>
+          {(showBtns || isShopOwner) && <SeparatorComp full color="faded" />}
+          {showBtns &&
+            isUser &&
+            status === "confirmed" &&
+            new Date() < new Date(scheuledAt) && (
+              <RowCont>
+                <GhostBtn
+                  auto
+                  title={"Directions"}
+                  onPress={() => openURL(shop?.link)}
+                />
+                <VerticalLine />
+                <GhostBtn auto black title={"Call Shop"} onPress={handleCall} />
+              </RowCont>
+            )}
+          {showBtns && isUser && status === "pending" && (
+            <GapContainer gap={15}>
+              <PriBtn
+                square
+                full
+                red
+                title={"Cancel"}
+                onPress={() => onCancel(id, type)}
               />
-              <VerticalLine />
-              <GhostBtn auto black title={"Call Shop"} onPress={handleCall} />
-            </RowCont>
+            </GapContainer>
           )}
-
-        {showBtns && isUser && status === "pending" && (
-          <GapContainer gap={15}>
+          {isShopOwner && status === "confirmed" && !isDue && (
+            <GhostBtn square black full title={"Call"} onPress={handleCall} />
+          )}
+          {showBtns && isUser && showDelete && status !== "pending" && (
             <PriBtn
               square
+              red
               full
-              red
-              title={"Cancel"}
-              onPress={() => onCancel(id, type)}
+              title={"Delete"}
+              onPress={() => onDelete(id)}
             />
-          </GapContainer>
-        )}
-
-        {isShopOwner && status === "confirmed" && !isDue && (
-          <PriBtn square black full title={"Call"} onPress={handleCall} />
-        )}
-
-        {showBtns && isUser && showDelete && status !== "pending" && (
-          <PriBtn
-            square
-            red
-            full
-            title={"Delete"}
-            onPress={() => onDelete(id)}
-          />
-        )}
-
-        {isShopOwner && status === "pending" && (
-          <RowCont>
-            {Date.now() < new Date(scheuledAt) && (
-              <GhostBtn auto title={"Accept"} onPress={() => onApprove(id)} />
-            )}
-            {Date.now() < new Date(scheuledAt) && <VerticalLine />}
-            <GhostBtn
-              square
-              auto
-              red
-              title={"Reject"}
-              onPress={() => onReject(id)}
-            />
-          </RowCont>
-        )}
-
-        {isShopOwner && status === "confirmed" && isDue && (
-          <RowCont gap={15}>
-            <GhostBtn auto title={"Completed"} onPress={() => onComplete(id)} />
-            <VerticalLine />
-            <GhostBtn auto red title={"No-Show"} onPress={() => onNoShow(id)} />
-          </RowCont>
-        )}
+          )}
+          {isShopOwner && status === "pending" && (
+            <RowCont>
+              {Date.now() < new Date(scheuledAt) && (
+                <GhostBtn auto title={"Accept"} onPress={() => onApprove(id)} />
+              )}
+              {Date.now() < new Date(scheuledAt) && <VerticalLine />}
+              <GhostBtn
+                square
+                auto
+                red
+                title={"Reject"}
+                onPress={() => onReject(id)}
+              />
+            </RowCont>
+          )}
+          {isShopOwner && status === "confirmed" && isDue && (
+            <RowCont gap={15}>
+              <GhostBtn
+                auto
+                title={"Completed"}
+                onPress={() => onComplete(id)}
+              />
+              <VerticalLine />
+              <GhostBtn
+                auto
+                red
+                title={"No-Show"}
+                onPress={() => onNoShow(id)}
+              />
+            </RowCont>
+          )}
+        </GapContainer>
       </GapContainer>
       <AppModal
         isVisible={modal}

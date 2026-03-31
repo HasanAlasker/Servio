@@ -142,10 +142,11 @@ const AppNavigator = () => {
     isAdmin,
     isAuthenticated,
     loadUserData,
+    fetchUserLocation,
   } = UseUser();
   const { loadCars } = UseCar();
   const { isDarkMode } = useTheme();
-  const { loadServices } = UseService();
+  const { loadServices, loading } = UseService();
   const { loadAppointments } = UseAppointment();
   const { loadShops } = UseShop();
 
@@ -154,6 +155,7 @@ const AppNavigator = () => {
     loadCars();
     loadServices();
     loadAppointments();
+    fetchUserLocation();
   }, []);
 
   // useEffect(() => {
@@ -166,7 +168,7 @@ const AppNavigator = () => {
   }, [isShopOwner]);
 
   useEffect(() => {
-    if (!appStart) {
+    if (!appStart && !loading) {
       SplashScreen.hideAsync();
     }
   }, []);
