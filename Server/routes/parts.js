@@ -245,6 +245,7 @@ router.patch(
   },
 );
 
+// part fixed
 router.patch("/service/:id", auth, async (req, res) => {
   try {
     const partId = req.params.id;
@@ -270,6 +271,8 @@ router.patch("/service/:id", auth, async (req, res) => {
       return res
         .status(400)
         .json({ success: false, message: "Part not edited" });
+
+    await updateServicesForCar(carId);
 
     return res.status(200).json({ success: true, data: savedPart });
   } catch (error) {
