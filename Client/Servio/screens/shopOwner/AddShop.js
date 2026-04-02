@@ -21,6 +21,7 @@ import { UseUser } from "../../context/UserContext";
 import { getLatLngFromGoogleMapsLink } from "../../functions/getCoordsFromLink";
 import BackContainer from "../../components/general/BackContainer";
 import MenuBackBtn from "../../components/general/MenuBackBtn";
+import useAppToast from "../../hooks/useAppToast";
 
 const validationSchema = Yup.object({
   image: Yup.string().required("Shop image is required"),
@@ -96,6 +97,7 @@ function AddShop(props) {
   const [isEdit, setEdit] = useState(false);
   const [err, setErr] = useState(false);
   const [errMsg, setErrMsg] = useState(null);
+  const toast = useAppToast()
 
   const navigate = useNavigation();
   const route = useRoute();
@@ -122,7 +124,8 @@ function AddShop(props) {
       if (response.ok) {
         await loadShops();
         if (isUser) navigate.navigate("Home");
-        if (isShopOwner) navigate.navigate("MyShops");
+        if (isShopOwner) navigate.navigate("MyShop");
+        toast.success("Sent!")
       }
       if (!response.ok) {
         setErr(true);
@@ -131,6 +134,7 @@ function AddShop(props) {
         } else {
           setErrMsg("An error occurred. Please try again.");
         }
+        toast.error("Error!")
       }
     } catch (error) {}
   };
