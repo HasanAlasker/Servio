@@ -26,13 +26,17 @@
       "edgeToEdgeEnabled": true,
       "permissions": [
         "CAMERA",
-        "READ_MEDIA_IMAGES",
+        "READ_EXTERNAL_STORAGE",
         "POST_NOTIFICATIONS",
         "RECEIVE_BOOT_COMPLETED",
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION"
       ],
-      "blockedPermissions": ["RECORD_AUDIO"]
+      "blockedPermissions": [
+        "RECORD_AUDIO",
+        "READ_MEDIA_IMAGES",
+        "READ_MEDIA_VIDEO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"

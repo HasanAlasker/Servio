@@ -1,41 +1,39 @@
 import * as ImagePicker from 'expo-image-picker';
-
-export const requestImagePermission = async () => {
-  const result = await ImagePicker.requestMediaLibraryPermissionsAsync();
-  if (!result.granted) {
-    alert("enable permission to continue");
-    return false;
-  }
-  return true;
-};
+import { Platform } from 'react-native';
 
 export const selectImageFromLibrary = async (options = {}) => {
   try {
-    const hasPermission = await requestImagePermission();
-    if (!hasPermission) return null;
+    // Only request permission on Android 12 and below
+    if (Platform.OS === 'android' && Platform.Version < 33) {
+      const result = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (!result.granted) {
+        alert("Enable permission to continue");
+        return null;
+      }
+    }
 
     const defaultOptions = {
       mediaTypes: ['images'],
       quality: 0.5,
-      ...options, // Allow custom options to override defaults
+      ...options,
     };
 
     const result = await ImagePicker.launchImageLibraryAsync(defaultOptions);
-    
+
     if (!result.canceled) {
       return result.assets[0].uri;
     }
     return null;
   } catch (error) {
-    alert("error while choosing image");
+    alert("Error while choosing image");
     return null;
   }
 };
 
 export const selectImageFromCamera = async (options = {}) => {
   try {
-    const hasPermission = await ImagePicker.requestCameraPermissionsAsync();
-    if (!hasPermission.granted) {
+    const { granted } = await ImagePicker.requestCameraPermissionsAsync();
+    if (!granted) {
       alert("Camera permission required");
       return null;
     }
@@ -47,13 +45,13 @@ export const selectImageFromCamera = async (options = {}) => {
     };
 
     const result = await ImagePicker.launchCameraAsync(defaultOptions);
-    
+
     if (!result.canceled) {
       return result.assets[0].uri;
     }
     return null;
   } catch (error) {
-    alert("error while taking photo");
+    alert("Error while taking photo");
     return null;
   }
 };
