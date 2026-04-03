@@ -34,7 +34,7 @@ const getStyles = (theme) =>
       position: "absolute",
       zIndex: 100,
       right: -2,
-      top: -5,
+      top: -1,
     },
   });
 

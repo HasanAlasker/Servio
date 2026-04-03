@@ -38,6 +38,7 @@ function AppointmentCard({
   onNoShow,
   showDelete,
   onDelete,
+  showRateAndReport,
 }) {
   const styles = useThemedStyles(getstyles);
   const { isShopOwner, isUser } = UseUser();
@@ -209,6 +210,22 @@ function AppointmentCard({
                   red
                   title={"No-Show"}
                   onPress={() => onNoShow(id)}
+                />
+              </RowCont>
+            )}
+            {showRateAndReport && (
+              <RowCont gap={15}>
+                <GhostBtn
+                  auto
+                  title={"Rate"}
+                  onPress={() => console.log("Rate")}
+                />
+                <VerticalLine />
+                <GhostBtn
+                  auto
+                  red
+                  title={"Report"}
+                  onPress={() => console.log("Report")}
                 />
               </RowCont>
             )}
