@@ -6,6 +6,8 @@ export const getAllAppointments = () => apiClient.get(`${endpoint}/all`);
 
 export const getPastAppointments = () => apiClient.get(`${endpoint}/past`);
 
+export const getCompletedAppointmentsForUser = () => apiClient.get(`${endpoint}/completed`);
+
 export const getCarHistory = (id) => apiClient.get(`${endpoint}/history/${id}`);
 
 export const getUpcomingAppointments = () =>
