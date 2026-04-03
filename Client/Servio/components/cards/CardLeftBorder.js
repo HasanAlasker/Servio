@@ -26,6 +26,7 @@ function CardLeftBorder({
   style,
   noPadding,
   transparent,
+  shadow
 }) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getstyles);
@@ -85,6 +86,7 @@ function CardLeftBorder({
           // borderWidth:
           //   status == "soon" || status == "due" || status == "overdue" ? 3 : 0,
         },
+        !transparent && shadow && styles.shadow,
         style,
       ]}
     >
@@ -171,6 +173,17 @@ const getstyles = (theme) =>
     },
     v: {
       alignSelf: "flex-end",
+    },
+    shadow: {
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 1,
+      },
+      shadowOpacity: 0.18,
+      shadowRadius: 1.0,
+
+      elevation: 1,
     },
   });
 

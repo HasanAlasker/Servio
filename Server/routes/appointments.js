@@ -111,7 +111,7 @@ router.get("/completed", auth, logIP("GET_COMPLETED"), async (req, res) => {
       $and: [
         { scheduledDate: { $lte: new Date() } },
         { status: { $in: ["completed", "confirmed"] } },
-        {isRated: false}
+        { isRated: false },
       ],
     })
       .sort("-scheduledDate")

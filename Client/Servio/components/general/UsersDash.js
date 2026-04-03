@@ -37,6 +37,7 @@ function UsersDash(props) {
   const ServiceList = goThrough().map((s) => (
     <CardLeftBorder
       key={s._id}
+      shadow
       status={s.status}
       customText={capFirstLetter(s.car.make + " " + s.car.name)}
       showBtn
