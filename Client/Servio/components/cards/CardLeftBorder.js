@@ -51,7 +51,7 @@ function CardLeftBorder({
           text = "Check Immediately";
           break;
         case "overdue":
-          color = "darkPink";
+          color = "red";
           text = "Dangerous";
           break;
         default:
@@ -183,7 +183,7 @@ const getstyles = (theme) =>
       shadowOpacity: 0.18,
       shadowRadius: 1.0,
 
-      elevation: 1,
+      elevation: 2,
     },
   });
 
