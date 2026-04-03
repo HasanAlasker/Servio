@@ -51,7 +51,7 @@ function HelloUser(props) {
       >
         <Feather
           color={theme.main_text}
-          size={isUser ? 35 : 32}
+          size={32}
           name={isUser ? "bell" : "user"}
         />
         {isUser && numOfNotifications > 0 && (

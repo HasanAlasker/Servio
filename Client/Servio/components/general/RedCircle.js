@@ -11,7 +11,7 @@ function RedCircle({ numOfNotifications }) {
     <View style={styles.container}>
       <AppText
         style={{ color: theme.always_white, fontWeight: "bold" }}
-        size={10}
+        size={8}
       >
         {numOfNotifications}
       </AppText>
@@ -23,17 +23,17 @@ const getStyles = (theme) =>
   StyleSheet.create({
     container: {
       backgroundColor: theme.red,
-      Width: 20,
-      height: 20,
+      Width: 17,
+      height: 17,
       aspectRatio: 1 / 1,
       borderRadius: "50%",
       justifyContent: "center",
       alignItems: "center",
       borderColor: theme.background,
-      borderWidth: 2,
+      borderWidth: 1.5,
       position: "absolute",
       zIndex: 100,
-      right: -2,
+      right: 0,
       top: -1,
     },
   });
