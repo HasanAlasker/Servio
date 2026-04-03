@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useContext, useState, useEffect } from "react";
 import {
+  getCompletedAppointmentsForUser,
   getPastAppointments,
   getUpcomingAppointments,
 } from "../api/appointment";
@@ -17,10 +18,12 @@ export const UseAppointment = () => {
 export const AppointmentProvider = ({ children }) => {
   const [upcoming, setUpcoming] = useState([]);
   const [past, setPast] = useState([]);
+  const [completed, setCompleted] = useState([]);
 
   const STORAGE_KEYS = {
     PAST_APPOINTMENTS: "@servio_past_appointments",
     UPCOMING_APPOINTMENTS: "@servio_upcoming_appointments",
+    COMPLETED_APPOINTMENTS: "@servio_completed_appointments",
   };
 
   const {
@@ -35,9 +38,15 @@ export const AppointmentProvider = ({ children }) => {
     loading: loadingPast,
   } = useApi(getPastAppointments);
 
-  const loading = loadingPast || loadingUpcoming;
+  const {
+    data: fetchedCompleted,
+    request: fetchCompleted,
+    loading: loadingCompleted,
+  } = useApi(getCompletedAppointmentsForUser);
 
-  const storeAppointments = async (upcomingApp, pastApp) => {
+  const loading = loadingPast || loadingUpcoming || loadingCompleted;
+
+  const storeAppointments = async (upcomingApp, pastApp, completdApp) => {
     try {
       await AsyncStorage.setItem(
         STORAGE_KEYS.PAST_APPOINTMENTS,
@@ -46,6 +55,10 @@ export const AppointmentProvider = ({ children }) => {
       await AsyncStorage.setItem(
         STORAGE_KEYS.UPCOMING_APPOINTMENTS,
         JSON.stringify(upcomingApp),
+      );
+      await AsyncStorage.setItem(
+        STORAGE_KEYS.COMPLETED_APPOINTMENTS,
+        JSON.stringify(completdApp),
       );
     } catch (error) {
       console.log(error);
@@ -60,8 +73,12 @@ export const AppointmentProvider = ({ children }) => {
       const cachedUpcomingApps = await AsyncStorage.getItem(
         STORAGE_KEYS.UPCOMING_APPOINTMENTS,
       );
+      const cachedCompletedApps = await AsyncStorage.getItem(
+        STORAGE_KEYS.COMPLETED_APPOINTMENTS,
+      );
       if (cachedPastApps) setPast(JSON.parse(cachedPastApps));
       if (cachedUpcomingApps) setUpcoming(JSON.parse(cachedUpcomingApps));
+      if (cachedCompletedApps) setUpcoming(JSON.parse(cachedCompletedApps));
     } catch (error) {
       console.log(error);
     }
@@ -71,6 +88,7 @@ export const AppointmentProvider = ({ children }) => {
     getStoredAppointments();
     fetchUpcoming();
     fetchPast();
+    fetchCompleted();
   };
 
   const countAppointments = () => {
@@ -83,18 +101,21 @@ export const AppointmentProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (fetchedUpcoming && fetchedPast) {
+    if (fetchedUpcoming && fetchedPast && fetchedCompleted) {
       setUpcoming(fetchedUpcoming);
       setPast(fetchedPast);
-      storeAppointments(fetchedUpcoming, fetchedPast);
+      setCompleted(fetchedCompleted);
+      storeAppointments(fetchedUpcoming, fetchedPast, fetchedCompleted);
     }
   }, [fetchedUpcoming, fetchedPast]);
 
   const values = {
     upcoming,
     past,
+    completed,
     setPast,
     setUpcoming,
+    setCompleted,
     loading,
     loadAppointments,
     countAppointments,

@@ -7,12 +7,17 @@ import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useNavigation } from "@react-navigation/native";
 import SText from "../text/SText";
+import { UseAppointment } from "../../context/AppointmentContext";
+import RedCircle from "./RedCircle";
 
 function HelloUser(props) {
-  const { firstName } = UseUser();
+  const { firstName, isUser } = UseUser();
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
+  const { completed } = UseAppointment();
   const navigate = useNavigation();
+
+  const numOfNotifications = completed.length;
 
   const welcomePhrase = () => {
     const hour = new Date().toLocaleString("en-US", {
@@ -38,9 +43,20 @@ function HelloUser(props) {
       </SText>
       <Pressable
         style={styles.btn}
-        onPress={() => navigate.navigate("Profile")}
+        onPress={() =>
+          isUser
+            ? navigate.navigate("CompletedAppointments")
+            : navigate.navigate("Profile")
+        }
       >
-        <Feather color={theme.main_text} size={32} name="user" />
+        <Feather
+          color={theme.main_text}
+          size={32}
+          name={isUser ? "bell" : "user"}
+        />
+        {isUser && numOfNotifications > 0 && (
+          <RedCircle numOfNotifications={numOfNotifications} />
+        )}
       </Pressable>
     </RowCont>
   );
