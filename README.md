@@ -10,8 +10,8 @@
 </p>
 
 <p align="center">
-  <a href="https://servio-maintenance.netlify.app/earlyAccess">
-    <img src="https://img.shields.io/badge/Get%20Early%20Access-007BFF?style=for-the-badge" />
+  <a href="https://servio-maintenance.netlify.app/">
+    <img src="https://img.shields.io/badge/Website-007BFF?style=for-the-badge" />
   </a>
   <img src="https://img.shields.io/badge/Status-Production-green?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
