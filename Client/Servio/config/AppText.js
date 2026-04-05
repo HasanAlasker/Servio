@@ -10,7 +10,11 @@ function AppText({ children, size, style, ...otherProps }) {
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: Platform.OS === "android" ? "roboto" : "San Francisco",
+    fontFamily: Platform.select({
+      android: "Roboto",
+      ios: undefined, // uses San Francisco automatically
+      web: "Roboto, sans-serif",
+    }),
     letterSpacing: -0.5,
   },
 });

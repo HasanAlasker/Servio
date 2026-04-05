@@ -57,6 +57,7 @@ function UsersDash(props) {
         </GapContainer>
       ) : !loading && ServiceList.length === 0 && cars.length > 0 ? (
         <CardLeftBorder
+          shadow
           status={" "}
           icon={"checkbox-marked-circle-outline"}
           customColor={"green"}

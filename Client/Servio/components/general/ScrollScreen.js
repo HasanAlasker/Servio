@@ -7,6 +7,7 @@ function ScrollScreen({
   stickyHeaderIndices,
   onRefresh,
   refreshing,
+  containerStyle,
   ...other
 }) {
   const { theme } = useTheme();
@@ -14,7 +15,7 @@ function ScrollScreen({
     <ScrollView
       style={styles.container}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: 40, paddingTop: 20 }}
+      contentContainerStyle={[{ paddingBottom: 40, paddingTop: 20 }, containerStyle]}
       scrollEventThrottle={30}
       stickyHeaderIndices={stickyHeaderIndices}
       stickyHeaderHiddenOnScroll={stickyHeader}
@@ -40,6 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "90%",
     marginHorizontal: "auto",
+    maxWidth:1000,
   },
 });
 

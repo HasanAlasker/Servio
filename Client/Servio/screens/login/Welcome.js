@@ -6,27 +6,31 @@ import SecBtn from "../../components/general/SecBtn";
 import GapContainer from "../../components/general/GapContainer";
 import { useNavigation } from "@react-navigation/native";
 import OfflineModal from "../../components/general/OfflineModal";
+import ScrollScreen from "../../components/general/ScrollScreen";
 
 function Welcome(props) {
   const navigation = useNavigation();
 
   return (
     <SafeScreen>
-      <View style={styles.container}>
+      <ScrollScreen containerStyle={styles.container}>
         <LogoAndMoto moto />
         <GapContainer gap={15}>
           <PriBtn
             square
+            full
             title={"Login"}
             onPress={() => navigation.navigate("Login")}
           />
           <SecBtn
             square
+            full
             title={"Register"}
             onPress={() => navigation.navigate("Register")}
           />
         </GapContainer>
-      </View>
+      </ScrollScreen>
+      
       <OfflineModal />
     </SafeScreen>
   );

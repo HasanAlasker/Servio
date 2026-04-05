@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { View } from "react-native";
 import { useState } from "react";
 import useThemedStyles from "../../hooks/useThemedStyles";
@@ -27,7 +27,7 @@ function Navbar(props) {
       ) : (
         <Admin onMenu={handleMenu} isMenu={isMenu} />
       )}
-      <View style={styles.bottom}></View>
+      {Platform.OS !== "web" && <View style={styles.bottom}></View>}
     </>
   );
 }
