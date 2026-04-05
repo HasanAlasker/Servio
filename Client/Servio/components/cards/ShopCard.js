@@ -79,7 +79,7 @@ function ShopCard({
               size={15}
             />
             <TText color={"always_white"}>
-              {rating ? rating + ` (${ratingCount})` : "Unrated"}
+              {rating ? rating.toFixed(2) + ` (${ratingCount})` : "Unrated"}
             </TText>
           </RowCont>
         )}

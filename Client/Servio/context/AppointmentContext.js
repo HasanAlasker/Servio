@@ -120,6 +120,7 @@ export const AppointmentProvider = ({ children }) => {
     loadAppointments,
     countAppointments,
     isConfirmedAppointments,
+    fetchCompleted,
   };
   return (
     <AppointmentContext.Provider value={values}>

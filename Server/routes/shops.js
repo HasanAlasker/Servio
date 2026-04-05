@@ -572,6 +572,10 @@ router.patch("/rate/:id", auth, async (req, res) => {
       return res
         .status(404)
         .json({ success: false, message: "Appointment not found" });
+    if (appointment.isRated)
+      return res
+        .status(400)
+        .json({ success: false, message: "Appointment already rated!" });
 
     const shop = await ShopModel.findById(shopId);
     if (!shop) {

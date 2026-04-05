@@ -40,6 +40,7 @@ function AppointmentCard({
   showDelete,
   onDelete,
   showRateAndReport,
+  openRatingModal,
 }) {
   const styles = useThemedStyles(getstyles);
   const { isShopOwner, isUser } = UseUser();
@@ -62,13 +63,6 @@ function AppointmentCard({
 
   const closeModal = () => setModal(false);
 
-  const partsList = serviceParts?.map((part) => (
-    <RowCont key={part._id}>
-      <MText>{"\u2022"}</MText>
-      <SText thin>{capFirstLetter(part.name)}</SText>
-    </RowCont>
-  ));
-
   const isDue = useMemo(() => {
     const passedMins = 10 * 60 * 1000; // caluculate 10 min in milliseconds
     const scheduledTime = new Date(scheuledAt).getTime();
@@ -82,68 +76,47 @@ function AppointmentCard({
       <GapContainer gap={10}>
         <GapContainer gap={20}>
           <SimpleTitleText
-          text1={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
-          text2={
-            isUser ? capFirstLetter(shop?.name) : capFirstLetter(customer?.name)
-          }
-          title={
-            isUser
-              ? shop?.address.area + " " + shop?.address.street
-              : capFirstLetter(shop?.name)
-          }
-        />
-        <RowCont>
-          <SimpleTitleText
-            text1={getTimeFromDate(scheuledAt)}
-            text2={formatDate(scheuledAt)}
-            title={<StatusLabel status={status} />}
+            text1={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
+            text2={
+              isUser
+                ? capFirstLetter(shop?.name)
+                : capFirstLetter(customer?.name)
+            }
+            title={
+              isUser
+                ? shop?.address.area + " " + shop?.address.street
+                : capFirstLetter(shop?.name)
+            }
           />
-          {!isShopOwner && route.name !== "History" && (
-            <Feather
-              name={!showBtns ? "chevron-right" : "chevron-down"}
-              onPress={() => setShowBtns(!showBtns)}
-              color={theme.sec_text}
-              size={25}
-              style={{ alignSelf: "flex-end" }}
+          <RowCont>
+            <SimpleTitleText
+              text1={getTimeFromDate(scheuledAt)}
+              text2={formatDate(scheuledAt)}
+              title={<StatusLabel status={status} />}
             />
-          )}
-        </RowCont>
+            {!isShopOwner && route.name !== "History" && (
+              <Feather
+                name={!showBtns ? "chevron-right" : "chevron-down"}
+                onPress={() => setShowBtns(!showBtns)}
+                color={theme.sec_text}
+                size={25}
+                style={{ alignSelf: "flex-end" }}
+              />
+            )}
+          </RowCont>
         </GapContainer>
-        
 
         {Date.now() > new Date(scheuledAt) && status === "pending" && (
           <ErrorMessage full error={"Time has passed"} />
         )}
-        {/* {isUser &&
-          status === "confirmed" &&
-          new Date() < new Date(scheuledAt) && (
-            <Pressable onPress={() => openURL(shop?.link)}>
-              <Image
-                style={[
-                  styles.map,
-                  { borderColor: isDarkMode ? theme.sec_text : theme.gold },
-                ]}
-                source={
-                  isDarkMode
-                    ? require("../../assets/map_dark.png")
-                    : require("../../assets/map.png")
-                }
-              />
-            </Pressable>
-          )} */}
-
-        
-          {/* <SeparatorComp children={"Service Parts"} full color="faded" />
-          <GapContainer gap={1}>{partsList}</GapContainer> */}
-          <SeparatorComp full color="faded" />
-          <CardLeftBorder
-            noPadding
-            status={"status"}
-            miniTitle={"Service parts"}
-            icon={"cog-outline"}
-            parts={serviceParts}
-          />
-       
+        <SeparatorComp full color="faded" />
+        <CardLeftBorder
+          noPadding
+          status={"status"}
+          miniTitle={"Service parts"}
+          icon={"cog-outline"}
+          parts={serviceParts}
+        />
 
         {(showBtns || isShopOwner) && (
           <GapContainer gap={5}>
@@ -230,7 +203,9 @@ function AppointmentCard({
                 <GhostBtn
                   auto
                   title={"Rate"}
-                  onPress={() => console.log("Rate")}
+                  onPress={() =>
+                    openRatingModal({ shopId: shop._id, appointmentId: id })
+                  }
                 />
                 <VerticalLine />
                 <GhostBtn
