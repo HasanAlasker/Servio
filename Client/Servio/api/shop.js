@@ -153,3 +153,5 @@ export const undeleteShop = (id) =>
   apiClient.patch(`${endpoint}/un-delete/${id}`);
 
 export const verifyShop = (id) => apiClient.patch(`${endpoint}/verify/${id}`);
+
+export const rateShop = (id, data) => apiClient.patch(`${endpoint}/rate/${id}`, data);

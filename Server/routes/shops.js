@@ -15,6 +15,7 @@ import {
 import { sendPushNotification } from "../utils/notifications.js";
 import logIP from "../middleware/logIp.js";
 import { haversine } from "../functions/findShopDistance.js";
+import AppointmentModel from "../models/appointment.js";
 
 const router = express.Router();
 
@@ -543,5 +544,68 @@ router.patch(
 );
 
 // rate shop
+router.patch("/rate/:id", auth, async (req, res) => {
+  try {
+    const shopId = req.params.id;
+    const { rating, appointmentId } = req.body;
+
+    if (!shopId || !mongoose.Types.ObjectId.isValid(shopId)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid shop ID" });
+    }
+
+    if (!appointmentId || !mongoose.Types.ObjectId.isValid(appointmentId)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid appointment ID" });
+    }
+
+    if (!rating || rating < 1 || rating > 5) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Rating must be between 1 and 5" });
+    }
+
+    const appointment = await AppointmentModel.findById(appointmentId);
+    if (!appointment)
+      return res
+        .status(404)
+        .json({ success: false, message: "Appointment not found" });
+
+    const shop = await ShopModel.findById(shopId);
+    if (!shop) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Shop not found" });
+    }
+
+    appointment.isRated = true;
+    const ratedAppointment = await appointment.save();
+    if (!ratedAppointment) {
+      return res.status(400).json({ success: false, message: "Error saving" });
+    }
+
+    const currentTotal = shop.rating * shop.ratingCount;
+    const newRatingCount = shop.ratingCount + 1;
+    const newAverageRating = (currentTotal + rating) / newRatingCount;
+
+    shop.rating = newAverageRating;
+    shop.ratingCount = newRatingCount;
+
+    const ratedShop = await shop.save();
+    if (!ratedShop) {
+      return res.status(400).json({ success: false, message: "Error saving" });
+    }
+
+    res.status(200).json({
+      message: "Rating submitted successfully",
+      rating: ratedShop.rating,
+      ratingCount: ratedShop.ratingCount,
+    });
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+});
 
 export default router;
