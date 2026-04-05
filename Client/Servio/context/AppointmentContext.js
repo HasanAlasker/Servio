@@ -78,7 +78,7 @@ export const AppointmentProvider = ({ children }) => {
       );
       if (cachedPastApps) setPast(JSON.parse(cachedPastApps));
       if (cachedUpcomingApps) setUpcoming(JSON.parse(cachedUpcomingApps));
-      if (cachedCompletedApps) setUpcoming(JSON.parse(cachedCompletedApps));
+      if (cachedCompletedApps) setCompleted(JSON.parse(cachedCompletedApps));
     } catch (error) {
       console.log(error);
     }
@@ -107,7 +107,7 @@ export const AppointmentProvider = ({ children }) => {
       setCompleted(fetchedCompleted);
       storeAppointments(fetchedUpcoming, fetchedPast, fetchedCompleted);
     }
-  }, [fetchedUpcoming, fetchedPast]);
+  }, [fetchedUpcoming, fetchedPast, fetchedCompleted]);
 
   const values = {
     upcoming,

@@ -21,6 +21,7 @@ import VerticalLine from "../general/VerticalLine";
 import SimpleTitleText from "../general/SimpleTitleText";
 import { Feather } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
+import CardLeftBorder from "./CardLeftBorder";
 
 function AppointmentCard({
   id,
@@ -78,8 +79,9 @@ function AppointmentCard({
 
   return (
     <CardComp>
-      <GapContainer gap={20}>
-        <SimpleTitleText
+      <GapContainer gap={10}>
+        <GapContainer gap={20}>
+          <SimpleTitleText
           text1={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
           text2={
             isUser ? capFirstLetter(shop?.name) : capFirstLetter(customer?.name)
@@ -106,6 +108,8 @@ function AppointmentCard({
             />
           )}
         </RowCont>
+        </GapContainer>
+        
 
         {Date.now() > new Date(scheuledAt) && status === "pending" && (
           <ErrorMessage full error={"Time has passed"} />
@@ -128,10 +132,18 @@ function AppointmentCard({
             </Pressable>
           )} */}
 
-        <View>
-          <SeparatorComp children={"Service Parts"} full color="sec_text" />
-          <GapContainer gap={1}>{partsList}</GapContainer>
-        </View>
+        
+          {/* <SeparatorComp children={"Service Parts"} full color="faded" />
+          <GapContainer gap={1}>{partsList}</GapContainer> */}
+          <SeparatorComp full color="faded" />
+          <CardLeftBorder
+            noPadding
+            status={"status"}
+            miniTitle={"Service parts"}
+            icon={"cog-outline"}
+            parts={serviceParts}
+          />
+       
 
         {(showBtns || isShopOwner) && (
           <GapContainer gap={5}>

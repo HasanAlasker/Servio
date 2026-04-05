@@ -42,6 +42,7 @@ const getStyles = (theme) =>
     text: {
       flexWrap: "nowrap",
       color: theme.main_text,
+      textAlign:'center'
     },
   });
 

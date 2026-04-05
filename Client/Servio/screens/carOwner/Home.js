@@ -16,6 +16,7 @@ function Home(props) {
   const { loadAppointments } = UseAppointment();
   const { loadServices } = UseService();
   const [refreshing, setRefreshing] = useState(false);
+
   const handleRefresh = async () => {
     try {
       setRefreshing(true);
