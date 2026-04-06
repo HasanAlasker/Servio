@@ -10,8 +10,12 @@ function RedCircle({ numOfNotifications }) {
   return (
     <View style={styles.container}>
       <AppText
-        style={{ color: theme.always_white, fontWeight: "bold" }}
-        size={8}
+        style={{
+          color: theme.always_white,
+          fontWeight: "bold",
+          textAlign: "center",
+        }}
+        size={10}
       >
         {numOfNotifications}
       </AppText>

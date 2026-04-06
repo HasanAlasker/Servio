@@ -12,6 +12,7 @@ function RatingModal({
   shopId,
   appointmentId,
   setRatingData,
+  onRate
 }) {
   const [rating, setRating] = useState(0);
   const [submiting, setSubmiting] = useState(false);
@@ -32,6 +33,7 @@ function RatingModal({
       if (res.ok) {
         setRatingData(null);
         setRating(0);
+        onRate()
         toast.success("Submitted!");
       }
     } catch (error) {

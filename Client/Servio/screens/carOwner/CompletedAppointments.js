@@ -12,7 +12,7 @@ import SText from "../../components/text/SText";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 
 function CompletedAppointmets(props) {
-  const { fetchCompleted, completed, loading } = UseAppointment();
+  const { fetchCompleted, completed, setCompleted, loading } = UseAppointment();
   const [refreshing, setRefreshing] = useState(false);
   const [showRating, setShowRating] = useState(false);
   const [ratingData, setRatingData] = useState(null);
@@ -32,6 +32,8 @@ function CompletedAppointmets(props) {
     setShowRating(true);
     setRatingData(data);
   };
+
+  const removeCardFromUi = (appointmentId) => {};
 
   const completedList = completed.map((appointment) => (
     <AppointmentCard
@@ -77,6 +79,7 @@ function CompletedAppointmets(props) {
         appointmentId={ratingData?.appointmentId}
         shopId={ratingData?.shopId}
         setRatingData={setRatingData}
+        onRate={removeCardFromUi}
       />
       <Navbar />
     </SafeScreen>

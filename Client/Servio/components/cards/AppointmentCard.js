@@ -114,7 +114,8 @@ function AppointmentCard({
           noPadding
           status={"status"}
           miniTitle={"Service parts"}
-          icon={"cog-outline"}
+          icon={"cog"}
+          customColor={'main_text'}
           parts={serviceParts}
         />
 

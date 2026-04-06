@@ -78,9 +78,16 @@ function ShopCard({
               color={theme.always_white}
               size={15}
             />
-            <TText color={"always_white"}>
-              {rating ? rating.toFixed(2) + ` (${ratingCount})` : "Unrated"}
-            </TText>
+            <RowCont>
+              <TText color={"always_white"}>
+                {rating ? rating.toFixed(2) : "Unrated"}
+              </TText>
+              {rating && (
+                <TText thin color={"sec_text"}>
+                  ({ratingCount})
+                </TText>
+              )}
+            </RowCont>
           </RowCont>
         )}
       </View>
