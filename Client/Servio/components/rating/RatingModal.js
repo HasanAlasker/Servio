@@ -12,7 +12,7 @@ function RatingModal({
   shopId,
   appointmentId,
   setRatingData,
-  onRate
+  onRate,
 }) {
   const [rating, setRating] = useState(0);
   const [submiting, setSubmiting] = useState(false);
@@ -31,15 +31,18 @@ function RatingModal({
       };
       const res = await rateShop(shopId, data);
       if (res.ok) {
-        setRatingData(null);
-        setRating(0);
-        onRate()
+        onRate();
         toast.success("Submitted!");
+      }
+      if (res.data.message === "Appointment already rated!") {
+        toast.error("Already rated!");
       }
     } catch (error) {
       toast.error("Failed!");
     } finally {
       setSubmiting(false);
+      setRatingData(null);
+      setRating(0);
       onClose();
     }
   };

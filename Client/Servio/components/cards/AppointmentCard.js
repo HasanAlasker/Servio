@@ -41,6 +41,8 @@ function AppointmentCard({
   onDelete,
   showRateAndReport,
   openRatingModal,
+  isRated,
+  isReported,
 }) {
   const styles = useThemedStyles(getstyles);
   const { isShopOwner, isUser } = UseUser();
