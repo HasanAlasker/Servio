@@ -41,12 +41,18 @@ router.post("/create/:id", auth, logIP("REPORT"), async (req, res) => {
     }
 
     const reportedApp = await AppointmentModel.findById(appointmentId);
-    if (!reportedApp) {
+    if (!reportedApp)
       return res.status(404).json({
         success: false,
         message: "Appointment not found",
       });
-    }
+
+    if (reportedApp.isReported)
+      return res.status(400).json({
+        success: false,
+        message: "Appointment already reported",
+      });
+
     reportedApp.isReported = true;
 
     data.appointment = reportedApp._id;
