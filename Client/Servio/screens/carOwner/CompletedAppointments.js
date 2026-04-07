@@ -10,12 +10,14 @@ import AppointmentCard from "../../components/cards/AppointmentCard";
 import RatingModal from "../../components/rating/RatingModal";
 import SText from "../../components/text/SText";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
+import ReportModal from "../../components/form/ReportModal";
 
 function CompletedAppointmets(props) {
   const { fetchCompleted, completed, setCompleted, loading } = UseAppointment();
   const [refreshing, setRefreshing] = useState(false);
   const [showRating, setShowRating] = useState(false);
   const [ratingData, setRatingData] = useState(null);
+  const [reportModal, setReportModal] = useState(false);
   const navigate = useNavigation();
 
   const handleRefresh = async () => {
@@ -33,6 +35,10 @@ function CompletedAppointmets(props) {
     setRatingData(data);
   };
 
+  const handleReport = async (reason) => {
+    setReportModal(true);
+  };
+
   const removeCardFromUi = (appointmentId) => {};
 
   const completedList = completed.map((appointment) => (
@@ -47,6 +53,7 @@ function CompletedAppointmets(props) {
       scheuledAt={appointment.scheduledDate}
       showRateAndReport
       openRatingModal={handleRating}
+      openReportModal={handleReport}
     />
   ));
   return (
@@ -80,6 +87,10 @@ function CompletedAppointmets(props) {
         shopId={ratingData?.shopId}
         setRatingData={setRatingData}
         onRate={removeCardFromUi}
+      />
+      <ReportModal
+        visible={reportModal}
+        onClose={() => setReportModal(false)}
       />
       <Navbar />
     </SafeScreen>

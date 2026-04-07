@@ -43,6 +43,7 @@ function AppointmentCard({
   openRatingModal,
   isRated,
   isReported,
+  openReportModal,
 }) {
   const styles = useThemedStyles(getstyles);
   const { isShopOwner, isUser } = UseUser();
@@ -117,7 +118,7 @@ function AppointmentCard({
           status={"status"}
           miniTitle={"Service parts"}
           icon={"cog"}
-          customColor={'main_text'}
+          customColor={"main_text"}
           parts={serviceParts}
         />
 
@@ -215,7 +216,7 @@ function AppointmentCard({
                   auto
                   red
                   title={"Report"}
-                  onPress={() => console.log("Report")}
+                  onPress={() => openReportModal()}
                 />
               </RowCont>
             )}

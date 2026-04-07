@@ -1,5 +1,4 @@
 import { StyleSheet, Pressable, View } from "react-native";
-import AppText from "../../config/AppText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "../../context/ThemeContext";
