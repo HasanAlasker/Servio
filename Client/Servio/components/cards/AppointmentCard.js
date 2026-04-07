@@ -211,13 +211,15 @@ function AppointmentCard({
                     openRatingModal({ shopId: shop._id, appointmentId: id })
                   }
                 />
-                <VerticalLine />
-                <GhostBtn
-                  auto
-                  red
-                  title={"Report"}
-                  onPress={() => openReportModal(id)}
-                />
+                {!isReported && <VerticalLine />}
+                {!isReported && (
+                  <GhostBtn
+                    auto
+                    red
+                    title={"Report"}
+                    onPress={() => openReportModal(id)}
+                  />
+                )}
               </RowCont>
             )}
           </GapContainer>

@@ -56,6 +56,7 @@ function CompletedAppointmets(props) {
       showRateAndReport
       openRatingModal={handleRating}
       openReportModal={handleReport}
+      isReported={appointment.isReported}
     />
   ));
   return (
