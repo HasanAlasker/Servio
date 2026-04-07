@@ -6,6 +6,7 @@ import ReportModel from "../models/report.js";
 import validate from "../middleware/joiValidation.js";
 import { createReport } from "../validation/report.js";
 import logIP from "../middleware/logIp.js";
+import AppointmentModel from "../models/appointment.js";
 
 const router = express.Router();
 
@@ -26,32 +27,55 @@ router.get("/open", [auth, admin], logIP("GET_REPORTS"), async (req, res) => {
 });
 
 // make report
-router.post(
-  "/create",
-  [auth, validate(createReport)],
-  logIP("REPORT"),
-  async (req, res) => {
-    try {
-      const data = req.body;
-      data.reporter = req.user._id;
+router.post("/create/:id", auth, logIP("REPORT"), async (req, res) => {
+  try {
+    const appointmentId = req.params.id;
+    const data = req.body;
+    data.reporter = req.user._id;
 
-      const report = await ReportModel(data);
-      if (!report) {
-        return res.status(404).json({
-          success: false,
-          message: "Report not created",
-        });
-      }
-      return res.status(201).json({ success: true, data: report });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({
+    if (!appointmentId || !mongoose.Types.ObjectId.isValid(appointmentId)) {
+      return res.status(400).json({
         success: false,
-        message: "Server Error",
+        message: "Invalid resource ID",
       });
     }
-  },
-);
+
+    const reportedApp = await AppointmentModel.findById(appointmentId);
+    if (!reportedApp) {
+      return res.status(404).json({
+        success: false,
+        message: "Appointment not found",
+      });
+    }
+    reportedApp.isReported = true;
+
+    data.appointment = reportedApp._id;
+    data.reportedShop = reportedApp.shop._id;
+
+    const savedApp = await reportedApp.save();
+    if (!savedApp) {
+      return res.status(404).json({
+        success: false,
+        message: "Report not saved",
+      });
+    }
+
+    const report = await ReportModel(data);
+    if (!report) {
+      return res.status(404).json({
+        success: false,
+        message: "Report not created",
+      });
+    }
+    return res.status(201).json({ success: true, data: report });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 
 // close report
 router.patch(

@@ -11,6 +11,10 @@ const ReportSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Shop",
     },
+    appointment: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Appointment"
+    },
     reason: {
       type: String,
       required: true,
