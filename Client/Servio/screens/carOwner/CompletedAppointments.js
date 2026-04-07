@@ -18,6 +18,7 @@ function CompletedAppointmets(props) {
   const [showRating, setShowRating] = useState(false);
   const [ratingData, setRatingData] = useState(null);
   const [reportModal, setReportModal] = useState(false);
+  const [reportId, setReportId] = useState(null);
   const navigate = useNavigation();
 
   const handleRefresh = async () => {
@@ -35,8 +36,9 @@ function CompletedAppointmets(props) {
     setRatingData(data);
   };
 
-  const handleReport = async (reason) => {
+  const handleReport = async (appId) => {
     setReportModal(true);
+    setReportId(appId);
   };
 
   const removeCardFromUi = (appointmentId) => {};
@@ -91,6 +93,8 @@ function CompletedAppointmets(props) {
       <ReportModal
         visible={reportModal}
         onClose={() => setReportModal(false)}
+        appointmentId={reportId}
+        setReportId={setReportId}
       />
       <Navbar />
     </SafeScreen>

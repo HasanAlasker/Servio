@@ -6,13 +6,37 @@ import MenuOption from "../general/MenuOption";
 import { reportReasons } from "../../constants/dropList";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useThemedStyles from "../../hooks/useThemedStyles";
+import { makeReport } from "../../api/report";
+import useAppToast from "../../hooks/useAppToast";
 
-function ReportModal({ visible, disabled, onClose }) {
+function ReportModal({
+  visible,
+  disabled,
+  onClose,
+  appointmentId,
+  setReportId,
+}) {
   const styles = useThemedStyles(getStyles);
   const insets = useSafeAreaInsets();
+  const toast = useAppToast();
 
-  const handleSelectItem = (item) => {
-    console.log(item.value)
+  console.log(appointmentId);
+
+  const handleSelectItem = async (item) => {
+    try {
+      const res = await makeReport(appointmentId, { reason: item.value });
+      console.log(res);
+      if (res.ok) {
+        toast.success("Sent!");
+      }
+      if (res.data.message == "Appointment already reported")
+        toast.error("Already reported!");
+    } catch (error) {
+      toast.error("Failed!");
+    } finally {
+      setReportId(null);
+      onClose();
+    }
   };
 
   const renderItem = ({ item }) => {

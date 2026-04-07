@@ -73,7 +73,8 @@ router.post("/create/:id", auth, logIP("REPORT"), async (req, res) => {
         message: "Report not created",
       });
     }
-    return res.status(201).json({ success: true, data: report });
+    const savedReport = await report.save();
+    return res.status(201).json({ success: true, data: savedReport });
   } catch (error) {
     console.error(error);
     return res.status(500).json({

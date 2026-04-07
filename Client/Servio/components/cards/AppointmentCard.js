@@ -216,7 +216,7 @@ function AppointmentCard({
                   auto
                   red
                   title={"Report"}
-                  onPress={() => openReportModal()}
+                  onPress={() => openReportModal(id)}
                 />
               </RowCont>
             )}
