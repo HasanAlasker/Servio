@@ -82,9 +82,9 @@ function ShopCard({
               <TText color={"always_white"}>
                 {rating ? rating.toFixed(2) : "Unrated"}
               </TText>
-              {rating && (
+              {!!rating && (
                 <TText thin color={"sec_text"}>
-                  ({ratingCount})
+                  {ratingCount}
                 </TText>
               )}
             </RowCont>
@@ -97,7 +97,7 @@ function ShopCard({
           <RowCont style={{ justifyContent: "space-between" }}>
             <GapContainer gap={5}>
               <MText>{capFirstLetter(name)}</MText>
-              <SText color={"sec_text"}>{description}</SText>
+              <SText thin color={"sec_text"}>{description}</SText>
             </GapContainer>
             {isShopOwner && (
               <Feather

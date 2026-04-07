@@ -9,9 +9,8 @@ import GapContainer from "../../components/general/GapContainer";
 import { UseShop } from "../../context/ShopContext";
 
 function MyShop(props) {
-  const {shops, setShops, loading} = UseShop()
+  const { shops, setShops, loading } = UseShop();
   const navigate = useNavigation();
-
 
   const RenderShops = shops.map((shop) => (
     <ShopCard
