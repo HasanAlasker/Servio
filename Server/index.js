@@ -26,7 +26,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? ["https://servio-maintenance.netlify.app","http://localhost:8081"]
+        ? ["https://servio-maintenance.netlify.app", "http://localhost:8081"]
         : "http://localhost:5173",
     exposedHeaders: ["x-auth-token"],
   }),
@@ -66,4 +66,21 @@ console.log("Service scheduler started 📆");
 app.listen(port, () => {
   console.log(`Server running on ${port} 🌍`);
   console.log(`Accessible at http://YOUR_IP:${port} 🖥️`);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("UNCAUGHT EXCEPTION:", err);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.error("UNHANDLED REJECTION:", err);
+
+  setInterval(() => {
+    const used = process.memoryUsage();
+    console.log("MEMORY:", {
+      rss: used.rss,
+      heapUsed: used.heapUsed,
+      heapTotal: used.heapTotal,
+    });
+  }, 30000);
 });
