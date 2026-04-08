@@ -3,7 +3,7 @@
   <img src="https://img.shields.io/badge/Servio-Smart%20Maintenance-007BFF?style=for-the-badge&logo=car&logoColor=white" alt="Servio" />
 </p>
 
-<h1 align="center">Servio — Smart Maintenance. Safer Drives.</h1>
+<h1 align="center">Servio — Car Maintenance Tracker.</h1>
 
 <p align="center">
   Track your vehicle, never miss a service, and connect with trusted mechanics — all in one place.
