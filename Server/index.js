@@ -60,8 +60,8 @@ app.use("/api/slots", slots);
 app.use("/api/earlyAccess", earlyAccess);
 // await seedDatabase()
 
-startServiceScheduler();
-console.log("Service scheduler started 📆");
+// startServiceScheduler();
+// console.log("Service scheduler started 📆");
 
 app.listen(port, () => {
   console.log(`Server running on ${port} 🌍`);
