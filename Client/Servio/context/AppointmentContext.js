@@ -30,20 +30,24 @@ export const AppointmentProvider = ({ children }) => {
     data: fetchedUpcoming,
     request: fetchUpcoming,
     loading: loadingUpcoming,
+    error: errUpcoming,
   } = useApi(getUpcomingAppointments);
 
   const {
     data: fetchedPast,
     request: fetchPast,
     loading: loadingPast,
+    error: errPast,
   } = useApi(getPastAppointments);
 
   const {
     data: fetchedCompleted,
     request: fetchCompleted,
     loading: loadingCompleted,
+    error: errCompleted,
   } = useApi(getCompletedAppointmentsForUser);
 
+  const error = errPast || errCompleted || errUpcoming;
   const loading = loadingPast || loadingUpcoming || loadingCompleted;
 
   const storeAppointments = async (upcomingApp, pastApp, completdApp) => {
@@ -101,7 +105,7 @@ export const AppointmentProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (fetchedUpcoming && fetchedPast && fetchedCompleted) {
+    if (fetchedUpcoming && fetchedPast && fetchedCompleted && !error) {
       setUpcoming(fetchedUpcoming);
       setPast(fetchedPast);
       setCompleted(fetchedCompleted);

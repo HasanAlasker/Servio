@@ -20,12 +20,9 @@ function ReportModal({
   const insets = useSafeAreaInsets();
   const toast = useAppToast();
 
-  console.log(appointmentId);
-
   const handleSelectItem = async (item) => {
     try {
       const res = await makeReport(appointmentId, { reason: item.value });
-      console.log(res);
       if (res.ok) {
         toast.success("Sent!");
       }

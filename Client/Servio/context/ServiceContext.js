@@ -22,6 +22,7 @@ export const ServiceProvider = ({ children }) => {
     data: fetchedServices,
     request: fetchServices,
     loading,
+    error,
   } = useApi(getUpcomingServices);
 
   const storeServices = async (services) => {
@@ -54,7 +55,7 @@ export const ServiceProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (fetchedServices) {
+    if (fetchedServices && !error) {
       setServices(fetchedServices);
       storeServices(fetchedServices);
     }

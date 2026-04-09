@@ -51,6 +51,7 @@ export const UserProvider = ({ children }) => {
   const [serverAwake, setServerAwake] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
+  const [authLoaded, setAuthLoaded] = useState(false);
 
   const { loadCars } = UseCar();
   const { loadServices } = UseService();
@@ -87,7 +88,7 @@ export const UserProvider = ({ children }) => {
 
       setUserLocation(location);
 
-      console.log(location)
+      console.log(location);
     } catch (e) {
       toast.error("Nearby shops unknown");
     }
@@ -160,6 +161,7 @@ export const UserProvider = ({ children }) => {
     } finally {
       setLoading(false);
       setAppStart(false);
+      setAuthLoaded(true);
     }
   };
 
@@ -466,6 +468,7 @@ export const UserProvider = ({ children }) => {
     lastName,
     token,
     isAuthenticated,
+    authLoaded,
     loading,
     appStart,
     error,

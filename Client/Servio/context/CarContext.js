@@ -25,6 +25,7 @@ export const CarProvider = ({ children }) => {
     error,
     loading,
     message,
+    success,
   } = useApi(getMyCars);
 
   const STORAGE_KEYS = {
@@ -54,7 +55,7 @@ export const CarProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (carsData) {
+    if (carsData && !error) {
       setCars(carsData);
       storeCars(carsData);
     }

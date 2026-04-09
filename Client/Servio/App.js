@@ -1,10 +1,10 @@
+import { useEffect, useState } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { Platform, StyleSheet } from "react-native";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { UserProvider, UseUser } from "./context/UserContext";
-import LoadingCircle from "./components/general/LoadingCircle";
 import {
   createNavigationContainerRef,
   NavigationContainer,
@@ -22,7 +22,6 @@ import Register from "./screens/login/Register";
 import Dash from "./screens/admin/Dash";
 import AdminShops from "./screens/admin/Shops";
 import MyShop from "./screens/shopOwner/MyShop";
-import { useEffect } from "react";
 import Profile from "./screens/shared/Profile";
 import Suggestions from "./screens/shared/Suggestions";
 import CarParts from "./screens/carOwner/CarParts";
@@ -141,13 +140,14 @@ const AuthStack = () => {
 
 const AppNavigator = () => {
   const {
-    appStart,
+    authLoaded,
     isUser,
     isShopOwner,
     isAdmin,
     isAuthenticated,
     loadUserData,
     fetchUserLocation,
+    user,
   } = UseUser();
   const { loadCars } = UseCar();
   const { isDarkMode } = useTheme();
@@ -163,28 +163,21 @@ const AppNavigator = () => {
     fetchUserLocation();
   }, []);
 
-  // useEffect(() => {
-  //   loadServices();
-  //   loadAppointments();
-  // }, [isUser]);
-
   useEffect(() => {
     loadShops();
   }, [isShopOwner]);
 
   useEffect(() => {
-    if (!appStart && !loading) {
+    if (authLoaded && !loading) {
       SplashScreen.hideAsync();
     }
-  }, []);
+  }, [authLoaded, loading]);
 
   useEffect(() => {
     if (Platform.OS === "android") {
       NavigationBar.setStyle(isDarkMode ? "dark" : "light");
     }
   }, [isDarkMode]);
-
-  // if (appStart) return <LoadingCircle />;
 
   return (
     <>

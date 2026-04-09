@@ -22,7 +22,7 @@ export const ShopProvider = ({ children }) => {
     data: fetchedShops,
     request: fetchShops,
     loading,
-    error
+    error,
   } = useApi(getMyShops);
 
   const storeShops = async (shops) => {
@@ -48,7 +48,7 @@ export const ShopProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (fetchedShops) {
+    if (fetchedShops && !error) {
       setShops(fetchedShops);
       storeShops(fetchedShops);
     }
