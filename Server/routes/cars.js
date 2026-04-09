@@ -243,7 +243,9 @@ router.patch(
         });
       }
 
-      await updateServicesForCar(carId);
+      updateServicesForCar(carId).catch((err) =>
+        console.error(`Failed to recalculate services for car ${carId}:`, err),
+      );
 
       return res.status(200).json({ success: true, data: updatedCar });
     } catch (error) {
@@ -336,7 +338,9 @@ router.patch("/mileage/:id", auth, async (req, res) => {
       });
     }
 
-    await updateServicesForCar(carId);
+    updateServicesForCar(carId).catch((err) =>
+      console.error(`Failed to recalculate services for car ${carId}:`, err),
+    );
 
     return res.status(200).json({ success: true, data: updatedCar });
   } catch (error) {

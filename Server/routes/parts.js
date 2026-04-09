@@ -129,7 +129,9 @@ router.post(
         });
       }
 
-      await updateServicesForCar(carId);
+      updateServicesForCar(carId).catch((err) =>
+        console.error(`Failed to recalculate services for car ${carId}:`, err),
+      );
 
       await newPart.save();
 
@@ -180,7 +182,9 @@ router.patch(
         });
       }
 
-      await updateServicesForCar(updatedPart.car);
+      updateServicesForCar(updatedPart.car).catch((err) =>
+        console.error(`Failed to recalculate services for car ${carId}:`, err),
+      );
 
       return res.status(200).json({ success: true, data: updatedPart });
     } catch (error) {
@@ -232,7 +236,9 @@ router.patch(
         });
       }
 
-      await updateServicesForCar(part.car);
+      updateServicesForCar(part.car).catch((err) =>
+        console.error(`Failed to recalculate services for car ${carId}:`, err),
+      );
 
       return res.status(200).json({ success: true, data: updatedPart });
     } catch (error) {
@@ -272,7 +278,9 @@ router.patch("/service/:id", auth, async (req, res) => {
         .status(400)
         .json({ success: false, message: "Part not edited" });
 
-    await updateServicesForCar(carId);
+    updateServicesForCar(carId).catch((err) =>
+      console.error(`Failed to recalculate services for car ${carId}:`, err),
+    );
 
     return res.status(200).json({ success: true, data: savedPart });
   } catch (error) {

@@ -14,12 +14,15 @@ export const updateServicesForCar = async (carId) => {
   if (!car || car.isDeleted) return;
 
   const parts = await PartModel.find({ car: carId, isTracked: true });
-  if (parts.length === 0) return;
 
-  const partServices = parts.map((part) =>
-    calculateNextService(part, car.mileage),
-  );
+  // Don't exit early — if there are no tracked parts, we should still clean up
+  // any stale upcoming service records that may exist from before.
+  if (parts.length === 0) {
+    await UpcomingServiceModel.deleteMany({ car: carId });
+    return;
+  }
 
+  const partServices = parts.map((part) => calculateNextService(part, car.mileage));
   const serviceGroups = groupServiceableParts(partServices);
 
   for (const group of serviceGroups) {
@@ -31,34 +34,22 @@ export const updateServicesForCar = async (carId) => {
 
     const status = getServiceStatus(daysUntilDue, milesUntilDue);
 
-    // Upsert: preserve existing reminder/notificationSent flags instead of
-    // deleting and recreating, which would reset them every night.
     await UpcomingServiceModel.findOneAndUpdate(
       {
         car: carId,
-        // Match on the sorted part list so the same logical group always hits
-        // the same document rather than creating duplicates.
         parts: { $all: group.parts, $size: group.parts.length },
       },
       {
-        $set: {
-          customer: car.owner,
-          dueBy: group.dueBy,
-          status,
-        },
-        // Only set these fields when first creating the document.
-        $setOnInsert: {
-          reminder: true,
-          notificationSent: false,
-        },
+        $set: { customer: car.owner, dueBy: group.dueBy, status },
+        $setOnInsert: { reminder: true, notificationSent: false },
       },
-      { upsert: true, new: true },
+      { upsert: true, new: true }
     );
   }
 
-  // Clean up stale service records whose part combination no longer exists.
+  // Clean up stale records
   const currentPartSets = serviceGroups.map((g) =>
-    [...g.parts].map(String).sort().join(","),
+    [...g.parts].map(String).sort().join(",")
   );
   const existing = await UpcomingServiceModel.find({ car: carId });
   const staleIds = existing
