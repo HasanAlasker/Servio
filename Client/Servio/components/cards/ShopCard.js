@@ -84,7 +84,7 @@ function ShopCard({
               </TText>
               {!!rating && (
                 <TText thin color={"sec_text"}>
-                  {ratingCount}
+                  ({ratingCount})
                 </TText>
               )}
             </RowCont>

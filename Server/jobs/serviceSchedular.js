@@ -3,8 +3,7 @@ import { updateServicesForAllCars } from "../services/upcomingServiceManager.js"
 import { sendDueServiceNotifications } from "../services/notificationService.js";
 
 export function startServiceScheduler() {
-    
-  // Run every day at 5 AM to recalculate all services
+  // 2 AM -> recalculate all services
   cron.schedule("0 2 * * *", async () => {
     console.log("Running daily service calculation...");
     try {
@@ -15,7 +14,7 @@ export function startServiceScheduler() {
     }
   });
 
-  // Run every day at 9 AM to send notifications (account for gmt)
+  // 6 AM -> send notifications
   cron.schedule("0 6 * * *", async () => {
     console.log("Checking for services needing notifications...");
     try {

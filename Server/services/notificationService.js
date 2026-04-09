@@ -3,20 +3,11 @@ import UpcomingServiceModel from "../models/upcomingService.js";
 import UserModel from "../models/user.js";
 import { sendPushNotification } from "../utils/notifications.js";
 
-export const sendNotification = async (service) => {
-  const partNames = service.parts.map((p) => p.name).join(", ");
-  const message = `Your ${service.car.make} ${service.car.name} needs service for: ${partNames}`;
-
-  console.log(
-    `Sending notification to user ${service.customer._id}: ${message}`,
-  );
-};
-
 export const sendDueServiceNotifications = async () => {
-  // Find services that are "soon" or "due" and haven't been notified
   const services = await UpcomingServiceModel.find({
     status: { $in: ["soon", "due", "overdue"] },
     reminder: true,
+    notificationSent: false, // skip already-notified services
   })
     .populate("car")
     .populate("customer")
@@ -24,31 +15,26 @@ export const sendDueServiceNotifications = async () => {
 
   for (const service of services) {
     try {
-      try {
-        const owner = await UserModel.findById(service.customer);
+      const owner = await UserModel.findById(service.customer);
 
-        if (
-          owner &&
-          owner.pushNotificationTokens &&
-          owner.pushNotificationTokens.length > 0
-        ) {
-          const tokens = owner.pushNotificationTokens.map(
-            (tokenObj) => tokenObj.token,
-          );
+      if (owner?.pushNotificationTokens?.length > 0) {
+        const tokens = owner.pushNotificationTokens.map((t) => t.token);
 
-          await sendPushNotification(
-            tokens,
-            `Service Notification`,
-            `${service.status === "soon" ? "There is a service required soon" : "There is a service required immediately"}`,
-          );
-          console.log("📤 Attempting to send notification to:", tokens);
-        }
-      } catch (notificationError) {
-        console.error("Failed to send push notification:", notificationError);
+        const carName = service.car?.name ?? "your car";
+        const partNames = service.parts.map((p) => p.name).join(", ");
+        const urgency =
+          service.status === "overdue" || service.status === "due"
+            ? "requires immediate attention"
+            : "is coming up soon";
+
+        const body = `Service for ${carName} ${urgency}: ${partNames}`;
+
+        await sendPushNotification(tokens, "Service Reminder", body);
+        console.log(`📤 Notification sent to ${owner._id} for car ${carName}`);
       }
 
-      // Mark as notified
-      // service.notificationSent = true;
+      // Mark as notified so it doesn't fire again tomorrow.
+      service.notificationSent = true;
       await service.save();
     } catch (error) {
       console.error(
