@@ -8,22 +8,23 @@ import {
 } from "./serviceCalculator.js";
 
 const BATCH_SIZE = 10;
-
 export const updateServicesForCar = async (carId) => {
   const car = await CarModel.findById(carId);
   if (!car || car.isDeleted) return;
 
   const parts = await PartModel.find({ car: carId, isTracked: true });
 
-  // Don't exit early — if there are no tracked parts, we should still clean up
-  // any stale upcoming service records that may exist from before.
   if (parts.length === 0) {
     await UpcomingServiceModel.deleteMany({ car: carId });
     return;
   }
 
-  const partServices = parts.map((part) => calculateNextService(part, car.mileage));
+  const partServices = parts.map((part) =>
+    calculateNextService(part, car.mileage),
+  );
   const serviceGroups = groupServiceableParts(partServices);
+
+  const seenKeys = [];
 
   for (const group of serviceGroups) {
     const daysUntilDue = group.dueBy.date
@@ -34,34 +35,34 @@ export const updateServicesForCar = async (carId) => {
 
     const status = getServiceStatus(daysUntilDue, milesUntilDue);
 
+    // Stable key derived from sorted part IDs — safe to use as a match field
+    const partKey = [...group.parts].map(String).sort().join(",");
+    seenKeys.push(partKey);
+
     await UpcomingServiceModel.findOneAndUpdate(
+      { car: carId, partKey }, // simple scalar match — always works
       {
-        car: carId,
-        parts: { $all: group.parts, $size: group.parts.length },
+        $set: {
+          customer: car.owner,
+          parts: group.parts, // keep the array in sync
+          dueBy: group.dueBy,
+          status,
+          partKey,
+        },
+        $setOnInsert: {
+          reminder: true,
+          notificationSent: false,
+        },
       },
-      {
-        $set: { customer: car.owner, dueBy: group.dueBy, status },
-        $setOnInsert: { reminder: true, notificationSent: false },
-      },
-      { upsert: true, new: true }
+      { upsert: true, new: true },
     );
   }
 
-  // Clean up stale records
-  const currentPartSets = serviceGroups.map((g) =>
-    [...g.parts].map(String).sort().join(",")
-  );
-  const existing = await UpcomingServiceModel.find({ car: carId });
-  const staleIds = existing
-    .filter((svc) => {
-      const key = [...svc.parts].map(String).sort().join(",");
-      return !currentPartSets.includes(key);
-    })
-    .map((svc) => svc._id);
-
-  if (staleIds.length > 0) {
-    await UpcomingServiceModel.deleteMany({ _id: { $in: staleIds } });
-  }
+  // Delete records whose part combination no longer exists
+  await UpcomingServiceModel.deleteMany({
+    car: carId,
+    partKey: { $nin: seenKeys },
+  });
 };
 
 export const updateServicesForAllCars = async () => {

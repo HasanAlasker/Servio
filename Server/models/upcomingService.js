@@ -45,6 +45,11 @@ const upcomingServiceSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  partKey: {
+    type: String,
+    required: true,
+    index: true,
+  },
 });
 
 const UpcomingServiceModel = mongoose.model(
