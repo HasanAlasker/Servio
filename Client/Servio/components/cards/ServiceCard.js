@@ -15,6 +15,7 @@ import SeparatorComp from "../general/SeparatorComp";
 import { Feather } from "@expo/vector-icons";
 import { useState } from "react";
 import { useTheme } from "../../context/ThemeContext";
+import SquareInfo from "./SquareInfo";
 
 function ServiceCard({
   id,
@@ -47,8 +48,9 @@ function ServiceCard({
     <CardComp style={styles.container}>
       <GapContainer gap={8}>
         <RowCont style={{ justifyContent: "space-between" }}>
-          <SquareTitle
-            icon={"car-outline"}
+          <SquareInfo
+            icon={'car'}
+            text={car?.mileage.toLocaleString() + " " + car?.unit}
             title={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
           />
           <Feather
