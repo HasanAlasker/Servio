@@ -20,6 +20,7 @@ function FormikDatePicker({
   hasBeenSubmitted = false,
   full,
   dontShowLable,
+  onDateChange,
 }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
@@ -75,6 +76,7 @@ function FormikDatePicker({
       } else {
         // Store as Date for date/datetime modes
         setFieldValue(name, selectedDate);
+        onDateChange?.(selectedDate);
       }
     }
   };

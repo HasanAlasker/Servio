@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import GapContainer from "../../components/general/GapContainer";
 import KeyboardScrollScreen from "../../components/general/KeyboardScrollScreen";
-import Navbar from "../../components/general/Navbar";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import AppForm from "../../components/form/AppForm";
 import * as Yup from "yup";
@@ -11,12 +10,17 @@ import SubmitBtn from "../../components/form/SubmitBtn";
 import { useState } from "react";
 import AppSummary from "../../components/cards/AppSummary";
 import { bookAppointment } from "../../api/appointment";
-import { checkSlot } from "../../api/slots";
+import { checkSlot, getSlots } from "../../api/slots";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import { UseAppointment } from "../../context/AppointmentContext";
 import useAppToast from "../../hooks/useAppToast";
 import MenuBackBtn from "../../components/general/MenuBackBtn";
 import BackContainer from "../../components/general/BackContainer";
+import PriBtn from "../../components/general/PriBtn";
+import NavCont from "../../components/navbars/NavCont";
+import TimeSlot from "../../components/cards/TimeSlot";
+import useApi from "../../hooks/useApi";
+import { useEffect } from "react";
 
 const validationSchema = Yup.object({
   date: Yup.date()
@@ -49,6 +53,11 @@ function MakeAppointment(props) {
   const navigate = useNavigation();
   const route = useRoute();
   const params = route.params;
+
+  const { data: slots, request: fetchSlots, loading, error } = useApi(getSlots);
+
+  console.log("slots:", slots?.slots);
+  console.log("error:", error);
 
   const initialValues = {
     date: "",
@@ -120,13 +129,13 @@ function MakeAppointment(props) {
             }}
           />
         </BackContainer>
-        <GapContainer >
+        <GapContainer>
           <AppForm
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            {({ values }) => (
+            {({ values, setFieldValue }) => (
               <GapContainer gap={15}>
                 <AppSummary params={params} />
 
@@ -135,9 +144,14 @@ function MakeAppointment(props) {
                   name={"date"}
                   icon="calendar-outline"
                   hasBeenSubmitted={hasBeenSubmited}
+                  onDateChange={(selectedDate) => {
+                    setFieldValue("time", "");
+                    const [date] = selectedDate.toISOString().split("T");
+                    fetchSlots(params.shop.id, date);
+                  }}
                 />
 
-                {values.date && (
+                {/* {values.date && (
                   <FormikDatePicker
                     full
                     name={"time"}
@@ -146,7 +160,9 @@ function MakeAppointment(props) {
                     icon="clock-outline"
                     hasBeenSubmitted={hasBeenSubmited}
                   />
-                )}
+                )} */}
+
+                {values.date && <TimeSlot to={slots} />}
 
                 <SubmitBtn
                   square
@@ -161,7 +177,9 @@ function MakeAppointment(props) {
           </AppForm>
         </GapContainer>
       </KeyboardScrollScreen>
-      <Navbar />
+      {/* <NavCont>
+        <PriBtn square full title={"Book"} />
+      </NavCont> */}
     </SafeScreen>
   );
 }

@@ -47,8 +47,10 @@ router.get("/:id", auth, logIP("GET_SLOTS"), async (req, res) => {
     ) {
       return res.status(200).json({
         success: true,
-        isOpen: false,
-        slots: [],
+        data: {
+          isOpen: false,
+          slots: [],
+        },
       });
     }
 
@@ -101,9 +103,11 @@ router.get("/:id", auth, logIP("GET_SLOTS"), async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      isOpen: true,
-      openHours: { from: todayHours.from, to: todayHours.to },
-      slots: allSlots,
+      data: {
+        isOpen: true,
+        openHours: { from: todayHours.from, to: todayHours.to },
+        slots: allSlots,
+      },
     });
   } catch (error) {
     console.error(error);
