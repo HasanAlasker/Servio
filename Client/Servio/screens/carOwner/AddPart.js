@@ -166,7 +166,7 @@ function AddPart(props) {
     <SafeScreen>
       <KeyboardScrollScreen>
         <BackContainer>
-          <MenuBackBtn onClose={() => navigate.navigate("CarParts", params)} />
+          <MenuBackBtn onClose={() => navigate.goBack()} />
         </BackContainer>
         <AppForm
           initialValues={initialValues}
