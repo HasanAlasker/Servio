@@ -294,8 +294,9 @@ router.post(
       await appointment.save();
 
       const [hours, minutes] = data.time.split(":");
-      const endHour = (parseInt(hours, 10) + 1).toString().padStart(2, "0");
-      const toTime = `${endHour}:${minutes}`;
+      const totalMinutes =
+        parseInt(hours, 10) * 60 + parseInt(minutes, 10) + 30;
+      const toTime = `${String(Math.floor(totalMinutes / 60)).padStart(2, "0")}:${String(totalMinutes % 60).padStart(2, "0")}`;
 
       const newSlot = new SlotModel({
         shop: data.shop,

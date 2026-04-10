@@ -120,7 +120,7 @@ function MakeAppointment(props) {
             }}
           />
         </BackContainer>
-        <GapContainer style={{ marginVertical: "auto" }}>
+        <GapContainer >
           <AppForm
             initialValues={initialValues}
             validationSchema={validationSchema}
