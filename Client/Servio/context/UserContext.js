@@ -88,7 +88,7 @@ export const UserProvider = ({ children }) => {
 
       setUserLocation(location);
 
-      console.log(location);
+      // console.log(location);
     } catch (e) {
       toast.error("Nearby shops unknown");
     }

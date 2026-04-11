@@ -4,7 +4,7 @@ import useThemedStyles from "../../hooks/useThemedStyles";
 import { useRoute } from "@react-navigation/native";
 import GapContainer from "../general/GapContainer";
 
-export default function LoadingSkeleton() {
+export default function LoadingSkeleton({short}) {
   const pulseAnim = useRef(new Animated.Value(0)).current;
   const styles = useThemedStyles(getStyles);
   const route = useRoute();
@@ -36,7 +36,7 @@ export default function LoadingSkeleton() {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {width: short ? "90%":"100%"}]}>
       <GapContainer gap={35}>
         <GapContainer>
           <View style={styles.header}>

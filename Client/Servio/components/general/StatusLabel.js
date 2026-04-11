@@ -4,7 +4,7 @@ import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 
-function StatusLabel({ status,style }) {
+function StatusLabel({ status, style, lable }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
 
@@ -14,16 +14,24 @@ function StatusLabel({ status,style }) {
     case "pending":
       color = "gold";
       break;
+      
+    case "Selected":
+      color = "blue";
+      break;
 
     case "confirmed":
+    case false:
       color = "green";
       break;
 
     case "rejected":
     case "no-show":
     case "canceled":
+    case true:
       color = "red";
       break;
+
+
 
     default:
       color = "lightBlue";
@@ -35,11 +43,12 @@ function StatusLabel({ status,style }) {
     <View
       style={[
         styles.container,
-        { backgroundColor: theme[color], borderColor: theme[color] },style
+        { backgroundColor: theme[color], borderColor: theme[color] },
+        style,
       ]}
     >
       <TText style={{ color: theme.always_white }}>
-        {capFirstLetter(status || "...")}
+        {capFirstLetter(lable ?? status ?? "...")}
       </TText>
     </View>
   );

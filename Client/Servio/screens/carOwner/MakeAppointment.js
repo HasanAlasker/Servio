@@ -7,10 +7,10 @@ import AppForm from "../../components/form/AppForm";
 import * as Yup from "yup";
 import FormikDatePicker from "../../components/form/FormikDatePicker";
 import SubmitBtn from "../../components/form/SubmitBtn";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import AppSummary from "../../components/cards/AppSummary";
 import { bookAppointment } from "../../api/appointment";
-import { checkSlot, getSlots } from "../../api/slots";
+import { getSlots } from "../../api/slots";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import { UseAppointment } from "../../context/AppointmentContext";
 import useAppToast from "../../hooks/useAppToast";
@@ -20,7 +20,7 @@ import PriBtn from "../../components/general/PriBtn";
 import NavCont from "../../components/navbars/NavCont";
 import TimeSlot from "../../components/cards/TimeSlot";
 import useApi from "../../hooks/useApi";
-import { useEffect } from "react";
+import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 
 const validationSchema = Yup.object({
   date: Yup.date()
@@ -29,46 +29,55 @@ const validationSchema = Yup.object({
       new Date(new Date().setHours(0, 0, 0, 0)),
       "Date cannot be in the past",
     ),
-  time: Yup.string()
-    .required("Please select a time")
-    .test("is-future-time", "Time must be in the future", function (value) {
-      const { date } = this.parent;
-      if (!date || !value) return true;
-
-      const selectedDate = new Date(date);
-      const [hours, minutes] = value.split(":");
-      selectedDate.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
-
-      return selectedDate > new Date();
-    }),
 });
 
 function MakeAppointment(props) {
+  const submitRef = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const { loadAppointments } = UseAppointment();
   const toast = useAppToast();
 
   const [hasBeenSubmited, setHasBeenSubmited] = useState(false);
   const [err, setErr] = useState(null);
-  const [overlapping, setOverlapping] = useState(null);
+  const [from, setFrom] = useState(null);
+
   const navigate = useNavigation();
   const route = useRoute();
   const params = route.params;
 
   const { data: slots, request: fetchSlots, loading, error } = useApi(getSlots);
 
-  console.log("slots:", slots?.slots);
-  console.log("error:", error);
+  const handleSlotPress = async (fromSlot) => {
+    if (from === fromSlot) {
+      return setFrom(null);
+    }
+    setFrom(fromSlot);
+  };
+
+  const RenderSlots = slots
+    ? slots.slots?.map((slot) => (
+        <TimeSlot
+          key={slot?.from}
+          from={slot?.from}
+          to={slot?.to}
+          isBusy={slot?.isBusy}
+          onPress={handleSlotPress}
+          selected={from}
+        />
+      ))
+    : null;
 
   const initialValues = {
     date: "",
-    time: "",
   };
 
   let partsId = route.params.parts.map((part) => part._id);
 
   const handleSubmit = async (values) => {
+    setIsSubmitting(true);
     let dateObj = new Date(values.date);
-    const [hours, minutes] = values.time.split(":");
+    const [hours, minutes] = from.split(":");
     dateObj.setHours(parseInt(hours, 10));
     dateObj.setMinutes(parseInt(minutes, 10));
     dateObj.setSeconds(0);
@@ -77,33 +86,16 @@ function MakeAppointment(props) {
     let date = dateObj.toISOString();
 
     try {
-      const slotData = {
-        date: date,
-        from: values.time,
-      };
-
-      const slotCheck = await checkSlot(params.shop.id, slotData);
-
-      if (!slotCheck.ok) {
-        setErr("Failed to check slot availability");
-        return;
-      }
-
-      if (!slotCheck.data.available) {
-        setErr(slotCheck.data.message);
-        setOverlapping(slotCheck.data.overlappingSlots);
-        return;
-      }
-
       const appointmentData = {
         car: params.car._id,
         shop: params.shop.id,
         serviceParts: partsId,
         scheduledDate: date,
-        time: values.time,
+        time: from,
       };
 
       const response = await bookAppointment(appointmentData);
+      console.log(response);
 
       if (response.ok) {
         await loadAppointments();
@@ -116,6 +108,17 @@ function MakeAppointment(props) {
     } catch (error) {
       console.log(error);
       setErr("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleRefClick = () => {
+    setHasBeenSubmited(true);
+    try {
+      submitRef.current?.();
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -135,7 +138,7 @@ function MakeAppointment(props) {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            {({ values, setFieldValue }) => (
+            {({ values, setFieldValue, isSubmitting, errors }) => (
               <GapContainer gap={15}>
                 <AppSummary params={params} />
 
@@ -148,38 +151,41 @@ function MakeAppointment(props) {
                     setFieldValue("time", "");
                     const [date] = selectedDate.toISOString().split("T");
                     fetchSlots(params.shop.id, date);
+                    setFrom(null);
                   }}
                 />
 
-                {/* {values.date && (
-                  <FormikDatePicker
-                    full
-                    name={"time"}
-                    mode="time"
-                    placeholder="Select time"
-                    icon="clock-outline"
-                    hasBeenSubmitted={hasBeenSubmited}
-                  />
-                )} */}
-
-                {values.date && <TimeSlot to={slots} />}
+                {loading && <LoadingSkeleton short />}
+                {values.date && !slots.isOpen && !loading && (
+                  <ErrorMessage error={"Shop is closed on this day!"} />
+                )}
+                {values.date && slots.isOpen && !loading && RenderSlots}
 
                 <SubmitBtn
                   square
                   defaultText="Confirm"
                   submittingText="Confirming..."
                   setHasBeenSubmitted={setHasBeenSubmited}
+                  style={{ display: "none" }}
+                  submitRef={submitRef}
                 />
 
-                {err && <ErrorMessage error={err} />}
               </GapContainer>
             )}
           </AppForm>
         </GapContainer>
       </KeyboardScrollScreen>
-      {/* <NavCont>
-        <PriBtn square full title={"Book"} />
-      </NavCont> */}
+      {from && (
+        <NavCont>
+          <PriBtn
+            disabled={isSubmitting}
+            square
+            full
+            title={!isSubmitting ? `Book ${from}` : "Booking..."}
+            onPress={handleRefClick}
+          />
+        </NavCont>
+      )}
     </SafeScreen>
   );
 }

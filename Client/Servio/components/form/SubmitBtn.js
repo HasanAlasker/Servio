@@ -8,19 +8,22 @@ function SubmitBtn({
   setHasBeenSubmitted,
   disabled,
   style,
+  submitRef,
   ...otherProps
 }) {
   const { handleSubmit, isSubmitting, isValid } = useFormikContext();
 
+  const handlePress = () => {
+    setHasBeenSubmitted?.(true);
+    handleSubmit();
+  };
+
+  if (submitRef) submitRef.current = handlePress;
+
   return (
     <PriBtn
       title={isSubmitting ? submittingText : defaultText}
-      onPress={() => {
-        if (setHasBeenSubmitted) {
-          setHasBeenSubmitted(true);
-        }
-        handleSubmit();
-      }}
+      onPress={handlePress}
       disabled={disabled || isSubmitting}
       loading={isSubmitting}
       style={style}
