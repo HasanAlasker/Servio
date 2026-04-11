@@ -56,7 +56,7 @@ function MakeAppointment(props) {
   };
 
   const RenderSlots = slots
-    ? slots.slots?.map((slot) => (
+    ? slots.slots?.map((slot) => !slot.isBusy ? (
         <TimeSlot
           key={slot?.from}
           from={slot?.from}
@@ -65,7 +65,7 @@ function MakeAppointment(props) {
           onPress={handleSlotPress}
           selected={from}
         />
-      ))
+      ): null)
     : null;
 
   const initialValues = {
