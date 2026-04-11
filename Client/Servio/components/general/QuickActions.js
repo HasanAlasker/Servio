@@ -45,6 +45,7 @@ function QuickActions(props) {
     if (isShopOwner)
       return (
         <>
+          <Pill icon={"table"} text={"Schedule"} navigateTo={"Schedule"} />
           <Pill icon={"tool"} text={"Service"} navigateTo={"Service"} />
           <Pill
             icon={isDarkMode ? "sun" : "moon"}

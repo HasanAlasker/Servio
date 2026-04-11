@@ -5,7 +5,7 @@ import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import SText from "../text/SText";
 
-function TimeSlot({ onPress, from, to, isBusy, selected }) {
+function TimeSlot({ onPress, from, to, isBusy, selected, full }) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getStyles);
 
@@ -14,9 +14,14 @@ function TimeSlot({ onPress, from, to, isBusy, selected }) {
   return (
     <Pressable
       disabled={isBusy}
-      style={[styles.box, isBusy && styles.disabled, active && styles.selected]}
+      style={[
+        styles.box,
+        // isBusy && styles.disabled,
+        active && styles.selected,
+        { width: full ? "100%" : "90%" },
+      ]}
       onPress={() => {
-        onPress(from);
+        onPress?.(from);
       }}
     >
       <RowCont style={styles.container}>
