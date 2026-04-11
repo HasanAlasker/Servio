@@ -22,6 +22,7 @@ import SimpleTitleText from "../general/SimpleTitleText";
 import { Feather } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 import CardLeftBorder from "./CardLeftBorder";
+import { addThirtyMinutes } from "../../functions/addOneHour";
 
 function AppointmentCard({
   id,
@@ -229,6 +230,7 @@ function AppointmentCard({
         isVisible={modal}
         onClose={closeModal}
         from={scheuledAt}
+        to={addThirtyMinutes(scheuledAt)}
         id={id}
         onApproval={() => onAccept(id)}
       />

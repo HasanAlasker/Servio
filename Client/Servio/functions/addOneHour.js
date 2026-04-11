@@ -4,6 +4,12 @@ export const addOneHour = (dateInput) => {
   return date;
 };
 
+export const addThirtyMinutes = (dateInput) => {
+  const date = new Date(dateInput);
+  date.setMinutes(date.getMinutes() + 30);
+  return date;
+};
+
 export const to24Hour = (time12) => {
   // Remove any type of whitespace/special space characters
   const trimmed = time12.replace(/\s+/g, " ").trim();

@@ -1,9 +1,5 @@
 import { View, StyleSheet, Modal, Pressable } from "react-native";
-import AppForm from "../form/AppForm";
-import * as Yup from "yup";
 import { useState } from "react";
-import FormikDatePicker from "../form/FormikDatePicker";
-import SubmitBtn from "../form/SubmitBtn";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import GapContainer from "../general/GapContainer";
 import SText from "../text/SText";
@@ -12,32 +8,26 @@ import { getTimeFromDate } from "../../functions/fromatTime";
 import { formatDate } from "../../functions/formatDate";
 import IconTextLabel from "../general/IconTextLabel";
 import { confirmAppointment } from "../../api/appointment";
-import ErrorMessage from "../form/ErrorMessage";
-import { addOneHour, to24Hour } from "../../functions/addOneHour";
+import { addThirtyMinutes, to24Hour } from "../../functions/addOneHour";
 import BackContainer from "../general/BackContainer";
 import MenuBackBtn from "../general/MenuBackBtn";
 import SimpleTitleText from "../general/SimpleTitleText";
+import PriBtn from "../general/PriBtn";
+import MText from "../text/MText";
 
-const validationSchema = Yup.object({
-  to: Yup.string().required("Please select a time"),
-});
-
-function AppModal({ from, isVisible, onClose, id, onApproval }) {
+function AppModal({ from, to, isVisible, onClose, id, onApproval }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
   const [hasBeenSubmited, setHasBeenSubmited] = useState(false);
   const [err, setErr] = useState(null);
 
-  const fromInitial = to24Hour(getTimeFromDate(addOneHour(from)));
+  const toInitial = to24Hour(getTimeFromDate(addThirtyMinutes(from)));
 
-  const initialValues = {
-    to: fromInitial,
-  };
-  const handleSubmit = async (values) => {
-    setErr(null);
+  const handleSubmit = async () => {
+    setHasBeenSubmited(true);
     try {
       const data = {
-        to: values.to,
+        to: toInitial,
       };
       const response = await confirmAppointment(id, data);
       if (response.ok) {
@@ -46,7 +36,8 @@ function AppModal({ from, isVisible, onClose, id, onApproval }) {
       } else setErr(response.data.message);
     } catch (error) {
       console.log(error);
-      setErr("Error");
+    } finally {
+      setHasBeenSubmited(false);
     }
   };
 
@@ -54,53 +45,36 @@ function AppModal({ from, isVisible, onClose, id, onApproval }) {
     <Modal transparent visible={isVisible}>
       <Pressable onPress={onClose} style={styles.overlay} />
       <GapContainer style={styles.container}>
-        <AppForm
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        >
-          {/* <SText style={{ textAlign: "center" }}>Confirmation</SText> */}
-          <BackContainer>
-            <MenuBackBtn
-              style={{ marginBottom: 0 }}
-              onClose={() => {
-                onClose();
-              }}
-            />
-          </BackContainer>
-          <View style={styles.grayBox}>
-            <IconTextLabel
-              icon={"calendar-blank-outline"}
-              text={formatDate(from)}
-            />
-            <IconTextLabel
-              icon={"clock-outline"}
-              text={getTimeFromDate(from)}
-            />
-          </View>
-          <FormikDatePicker
-            full
-            name={"to"}
-            icon="clock-outline"
-            placeholder="Select finish time"
-            hasBeenSubmitted={hasBeenSubmited}
-            mode="time"
+        <BackContainer>
+          <MenuBackBtn
+            style={{ marginBottom: 0 }}
+            onClose={() => {
+              onClose();
+            }}
           />
-          <GapContainer gap={15}>
-            <SubmitBtn
-              square
-              defaultText="Confirm"
-              submittingText="Confirming..."
-              setHasBeenSubmitted={setHasBeenSubmited}
-            />
-            {/* <PriBtn
-              style={{ backgroundColor: theme.red, borderColor: theme.red }}
-              title={"Cancel"}
-              onPress={onClose}
-            /> */}
-            {err && <ErrorMessage error={err} />}
-          </GapContainer>
-        </AppForm>
+        </BackContainer>
+        <GapContainer
+          gap={5}
+          style={{ width: "90%", marginHorizontal: "auto", hieght: "100%" }}
+        >
+          <IconTextLabel
+            icon={"calendar-blank-outline"}
+            text={formatDate(from)}
+          />
+          <IconTextLabel
+            icon={"clock-outline"}
+            text={getTimeFromDate(from) + " - " + getTimeFromDate(to)}
+          />
+        </GapContainer>
+
+        <GapContainer gap={15}>
+          <PriBtn
+            square
+            title={hasBeenSubmited ? "Confirming..." : "Confirm"}
+            onPress={handleSubmit}
+            disabled={hasBeenSubmited}
+          />
+        </GapContainer>
       </GapContainer>
     </Modal>
   );

@@ -24,7 +24,13 @@ function TimeSlot({ onPress, from, to, isBusy, selected }) {
           <View
             style={[
               styles.bar,
-              { backgroundColor: active ? theme.blue :!isBusy ? theme.green : theme.red },
+              {
+                backgroundColor: active
+                  ? theme.blue
+                  : !isBusy
+                    ? theme.green
+                    : theme.red,
+              },
             ]}
           />
           <SText>
@@ -34,7 +40,7 @@ function TimeSlot({ onPress, from, to, isBusy, selected }) {
 
         <StatusLabel
           style={{ alignSelf: "center" }}
-          status={active? "Selected" : isBusy}
+          status={active ? "Selected" : isBusy}
           lable={isBusy ? "Busy" : active ? "Selected" : "Free"}
         />
       </RowCont>
@@ -51,8 +57,6 @@ const getStyles = (theme) =>
       paddingHorizontal: 15,
       paddingVertical: 10,
       borderRadius: 12,
-
-      boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.18)",
     },
     container: {
       justifyContent: "space-between",
@@ -64,13 +68,13 @@ const getStyles = (theme) =>
     },
     disabled: {
       opacity: 0.5,
+      boxShadow: "none",
     },
     selected: {
       borderColor: theme.blue,
       borderWidth: 1,
       borderRadius: 12,
       // boxShadow: "0px 0px 5px rgba(0, 98, 255, 0.43)",
-
     },
   });
 

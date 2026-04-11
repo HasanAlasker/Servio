@@ -95,7 +95,6 @@ function MakeAppointment(props) {
       };
 
       const response = await bookAppointment(appointmentData);
-      console.log(response);
 
       if (response.ok) {
         await loadAppointments();
@@ -138,7 +137,7 @@ function MakeAppointment(props) {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            {({ values, setFieldValue, isSubmitting, errors }) => (
+            {({ values, setFieldValue, isSubmitting }) => (
               <GapContainer gap={15}>
                 <AppSummary params={params} />
 
@@ -170,6 +169,7 @@ function MakeAppointment(props) {
                   submitRef={submitRef}
                 />
 
+                {err && <ErrorMessage error={err} />}
               </GapContainer>
             )}
           </AppForm>

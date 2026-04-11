@@ -4,18 +4,16 @@ import SquareInfo from "../../components/cards/SquareInfo";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import CardLeftBorder from "../../components/cards/CardLeftBorder";
 import GapContainer from "../general/GapContainer";
+import SimpleTitleText from "../general/SimpleTitleText";
 
 function AppSummary({ params }) {
   return (
     <>
       <CardComp short>
         <GapContainer gap={15}>
-          <SquareInfo
-            color={"lightBlue"}
-            icon={"car"}
-            fliped
-            title={"Car"}
-            text={
+          <SimpleTitleText
+            title={capFirstLetter(params.shop.name)}
+            text1={
               capFirstLetter(params.car.make) +
               " " +
               capFirstLetter(params.car.name) +
@@ -23,15 +21,6 @@ function AppSummary({ params }) {
               params.car.model
             }
           />
-          <SquareInfo
-            color={"green"}
-            icon={"store"}
-            fliped
-            title={"Shop"}
-            text={capFirstLetter(params.shop.name)}
-          />
-        </GapContainer>
-        <GapContainer style={{ marginTop: 35 }}>
           <CardLeftBorder
             noPadding
             icon={"invoice-list-outline"}
