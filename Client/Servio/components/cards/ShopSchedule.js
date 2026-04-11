@@ -33,7 +33,7 @@ function ShopSchedule({ shopId, name }) {
     : null;
 
   return (
-    <GapContainer style={{ marginTop: 20 }}>
+    <GapContainer style={{ marginTop: 10 }}>
       <Pressable onPress={() => setShowSlots(!showSlots)}>
         <RowCont style={{ justifyContent: "space-between" }}>
           <SText>{name}</SText>

@@ -56,16 +56,18 @@ function MakeAppointment(props) {
   };
 
   const RenderSlots = slots
-    ? slots.slots?.map((slot) => !slot.isBusy ? (
-        <TimeSlot
-          key={slot?.from}
-          from={slot?.from}
-          to={slot?.to}
-          isBusy={slot?.isBusy}
-          onPress={handleSlotPress}
-          selected={from}
-        />
-      ): null)
+    ? slots.slots?.map((slot) =>
+        !slot.isBusy ? (
+          <TimeSlot
+            key={slot?.from}
+            from={slot?.from}
+            to={slot?.to}
+            isBusy={slot?.isBusy}
+            onPress={handleSlotPress}
+            selected={from}
+          />
+        ) : null,
+      )
     : null;
 
   const initialValues = {
@@ -156,7 +158,12 @@ function MakeAppointment(props) {
 
                 {loading && <LoadingSkeleton short />}
                 {values.date && !slots.isOpen && !loading && (
-                  <ErrorMessage error={"Shop is closed on this day!"} />
+                  <TimeSlot
+                    isBusy={true}
+                    from={"Shop is"}
+                    to={"Closed"}
+                    selected={false}
+                  />
                 )}
                 {values.date && slots.isOpen && !loading && RenderSlots}
 
