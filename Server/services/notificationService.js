@@ -7,7 +7,7 @@ export const sendDueServiceNotifications = async () => {
   const services = await UpcomingServiceModel.find({
     status: { $in: ["soon", "due", "overdue"] },
     reminder: true,
-    notificationSent: false, // skip already-notified services
+    // notificationSent: false, // skip already-notified services
   })
     .populate("car")
     .populate("customer")
