@@ -76,7 +76,7 @@ function AppointmentCard({
   }, [scheuledAt]);
 
   return (
-    <CardComp>
+    <CardComp onPress={()=>setShowBtns(!showBtns)}>
       <GapContainer gap={10}>
         <GapContainer gap={20}>
           <SimpleTitleText
@@ -101,7 +101,6 @@ function AppointmentCard({
             {!isShopOwner && route.name !== "History" && (
               <Feather
                 name={!showBtns ? "chevron-right" : "chevron-down"}
-                onPress={() => setShowBtns(!showBtns)}
                 color={theme.sec_text}
                 size={25}
                 style={{ alignSelf: "flex-end" }}

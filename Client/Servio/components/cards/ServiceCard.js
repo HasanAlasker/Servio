@@ -45,11 +45,11 @@ function ServiceCard({
   };
 
   return (
-    <CardComp style={styles.container}>
+    <CardComp style={styles.container} onPress={() => setShowBtns(!showBtns)}>
       <GapContainer gap={8}>
         <RowCont style={{ justifyContent: "space-between" }}>
           <SquareInfo
-            icon={'car'}
+            icon={"car"}
             text={car?.mileage.toLocaleString() + " " + car?.unit}
             title={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
           />
@@ -58,7 +58,6 @@ function ServiceCard({
             color={theme.sec_text}
             size={25}
             style={{ alignSelf: "center" }}
-            onPress={() => setShowBtns(!showBtns)}
           />
         </RowCont>
 
