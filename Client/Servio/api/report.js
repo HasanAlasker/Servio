@@ -4,6 +4,8 @@ const endpoint = "/reports";
 
 export const getOpenReports = () => apiClient.get(`${endpoint}/open`);
 
+export const getClosedReports = () => apiClient.get(`${endpoint}/closed`);
+
 export const makeReport = (id, data) =>
   apiClient.post(`${endpoint}/create/${id}`, data);
 

@@ -11,20 +11,45 @@ import AppointmentModel from "../models/appointment.js";
 const router = express.Router();
 
 // get all reports
-router.get("/open", [auth, admin], logIP("GET_REPORTS"), async (req, res) => {
-  try {
-    const reports = await ReportModel.find({ status: "open" }).sort(
-      "-createdAt",
-    );
-    return res.status(200).json({ success: true, data: reports });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-});
+router.get(
+  "/open",
+  [auth, admin],
+  logIP("GET_OPEN_REPORTS"),
+  async (req, res) => {
+    try {
+      const reports = await ReportModel.find({ status: "open" }).sort(
+        "-createdAt",
+      );
+      return res.status(200).json({ success: true, data: reports });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
+
+router.get(
+  "/closed",
+  [auth, admin],
+  logIP("GET_CLOSED_REPORTS"),
+  async (req, res) => {
+    try {
+      const reports = await ReportModel.find({ status: "closed" }).sort(
+        "-createdAt",
+      );
+      return res.status(200).json({ success: true, data: reports });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
 
 // make report
 router.post("/create/:id", auth, logIP("REPORT"), async (req, res) => {
