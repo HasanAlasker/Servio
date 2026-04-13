@@ -17,9 +17,31 @@ router.get(
   logIP("GET_OPEN_REPORTS"),
   async (req, res) => {
     try {
-      const reports = await ReportModel.find({ status: "open" }).sort(
-        "-createdAt",
-      );
+      const reports = await ReportModel.find({ status: "open" })
+        .sort("-createdAt")
+        .populate(
+          "reporter",
+          "-password -pushNotificationTokens -role -createdAt -updatedAt",
+        )
+        .populate({
+          path: "reportedShop",
+          select:
+            "-openHours -services -imagePublicId -isVerified -updatedAt -createdAt",
+          populate: {
+            path: "owner",
+            select:
+              "-password -pushNotificationTokens -role -createdAt -updatedAt",
+          },
+        })
+        .populate({
+          path: "appointment",
+          select:
+            "-customer -shop -serviceParts -isRejected -isDeleted -createdAt -updatedAt",
+          populate: "car",
+          select:
+            "-owner -image -imagePublicId -mileage -unit -isDeleted -updatedAt",
+        });
+
       return res.status(200).json({ success: true, data: reports });
     } catch (error) {
       console.error(error);
@@ -37,9 +59,30 @@ router.get(
   logIP("GET_CLOSED_REPORTS"),
   async (req, res) => {
     try {
-      const reports = await ReportModel.find({ status: "closed" }).sort(
-        "-createdAt",
-      );
+      const reports = await ReportModel.find({ status: "closed" })
+        .sort("-createdAt")
+        .populate(
+          "reporter",
+          "-password -pushNotificationTokens -role -createdAt -updatedAt",
+        )
+        .populate({
+          path: "reportedShop",
+          select:
+            "-openHours -services -imagePublicId -isVerified -updatedAt -createdAt",
+          populate: {
+            path: "owner",
+            select:
+              "-password -pushNotificationTokens -role -createdAt -updatedAt",
+          },
+        })
+        .populate({
+          path: "appointment",
+          select:
+            "-customer -shop -serviceParts -isRejected -isDeleted -createdAt -updatedAt",
+          populate: "car",
+          select:
+            "-owner -image -imagePublicId -mileage -unit -isDeleted -updatedAt",
+        });
       return res.status(200).json({ success: true, data: reports });
     } catch (error) {
       console.error(error);

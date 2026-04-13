@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
 import { getClosedReports, getOpenReports } from "../../api/report";
 import GapContainer from "../../components/general/GapContainer";
+import ReportCard from "../../components/cards/ReportCard";
 
 function Reports(props) {
   const [tab, setTab] = useState("1");
@@ -49,7 +50,7 @@ function Reports(props) {
           active={tab}
         />
         <GapContainer>
-          
+          <ReportCard />
         </GapContainer>
       </ScrollScreen>
       <Navbar />
