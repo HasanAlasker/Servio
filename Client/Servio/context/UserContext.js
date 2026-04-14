@@ -414,6 +414,7 @@ export const UserProvider = ({ children }) => {
         return {
           success: false,
           message: responseMessage,
+          setError: true,
           status: responseStatus,
         };
       }

@@ -19,11 +19,11 @@ import { isServerAwake } from "../../api/upcomingService";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
+    .trim()
     .email("Please enter a valid email address")
     .required("Email is required")
-    .lowercase()
-    .trim(),
-  password: Yup.string().required("Password is required").trim(),
+    .lowercase(),
+  password: Yup.string().trim().required("Password is required"),
 });
 
 const initialValues = {

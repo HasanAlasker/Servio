@@ -16,13 +16,13 @@ import useAppToast from "../../hooks/useAppToast";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
+    .trim()
     .min(2, "Name must be at least 2 characters long")
     .max(25, "Name must not exceed 25 characters")
     .matches(
       /^[a-zA-Z\s'-]+$/,
       "Name can only contain letters, spaces, hyphens, and apostrophes",
     )
-    .trim()
     .required("Name is required"),
 
   phone: Yup.string()

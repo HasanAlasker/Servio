@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import * as SplashScreen from "expo-splash-screen";
-import { Platform, StyleSheet } from "react-native";
+import { Platform, StyleSheet, Text } from "react-native";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -51,6 +51,7 @@ import History from "./screens/carOwner/History";
 import CompletedAppointments from "./screens/carOwner/CompletedAppointments";
 import Schedule from "./screens/shopOwner/Schedule";
 import { AlertContainer } from "react-native-alert-queue";
+import AppText from "./config/AppText";
 
 export const navigationRef = createNavigationContainerRef();
 SplashScreen.preventAutoHideAsync();
@@ -153,7 +154,7 @@ const AppNavigator = () => {
     user,
   } = UseUser();
   const { loadCars } = UseCar();
-  const { isDarkMode } = useTheme();
+  const { isDarkMode, theme } = useTheme();
   const { loadServices, loading } = UseService();
   const { loadAppointments } = UseAppointment();
   const { loadShops } = UseShop();
@@ -198,6 +199,9 @@ const AppNavigator = () => {
           <CarOwnerStack />
         )}
       </NavigationContainer>
+      <AlertContainer
+        // config={{ alertStyle: { backgroundColor: theme.post },  }}
+      />
     </>
   );
 };
@@ -214,7 +218,6 @@ export default function App() {
                   <UserProvider>
                     <NotificationProvider>
                       <AppNavigator />
-                      <AlertContainer />
                     </NotificationProvider>
                   </UserProvider>
                 </ShopProvider>

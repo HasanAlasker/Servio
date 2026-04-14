@@ -18,11 +18,12 @@ import ErrorMessage from "../../components/form/ErrorMessage";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
+    .trim()
     .email("Please enter a valid email address")
-    .required("Email is required")
-    .trim(),
+    .required("Email is required"),
 
   password: Yup.string()
+    .trim()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters long")
     .max(128, "Password must not exceed 128 characters")
@@ -53,21 +54,20 @@ const validationSchema = Yup.object().shape({
         ];
         return !weakPatterns.some((pattern) => pattern.test(value));
       },
-    )
-    .trim(),
+    ),
 
   confirmPassword: Yup.string()
     .required("Please confirm your password")
     .oneOf([Yup.ref("password")], "Passwords must match"),
 
   name: Yup.string()
+    .trim()
     .min(2, "Name must be at least 2 characters long")
     .max(25, "Name must not exceed 25 characters")
     .matches(
       /^[a-zA-Z\s'-]+$/,
       "Name can only contain letters, spaces, hyphens, and apostrophes",
     )
-    .trim()
     .required("Name is required"),
 
   phone: Yup.string()
