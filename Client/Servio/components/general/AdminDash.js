@@ -6,10 +6,52 @@ import useApi from "../../hooks/useApi";
 import { adminCountDocs } from "../../api/user";
 import { useEffect } from "react";
 import SText from "../text/SText";
+import { PieChart } from "react-native-gifted-charts";
+import { useTheme } from "../../context/ThemeContext";
+import RowCont from "./RowCont";
+import DonutCenter from "../charts/DonutCenter";
+import Legend from "../charts/Legend";
+import LegendCont from "../charts/LegendCont";
 
 function AdminDash(props) {
   const { user } = UseUser();
+  const { theme } = useTheme();
   const { data, request, loading, error } = useApi(adminCountDocs);
+
+  // Safe fallback so the chart never gets 0/0 (gifted-charts renders blank on all-zero)
+  const carOwners = data?.carOwners || 0;
+  const shopOwners = data?.shopOwners || 0;
+  const activeUsers = data?.activeUsers || 0;
+  const deletedUsers = data?.deletedUsers || 0;
+  const adminUsers = data?.adminUsers || 0;
+  const total = activeUsers;
+
+  const usersData =
+    total > 0
+      ? [
+          {
+            value: carOwners,
+            color: theme.blue,
+            label: "Car Owners",
+          },
+          {
+            value: shopOwners,
+            color: theme.green,
+            label: "Shop Owners",
+          },
+
+          {
+            value: adminUsers,
+            color: theme.gold,
+            label: "Admins",
+          },
+          {
+            value: deletedUsers,
+            color: theme.purple,
+            label: "Deleted Users",
+          },
+        ]
+      : [{ value: 1, color: theme.border ?? "#E0E0E0" }];
 
   useEffect(() => {
     request();
@@ -19,6 +61,34 @@ function AdminDash(props) {
       <SText thin color={"sec_text"}>
         Metrics
       </SText>
+
+      <RowCont style={{ justifyContent: "space-between" }}>
+        <PieChart
+          data={usersData}
+          donut
+          innerCircleColor={theme.background}
+          radius={90}
+          innerRadius={58}
+          centerLabelComponent={() => (
+            <DonutCenter total={loading ? "..." : total} />
+          )}
+          strokeWidth={2}
+          strokeColor={theme.background}
+          animationDuration={600}
+        />
+        <LegendCont>
+          {usersData[0].label &&
+            usersData.map((d) => (
+              <Legend
+                key={d.label}
+                color={d.color}
+                label={d.label}
+                value={d.value}
+              />
+            ))}
+        </LegendCont>
+      </RowCont>
+
       <CardLeftBorder
         title={"Shop Requests:"}
         titleIcon={"store-clock-outline"}
@@ -35,30 +105,6 @@ function AdminDash(props) {
         title={"Suggestions:"}
         titleIcon={"lightbulb-outline"}
         data={loading ? "0" : data.suggestions}
-        style={styles.container}
-      />
-      <CardLeftBorder
-        title={"Active Users:"}
-        titleIcon={"account-check-outline"}
-        data={loading ? "0" : data.activeUsers}
-        style={styles.container}
-      />
-      <CardLeftBorder
-        title={"Car Owners:"}
-        titleIcon={"car-outline"}
-        data={loading ? "0" : data.carOwners}
-        style={styles.container}
-      />
-      <CardLeftBorder
-        title={"Shop Owners:"}
-        titleIcon={"store-outline"}
-        data={loading ? "0" : data.shopOwners}
-        style={styles.container}
-      />
-      <CardLeftBorder
-        title={"Deleted Users:"}
-        titleIcon={"account-remove-outline"}
-        data={loading ? "0" : data.deletedUsers}
         style={styles.container}
       />
       <CardLeftBorder
