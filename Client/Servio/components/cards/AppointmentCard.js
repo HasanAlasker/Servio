@@ -68,7 +68,12 @@ function AppointmentCard({
 
   const handleDelete = async () => {
     const confirmed = await alert.confirm();
-    if(confirmed) onDelete(id)
+    if (confirmed) onDelete(id);
+  };
+
+  const handleCancel = async () => {
+    const confirmed = await alert.confirm();
+    if (confirmed) onCancel(id, type);
   };
 
   const closeModal = () => setModal(false);
@@ -157,7 +162,7 @@ function AppointmentCard({
                   full
                   red
                   title={"Cancel"}
-                  onPress={() => onCancel(id, type)}
+                  onPress={handleCancel}
                 />
               </GapContainer>
             )}

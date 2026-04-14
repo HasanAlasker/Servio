@@ -19,6 +19,7 @@ import { UseService } from "../../context/ServiceContext";
 import useAppToast from "../../hooks/useAppToast";
 import MenuBackBtn from "../../components/general/MenuBackBtn";
 import BackContainer from "../../components/general/BackContainer";
+import { alert } from "react-native-alert-queue";
 
 const validationSchema = Yup.object({
   name: Yup.string().trim().lowercase().required("Part name is required"),
@@ -150,14 +151,17 @@ function AddPart(props) {
 
   const handleDelete = async (values) => {
     try {
-      const response = await unTrackPart(params?.passPart.partId);
-      if (response.ok) {
-        await loadServices();
-        navigate.navigate("CarParts", params?.parentParams);
-        toast.success("Part Deleted!");
-      }
-      if (!response.ok) {
-        setErrMsg(response.data.errors.map((e) => e.message).join(", "));
+      const confirmed = await alert.confirm();
+      if (confirmed) {
+        const response = await unTrackPart(params?.passPart.partId);
+        if (response.ok) {
+          await loadServices();
+          navigate.navigate("CarParts", params?.parentParams);
+          toast.success("Part Deleted!");
+        }
+        if (!response.ok) {
+          setErrMsg(response.data.errors.map((e) => e.message).join(", "));
+        }
       }
     } catch (error) {}
   };

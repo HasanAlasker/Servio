@@ -13,6 +13,7 @@ import GhostBtn from "../general/GhostBtn";
 import VerticalLine from "../general/VerticalLine";
 import { Feather } from "@expo/vector-icons";
 import SeparatorComp from "../general/SeparatorComp";
+import { alert } from "react-native-alert-queue";
 
 function CarOptionsCard({ params }) {
   const { removeCar, cars } = UseCar();
@@ -28,10 +29,13 @@ function CarOptionsCard({ params }) {
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
-      const response = await deleteCar(params?.id);
-      if (response.ok) {
-        navigate.navigate("MyCars");
-        removeCar(response.data.data);
+      const confirmed = await alert.confirm();
+      if (confirmed) {
+        const response = await deleteCar(params?.id);
+        if (response.ok) {
+          navigate.navigate("MyCars");
+          removeCar(response.data.data);
+        }
       }
     } catch (error) {
       console.log(error);
