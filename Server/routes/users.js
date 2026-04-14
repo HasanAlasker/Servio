@@ -127,6 +127,10 @@ router.get(
         role: "shopOwner",
         isDeleted: false,
       });
+      const adminUsers = await UserModel.countDocuments({
+        role: "admin",
+        isDeleted: false,
+      });
       const activeShops = await ShopModel.countDocuments({
         isVerified: true,
         isDeleted: false,
@@ -150,6 +154,7 @@ router.get(
         activeShops: activeShops,
         shopRequests: shopRequests,
         shopOwners: shopOwners,
+        adminUsers: adminUsers,
         carOwners: carOwners,
         suggestions: suggestions,
         reports: reports,
