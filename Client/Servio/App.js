@@ -50,6 +50,7 @@ import Settings from "./screens/shared/Settings";
 import History from "./screens/carOwner/History";
 import CompletedAppointments from "./screens/carOwner/CompletedAppointments";
 import Schedule from "./screens/shopOwner/Schedule";
+import { AlertContainer } from "react-native-alert-queue";
 
 export const navigationRef = createNavigationContainerRef();
 SplashScreen.preventAutoHideAsync();
@@ -213,6 +214,7 @@ export default function App() {
                   <UserProvider>
                     <NotificationProvider>
                       <AppNavigator />
+                      <AlertContainer />
                     </NotificationProvider>
                   </UserProvider>
                 </ShopProvider>

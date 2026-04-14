@@ -23,6 +23,7 @@ import { Feather } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 import CardLeftBorder from "./CardLeftBorder";
 import { addThirtyMinutes } from "../../functions/addOneHour";
+import { alert } from "react-native-alert-queue";
 
 function AppointmentCard({
   id,
@@ -65,6 +66,11 @@ function AppointmentCard({
     setModal(true);
   };
 
+  const handleDelete = async () => {
+    const confirmed = await alert.confirm();
+    if(confirmed) onDelete(id)
+  };
+
   const closeModal = () => setModal(false);
 
   const isDue = useMemo(() => {
@@ -76,7 +82,7 @@ function AppointmentCard({
   }, [scheuledAt]);
 
   return (
-    <CardComp onPress={()=>setShowBtns(!showBtns)}>
+    <CardComp onPress={() => setShowBtns(!showBtns)}>
       <GapContainer gap={10}>
         <GapContainer gap={20}>
           <SimpleTitleText
@@ -164,7 +170,8 @@ function AppointmentCard({
                 red
                 full
                 title={"Delete"}
-                onPress={() => onDelete(id)}
+                // onPress={() => onDelete(id)}
+                onPress={handleDelete}
               />
             )}
             {isShopOwner && status === "pending" && (
