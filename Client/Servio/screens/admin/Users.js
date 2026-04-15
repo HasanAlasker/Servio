@@ -15,6 +15,7 @@ import UserCard from "../../components/cards/UserCard";
 import GapContainer from "../../components/general/GapContainer";
 import SText from "../../components/text/SText";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
+import { alert } from "react-native-alert-queue";
 
 function Users(props) {
   const [tab, setTab] = useState("1");
@@ -62,12 +63,15 @@ function Users(props) {
         });
         await undeleteUser(id);
       } else {
-        setActive((prev) => prev.filter((user) => user._id !== id));
-        setDeleted((prev) => {
-          const user = active.find((user) => user._id === id);
-          return user ? [{ ...user, isDeleted: true }, ...prev] : prev;
-        });
-        await deleteUser(id);
+        const confirmed = await alert.confirm();
+        if (confirmed) {
+          setActive((prev) => prev.filter((user) => user._id !== id));
+          setDeleted((prev) => {
+            const user = active.find((user) => user._id === id);
+            return user ? [{ ...user, isDeleted: true }, ...prev] : prev;
+          });
+          await deleteUser(id);
+        }
       }
     } catch (error) {
       console.log(error);

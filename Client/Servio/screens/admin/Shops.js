@@ -15,6 +15,7 @@ import ShopCard from "../../components/cards/ShopCard";
 import GapContainer from "../../components/general/GapContainer";
 import SText from "../../components/text/SText";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
+import { alert } from "react-native-alert-queue";
 
 function Shops(props) {
   const [tab, setTab] = useState("1");
@@ -39,15 +40,14 @@ function Shops(props) {
   let loading = loadingUv || loadingV;
 
   const refresh = async () => {
-    setRefreshing(true)
+    setRefreshing(true);
     try {
       fetchVshops();
       fetchUvshops();
     } catch (error) {
-      console.log(error)
-    }
-    finally{
-      setRefreshing(false)
+      console.log(error);
+    } finally {
+      setRefreshing(false);
     }
   };
 
@@ -69,9 +69,11 @@ function Shops(props) {
   const handleAction = async (type, id) => {
     console.log(type, id);
     if (type === "delete") {
-      setVerified((p) => p.filter((shop) => shop._id !== id));
-      const res = await deleteShop(id);
-      console.log(res);
+      const confirmed = await alert.confirm();
+      if (confirmed) {
+        setVerified((p) => p.filter((shop) => shop._id !== id));
+        const res = await deleteShop(id);
+      }
     } else if (type === "verify") {
       setUnverified((p) => p.filter((shop) => shop._id !== id));
       let shop = unverified.find((shop) => shop._id === id);
@@ -89,9 +91,11 @@ function Shops(props) {
   };
 
   const handleDelete = async (id) => {
-    setVerified((p) => p.filter((shop) => shop._id !== id));
-    const res = await deleteShop(id);
-    console.log(res);
+    const confirmed = await alert.confirm();
+    if (confirmed) {
+      setVerified((p) => p.filter((shop) => shop._id !== id));
+      const res = await deleteShop(id);
+    }
   };
 
   const RenderShops =

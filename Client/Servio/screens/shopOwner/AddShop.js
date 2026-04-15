@@ -22,6 +22,7 @@ import { getLatLngFromGoogleMapsLink } from "../../functions/getCoordsFromLink";
 import BackContainer from "../../components/general/BackContainer";
 import MenuBackBtn from "../../components/general/MenuBackBtn";
 import useAppToast from "../../hooks/useAppToast";
+import { alert } from "react-native-alert-queue";
 
 const validationSchema = Yup.object({
   image: Yup.string().required("Shop image is required"),
@@ -97,7 +98,7 @@ function AddShop(props) {
   const [isEdit, setEdit] = useState(false);
   const [err, setErr] = useState(false);
   const [errMsg, setErrMsg] = useState(null);
-  const toast = useAppToast()
+  const toast = useAppToast();
 
   const navigate = useNavigation();
   const route = useRoute();
@@ -125,7 +126,7 @@ function AddShop(props) {
         await loadShops();
         if (isUser) navigate.navigate("Home");
         if (isShopOwner) navigate.navigate("MyShop");
-        toast.success("Sent!")
+        toast.success("Sent!");
       }
       if (!response.ok) {
         setErr(true);
@@ -134,7 +135,7 @@ function AddShop(props) {
         } else {
           setErrMsg("An error occurred. Please try again.");
         }
-        toast.error("Error!")
+        toast.error("Error!");
       }
     } catch (error) {}
   };
@@ -176,15 +177,18 @@ function AddShop(props) {
     setErrMsg(null);
 
     try {
-      const response = await deleteShop(params._id);
-      if (response.ok) {
-        await loadShops();
-        if (isUser) navigate.navigate("Home");
-        if (isShopOwner) navigate.navigate("ShopDash");
-      }
-      if (!response.ok) {
-        setErr(true);
-        setErrMsg(response.data.message);
+      const confirmed = await alert.confirm();
+      if (confirmed) {
+        const response = await deleteShop(params._id);
+        if (response.ok) {
+          await loadShops();
+          if (isUser) navigate.navigate("Home");
+          if (isShopOwner) navigate.navigate("ShopDash");
+        }
+        if (!response.ok) {
+          setErr(true);
+          setErrMsg(response.data.message);
+        }
       }
     } catch (error) {
       console.log(error);
