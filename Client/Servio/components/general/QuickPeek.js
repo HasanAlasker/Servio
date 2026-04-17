@@ -53,16 +53,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flexGrow: 1,
-    
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
 
-    elevation: 1,
+    boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.14)",
   },
 });
 

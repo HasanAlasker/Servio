@@ -12,6 +12,12 @@ import RowCont from "./RowCont";
 import DonutCenter from "../charts/DonutCenter";
 import Legend from "../charts/Legend";
 import LegendCont from "../charts/LegendCont";
+import Animated, {
+  LinearTransition,
+  SlideInDown,
+  SlideInLeft,
+  SlideInUp,
+} from "react-native-reanimated";
 
 function AdminDash(props) {
   const { user } = UseUser();
@@ -62,32 +68,36 @@ function AdminDash(props) {
         Metrics
       </SText>
 
-      <RowCont style={{ justifyContent: "space-between" }}>
-        <PieChart
-          data={usersData}
-          donut
-          innerCircleColor={theme.background}
-          radius={90}
-          innerRadius={58}
-          centerLabelComponent={() => (
-            <DonutCenter total={loading ? "..." : total} />
-          )}
-          strokeWidth={2}
-          strokeColor={theme.background}
-          animationDuration={600}
-        />
-        <LegendCont>
-          {usersData[0].label &&
-            usersData.map((d) => (
-              <Legend
-                key={d.label}
-                color={d.color}
-                label={d.label}
-                value={d.value}
-              />
-            ))}
-        </LegendCont>
-      </RowCont>
+      {!loading && (
+        <Animated.View layout={LinearTransition} entering={SlideInLeft}>
+          <RowCont style={{ justifyContent: "space-between" }}>
+            <PieChart
+              data={usersData}
+              donut
+              innerCircleColor={theme.background}
+              radius={90}
+              innerRadius={58}
+              centerLabelComponent={() => (
+                <DonutCenter total={loading ? "..." : total} />
+              )}
+              strokeWidth={2}
+              strokeColor={theme.background}
+              animationDuration={600}
+            />
+            <LegendCont>
+              {usersData[0].label &&
+                usersData.map((d) => (
+                  <Legend
+                    key={d.label}
+                    color={d.color}
+                    label={d.label}
+                    value={d.value}
+                  />
+                ))}
+            </LegendCont>
+          </RowCont>
+        </Animated.View>
+      )}
 
       <CardLeftBorder
         title={"Shop Requests:"}
@@ -131,15 +141,7 @@ function AdminDash(props) {
 
 const styles = StyleSheet.create({
   container: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-
-    elevation: 1,
+    boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.14)",
   },
 });
 

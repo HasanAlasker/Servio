@@ -100,7 +100,7 @@ function Suggestions(props) {
             <SubmitBtn
               square
               setHasBeenSubmitted={setHasBeenSubmited}
-              defaultText="Submit Suggestion"
+              defaultText="Submit"
               submittingText="Submitting..."
             />
           </GapContainer>

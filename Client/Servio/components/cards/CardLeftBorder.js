@@ -26,7 +26,7 @@ function CardLeftBorder({
   style,
   noPadding,
   transparent,
-  shadow
+  shadow,
 }) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getstyles);
@@ -175,15 +175,7 @@ const getstyles = (theme) =>
       alignSelf: "flex-end",
     },
     shadow: {
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 1,
-      },
-      shadowOpacity: 0.18,
-      shadowRadius: 1.0,
-
-      elevation: 2,
+      boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.14)",
     },
   });
 

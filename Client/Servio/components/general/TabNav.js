@@ -93,9 +93,8 @@ const getStyles = (theme) =>
       borderColor:theme.faded,
       borderWidth:1.5,
       borderRadius: 22,
-      shadowOpacity: 0.1,
-      shadowRadius: 4,
-      elevation: 2,
+      boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.14)",
+
     },
     text: {
       textAlign: "center",

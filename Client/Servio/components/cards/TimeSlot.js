@@ -62,6 +62,8 @@ const getStyles = (theme) =>
       paddingHorizontal: 15,
       paddingVertical: 10,
       borderRadius: 12,
+      boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.14)",
+
     },
     container: {
       justifyContent: "space-between",

@@ -1,4 +1,9 @@
-import { View, StyleSheet, TouchableWithoutFeedback, Modal } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Modal,
+} from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 
@@ -28,15 +33,7 @@ const getStyles = (theme) =>
       paddingHorizontal: 20,
       paddingVertical: 25,
 
-      shadowColor: "black",
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-      shadowOpacity: 0.27,
-      shadowRadius: 4.65,
-
-      elevation: 6,
+      boxShadow: "0px 2px 3px rgba(0, 0, 0, 0.14)",
     },
     overlay: {
       position: "absolute",
