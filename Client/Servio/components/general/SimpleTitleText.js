@@ -5,6 +5,14 @@ import TText from "../text/TText";
 import RowCont from "./RowCont";
 import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
+import { useEffect } from "react";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  withDelay,
+  Easing,
+} from "react-native-reanimated";
 
 function SimpleTitleText({
   showStatus,
@@ -16,7 +24,7 @@ function SimpleTitleText({
   recomendedMonths,
   recomendedMileage,
   carMileage,
-  flex = true
+  flex = true,
 }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
@@ -66,6 +74,22 @@ function SimpleTitleText({
     else return "darkPink";
   };
 
+  const barWidth = useSharedValue(0);
+
+  useEffect(() => {
+    barWidth.value = withDelay(
+      200, // slight delay so it plays after screen mount
+      withTiming(progressWidth(), {
+        duration: 900,
+        easing: Easing.out(Easing.cubic),
+      }),
+    );
+  }, [nextChangeDate, nextChangeMileage, carMileage]); // re-animates if values change
+
+  const animatedBarStyle = useAnimatedStyle(() => ({
+    width: `${barWidth.value}%`,
+  }));
+
   return (
     <GapContainer gap={5} flex={flex} style={styles.container}>
       <RowCont gap={10}>
@@ -78,17 +102,22 @@ function SimpleTitleText({
           </TText>
         )}
       </RowCont>
-      <RowCont gap={10} style={{flex:1}}>
+      <RowCont gap={10} style={{ flex: 1 }}>
         <SText>{text1}</SText>
         {text2 && <SText color={"sec_text"}>{"\u2022"}</SText>}
-        {text2 && <SText numberOfLines={1} style={{flex:1}}>{text2}</SText>}
+        {text2 && (
+          <SText numberOfLines={1} style={{ flex: 1 }}>
+            {text2}
+          </SText>
+        )}
       </RowCont>
       {showStatus && (
         <View style={styles.bar}>
-          <View
+          <Animated.View
             style={[
               styles.progress,
-              { width: `${progressWidth()}%`, backgroundColor: theme[color()] }, // add %
+              { backgroundColor: theme[color()] },
+              animatedBarStyle,
             ]}
           />
         </View>
