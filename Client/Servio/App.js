@@ -61,7 +61,7 @@ const AdminStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="Dash"
-      screenOptions={{ headerShown: false, animation: "fade" }}
+      screenOptions={{ headerShown: false, animation: "none" }}
     >
       <Stack.Screen name="Dash" component={Dash} />
       <Stack.Screen name="Profile" component={Profile} />
@@ -79,7 +79,7 @@ const CarOwnerStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="Home"
-      screenOptions={{ headerShown: false, animation: "fade" }}
+      screenOptions={{ headerShown: false, animation: "none" }}
     >
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Shops" component={Shops} />
@@ -108,7 +108,7 @@ const ShopOwnerStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="ShopDash"
-      screenOptions={{ headerShown: false, animation: "fade" }}
+      screenOptions={{ headerShown: false, animation: "none" }}
     >
       <Stack.Screen name="ShopDash" component={ShopDash} />
       <Stack.Screen name="MyShop" component={MyShop} />

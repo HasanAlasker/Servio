@@ -3,6 +3,7 @@ import TText from "../text/TText";
 import { capFirstLetter } from "../../functions/CapFirstLetterOfWord";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
+import Animated, { BounceInUp, LinearTransition } from "react-native-reanimated";
 
 function StatusLabel({ status, style, lable }) {
   const styles = useThemedStyles(getStyles);
@@ -40,7 +41,8 @@ function StatusLabel({ status, style, lable }) {
   let backColor = theme[color] + 15;
 
   return (
-    <View
+    <Animated.View
+    layout={LinearTransition}
       style={[
         styles.container,
         { backgroundColor: theme[color], borderColor: theme[color] },
@@ -50,7 +52,7 @@ function StatusLabel({ status, style, lable }) {
       <TText style={{ color: theme.always_white }}>
         {capFirstLetter(lable ?? status ?? "...")}
       </TText>
-    </View>
+    </Animated.View>
   );
 }
 
