@@ -1,15 +1,27 @@
 import { StyleSheet, Pressable } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
+import Animated, {
+  FadeIn,
+  LinearTransition,
+  SlideInLeft,
+  SlideInRight,
+  SlideOutLeft,
+} from "react-native-reanimated";
 
-function CardComp({ children, style, onPress, short }) {
+function CardComp({ children, style, onPress, short, animate = true, slideIn }) {
   const styles = useThemedStyles(getStyles);
   return (
-    <Pressable
-      style={[styles.container, style, { width: short ? "90%" : "100%" }]}
-      onPress={onPress}
+    <Animated.View
+      layout={animate && LinearTransition}
+      entering={slideIn && SlideInLeft}
     >
-      {children}
-    </Pressable>
+      <Pressable
+        style={[styles.container, style, { width: short ? "90%" : "100%" }]}
+        onPress={onPress}
+      >
+        {children}
+      </Pressable>
+    </Animated.View>
   );
 }
 

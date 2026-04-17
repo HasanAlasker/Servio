@@ -3,6 +3,18 @@ import AppText from "../../config/AppText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 import { Feather } from "@expo/vector-icons";
+import Animated, {
+  FadeInDown,
+  FadeInUp,
+  FadeOut,
+  FadeOutDown,
+  LinearTransition,
+  PinwheelOut,
+  RotateInDownLeft,
+  SlideInDown,
+  SlideInUp,
+} from "react-native-reanimated";
+import { DrawerActions } from "@react-navigation/native";
 
 function GhostBtn({
   title,
@@ -22,25 +34,31 @@ function GhostBtn({
 
   let color = red ? theme.red : black ? theme.main_text : theme.blue;
   return (
-    <Pressable
-      onPress={onPress}
-      disabled={disabled}
-      style={[
-        styles.container,
-        disabled && styles.disabled,
-        style,
-        {
-          width: full ? "100%" : half ? "50%" : auto ? "auto " : "90%",
-        },
-      ]}
+    <Animated.View
+      layout={LinearTransition}
+      entering={FadeInUp}
+      style={{ marginHorizontal: "auto" }}
     >
-      {title && (
-        <AppText style={[styles.text, { color }, styleText]}>
-          {title || "Press"}
-        </AppText>
-      )}
-      {!title && <Feather name={icon} size={20} color={color} />}
-    </Pressable>
+      <Pressable
+        onPress={onPress}
+        disabled={disabled}
+        style={[
+          styles.container,
+          disabled && styles.disabled,
+          style,
+          {
+            width: full ? "100%" : half ? "50%" : auto ? "auto " : "90%",
+          },
+        ]}
+      >
+        {title && (
+          <AppText style={[styles.text, { color }, styleText]}>
+            {title || "Press"}
+          </AppText>
+        )}
+        {!title && <Feather name={icon} size={20} color={color} />}
+      </Pressable>
+    </Animated.View>
   );
 }
 

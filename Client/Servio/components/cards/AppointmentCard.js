@@ -87,7 +87,7 @@ function AppointmentCard({
   }, [scheuledAt]);
 
   return (
-    <CardComp onPress={() => setShowBtns(!showBtns)}>
+    <CardComp onPress={() => setShowBtns(!showBtns)} slideIn>
       <GapContainer gap={10}>
         <GapContainer gap={20}>
           <SimpleTitleText
