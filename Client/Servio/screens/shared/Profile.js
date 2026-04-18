@@ -26,7 +26,6 @@ const validationSchema = Yup.object().shape({
     .required("Name is required"),
 
   phone: Yup.string()
-    .required("Phone is required")
     .test(
       "phone-validation",
       "Please enter a valid phone number",
@@ -37,7 +36,8 @@ const validationSchema = Yup.object().shape({
         const isValidLength = value.length >= 10 && value.length <= 15;
         return isValidFormat && isValidLength;
       },
-    ),
+    )
+    .required("Phone is required"),
 });
 
 function Profile(props) {
@@ -93,11 +93,13 @@ function Profile(props) {
               <GapContainer gap={15}>
                 <SeparatorComp children={"Edit your info"} />
                 <FormikInput
+                  icon={"account-outline"}
                   name={"name"}
                   placeholder={"Name"}
                   hasBeenSubmitted={hasBeenSubmitted}
                 />
                 <FormikInput
+                  icon={"phone-outline"}
                   name={"phone"}
                   placeholder={"Phone"}
                   hasBeenSubmitted={hasBeenSubmitted}
@@ -108,6 +110,7 @@ function Profile(props) {
                   defaultText="Save"
                   submittingText="Saving..."
                   disabled={!isEdit}
+                  setHasBeenSubmitted={setHasBeenSubmited}
                 />
 
                 {err && <ErrorMessage error={err} />}
