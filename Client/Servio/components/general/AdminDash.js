@@ -31,10 +31,15 @@ function AdminDash(props) {
   const activeUsers = data?.activeUsers || 0;
   const deletedUsers = data?.deletedUsers || 0;
   const adminUsers = data?.adminUsers || 0;
-  const total = activeUsers;
+  const totalUsers = activeUsers;
+
+  const activeShops = data?.activeShops || 0;
+  const deletedShops = data?.deletedShops || 0;
+  const shopRequests = data?.shopRequests || 0;
+  const totalShops = activeShops + deletedShops + shopRequests;
 
   const usersData =
-    total > 0
+    totalUsers > 0
       ? [
           {
             value: carOwners,
@@ -60,6 +65,27 @@ function AdminDash(props) {
         ]
       : [{ value: 1, color: theme.loading }];
 
+  const shopsData =
+    totalShops > 0
+      ? [
+          {
+            value: activeShops,
+            color: theme.green,
+            label: "Active Shops",
+          },
+          {
+            value: shopRequests,
+            color: theme.gold,
+            label: "Shop Requests",
+          },
+          {
+            value: deletedShops,
+            color: theme.purple,
+            label: "DeletedShops",
+          },
+        ]
+      : [{ value: 1, color: theme.loading }];
+
   useEffect(() => {
     request();
   }, [user, error]);
@@ -69,14 +95,13 @@ function AdminDash(props) {
         Metrics
       </SText>
 
-      {!loading && <PieChartComp data={usersData} loading={loading} total={total} />}
+      {!loading && (
+        <PieChartComp data={usersData} loading={loading} total={totalUsers} />
+      )}
+      {!loading && (
+        <PieChartComp data={shopsData} loading={loading} total={totalShops} />
+      )}
 
-      <CardLeftBorder
-        title={"Shop Requests:"}
-        titleIcon={"store-clock-outline"}
-        data={loading ? "0" : data.shopRequests}
-        style={styles.container}
-      />
       <CardLeftBorder
         title={"Reports:"}
         titleIcon={"flag-outline"}
@@ -87,18 +112,6 @@ function AdminDash(props) {
         title={"Suggestions:"}
         titleIcon={"lightbulb-outline"}
         data={loading ? "0" : data.suggestions}
-        style={styles.container}
-      />
-      <CardLeftBorder
-        title={"Active Shops:"}
-        titleIcon={"storefront-outline"}
-        data={loading ? "0" : data.activeShops}
-        style={styles.container}
-      />
-      <CardLeftBorder
-        title={"Deleted Shops:"}
-        titleIcon={"store-remove-outline"}
-        data={loading ? "0" : data.deletedShops}
         style={styles.container}
       />
       <CardLeftBorder
