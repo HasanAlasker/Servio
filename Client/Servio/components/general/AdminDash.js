@@ -6,7 +6,6 @@ import useApi from "../../hooks/useApi";
 import { adminCountDocs } from "../../api/user";
 import { useEffect } from "react";
 import SText from "../text/SText";
-import { PieChart } from "react-native-gifted-charts";
 import { useTheme } from "../../context/ThemeContext";
 import RowCont from "./RowCont";
 import DonutCenter from "../charts/DonutCenter";
@@ -19,6 +18,7 @@ import Animated, {
   SlideInUp,
 } from "react-native-reanimated";
 import CardComp from "../cards/CardComp";
+import PieChartComp from "../charts/PieChartComp";
 
 function AdminDash(props) {
   const { user } = UseUser();
@@ -58,7 +58,7 @@ function AdminDash(props) {
             label: "Deleted Users",
           },
         ]
-      : [{ value: 1, color: theme.border ?? "#E0E0E0" }];
+      : [{ value: 1, color: theme.loading }];
 
   useEffect(() => {
     request();
@@ -69,38 +69,7 @@ function AdminDash(props) {
         Metrics
       </SText>
 
-      {!loading && (
-        <Animated.View layout={LinearTransition} entering={SlideInLeft}>
-          <CardComp>
-            <RowCont gap={20} style={{ justifyContent: "space-between" }}>
-              <PieChart
-                data={usersData}
-                donut
-                innerCircleColor={theme.post}
-                radius={70}
-                innerRadius={48}
-                centerLabelComponent={() => (
-                  <DonutCenter total={loading ? "..." : total} />
-                )}
-                strokeWidth={2}
-                strokeColor={theme.background}
-                animationDuration={600}
-              />
-              <LegendCont>
-                {usersData[0].label &&
-                  usersData.map((d) => (
-                    <Legend
-                      key={d.label}
-                      color={d.color}
-                      label={d.label}
-                      value={d.value}
-                    />
-                  ))}
-              </LegendCont>
-            </RowCont>
-          </CardComp>
-        </Animated.View>
-      )}
+      {!loading && <PieChartComp data={usersData} loading={loading} total={total} />}
 
       <CardLeftBorder
         title={"Shop Requests:"}
