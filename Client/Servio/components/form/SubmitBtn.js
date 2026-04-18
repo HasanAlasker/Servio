@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { useFormikContext } from "formik";
 import PriBtn from "../general/PriBtn";
+import Animated, { LinearTransition, SlideInDown } from "react-native-reanimated";
 
 function SubmitBtn({
   submittingText = "Submitting...",
@@ -21,14 +22,16 @@ function SubmitBtn({
   if (submitRef) submitRef.current = handlePress;
 
   return (
-    <PriBtn
-      title={isSubmitting ? submittingText : defaultText}
-      onPress={handlePress}
-      disabled={disabled || isSubmitting}
-      loading={isSubmitting}
-      style={style}
-      {...otherProps}
-    />
+    <Animated.View layout={LinearTransition} entering={SlideInDown}>
+      <PriBtn
+        title={isSubmitting ? submittingText : defaultText}
+        onPress={handlePress}
+        disabled={disabled || isSubmitting}
+        loading={isSubmitting}
+        style={style}
+        {...otherProps}
+      />
+    </Animated.View>
   );
 }
 

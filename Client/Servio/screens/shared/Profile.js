@@ -13,6 +13,10 @@ import SubmitBtn from "../../components/form/SubmitBtn";
 import UserCard from "../../components/cards/UserCard";
 import ErrorMessage from "../../components/form/ErrorMessage";
 import useAppToast from "../../hooks/useAppToast";
+import Animated, {
+  LinearTransition,
+  SlideInDown,
+} from "react-native-reanimated";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -91,7 +95,10 @@ function Profile(props) {
               onSubmit={handleSubmit}
             >
               <GapContainer gap={15}>
-                <SeparatorComp children={"Edit your info"} />
+                <Animated.View layout={LinearTransition} entering={SlideInDown}>
+                  <SeparatorComp children={"Edit your info"} />
+                </Animated.View>
+
                 <FormikInput
                   icon={"account-outline"}
                   name={"name"}

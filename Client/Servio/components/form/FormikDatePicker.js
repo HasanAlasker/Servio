@@ -8,6 +8,10 @@ import useThemedStyles from "../../hooks/useThemedStyles";
 import ErrorMessage from "./ErrorMessage";
 import InputCont from "../general/InputCont";
 import TText from "../text/TText";
+import Animated, {
+  LinearTransition,
+  SlideInDown,
+} from "react-native-reanimated";
 
 function FormikDatePicker({
   name,
@@ -111,42 +115,44 @@ function FormikDatePicker({
   };
 
   return (
-    <InputCont>
-      {!dontShowLable && (
-        <TText thin color={"darker_gray"}>
-          {lable}
-        </TText>
-      )}
-      <Pressable
-        style={[styles.container, { width: full ? "100%" : "90%" }]}
-        onPress={handlePress}
-        activeOpacity={0.7}
-      >
-        {icon && (
-          <MaterialCommunityIcons
-            name={icon}
-            size={24}
-            color={theme.main_text}
+    <Animated.View layout={LinearTransition} entering={SlideInDown}>
+      <InputCont>
+        {!dontShowLable && (
+          <TText thin color={"darker_gray"}>
+            {lable}
+          </TText>
+        )}
+        <Pressable
+          style={[styles.container, { width: full ? "100%" : "90%" }]}
+          onPress={handlePress}
+          activeOpacity={0.7}
+        >
+          {icon && (
+            <MaterialCommunityIcons
+              name={icon}
+              size={24}
+              color={theme.main_text}
+            />
+          )}
+          <Text style={[styles.text, !selectedDate && styles.placeholder]}>
+            {formatDate(selectedDate)}
+          </Text>
+        </Pressable>
+
+        {shouldShowError && <ErrorMessage full error={errors[name]} />}
+
+        {show && (
+          <RNDateTimePicker
+            mode={mode}
+            value={selectedDate || new Date()}
+            onChange={onChange}
+            minimumDate={minimumDate}
+            maximumDate={maximumDate}
+            display={Platform.OS === "ios" ? "spinner" : "default"}
           />
         )}
-        <Text style={[styles.text, !selectedDate && styles.placeholder]}>
-          {formatDate(selectedDate)}
-        </Text>
-      </Pressable>
-
-      {shouldShowError && <ErrorMessage full error={errors[name]} />}
-
-      {show && (
-        <RNDateTimePicker
-          mode={mode}
-          value={selectedDate || new Date()}
-          onChange={onChange}
-          minimumDate={minimumDate}
-          maximumDate={maximumDate}
-          display={Platform.OS === "ios" ? "spinner" : "default"}
-        />
-      )}
-    </InputCont>
+      </InputCont>
+    </Animated.View>
   );
 }
 

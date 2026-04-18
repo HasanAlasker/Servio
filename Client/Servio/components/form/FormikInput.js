@@ -2,6 +2,10 @@ import { StyleSheet, View } from "react-native";
 import { useFormikContext } from "formik";
 import ErrorMessage from "./ErrorMessage";
 import InputBox from "../general/InputBox";
+import Animated, {
+  LinearTransition,
+  SlideInDown,
+} from "react-native-reanimated";
 
 function FormikInput({
   name,
@@ -19,7 +23,7 @@ function FormikInput({
   const shouldShowError = hasBeenSubmitted && errors[name];
 
   return (
-    <View>
+    <Animated.View layout={LinearTransition} entering={SlideInDown}>
       <InputBox
         placeholder={placeholder}
         penOn={penOn}
@@ -34,7 +38,7 @@ function FormikInput({
         {...other}
       />
       {shouldShowError && <ErrorMessage error={errors[name]} />}
-    </View>
+    </Animated.View>
   );
 }
 

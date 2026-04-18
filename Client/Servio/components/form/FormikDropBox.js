@@ -2,6 +2,11 @@ import { StyleSheet, View } from "react-native";
 import { useFormikContext } from "formik";
 import ErrorMessage from "./ErrorMessage";
 import DropBox from "../general/DropBox";
+import Animated, {
+  LinearTransition,
+  SlideInDown,
+} from "react-native-reanimated";
+
 
 function FormikDropBox({
   name,
@@ -19,7 +24,7 @@ function FormikDropBox({
   const shouldShowError = hasBeenSubmitted && errors[name];
 
   return (
-    <View>
+    <Animated.View layout={LinearTransition} entering={SlideInDown}>
       <DropBox
         placeholder={placeholder}
         penOn={penOn}
@@ -39,7 +44,7 @@ function FormikDropBox({
         {...other}
       />
       {shouldShowError && <ErrorMessage error={errors[name]}></ErrorMessage>}
-    </View>
+    </Animated.View>
   );
 }
 

@@ -20,6 +20,10 @@ import useAppToast from "../../hooks/useAppToast";
 import MenuBackBtn from "../../components/general/MenuBackBtn";
 import BackContainer from "../../components/general/BackContainer";
 import { alert } from "react-native-alert-queue";
+import Animated, {
+  LinearTransition,
+  SlideInDown,
+} from "react-native-reanimated";
 
 const validationSchema = Yup.object({
   name: Yup.string().trim().lowercase().required("Part name is required"),
@@ -198,7 +202,10 @@ function AddPart(props) {
               icon={"gauge"}
               hasBeenSubmitted={hasBeenSubmitted}
             />
-            <SeparatorComp children={"Recommended change after"} />
+            <Animated.View layout={LinearTransition} entering={SlideInDown}>
+              <SeparatorComp children={"Recommended change after"} />
+            </Animated.View>
+
             <FormikInput
               name={"months"}
               placeholder={"Months"}
