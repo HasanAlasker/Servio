@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import Navbar from "../../components/general/Navbar";
@@ -43,7 +43,7 @@ function ShopAppointments(props) {
 
   const loading = lConfirmed || lPeding;
 
-  const handleRefresh = async () => {
+  const refresh = async () => {
     try {
       setRefreshing(true);
       await fetchConfirmed(shopId);
@@ -142,8 +142,7 @@ function ShopAppointments(props) {
   return (
     <SafeScreen>
       <ScrollScreen
-        refreshing={refreshing}
-        onRefresh={handleRefresh}
+        {...(Platform.OS !== "web" && { refreshing, onRefresh: refresh })}
         stickyHeader
         stickyHeaderIndices={[0]}
       >

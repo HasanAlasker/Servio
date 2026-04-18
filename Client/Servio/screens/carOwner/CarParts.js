@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import Navbar from "../../components/general/Navbar";
@@ -40,7 +40,7 @@ function CarParts(props) {
     setParts(fetchedParts);
   }, [fetchedParts]);
 
-  const handleRefresh = async () => {
+  const refresh = async () => {
     try {
       setRefreshing(true);
       fetchParts();
@@ -90,7 +90,9 @@ function CarParts(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
+      <ScrollScreen
+        {...(Platform.OS !== "web" && { refreshing, onRefresh: refresh })}
+      >
         <MenuBackBtn onClose={() => navigate.navigate("MyCars")} />
         <GapContainer>
           <CarOptionsCard params={params} />

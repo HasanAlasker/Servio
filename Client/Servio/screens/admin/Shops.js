@@ -141,8 +141,7 @@ function Shops(props) {
   return (
     <SafeScreen>
       <ScrollScreen
-        refreshing={Platform.OS !== 'web' && refreshing}
-        onRefresh={Platform.OS !== 'web' && refresh}
+        {...(Platform.OS !== 'web' && { refreshing, onRefresh: refresh })}
         stickyHeader
         stickyHeaderIndices={[0]}
       >

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import Navbar from "../../components/general/Navbar";
 import ScrollScreen from "../../components/general/ScrollScreen";
@@ -13,7 +13,7 @@ import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 function MyCars(props) {
   const { cars, loading, loadCars } = UseCar();
   const [refreshing, setRefreshing] = useState(false);
-  const handleRefresh = async () => {
+  const refresh = async () => {
     try {
       setRefreshing(true);
       await loadCars();
@@ -40,7 +40,9 @@ function MyCars(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
+      <ScrollScreen
+        {...(Platform.OS !== "web" && { refreshing, onRefresh: refresh })}
+      >
         <GapContainer>
           {carsList.length === 0 && !loading ? (
             <SText

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import Navbar from "../../components/general/Navbar";
@@ -12,7 +12,7 @@ function ShopBook(props) {
   const { shops, loadShops } = UseShop();
   const [refreshing, setRefresing] = useState(false);
 
-  const handleRefresh = async () => {
+  const refresh = async () => {
     loadShops();
   };
 
@@ -38,7 +38,9 @@ function ShopBook(props) {
   ));
   return (
     <SafeScreen>
-      <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
+      <ScrollScreen
+        {...(Platform.OS !== "web" && { refreshing, onRefresh: refresh })}
+      >
         <GapContainer>{RenderShops}</GapContainer>
       </ScrollScreen>
       <Navbar />

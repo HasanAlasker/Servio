@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import { UseCar } from "../../context/CarContext";
@@ -19,7 +19,7 @@ function History(props) {
   const [showCarHistory, setShowCarHistory] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null);
   const [historyLoading, setHistoryLoading] = useState(false);
-  const handleRefresh = async () => {
+  const refresh = async () => {
     try {
       setRefreshing(true);
       await loadCars();
@@ -87,7 +87,9 @@ function History(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
+      <ScrollScreen
+        {...(Platform.OS !== "web" && { refreshing, onRefresh: refresh })}
+      >
         {showCarHistory && (
           <MenuBackBtn onClose={() => setShowCarHistory(false)} />
         )}

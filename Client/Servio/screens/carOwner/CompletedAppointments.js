@@ -11,6 +11,7 @@ import RatingModal from "../../components/rating/RatingModal";
 import SText from "../../components/text/SText";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 import ReportModal from "../../components/form/ReportModal";
+import { Platform } from "react-native";
 
 function CompletedAppointmets(props) {
   const { fetchCompleted, completed, setCompleted, loading } = UseAppointment();
@@ -21,7 +22,7 @@ function CompletedAppointmets(props) {
   const [reportId, setReportId] = useState(null);
   const navigate = useNavigation();
 
-  const handleRefresh = async () => {
+  const refresh = async () => {
     try {
       setRefreshing(true);
       await fetchCompleted();
@@ -61,7 +62,9 @@ function CompletedAppointmets(props) {
   ));
   return (
     <SafeScreen>
-      <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
+      <ScrollScreen
+        {...(Platform.OS !== "web" && { refreshing, onRefresh: refresh })}
+      >
         <MenuBackBtn onClose={() => navigate.goBack()} />
         <GapContainer>
           {completedList.length === 0 && !loading ? (

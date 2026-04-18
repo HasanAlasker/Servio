@@ -10,6 +10,7 @@ import EmptyGarage from "../../components/general/EmptyGarage";
 import { useState } from "react";
 import { UseAppointment } from "../../context/AppointmentContext";
 import { UseService } from "../../context/ServiceContext";
+import { Platform } from "react-native";
 
 function Home(props) {
   const { loadCars, cars, loading } = UseCar();
@@ -17,7 +18,7 @@ function Home(props) {
   const { loadServices } = UseService();
   const [refreshing, setRefreshing] = useState(false);
 
-  const handleRefresh = async () => {
+  const refresh = async () => {
     try {
       setRefreshing(true);
       await loadCars();
@@ -30,7 +31,9 @@ function Home(props) {
   };
   return (
     <SafeScreen>
-      <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
+      <ScrollScreen
+        {...(Platform.OS !== "web" && { refreshing, onRefresh: refresh })}
+      >
         <GapContainer gap={40} fullHeight>
           <HelloUser />
           {cars.length > 0 && <UsersDash />}

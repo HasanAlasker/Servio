@@ -1,5 +1,12 @@
 export const lightTheme = {
   blue: "#007bff",
+  g1: "#7cbbff",
+  g2: "#c0dcfb",
+  g3: "#d8e8fa",
+  g4: "#f4f6f8",
+  g5: "#dbeafa",
+  g6: "#b0d5fc",
+  g7: "#78b9ff",
   shade: "#ecf3ff",
   purple: "#AC2FFF",
   background: "#F4F6F8",
@@ -28,6 +35,13 @@ export const lightTheme = {
 
 export const darkTheme = {
   blue: "#007bff",
+  g1: "#262626",
+  g2: "#262626",
+  g3: "#262626",
+  g4: "#262626",
+  g5: "#262626",
+  g6: "#262626",
+  g7: "#262626",
   shade: "#353840",
   purple: "#AC2FFF",
   background: "#262626",

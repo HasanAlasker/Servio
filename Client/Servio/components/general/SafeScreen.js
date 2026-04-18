@@ -6,7 +6,9 @@ function SafeScreen({ children, style, gradient }) {
   const styles = useThemedStyles(getStyles);
 
   return (
-    <SafeAreaView style={[styles.container, style, gradient && styles.gradient]}>
+    <SafeAreaView
+      style={[styles.container, style, gradient && styles.gradient]}
+    >
       {children}
     </SafeAreaView>
   );
@@ -19,10 +21,8 @@ const getStyles = (theme) =>
       backgroundColor: theme.background,
     },
     gradient: {
-      experimental_backgroundImage:
-        "linear-gradient(147deg,rgba(124, 187, 255, 1) 0%, rgba(192, 220, 251, 1) 11%, rgba(216, 232, 250, 1) 23%, rgba(244, 246, 248, 1) 70%, rgba(217, 233, 250, 1) 80%, rgba(174, 212, 252, 1) 100%, rgba(120, 185, 255, 1) 100%)",
+      experimental_backgroundImage: `linear-gradient(147deg, ${theme.g1} 0%, ${theme.g2} 11%, ${theme.g3} 23%, ${theme.g4} 70%, ${theme.g5} 80%, ${theme.g6} 100%, ${theme.g7} 100%)`,
     },
-
   });
 
 export default SafeScreen;

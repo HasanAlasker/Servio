@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import Navbar from "../../components/general/Navbar";
 import SafeScreen from "../../components/general/SafeScreen";
 import { cancelAppointment, deleteAppointment } from "../../api/appointment";
@@ -18,7 +18,7 @@ function Bookings(props) {
   const { upcoming, past, setUpcoming, setPast, loading, loadAppointments } =
     UseAppointment();
   const [refreshing, setRefreshing] = useState(false);
-  const handleRefresh = async () => {
+  const refresh = async () => {
     try {
       setRefreshing(true);
       await loadAppointments();
@@ -108,8 +108,7 @@ function Bookings(props) {
       <ScrollScreen
         stickyHeader
         stickyHeaderIndices={[0]}
-        refreshing={refreshing}
-        onRefresh={handleRefresh}
+        {...(Platform.OS !== "web" && { refreshing, onRefresh: refresh })}
       >
         <TabNav
           one={"Upcoming"}

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import Navbar from "../../components/general/Navbar";
 import ScrollScreen from "../../components/general/ScrollScreen";
@@ -34,7 +34,7 @@ function Shops(props) {
   }, [fetchedShops]);
 
   const [refreshing, setRefreshing] = useState(false);
-  const handleRefresh = async () => {
+  const refresh = async () => {
     try {
       setRefreshing(true);
       if (userLocation) await fetchShops(userLocation);
@@ -62,7 +62,9 @@ function Shops(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
+      <ScrollScreen
+        {...(Platform.OS !== "web" && { refreshing, onRefresh: refresh })}
+      >
         <GapContainer>
           {!userLocation && !loading && (
             <SText

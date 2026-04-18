@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import Navbar from "../../components/general/Navbar";
 import ScrollScreen from "../../components/general/ScrollScreen";
@@ -14,7 +14,7 @@ import InfoCard from "../../components/cards/InfoCard";
 function Service(props) {
   const { services, setServices, loading, loadServices } = UseService();
   const [refreshing, setRefreshing] = useState(false);
-  const handleRefresh = async () => {
+  const refresh = async () => {
     try {
       setRefreshing(true);
       await loadServices();
@@ -60,7 +60,9 @@ function Service(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen refreshing={refreshing} onRefresh={handleRefresh}>
+      <ScrollScreen
+        {...(Platform.OS !== "web" && { refreshing, onRefresh: refresh })}
+      >
         <GapContainer>
           {RenderServices.length === 0 && !loading ? (
             <SText
