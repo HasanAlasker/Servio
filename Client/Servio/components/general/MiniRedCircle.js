@@ -1,12 +1,19 @@
 import { View, StyleSheet, Pressable } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
+import Animated, { BounceIn, LinearTransition } from "react-native-reanimated";
 
 function MiniRedCircle() {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
 
-  return <View style={styles.container}></View>;
+  return (
+    <Animated.View
+      layout={LinearTransition}
+      entering={BounceIn}
+      style={styles.container}
+    ></Animated.View>
+  );
 }
 
 const getStyles = (theme) =>
@@ -23,7 +30,7 @@ const getStyles = (theme) =>
       position: "absolute",
       bottom: 32,
       left: 29,
-      zIndex:10
+      zIndex: 10,
     },
   });
 

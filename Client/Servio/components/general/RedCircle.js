@@ -2,13 +2,18 @@ import { View, StyleSheet } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import AppText from "../../config/AppText";
 import { useTheme } from "../../context/ThemeContext";
+import Animated, { BounceIn, LinearTransition } from "react-native-reanimated";
 
 function RedCircle({ numOfNotifications }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
 
   return (
-    <View style={styles.container}>
+    <Animated.View
+      layout={LinearTransition}
+      entering={BounceIn}
+      style={styles.container}
+    >
       <AppText
         style={{
           color: theme.always_white,
@@ -19,7 +24,7 @@ function RedCircle({ numOfNotifications }) {
       >
         {numOfNotifications}
       </AppText>
-    </View>
+    </Animated.View>
   );
 }
 

@@ -7,11 +7,15 @@ import MoreBtn from "./MoreBtn";
 
 function UserNav({ onMenu }) {
   const { countDueServices } = UseService();
-  const { isConfirmedAppointments } = UseAppointment();
+  const { isConfirmedAppointments, completed } = UseAppointment();
 
   return (
     <NavCont>
-      <NavBtn name={"Home"} icon={<Feather name="home" size={26} />} />
+      <NavBtn
+        name={"Home"}
+        icon={<Feather name="home" size={26} />}
+        notificationCondition={completed.length > 0}
+      />
 
       <NavBtn
         name="MyCars"
