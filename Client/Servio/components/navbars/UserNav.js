@@ -15,6 +15,7 @@ function UserNav({ onMenu }) {
         name={"Home"}
         icon={<Feather name="home" size={26} />}
         notificationCondition={completed.length > 0}
+        activeIn={["CompletedAppointments"]}
       />
 
       <NavBtn
@@ -22,6 +23,7 @@ function UserNav({ onMenu }) {
         lable={"Garage"}
         icon={<Ionicons name="car-outline" size={35} />}
         textStyle={{ bottom: 4 }}
+        activeIn={["CarParts", "AddPart", "AddCar"]}
       />
 
       <NavBtn

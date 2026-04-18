@@ -11,7 +11,7 @@ import { UseShop } from "../../context/ShopContext";
 import EmptyGarage from "../../components/general/EmptyGarage";
 
 function Home(props) {
-  const { shops } = UseShop();
+  const { shops, loading } = UseShop();
 
   return (
     <SafeScreen>
@@ -20,7 +20,7 @@ function Home(props) {
           <HelloUser />
           {shops.length > 0 && <UsersDash />}
           {shops.length > 0 && <ShopInfo />}
-          {shops.length === 0 && (
+          {shops.length === 0 && !loading && (
             <EmptyGarage
               title={"You have no shops yet!"}
               text={"Open your first shop to start tracking appointments"}

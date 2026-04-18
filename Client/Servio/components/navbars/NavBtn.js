@@ -14,12 +14,14 @@ function NavBtn({
   notificationCondition,
   textStyle,
   isSettings,
+  activeIn,
 }) {
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
   const navigation = useNavigation();
   const route = useRoute();
-  const isActive = route.name === name;
+  const isActive =
+    route.name === name || (activeIn && activeIn.includes(route.name));
 
   const iconWithStyle = icon
     ? cloneElement(icon, {

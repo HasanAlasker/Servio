@@ -12,7 +12,7 @@ import { UseAppointment } from "../../context/AppointmentContext";
 import { UseService } from "../../context/ServiceContext";
 
 function Home(props) {
-  const { loadCars, cars } = UseCar();
+  const { loadCars, cars, loading } = UseCar();
   const { loadAppointments } = UseAppointment();
   const { loadServices } = UseService();
   const [refreshing, setRefreshing] = useState(false);
@@ -34,7 +34,7 @@ function Home(props) {
         <GapContainer gap={40} fullHeight>
           <HelloUser />
           {cars.length > 0 && <UsersDash />}
-          {cars.length === 0 && <EmptyGarage />}
+          {cars.length === 0 && !loading && <EmptyGarage />}
         </GapContainer>
       </ScrollScreen>
       <Navbar />

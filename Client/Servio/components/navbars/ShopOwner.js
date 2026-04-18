@@ -10,6 +10,7 @@ function ShopOwner({ onMenu }) {
         icon={<Feather name="home" size={26} />}
         name={"ShopDash"}
         lable={"Home"}
+        activeIn={["Schedule"]}
       />
 
       <NavBtn
@@ -17,22 +18,25 @@ function ShopOwner({ onMenu }) {
         name={"MyShop"}
         lable={"Shops"}
         textStyle={{ bottom: 1 }}
+        activeIn={['AddShop']}
       />
 
       <NavBtn
         icon={<Feather name="calendar" size={26} />}
         name={"ShopBook"}
         lable={"Bookings"}
+        activeIn={["ShopAppointments"]}
       />
 
       <NavBtn
         icon={<Ionicons name="car-outline" size={35} />}
         name={"MyCars"}
         lable={"Cars"}
-        textStyle={{bottom: 2}}
+        textStyle={{ bottom: 2 }}
+        activeIn={["AddCar", "AddPart", "CarParts", "Service"]}
       />
 
-      <MoreBtn/>
+      <MoreBtn />
     </NavCont>
   );
 }
