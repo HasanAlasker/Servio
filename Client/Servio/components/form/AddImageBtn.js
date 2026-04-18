@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Image, StyleSheet, Pressable, View, Alert } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Pressable,
+  View,
+  Alert,
+  Platform,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ErrorMessage from "./ErrorMessage";
 import {
@@ -26,21 +33,25 @@ function AddImageBtn({
 
   const handleImageSelection = () => {
     if (allowCamera) {
-      // Show options for camera or library
-      Alert.alert("Select Image", "Choose an option", [
-        {
-          text: "Camera",
-          onPress: handleCameraPress,
-        },
-        {
-          text: "Photo Library",
-          onPress: handleLibraryPress,
-        },
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-      ]);
+      if (Platform.OS === "web") {
+        handleLibraryPress();
+      } else {
+        // Show options for camera or library
+        Alert.alert("Select Image", "Choose an option", [
+          {
+            text: "Camera",
+            onPress: handleCameraPress,
+          },
+          {
+            text: "Photo Library",
+            onPress: handleLibraryPress,
+          },
+          {
+            text: "Cancel",
+            style: "cancel",
+          },
+        ]);
+      }
     } else {
       handleLibraryPress();
     }
@@ -86,22 +97,21 @@ function AddImageBtn({
 
   const handleImagePress = () => {
     if (image) {
-      // If image exists, show options to change or remove
-      Alert.alert("Image Options", "What would you like to do?", [
-        {
-          text: "Change Image",
-          onPress: handleImageSelection,
-        },
-        // {
-        //   text: "Remove Image",
-        //   onPress: () => onImageChange && onImageChange(null),
-        //   style: "destructive",
-        // },
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-      ]);
+      if (Platform.OS === "web") {
+        handleLibraryPress();
+      } else {
+        // If image exists, show options to change or remove
+        Alert.alert("Image Options", "What would you like to do?", [
+          {
+            text: "Change Image",
+            onPress: handleImageSelection,
+          },
+          {
+            text: "Cancel",
+            style: "cancel",
+          },
+        ]);
+      }
     } else {
       handleImageSelection();
     }
@@ -142,7 +152,7 @@ function AddImageBtn({
                 color={theme.sec_text}
                 size={50}
               />
-              <SText thin color={'sec_text'}>
+              <SText thin color={"sec_text"}>
                 {isLoading ? "Loading..." : "Add Image"}
               </SText>
             </View>
