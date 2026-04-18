@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import Navbar from "../../components/general/Navbar";
@@ -141,8 +141,8 @@ function Shops(props) {
   return (
     <SafeScreen>
       <ScrollScreen
-        refreshing={refreshing}
-        onRefresh={refresh}
+        refreshing={Platform.OS !== 'web' && refreshing}
+        onRefresh={Platform.OS !== 'web' && refresh}
         stickyHeader
         stickyHeaderIndices={[0]}
       >

@@ -26,7 +26,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? ["https://servio-maintenance.netlify.app", "http://localhost:8081", "https://servio-car-service.netlify.app"]
+        ? ["https://servio-maintenance.netlify.app", "http://localhost:8081", "https://servio.expo.app"]
         : "http://localhost:5173",
     exposedHeaders: ["x-auth-token"],
   }),
