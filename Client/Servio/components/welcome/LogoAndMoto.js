@@ -2,22 +2,33 @@ import { View, StyleSheet, Image } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import LText from "../text/LText";
 import SText from "../text/SText";
+import Animated, {
+  BounceInUp,
+  LinearTransition,
+  SlideInDown,
+  SlideInUp,
+} from "react-native-reanimated";
 
 function LogoAndMoto({ moto }) {
   const styles = useThemedStyles(getStyles);
 
   return (
-    <View style={styles.container}>
+    <Animated.View
+      layout={LinearTransition}
+      entering={BounceInUp}
+      style={styles.container}
+    >
       <View style={styles.imgCont}>
         <Image source={require("../../assets/icon.png")} style={styles.img} />
       </View>
       <LText style={styles.text}>Servio</LText>
       {moto && (
         <SText color={"sec_text"} thin style={styles.text}>
-          You won't need to remember anything about your car
+          {/* We track your car's services so you don't have to */}
+          Your car, handled
         </SText>
       )}
-    </View>
+    </Animated.View>
   );
 }
 

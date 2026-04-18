@@ -12,7 +12,7 @@ function Welcome(props) {
   const navigation = useNavigation();
 
   return (
-    <SafeScreen>
+    <SafeScreen gradient>
       <ScrollScreen containerStyle={styles.container}>
         <LogoAndMoto moto />
         <GapContainer gap={15}>
@@ -30,7 +30,7 @@ function Welcome(props) {
           />
         </GapContainer>
       </ScrollScreen>
-      
+
       <OfflineModal />
     </SafeScreen>
   );

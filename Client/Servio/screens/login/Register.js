@@ -129,7 +129,7 @@ function Register(props) {
   };
 
   return (
-    <SafeScreen>
+    <SafeScreen gradient>
       <KeyboardScrollScreen>
         <View style={styles.container}>
           <LogoAndMoto />
@@ -138,7 +138,7 @@ function Register(props) {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            <GapContainer style={{ marginTop: "40" }} gap={15}>
+            <GapContainer style={{ marginTop: "30" }} gap={15}>
               <FormikInput
                 name={"name"}
                 placeholder={"Name"}

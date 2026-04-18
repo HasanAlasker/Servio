@@ -78,7 +78,7 @@ function Profile(props) {
   };
 
   return (
-    <SafeScreen>
+    <SafeScreen gradient>
       <KeyboardScrollScreen>
         <GapContainer style={{ marginVertical: "auto" }}>
           <UserCard
