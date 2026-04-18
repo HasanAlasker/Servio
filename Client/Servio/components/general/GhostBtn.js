@@ -13,6 +13,7 @@ import Animated, {
   RotateInDownLeft,
   SlideInDown,
   SlideInUp,
+  ZoomOut,
 } from "react-native-reanimated";
 import { DrawerActions } from "@react-navigation/native";
 

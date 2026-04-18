@@ -18,6 +18,7 @@ import Animated, {
   SlideInLeft,
   SlideInUp,
 } from "react-native-reanimated";
+import CardComp from "../cards/CardComp";
 
 function AdminDash(props) {
   const { user } = UseUser();
@@ -70,32 +71,34 @@ function AdminDash(props) {
 
       {!loading && (
         <Animated.View layout={LinearTransition} entering={SlideInLeft}>
-          <RowCont style={{ justifyContent: "space-between" }}>
-            <PieChart
-              data={usersData}
-              donut
-              innerCircleColor={theme.background}
-              radius={90}
-              innerRadius={58}
-              centerLabelComponent={() => (
-                <DonutCenter total={loading ? "..." : total} />
-              )}
-              strokeWidth={2}
-              strokeColor={theme.background}
-              animationDuration={600}
-            />
-            <LegendCont>
-              {usersData[0].label &&
-                usersData.map((d) => (
-                  <Legend
-                    key={d.label}
-                    color={d.color}
-                    label={d.label}
-                    value={d.value}
-                  />
-                ))}
-            </LegendCont>
-          </RowCont>
+          <CardComp>
+            <RowCont gap={20} style={{ justifyContent: "space-between" }}>
+              <PieChart
+                data={usersData}
+                donut
+                innerCircleColor={theme.post}
+                radius={70}
+                innerRadius={48}
+                centerLabelComponent={() => (
+                  <DonutCenter total={loading ? "..." : total} />
+                )}
+                strokeWidth={2}
+                strokeColor={theme.background}
+                animationDuration={600}
+              />
+              <LegendCont>
+                {usersData[0].label &&
+                  usersData.map((d) => (
+                    <Legend
+                      key={d.label}
+                      color={d.color}
+                      label={d.label}
+                      value={d.value}
+                    />
+                  ))}
+              </LegendCont>
+            </RowCont>
+          </CardComp>
         </Animated.View>
       )}
 

@@ -50,7 +50,7 @@ function Reports(props) {
           active={tab}
         />
         <GapContainer>
-          <ReportCard />
+          {/* <ReportCard /> */}
         </GapContainer>
       </ScrollScreen>
       <Navbar />
