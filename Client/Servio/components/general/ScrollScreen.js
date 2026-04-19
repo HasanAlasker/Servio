@@ -8,12 +8,13 @@ function ScrollScreen({
   onRefresh,
   refreshing,
   containerStyle,
+  style,
   ...other
 }) {
   const { theme } = useTheme();
   return (
     <ScrollView
-      style={styles.container}
+      style={[styles.container, style]}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={[{ paddingBottom: 40, paddingTop: 20 }, containerStyle]}
       scrollEventThrottle={30}

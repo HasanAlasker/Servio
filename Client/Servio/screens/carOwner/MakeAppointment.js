@@ -25,6 +25,7 @@ import Animated, {
   LinearTransition,
   SlideInDown,
 } from "react-native-reanimated";
+import ScrollScreen from '../../components/general/ScrollScreen'
 
 const validationSchema = Yup.object({
   date: Yup.date()
@@ -133,7 +134,7 @@ function MakeAppointment(props) {
 
   return (
     <SafeScreen>
-      <KeyboardScrollScreen>
+      <ScrollScreen style={{width: "100%"}}>
         <BackContainer style={styles.back}>
           <MenuBackBtn
             onClose={() => {
@@ -189,7 +190,7 @@ function MakeAppointment(props) {
             )}
           </AppForm>
         </GapContainer>
-      </KeyboardScrollScreen>
+      </ScrollScreen>
       {from && (
         <NavCont>
           <PriBtn
