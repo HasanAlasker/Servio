@@ -21,6 +21,10 @@ import NavCont from "../../components/navbars/NavCont";
 import TimeSlot from "../../components/cards/TimeSlot";
 import useApi from "../../hooks/useApi";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
+import Animated, {
+  LinearTransition,
+  SlideInDown,
+} from "react-native-reanimated";
 
 const validationSchema = Yup.object({
   date: Yup.date()
@@ -56,18 +60,16 @@ function MakeAppointment(props) {
   };
 
   const RenderSlots = slots
-    ? slots.slots?.map((slot) =>
-        !slot.isBusy ? (
-          <TimeSlot
-            key={slot?.from}
-            from={slot?.from}
-            to={slot?.to}
-            isBusy={slot?.isBusy}
-            onPress={handleSlotPress}
-            selected={from}
-          />
-        ) : null,
-      )
+    ? slots.slots?.map((slot) => (
+        <TimeSlot
+          key={slot?.from}
+          from={slot?.from}
+          to={slot?.to}
+          isBusy={slot?.isBusy}
+          onPress={handleSlotPress}
+          selected={from}
+        />
+      ))
     : null;
 
   const initialValues = {
@@ -102,6 +104,12 @@ function MakeAppointment(props) {
         await loadAppointments();
         navigate.navigate("Bookings", { active: "1", celebrate: true });
         toast.success("Booked!");
+      } else if (
+        !response.ok &&
+        response.data.errors[0].message ===
+          "Scheduled date cannot be in the past"
+      ) {
+        toast.error("Time has passed");
       } else {
         setErr("This car has another appointment in this time");
         console.log(response);

@@ -4,7 +4,6 @@ import { Platform } from "react-native";
 export async function getApproximateLocation() {
   const { status, canAskAgain } =
     await Location.requestForegroundPermissionsAsync();
-  console.log("Permission status:", status, "canAskAgain:", canAskAgain);
 
   if (status !== "granted") {
     if (!canAskAgain) return { denied: true };

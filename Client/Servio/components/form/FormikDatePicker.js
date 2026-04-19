@@ -44,19 +44,21 @@ function FormikDatePicker({
 
   // Parse the value based on mode
   const getDateValue = () => {
-    if (!fieldValue) return null;
+    // If value is null, undefined, or an empty string, return a fresh Date
+    if (!fieldValue || fieldValue === "") return null;
 
     if (mode === "time") {
-      // If it's a time string like "09:00", convert to Date
       if (typeof fieldValue === "string" && fieldValue.includes(":")) {
         const [hours, minutes] = fieldValue.split(":");
         const date = new Date();
-        date.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+        date.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
         return date;
       }
     }
 
-    return new Date(fieldValue);
+    const date = new Date(fieldValue);
+    // Check if the date is actually valid before returning
+    return isNaN(date.getTime()) ? new Date() : date;
   };
 
   const selectedDate = getDateValue();
@@ -113,6 +115,76 @@ function FormikDatePicker({
       day: "numeric",
     });
   };
+
+  if (Platform.OS === "web") {
+    const inputType =
+      mode === "time"
+        ? "time"
+        : mode === "datetime"
+          ? "datetime-local"
+          : "date";
+
+    const getWebValue = () => {
+      if (!selectedDate) return "";
+      if (mode === "time") return formatDate(selectedDate); // already "HH:MM"
+      if (mode === "datetime") return selectedDate.toISOString().slice(0, 16); // "YYYY-MM-DDTHH:MM"
+      return selectedDate.toISOString().slice(0, 10); // "YYYY-MM-DD"
+    };
+
+    const handleWebChange = (e) => {
+      const val = e.target.value;
+      if (!val) return;
+
+      if (mode === "time") {
+        setFieldValue(name, val); // store as "HH:MM"
+      } else {
+        const date = new Date(val);
+        setFieldValue(name, date);
+        onDateChange?.(date);
+      }
+    };
+
+    return (
+      <InputCont>
+        {!dontShowLable && (
+          <TText thin color={"darker_gray"}>
+            {lable}
+          </TText>
+        )}
+        <View style={[styles.container, { width: full ? "100%" : "90%" }]}>
+          {icon && (
+            <MaterialCommunityIcons
+              name={icon}
+              size={24}
+              color={theme.main_text}
+            />
+          )}
+          <input
+            type={inputType}
+            value={getWebValue()}
+            onChange={handleWebChange}
+            min={
+              minimumDate ? minimumDate.toISOString().slice(0, 10) : undefined
+            }
+            max={
+              maximumDate ? maximumDate.toISOString().slice(0, 10) : undefined
+            }
+            style={{
+              flex: 1,
+              border: "none",
+              outline: "none",
+              background: "transparent",
+              fontSize: 16,
+              color: "inherit",
+              fontFamily: "inherit",
+              cursor: "pointer",
+            }}
+          />
+        </View>
+        {shouldShowError && <ErrorMessage full error={errors[name]} />}
+      </InputCont>
+    );
+  }
 
   return (
     <Animated.View layout={LinearTransition} entering={SlideInDown}>

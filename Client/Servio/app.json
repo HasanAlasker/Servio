@@ -39,7 +39,7 @@
       ]
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/adaptive.png"
     },
     "plugins": ["expo-notifications", "react-native-edge-to-edge"],
     "extra": {
