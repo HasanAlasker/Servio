@@ -10,7 +10,7 @@ export const getMyCars = () => apiClient.get(`${endpoint}/mine`);
 
 export const getCarById = (id) => apiClient.get(`${endpoint}/${id}`);
 
-export const addCar = (data) => {
+export const addCar = async (data) => {
   const formData = new FormData();
 
   formData.append("make", data.make);
@@ -23,15 +23,25 @@ export const addCar = (data) => {
 
   if (data.image) {
     const imageUri = data.image;
-    const filename = imageUri.split("/").pop();
-    const match = /\.(\w+)$/.exec(filename);
-    const type = match ? `image/${match[1]}` : "image/jpeg";
 
-    formData.append("image", {
-      uri: imageUri,
-      name: filename,
-      type: type,
-    });
+    if (imageUri.startsWith("blob:")) {
+      // Web: fetch the blob and convert to a File
+      const response = await fetch(imageUri);
+      const blob = await response.blob();
+      const filename = `upload_${Date.now()}.${blob.type.split("/")[1] || "jpg"}`;
+      const file = new File([blob], filename, { type: blob.type });
+      formData.append("image", file);
+    } else {
+      // Native: use the file URI directly
+      const filename = imageUri.split("/").pop();
+      const match = /\.(\w+)$/.exec(filename);
+      const type = match ? `image/${match[1]}` : "image/jpeg";
+      formData.append("image", {
+        uri: imageUri,
+        name: filename,
+        type: type,
+      });
+    }
   }
 
   if (data.imagePublicId) {
@@ -45,7 +55,7 @@ export const addCar = (data) => {
   });
 };
 
-export const editCar = (id, data) => {
+export const editCar = async (id, data) => {
   const formData = new FormData();
 
   formData.append("make", data.make);
@@ -57,23 +67,25 @@ export const editCar = (id, data) => {
   formData.append("unit", data.unit);
 
   if (data.image) {
-    // Check if it's a new image (local URI) or existing image (URL)
-    if (
+    if (data.image.startsWith("blob:")) {
+      // Web: fetch the blob and convert to a File
+      const response = await fetch(data.image);
+      const blob = await response.blob();
+      const filename = `upload_${Date.now()}.${blob.type.split("/")[1] || "jpg"}`;
+      const file = new File([blob], filename, { type: blob.type });
+      formData.append("image", file);
+    } else if (
       data.image.startsWith("file://") ||
       data.image.startsWith("content://")
     ) {
+      // Native: new image picked from device
       const imageUri = data.image;
       const filename = imageUri.split("/").pop();
       const match = /\.(\w+)$/.exec(filename);
       const type = match ? `image/${match[1]}` : "image/jpeg";
-
-      formData.append("image", {
-        uri: imageUri,
-        name: filename,
-        type: type,
-      });
+      formData.append("image", { uri: imageUri, name: filename, type });
     } else {
-      // Existing image URL - just send it as is
+      // Existing remote URL — send as-is
       formData.append("image", data.image);
     }
   }
