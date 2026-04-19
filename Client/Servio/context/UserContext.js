@@ -67,6 +67,7 @@ export const UserProvider = ({ children }) => {
   const fetchUserLocation = async () => {
     try {
       const location = await getApproximateLocation();
+      // console.log("Location", location);
 
       if (!location) {
         toast.error("Nearby shops unknown");
@@ -75,14 +76,21 @@ export const UserProvider = ({ children }) => {
 
       if (location.denied) {
         toast.error("Nearby shops unknown");
-        Alert.alert(
-          "Location Permission",
-          "Please enable location access in your device settings to find shops nearby.",
-          [
-            { text: "Cancel", style: "cancel" },
-            { text: "Open Settings", onPress: () => Linking.openSettings() },
-          ],
-        );
+
+        if (Platform.OS !== "web") {
+          Alert.alert(
+            "Location Permission",
+            "Please enable location access in your device settings to find shops nearby.",
+            [
+              { text: "Cancel", style: "cancel" },
+              { text: "Open Settings", onPress: () => Linking.openSettings() },
+            ],
+          );
+        } else {
+          window.alert(
+            "Please enable location access in your browser to find shops nearby.",
+          );
+        }
         return;
       }
 
@@ -90,6 +98,7 @@ export const UserProvider = ({ children }) => {
 
       // console.log(location);
     } catch (e) {
+      console.log("Error ", e);
       toast.error("Nearby shops unknown");
     }
   };

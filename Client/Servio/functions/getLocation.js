@@ -1,36 +1,56 @@
 import * as Location from "expo-location";
+import { Platform } from "react-native";
 
 export async function getApproximateLocation() {
-  // Request permission
   const { status, canAskAgain } =
     await Location.requestForegroundPermissionsAsync();
+  console.log("Permission status:", status, "canAskAgain:", canAskAgain);
 
   if (status !== "granted") {
-    if (!canAskAgain) {
-      // Permanently denied — must go to device settings
-      return { denied: true };
-    }
+    if (!canAskAgain) return { denied: true };
     return null;
   }
 
-  // Get coordinates (low accuracy = faster + battery friendly)
   const coords = await Location.getCurrentPositionAsync({
     accuracy: Location.Accuracy.Low,
   });
 
-  // Reverse geocode to get city/country
-  const [place] = await Location.reverseGeocodeAsync({
-    latitude: coords.coords.latitude,
-    longitude: coords.coords.longitude,
-  });
+  let city, country, street, countryCode, region, district;
+
+  if (Platform.OS !== "web") {
+    const [place] = await Location.reverseGeocodeAsync({
+      latitude: coords.coords.latitude,
+      longitude: coords.coords.longitude,
+    });
+    city = place.city ?? place.subregion ?? place.region;
+    country = place.country;
+    street = place.street || null;
+    countryCode = place.isoCountryCode;
+    region = place.region;
+    district = place.district;
+  } else {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${coords.coords.latitude}&lon=${coords.coords.longitude}&format=json`,
+      { headers: { "Accept-Language": "en" } },
+    );
+    const place = await response.json();
+    // console.log(place)
+    const addr = place.address;
+    city = addr.state ?? addr.city ?? addr.town ?? addr.village ?? addr.county;
+    country = addr.country;
+    street = addr.road || null;
+    countryCode = addr.country_code?.toUpperCase();
+    region = addr.state;
+    district = addr.suburb ?? addr.district ?? addr.county;
+  }
 
   return {
-    city: place.city ?? place.subregion ?? place.region,
-    country: place.country,
-    street: place.street || null,
-    countryCode: place.isoCountryCode,
-    region: place.region,
-    district: place.district,
+    city,
+    country,
+    street,
+    countryCode,
+    region,
+    district,
     lat: coords.coords.latitude,
     lng: coords.coords.longitude,
     alt: coords.coords.altitude,
