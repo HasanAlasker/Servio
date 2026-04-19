@@ -26,7 +26,7 @@ export const getDeletedShops = () => apiClient.get(`${endpoint}/deleted`);
 
 export const getShopById = (id) => apiClient.get(`${endpoint}/${id}`);
 
-export const openShop = (data) => {
+export const openShop = async (data) => {
   const formData = new FormData();
 
   formData.append("name", data.name);
@@ -62,15 +62,25 @@ export const openShop = (data) => {
   // Handle image upload
   if (data.image) {
     const imageUri = data.image;
-    const filename = imageUri.split("/").pop();
-    const match = /\.(\w+)$/.exec(filename);
-    const type = match ? `image/${match[1]}` : "image/jpeg";
 
-    formData.append("image", {
-      uri: imageUri,
-      name: filename,
-      type: type,
-    });
+    if (imageUri.startsWith("blob:")) {
+      // Web: fetch the blob and convert to a File
+      const response = await fetch(imageUri);
+      const blob = await response.blob();
+      const filename = `upload_${Date.now()}.${blob.type.split("/")[1] || "jpg"}`;
+      const file = new File([blob], filename, { type: blob.type });
+      formData.append("image", file);
+    } else {
+      // Native: use the file URI directly
+      const filename = imageUri.split("/").pop();
+      const match = /\.(\w+)$/.exec(filename);
+      const type = match ? `image/${match[1]}` : "image/jpeg";
+      formData.append("image", {
+        uri: imageUri,
+        name: filename,
+        type: type,
+      });
+    }
   }
 
   return apiClient.post(`${endpoint}/openShop`, formData, {
@@ -80,7 +90,7 @@ export const openShop = (data) => {
   });
 };
 
-export const editShop = (id, data) => {
+export const editShop = async (id, data) => {
   const formData = new FormData();
 
   formData.append("name", data.name);
@@ -115,23 +125,25 @@ export const editShop = (id, data) => {
 
   // Handle image upload
   if (data.image) {
-    // Check if it's a new image (local URI) or existing image (URL)
-    if (
+    if (data.image.startsWith("blob:")) {
+      // Web: fetch the blob and convert to a File
+      const response = await fetch(data.image);
+      const blob = await response.blob();
+      const filename = `upload_${Date.now()}.${blob.type.split("/")[1] || "jpg"}`;
+      const file = new File([blob], filename, { type: blob.type });
+      formData.append("image", file);
+    } else if (
       data.image.startsWith("file://") ||
       data.image.startsWith("content://")
     ) {
+      // Native: new image picked from device
       const imageUri = data.image;
       const filename = imageUri.split("/").pop();
       const match = /\.(\w+)$/.exec(filename);
       const type = match ? `image/${match[1]}` : "image/jpeg";
-
-      formData.append("image", {
-        uri: imageUri,
-        name: filename,
-        type: type,
-      });
+      formData.append("image", { uri: imageUri, name: filename, type });
     } else {
-      // Existing image URL - just send it as is
+      // Existing remote URL — send as-is
       formData.append("image", data.image);
     }
   }
@@ -154,4 +166,5 @@ export const undeleteShop = (id) =>
 
 export const verifyShop = (id) => apiClient.patch(`${endpoint}/verify/${id}`);
 
-export const rateShop = (id, data) => apiClient.patch(`${endpoint}/rate/${id}`, data);
+export const rateShop = (id, data) =>
+  apiClient.patch(`${endpoint}/rate/${id}`, data);
