@@ -126,7 +126,15 @@ function FormikDatePicker({
 
     const getWebValue = () => {
       if (!selectedDate) return "";
-      if (mode === "time") return formatDate(selectedDate); // already "HH:MM"
+      if (mode === "time") {
+        // fieldValue is already stored as "HH:MM", use it directly
+        if (typeof fieldValue === "string" && fieldValue.includes(":"))
+          return fieldValue;
+        // fallback: derive from date object
+        const h = selectedDate.getHours().toString().padStart(2, "0");
+        const m = selectedDate.getMinutes().toString().padStart(2, "0");
+        return `${h}:${m}`;
+      }
       if (mode === "datetime") return selectedDate.toISOString().slice(0, 16); // "YYYY-MM-DDTHH:MM"
       return selectedDate.toISOString().slice(0, 10); // "YYYY-MM-DD"
     };
