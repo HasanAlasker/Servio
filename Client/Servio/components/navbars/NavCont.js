@@ -19,7 +19,7 @@ const getStyles = (theme) =>
       borderTopLeftRadius: 22,
       height: 73,
       width: "100%",
-      maxWidth:1000,
+      maxWidth:600,
       zIndex: 100,
       alignItems: "center",
       marginHorizontal:'auto'

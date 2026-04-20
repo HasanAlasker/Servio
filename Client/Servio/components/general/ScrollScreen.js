@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "90%",
     marginHorizontal: "auto",
-    maxWidth:1000,
+    maxWidth:600,
   },
 });
 

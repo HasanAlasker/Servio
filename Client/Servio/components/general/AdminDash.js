@@ -3,7 +3,7 @@ import { UseUser } from "../../context/UserContext";
 import CardLeftBorder from "../../components/cards/CardLeftBorder";
 import GapContainer from "../../components/general/GapContainer";
 import useApi from "../../hooks/useApi";
-import { adminCountDocs } from "../../api/user";
+import { adminCountDocs, deleteUser } from "../../api/user";
 import { useEffect } from "react";
 import SText from "../text/SText";
 import { useTheme } from "../../context/ThemeContext";
@@ -31,7 +31,7 @@ function AdminDash(props) {
   const activeUsers = data?.activeUsers || 0;
   const deletedUsers = data?.deletedUsers || 0;
   const adminUsers = data?.adminUsers || 0;
-  const totalUsers = activeUsers;
+  const totalUsers = activeUsers + deletedUsers;
 
   const activeShops = data?.activeShops || 0;
   const deletedShops = data?.deletedShops || 0;
