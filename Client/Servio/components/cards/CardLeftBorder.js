@@ -1,4 +1,4 @@
-import { StyleSheet, Pressable } from "react-native";
+import { StyleSheet, Pressable, Platform } from "react-native";
 import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import MText from "../text/MText";
@@ -147,7 +147,11 @@ function CardLeftBorder({
         </RowCont>
       )}
 
-      {data != null && <SText color={color}>{data.toString()}</SText>}
+      {data != null && (
+        <SText style={{ top: Platform.OS === "web" && 2 }} color={color}>
+          {data.toString()}
+        </SText>
+      )}
 
       {showBtn && (
         <MaterialCommunityIcons

@@ -1,4 +1,4 @@
-import { StyleSheet, Linking } from "react-native";
+import { StyleSheet, Linking, Platform } from "react-native";
 import MenuBackBtn from "../../components/general/MenuBackBtn";
 import SeparatorComp from "../../components/general/SeparatorComp";
 import { useNavigation } from "@react-navigation/native";
@@ -29,12 +29,14 @@ function Settings(props) {
               text={"My Profile"}
               onPress={() => navigate.navigate("Profile")}
             />
-            <SeparatorComp full color="light_gray" />
-            <SettingsOption
-              icon={"shield"}
-              text={"Permissions"}
-              onPress={() => Linking.openSettings()}
-            />
+            {Platform.OS !== "web" && <SeparatorComp full color="light_gray" />}
+            {Platform.OS !== "web" && (
+              <SettingsOption
+                icon={"shield"}
+                text={"Permissions"}
+                onPress={() => Linking.openSettings()}
+              />
+            )}
           </SettingsGroup>
 
           <SettingsGroup label={"Preferences"}>

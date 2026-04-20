@@ -96,6 +96,7 @@ const getStyles = (theme) =>
       padding: 0,
       margin: 0,
       textAlignVertical: "center",
+      outlineStyle:'none'
     },
     placeholder: {
       opacity: 0.6,

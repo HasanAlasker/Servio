@@ -6,6 +6,7 @@ import {
   Modal,
   FlatList,
   StatusBar,
+  Platform,
 } from "react-native";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import useThemedStyles from "../../hooks/useThemedStyles";
@@ -85,6 +86,7 @@ function DropBox({
                 styles.text,
                 disabled && styles.disabledText,
                 !selectedItem && styles.placeholder,
+                {top: Platform.OS==='web' && 4}
               ]}
             >
               {displayText}
