@@ -91,8 +91,8 @@ function CardLeftBorder({
       ]}
     >
       {status && (
-        <GapContainer gap={5}>
-          <RowCont>
+        <GapContainer flex gap={5}>
+          <RowCont >
             <MaterialCommunityIcons
               name={
                 icon
@@ -122,6 +122,8 @@ function CardLeftBorder({
               style={{
                 marginTop: 5,
                 color: theme[customTextColor || "main_text"],
+                flex:1,
+                flexWrap:'wrap'
               }}
             >
               {customText}
