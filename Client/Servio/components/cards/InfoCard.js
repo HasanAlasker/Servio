@@ -1,13 +1,13 @@
 import { StyleSheet } from "react-native";
 import CardLeftBorder from "./CardLeftBorder";
 
-function InfoCard({ title, text }) {
+function InfoCard({ title, text, red }) {
   return (
     <CardLeftBorder
       transparent
-      icon={"information-outline"}
-      customColor={"blue"}
-      customTextColor={"blue"}
+      icon={red ? "alert-outline":"information-outline"}
+      customColor={red ? "red" : "blue"}
+      customTextColor={red ? "red" : "blue"}
       miniTitle={title}
       customText={text}
       status={" "}

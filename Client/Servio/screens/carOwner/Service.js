@@ -83,6 +83,13 @@ function Service(props) {
               text={'Press "Fixed" on the parts to recalculate.'}
             />
           )}
+          {RenderServices.length !== 0 && Platform.OS === "web" && (
+            <InfoCard
+              red
+              title={"Warning"}
+              text={"Push notifications are not supported on the web!"}
+            />
+          )}
         </GapContainer>
       </ScrollScreen>
       <Navbar />
