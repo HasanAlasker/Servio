@@ -87,7 +87,7 @@ function Service(props) {
             <InfoCard
               red
               title={"Warning"}
-              text={"Push notifications are not supported on the web!"}
+              text={"Push notifications are not supported on the web"}
             />
           )}
         </GapContainer>

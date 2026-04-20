@@ -29,7 +29,9 @@ const validationSchema = Yup.object({
   name: Yup.string().trim().lowercase().required("Part name is required"),
 
   months: Yup.number()
+    .integer("Months must be an integer")
     .min(0, "Months cannot be negative")
+    .max(360, "Months cannot be more than 360")
     .required("Recommended months are required")
     .transform((value, originalValue) =>
       originalValue === "" ||
@@ -41,7 +43,9 @@ const validationSchema = Yup.object({
     .typeError("Months must be a number"),
 
   miles: Yup.number()
+    .integer("Miles must be an integer")
     .min(0, "Miles cannot be negative")
+    .max(500000, "Miles cannot be more than 500,000")
     .required("Recommended miles are required")
     .transform((value, originalValue) =>
       originalValue === "" ||

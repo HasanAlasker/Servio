@@ -42,6 +42,7 @@ export const validationSchema = Yup.object({
 
   mileage: Yup.number()
     .min(0, "Mileage cannot be negative")
+    .max(1000000, "Mileage cannot be greater than 1,000,000")
     .required("Mileage is required")
     .typeError("Mileage must be a number"),
 

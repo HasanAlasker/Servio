@@ -52,10 +52,9 @@ function OfflineModal(props) {
     <Modal transparent>
       <View style={styles.container}>
         <Feather name="wifi-off" size={100} color={theme.red} />
-        <SText>Check your network</SText>
         <PriBtn
           square
-          black
+          red
           style={styles.btn}
           full
           title={"Retry"}
