@@ -1,9 +1,9 @@
-import { Platform, StyleSheet } from "react-native";
+import { Platform, StyleSheet, ScrollView } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import ScrollScreen from "./ScrollScreen";
 
 function KeyboardScrollScreen({ children, ...other }) {
-  if (Platform.OS === "web") return <ScrollScreen>{children}</ScrollScreen>;
+  if (Platform.OS === "web") return <ScrollView>{children}</ScrollView>;
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={{ flexGrow: 1, paddingBottom: 30, paddingTop: 20 }}

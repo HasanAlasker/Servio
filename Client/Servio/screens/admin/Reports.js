@@ -8,6 +8,7 @@ import useApi from "../../hooks/useApi";
 import { getClosedReports, getOpenReports } from "../../api/report";
 import GapContainer from "../../components/general/GapContainer";
 import ReportCard from "../../components/cards/ReportCard";
+import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 
 function Reports(props) {
   const [tab, setTab] = useState("1");
@@ -25,6 +26,8 @@ function Reports(props) {
     request: fetchClosed,
     loading: loadingClosed,
   } = useApi(getClosedReports);
+
+  const loading = loadingOpen || loadingClosed;
 
   useEffect(() => {
     fetchClosed();
@@ -64,7 +67,12 @@ function Reports(props) {
           onTabChange={handleTab}
           active={tab}
         />
-        <GapContainer>{OpenList}</GapContainer>
+        <GapContainer>
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
+          {OpenList}
+        </GapContainer>
       </ScrollScreen>
       <Navbar />
     </SafeScreen>

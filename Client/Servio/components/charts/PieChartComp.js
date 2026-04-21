@@ -30,7 +30,7 @@ function PieChartComp({ data, loading, total }) {
               <DonutCenter total={loading ? "..." : total} />
             )}
             strokeWidth={2}
-            strokeColor={theme.background}
+            strokeColor={theme.post}
             animationDuration={600}
           />
           <LegendCont>
