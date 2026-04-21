@@ -40,6 +40,21 @@ function Reports(props) {
     if (tab === "1") setTab("2");
     else setTab("1");
   };
+
+  const OpenList = open?.map((o) => (
+    <ReportCard
+      key={o._id}
+      reason={o.reason}
+      status={o.status}
+      createdAt={o.createdAt}
+      reporter={o.reporter}
+      appointment={o.appointment}
+      id={o._id}
+      shop={o.reportedShop}
+      updatedAt={o.updatedAt}
+    />
+  ));
+
   return (
     <SafeScreen>
       <ScrollScreen stickyHeader stickyHeaderIndices={[0]}>
@@ -49,9 +64,7 @@ function Reports(props) {
           onTabChange={handleTab}
           active={tab}
         />
-        <GapContainer>
-          {/* <ReportCard /> */}
-        </GapContainer>
+        <GapContainer>{OpenList}</GapContainer>
       </ScrollScreen>
       <Navbar />
     </SafeScreen>
