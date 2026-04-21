@@ -25,7 +25,7 @@ import Animated, {
   LinearTransition,
   SlideInDown,
 } from "react-native-reanimated";
-import ScrollScreen from '../../components/general/ScrollScreen'
+import ScrollScreen from "../../components/general/ScrollScreen";
 
 const validationSchema = Yup.object({
   date: Yup.date()
@@ -134,7 +134,7 @@ function MakeAppointment(props) {
 
   return (
     <SafeScreen>
-      <ScrollScreen style={{width: "100%"}}>
+      <ScrollScreen style={{ width: "100%" }}>
         <BackContainer style={styles.back}>
           <MenuBackBtn
             onClose={() => {
@@ -154,6 +154,7 @@ function MakeAppointment(props) {
 
                 <FormikDatePicker
                   full
+                  minimumDate={new Date()}
                   name={"date"}
                   icon="calendar-outline"
                   hasBeenSubmitted={hasBeenSubmited}
