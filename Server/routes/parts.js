@@ -7,6 +7,7 @@ import { addPartSchema, editPartSchema } from "../validation/part.js";
 import { updateServicesForCar } from "../services/upcomingServiceManager.js";
 import logIP from "../middleware/logIp.js";
 import CarModel from "../models/car.js";
+import UpcomingServiceModel from "../models/upcomingService.js";
 
 const router = express.Router();
 
@@ -182,7 +183,7 @@ router.patch(
         });
       }
 
-      updateServicesForCar(updatedPart.car).catch((err) =>
+      updateServicesForCar(updatedPart.car._id).catch((err) =>
         console.error(`Failed to recalculate services for car ${carId}:`, err),
       );
 
@@ -236,7 +237,11 @@ router.patch(
         });
       }
 
-      updateServicesForCar(part.car).catch((err) =>
+      const deletedService = await UpcomingServiceModel.deleteMany({
+        car: updatedPart.car._id,
+      });
+
+      updateServicesForCar(part.car._id).catch((err) =>
         console.error(`Failed to recalculate services for car ${carId}:`, err),
       );
 
