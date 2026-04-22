@@ -1,9 +1,4 @@
-import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  Modal,
-} from "react-native";
+import { View, StyleSheet, Pressable, Modal } from "react-native";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useTheme } from "../../context/ThemeContext";
 
@@ -14,9 +9,9 @@ function CardModal({ children, isVisibile, onClose }) {
   return (
     <Modal transparent={true} visible={isVisibile}>
       <View style={styles.container}>{children}</View>
-      <TouchableWithoutFeedback onPress={onClose}>
+      <Pressable onPress={onClose}>
         <View style={styles.overlay}></View>
-      </TouchableWithoutFeedback>
+      </Pressable>
     </Modal>
   );
 }

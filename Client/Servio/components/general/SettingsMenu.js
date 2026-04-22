@@ -1,9 +1,4 @@
-import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  StatusBar,
-} from "react-native";
+import { View, StyleSheet, Pressable, StatusBar } from "react-native";
 import MenuBackBtn from "./MenuBackBtn";
 import MenuOption from "./MenuOption";
 import SeparatorComp from "./SeparatorComp";
@@ -24,9 +19,9 @@ function SettingsMenu({ isVisible, onClose }) {
   if (!isVisible) return null;
   return (
     <Modal transparent animationType="slide">
-      <TouchableWithoutFeedback onPress={onClose}>
+      <Pressable onPress={onClose}>
         <View style={styles.overlay} />
-      </TouchableWithoutFeedback>
+      </Pressable>
 
       <View style={styles.container}>
         <MenuBackBtn onClose={onClose} />
@@ -36,14 +31,14 @@ function SettingsMenu({ isVisible, onClose }) {
             icon={"circle-half-full"}
             onPress={toggleTheme}
           />
-          <SeparatorComp full color="faded"/>
+          <SeparatorComp full color="faded" />
 
           <MenuOption
             text={"My Profile"}
             icon={"account-circle-outline"}
             onPress={() => navigate.navigate("Profile")}
           />
-          <SeparatorComp full color="faded"/>
+          <SeparatorComp full color="faded" />
 
           <MenuOption
             text={"Suggestions"}
@@ -52,7 +47,7 @@ function SettingsMenu({ isVisible, onClose }) {
               navigate.navigate(!isAdmin ? "Suggestions" : "SeeSuggestions")
             }
           />
-          <SeparatorComp full color="faded"/>
+          <SeparatorComp full color="faded" />
 
           {isUser && (
             <MenuOption
@@ -61,7 +56,7 @@ function SettingsMenu({ isVisible, onClose }) {
               onPress={() => navigate.navigate("AddShop")}
             />
           )}
-          {isUser && <SeparatorComp full color="faded"/>}
+          {isUser && <SeparatorComp full color="faded" />}
 
           {isShopOwner && (
             <MenuOption
@@ -70,7 +65,7 @@ function SettingsMenu({ isVisible, onClose }) {
               onPress={() => navigate.navigate("Service")}
             />
           )}
-          {isShopOwner && <SeparatorComp full color="faded"/>}
+          {isShopOwner && <SeparatorComp full color="faded" />}
 
           <MenuOption
             text={"Help"}
@@ -79,7 +74,7 @@ function SettingsMenu({ isVisible, onClose }) {
               openURL("https://servio-maintenance.netlify.app/how-it-works")
             }
           />
-          <SeparatorComp full color="faded"/>
+          <SeparatorComp full color="faded" />
 
           <MenuOption
             text={"Log out"}
