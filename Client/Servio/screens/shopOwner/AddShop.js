@@ -145,6 +145,7 @@ function AddShop(props) {
     setErrMsg(null);
 
     const coords = await getLatLngFromGoogleMapsLink(values.link);
+    console.log(coords)
 
     const formattedValues = {
       ...formatValues(values),

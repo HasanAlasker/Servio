@@ -26,7 +26,12 @@ import Animated, {
 } from "react-native-reanimated";
 
 const validationSchema = Yup.object({
-  name: Yup.string().trim().lowercase().required("Part name is required"),
+  name: Yup.string()
+    .trim()
+    .lowercase()
+    .min(2, "Minimum 2 characters")
+    .max(20, "Maximum 20 characters")
+    .required("Part name is required"),
 
   months: Yup.number()
     .integer("Months must be an integer")
@@ -67,6 +72,7 @@ const validationSchema = Yup.object({
   lastChangeMileage: Yup.number()
     .integer("Mileage must be integer")
     .min(0, "Mileage cannot be negative")
+    .max(1000000, "Maximum Mileage is 1,000,000")
     .required("Last change mileage is required")
     .typeError("Mileage must be a number"),
 

@@ -21,13 +21,13 @@ const validationSchema = Yup.object({
     .trim()
     .required("Title is required")
     .min(3, "Title must be at least 3 characters")
-    .max(100, "Title must not exceed 100 characters"),
+    .max(50, "Title must not exceed 50 characters"),
 
   message: Yup.string()
     .trim()
     .required("Message is required")
     .min(10, "Message must be at least 10 characters")
-    .max(1000, "Message must not exceed 1000 characters"),
+    .max(150, "Message must not exceed 150 characters"),
 
   type: Yup.string()
     .required("Type is required")

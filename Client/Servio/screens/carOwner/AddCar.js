@@ -27,7 +27,7 @@ export const validationSchema = Yup.object({
 
   name: Yup.string().trim().required("Car model name is required"),
 
-  image: Yup.string().default(""),
+  image: Yup.string().required("Image is required"),
 
   model: Yup.number()
     .integer("Year must be a whole number")
@@ -38,7 +38,11 @@ export const validationSchema = Yup.object({
 
   color: Yup.string().trim().required("Color is required"),
 
-  plateNumber: Yup.string().trim().required("Plate number is required"),
+  plateNumber: Yup.string()
+    .trim()
+    .min(1, "Minimum 1 character")
+    .max(15, "Maximum 15 characters")
+    .required("Plate number is required"),
 
   mileage: Yup.number()
     .integer("Mileage must be integer")
