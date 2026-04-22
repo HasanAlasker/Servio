@@ -4,7 +4,7 @@ import { Feather } from "@expo/vector-icons";
 import { useTheme } from "../../context/ThemeContext";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import { useNetInfo } from "@react-native-community/netinfo";
-import PriBtn from "./PriBtn";
+import GhostBtn from "./GhostBtn";
 import SText from "../text/SText";
 import { UseCar } from "../../context/CarContext";
 import { UseService } from "../../context/ServiceContext";
@@ -52,8 +52,7 @@ function OfflineModal(props) {
     <Modal transparent>
       <View style={styles.container}>
         <Feather name="wifi-off" size={100} color={theme.red} />
-        <PriBtn
-          square
+        <GhostBtn
           red
           style={styles.btn}
           full

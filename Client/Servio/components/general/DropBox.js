@@ -86,7 +86,7 @@ function DropBox({
                 styles.text,
                 disabled && styles.disabledText,
                 !selectedItem && styles.placeholder,
-                {top: Platform.OS==='web' && 4}
+                { top: Platform.OS === "web" && 4 },
               ]}
             >
               {displayText}
@@ -127,6 +127,7 @@ const getStyles = (theme) =>
   StyleSheet.create({
     back: {
       marginVertical: 0,
+      maxWidth: 600,
     },
     container: {
       flexDirection: "row",
@@ -161,6 +162,7 @@ const getStyles = (theme) =>
       width: "90%",
       marginHorizontal: "auto",
       paddingBottom: 20,
+      maxWidth: 600,
     },
     sep: {
       width: "100%",
