@@ -13,6 +13,8 @@ import {
   uploadToCloudinary,
 } from "../utils/cloudinary.js";
 import logIP from "../middleware/logIp.js";
+import UpcomingServiceModel from "../models/upcomingService.js";
+import PartModel from "../models/part.js";
 
 const router = express.Router();
 
@@ -399,6 +401,17 @@ router.patch("/delete/:id", auth, logIP("DELETE_CAR"), async (req, res) => {
         message: "Car was not deleted",
       });
     }
+
+    // when a car is deleted delete its parts
+    const deletedParts = await PartModel.updateMany(
+      { car: deletedCar._id },
+      { isTracked: false },
+    );
+
+    // when a car is deleted delete its services
+    const deletedServices = await UpcomingServiceModel.deleteMany({
+      car: deletedCar._id,
+    });
 
     return res.status(200).json({
       success: true,
