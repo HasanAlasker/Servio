@@ -65,6 +65,7 @@ const validationSchema = Yup.object({
     .typeError("Last change date must be a valid date"),
 
   lastChangeMileage: Yup.number()
+    .integer("Mileage must be integer")
     .min(0, "Mileage cannot be negative")
     .required("Last change mileage is required")
     .typeError("Mileage must be a number"),

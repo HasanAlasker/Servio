@@ -112,8 +112,8 @@ function ShopCard({
           {!mini && (
             <GapContainer gap={15}>
               <SimpleTitleText
-                title={address.city}
-                text1={address.area + " " + address.street}
+                title={capFirstLetter(address.city)}
+                text1={capFirstLetter(address.area+ " " + address.street) }
               />
               {!mini && (
                 <RowCont gap={5} style={{ flexWrap: "wrap" }}>

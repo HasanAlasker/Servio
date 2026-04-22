@@ -41,6 +41,7 @@ export const validationSchema = Yup.object({
   plateNumber: Yup.string().trim().required("Plate number is required"),
 
   mileage: Yup.number()
+    .integer("Mileage must be integer")
     .min(0, "Mileage cannot be negative")
     .max(1000000, "Mileage cannot be greater than 1,000,000")
     .required("Mileage is required")
