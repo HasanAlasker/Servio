@@ -81,7 +81,7 @@ export const NotificationProvider = ({ children }) => {
 
   // Initialize notifications when user is authenticated
   useEffect(() => {
-    if (isAuthenticated && user) {
+    if (isAuthenticated && user && Platform.OS !== "web") {
       registerForPushNotifications().then((token) => {
         if (token) {
           setExpoPushToken(token);
@@ -95,7 +95,7 @@ export const NotificationProvider = ({ children }) => {
           title: "Update Your Mileage",
           body: "Don't forget to update your cars mileage!",
           data: { type: "update_mileage", isMonthly: true },
-        })
+        });
       });
 
       // Listen for notifications received while app is in foreground
