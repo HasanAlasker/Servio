@@ -28,12 +28,11 @@ function AdminDash(props) {
   const {
     dashboard: data,
     loadDashboard,
-    loadingD,
+    loading,
     error,
     message,
   } = useAdminStore();
 
-  // Safe fallback so the chart never gets 0/0 (gifted-charts renders blank on all-zero)
   const carOwners = data?.carOwners || 0;
   const shopOwners = data?.shopOwners || 0;
   const activeUsers = data?.activeUsers || 0;
@@ -100,32 +99,28 @@ function AdminDash(props) {
         Metrics
       </SText>
 
-      {loadingD && <LoadingSkeleton />}
-      {loadingD && <LoadingSkeleton />}
+      {loading && !data?.length === 0 && <LoadingSkeleton />}
+      {loading && !data?.length === 0 && <LoadingSkeleton />}
 
-      {!loadingD && (
-        <PieChartComp data={usersData} loading={loadingD} total={totalUsers} />
-      )}
-      {!loadingD && (
-        <PieChartComp data={shopsData} loading={loadingD} total={totalShops} />
-      )}
+      {<PieChartComp data={usersData} total={totalUsers} />}
+      {<PieChartComp data={shopsData} total={totalShops} />}
 
       <CardLeftBorder
         title={"Reports:"}
         titleIcon={"flag-outline"}
-        data={loadingD || !data ? "0" : data.reports}
+        data={data?.reports || 0}
         style={styles.container}
       />
       <CardLeftBorder
         title={"Suggestions:"}
         titleIcon={"lightbulb-outline"}
-        data={loadingD || !data ? "0" : data.suggestions}
+        data={data?.suggestions || 0}
         style={styles.container}
       />
       <CardLeftBorder
         title={"Registered Cars:"}
         titleIcon={"car-multiple"}
-        data={loadingD || !data ? "0" : data.cars}
+        data={data?.cars || 0}
         style={styles.container}
       />
     </GapContainer>

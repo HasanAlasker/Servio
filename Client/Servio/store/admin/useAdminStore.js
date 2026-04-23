@@ -11,7 +11,7 @@ export const useAdminStore = create((set, get) => ({
   dashboard: null,
   error: false,
   message: null,
-  loadingD: false,
+  loading: false,
 
   // actions
   loadDashboard: async () => {
@@ -25,9 +25,9 @@ export const useAdminStore = create((set, get) => ({
 
     // fetch from api (to refresh data)
     try {
-      set({ loadingD: true, error: false });
+      set({ loading: true, error: false });
       const dashDocs = await adminCountDocs();
-      set({ dashboard: dashDocs.data.data, loadingD: false });
+      set({ dashboard: dashDocs.data.data, loading: false });
       await AsyncStorage.setItem(
         STORAGE_KEYS.DASHBOARD,
         JSON.stringify(dashDocs.data.data),
@@ -35,7 +35,7 @@ export const useAdminStore = create((set, get) => ({
     } catch (error) {
       set({
         error: true,
-        loadingD: false,
+        loading: false,
         message: error?.response?.data?.message || "Something went wrong!",
       });
       console.log(error);
