@@ -16,12 +16,12 @@ function DeletedShops(props) {
   const deletedShops = useShopStore((state) => state.deletedShops);
   const loading = useShopStore((state) => state.loading);
   const loadShops = useShopStore((state) => state.loadShops);
-  const [refreshing, setRefresh] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const refresh = async () => {
     setRefreshing(true);
     try {
-      loadShops();
+      await loadShops();
     } catch (error) {
       console.log(error);
     } finally {

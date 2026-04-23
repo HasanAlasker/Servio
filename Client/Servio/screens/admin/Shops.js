@@ -33,7 +33,7 @@ function Shops(props) {
   const refresh = async () => {
     setRefreshing(true);
     try {
-      loadShops();
+      await loadShops();
     } catch (error) {
       console.log(error);
     } finally {

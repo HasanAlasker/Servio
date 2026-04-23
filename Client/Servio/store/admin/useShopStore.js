@@ -103,6 +103,8 @@ export const useShopStore = create((set, get) => ({
         console.log(error);
       }
     }
+
+    await useAdminStore.getState().loadDashboard();
   },
 
   deleteShopA: async (id, activeTab) => {
@@ -127,5 +129,7 @@ export const useShopStore = create((set, get) => ({
     } catch (error) {
       console.log(error);
     }
+
+    await useAdminStore.getState().loadDashboard();
   },
 }));
