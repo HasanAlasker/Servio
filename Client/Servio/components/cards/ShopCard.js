@@ -19,6 +19,10 @@ import { UseUser } from "../../context/UserContext";
 import SimpleTitleText from "../general/SimpleTitleText";
 import useThemedStyles from "../../hooks/useThemedStyles";
 import TText from "../text/TText";
+import { useShopStore } from "../../store/admin/useShopStore";
+import GhostBtn from "../general/GhostBtn";
+import SeparatorComp from "../general/SeparatorComp";
+import VerticalLine from "../general/VerticalLine";
 
 function ShopCard({
   id,
@@ -38,12 +42,16 @@ function ShopCard({
   onCardPress,
   mini,
   serviceData,
+  activeTab,
 }) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getStyles);
   const { isShopOwner } = UseUser();
   const [showBtn, setShowBtn] = useState(false);
   const navigate = useNavigation();
+
+  const deleteShopA = useShopStore((state) => state.deleteShopA);
+  const verifyShopA = useShopStore((state) => state.verifyShopA);
 
   const route = useRoute();
   const shopData = { id, name };
@@ -66,6 +74,7 @@ function ShopCard({
   const hadlePress = (type) => {
     onAction(type, id);
   };
+
 
   return (
     <CardComp style={styles.container} onPress={onCardPress}>
@@ -97,7 +106,9 @@ function ShopCard({
           <RowCont style={{ justifyContent: "space-between" }}>
             <GapContainer gap={5}>
               <MText>{capFirstLetter(name)}</MText>
-              <SText thin color={"sec_text"}>{description}</SText>
+              <SText thin color={"sec_text"}>
+                {description}
+              </SText>
             </GapContainer>
             {isShopOwner && (
               <Feather
@@ -113,7 +124,7 @@ function ShopCard({
             <GapContainer gap={15}>
               <SimpleTitleText
                 title={capFirstLetter(address.city)}
-                text1={capFirstLetter(address.area+ " " + address.street) }
+                text1={capFirstLetter(address.area + " " + address.street)}
               />
               {!mini && (
                 <RowCont gap={5} style={{ flexWrap: "wrap" }}>
@@ -149,25 +160,28 @@ function ShopCard({
           )}
 
           {isVerified !== null && (
-            <GapContainer gap={15}>
-              {!isVerified && (
-                <PriBtn
-                  full
-                  square
-                  title={"Verify"}
-                  onPress={() => onVerify(id)}
-                />
-              )}
-
-              {!isDeleted && (
-                <PriBtn
-                  full
-                  square
-                  title={"Delete"}
-                  onPress={() => onDelete(id)}
-                  red
-                />
-              )}
+            <GapContainer gap={5}>
+              <SeparatorComp full color="faded" />
+              <RowCont>
+                {!isVerified && (
+                  <GhostBtn
+                    full
+                    title={"Verify"}
+                    onPress={() => verifyShopA(id, route.name)}
+                  />
+                )}
+                {!isVerified && route.name !== "DeletedShops" && (
+                  <VerticalLine />
+                )}
+                {!isDeleted && (
+                  <GhostBtn
+                    full
+                    title={"Delete"}
+                    onPress={() => deleteShopA(id, activeTab)}
+                    red
+                  />
+                )}
+              </RowCont>
             </GapContainer>
           )}
         </GapContainer>

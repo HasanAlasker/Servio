@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import SafeScreen from "../../components/general/SafeScreen";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import Navbar from "../../components/general/Navbar";
@@ -10,29 +10,26 @@ import SText from "../../components/text/SText";
 import GapContainer from "../../components/general/GapContainer";
 import LText from "../../components/text/LText";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
+import { useShopStore } from "../../store/admin/useShopStore";
 
 function DeletedShops(props) {
-  const { data, request, loading, error } = useApi(getDeletedShops);
-  const [shops, setShops] = useState([]);
+  const deletedShops = useShopStore((state) => state.deletedShops);
+  const loading = useShopStore((state) => state.loading);
+  const loadShops = useShopStore((state) => state.loadShops);
+  const [refreshing, setRefresh] = useState(false);
 
-  useEffect(() => {
-    request();
-  }, []);
-
-  useEffect(() => {
-    setShops(data);
-  }, [data, error]);
-
-  const handleUndelete = async (id) => {
+  const refresh = async () => {
+    setRefreshing(true);
     try {
-      setShops((p) => p.filter((shop) => shop._id !== id));
-      await undeleteShop(id);
+      loadShops();
     } catch (error) {
       console.log(error);
+    } finally {
+      setRefreshing(false);
     }
   };
 
-  const RenderShops = shops?.map((shop) => (
+  const RenderShops = deletedShops?.map((shop) => (
     <ShopCard
       key={shop._id}
       id={shop._id}
@@ -46,21 +43,21 @@ function DeletedShops(props) {
       services={shop.services}
       isVerified={shop.isVerified}
       isDeleted={shop.isDeleted}
-      onVerify={handleUndelete}
     />
   ));
 
   return (
     <SafeScreen>
-      <ScrollScreen>
+      <ScrollScreen
+        {...(Platform.OS !== "web" && { refreshing, onRefresh: refresh })}
+      >
         <GapContainer>
           <LText>Deleted Shops</LText>
           {RenderShops}
           {loading && <LoadingSkeleton />}
           {loading && <LoadingSkeleton />}
-          {loading && <LoadingSkeleton />}
 
-          {!loading && shops.length === 0 && (
+          {!loading && deletedShops?.length === 0 && (
             <SText
               thin
               color={"sec_text"}

@@ -62,6 +62,7 @@ function Shops(props) {
             services={shop.services}
             isVerified={shop.isVerified}
             isDeleted={shop.isDeleted}
+            activeTab={tab}
           />
         ))
       : verified?.map((shop) => (
@@ -78,6 +79,7 @@ function Shops(props) {
             services={shop.services}
             isVerified={shop.isVerified}
             isDeleted={shop.isDeleted}
+            activeTab={tab}
           />
         ));
 

@@ -28,7 +28,7 @@ function AdminDash(props) {
   const {
     dashboard: data,
     loadDashboard,
-    loading,
+    loadingD,
     error,
     message,
   } = useAdminStore();
@@ -100,32 +100,32 @@ function AdminDash(props) {
         Metrics
       </SText>
 
-      {loading && <LoadingSkeleton />}
-      {loading && <LoadingSkeleton />}
+      {loadingD && <LoadingSkeleton />}
+      {loadingD && <LoadingSkeleton />}
 
-      {!loading && (
-        <PieChartComp data={usersData} loading={loading} total={totalUsers} />
+      {!loadingD && (
+        <PieChartComp data={usersData} loading={loadingD} total={totalUsers} />
       )}
-      {!loading && (
-        <PieChartComp data={shopsData} loading={loading} total={totalShops} />
+      {!loadingD && (
+        <PieChartComp data={shopsData} loading={loadingD} total={totalShops} />
       )}
 
       <CardLeftBorder
         title={"Reports:"}
         titleIcon={"flag-outline"}
-        data={loading || !data ? "0" : data.reports}
+        data={loadingD || !data ? "0" : data.reports}
         style={styles.container}
       />
       <CardLeftBorder
         title={"Suggestions:"}
         titleIcon={"lightbulb-outline"}
-        data={loading || !data ? "0" : data.suggestions}
+        data={loadingD || !data ? "0" : data.suggestions}
         style={styles.container}
       />
       <CardLeftBorder
         title={"Registered Cars:"}
         titleIcon={"car-multiple"}
-        data={loading || !data ? "0" : data.cars}
+        data={loadingD || !data ? "0" : data.cars}
         style={styles.container}
       />
     </GapContainer>
