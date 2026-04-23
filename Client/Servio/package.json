@@ -48,7 +48,8 @@
     "react-native-svg": "15.12.1",
     "react-native-toast-notifications": "^3.4.0",
     "react-native-web": "^0.21.0",
-    "yup": "^1.7.1"
+    "yup": "^1.7.1",
+    "zustand": "^5.0.12"
   },
   "private": true
 }

@@ -52,6 +52,7 @@ import CompletedAppointments from "./screens/carOwner/CompletedAppointments";
 import Schedule from "./screens/shopOwner/Schedule";
 import { AlertContainer } from "react-native-alert-queue";
 import AppText from "./config/AppText";
+import { useAdminStore } from "./store/admin/useAdminStore";
 
 export const navigationRef = createNavigationContainerRef();
 SplashScreen.preventAutoHideAsync();
@@ -158,6 +159,7 @@ const AppNavigator = () => {
   const { loadServices, loading } = UseService();
   const { loadAppointments } = UseAppointment();
   const { loadShops } = UseShop();
+  const loadDashboard = useAdminStore((state) => state.loadDashboard);
 
   useEffect(() => {
     loadUserData();
@@ -176,6 +178,10 @@ const AppNavigator = () => {
       SplashScreen.hideAsync();
     }
   }, [authLoaded, loading]);
+
+    useEffect(() => {
+      loadDashboard();
+    }, [isAdmin]);
 
   useEffect(() => {
     if (Platform.OS === "android") {
@@ -200,7 +206,7 @@ const AppNavigator = () => {
         )}
       </NavigationContainer>
       <AlertContainer
-        // config={{ alertStyle: { backgroundColor: theme.post },  }}
+      // config={{ alertStyle: { backgroundColor: theme.post },  }}
       />
     </>
   );

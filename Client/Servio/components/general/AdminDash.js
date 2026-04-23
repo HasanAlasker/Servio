@@ -19,11 +19,18 @@ import Animated, {
 } from "react-native-reanimated";
 import CardComp from "../cards/CardComp";
 import PieChartComp from "../charts/PieChartComp";
+import { useAdminStore } from "../../store/admin/useAdminStore";
 
 function AdminDash(props) {
   const { user } = UseUser();
   const { theme } = useTheme();
-  const { data, request, loading, error } = useApi(adminCountDocs);
+  const {
+    dashboard: data,
+    loadDashboard,
+    loading,
+    error,
+    message,
+  } = useAdminStore();
 
   // Safe fallback so the chart never gets 0/0 (gifted-charts renders blank on all-zero)
   const carOwners = data?.carOwners || 0;
@@ -86,9 +93,6 @@ function AdminDash(props) {
         ]
       : [{ value: 1, color: theme.loading }];
 
-  useEffect(() => {
-    request();
-  }, [user, error]);
   return (
     <GapContainer>
       <SText thin color={"sec_text"}>
@@ -105,19 +109,19 @@ function AdminDash(props) {
       <CardLeftBorder
         title={"Reports:"}
         titleIcon={"flag-outline"}
-        data={loading ? "0" : data.reports}
+        data={loading || !data ? "0" : data.reports}
         style={styles.container}
       />
       <CardLeftBorder
         title={"Suggestions:"}
         titleIcon={"lightbulb-outline"}
-        data={loading ? "0" : data.suggestions}
+        data={loading || !data ? "0" : data.suggestions}
         style={styles.container}
       />
       <CardLeftBorder
         title={"Registered Cars:"}
         titleIcon={"car-multiple"}
-        data={loading ? "0" : data.cars}
+        data={loading || !data ? "0" : data.cars}
         style={styles.container}
       />
     </GapContainer>

@@ -33,7 +33,6 @@ const getStyles = (theme) =>
     },
     webGradient: {
       backgroundImage: `linear-gradient(147deg, ${theme.g1} 0%, ${theme.g2} 11%, ${theme.g3} 23%, ${theme.g4} 70%, ${theme.g5} 80%, ${theme.g6} 100%, ${theme.g7} 100%)`,
-      minHeight: "100vh",
     },
   });
 
