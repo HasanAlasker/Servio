@@ -53,6 +53,7 @@ import Schedule from "./screens/shopOwner/Schedule";
 import { AlertContainer } from "react-native-alert-queue";
 import AppText from "./config/AppText";
 import { useAdminStore } from "./store/admin/useAdminStore";
+import { useShopStore } from "./store/admin/useShopStore";
 
 export const navigationRef = createNavigationContainerRef();
 SplashScreen.preventAutoHideAsync();
@@ -160,6 +161,7 @@ const AppNavigator = () => {
   const { loadAppointments } = UseAppointment();
   const { loadShops } = UseShop();
   const loadDashboard = useAdminStore((state) => state.loadDashboard);
+  const loadAdminShops = useShopStore((state) => state.loadShops);
 
   useEffect(() => {
     loadUserData();
@@ -179,9 +181,10 @@ const AppNavigator = () => {
     }
   }, [authLoaded, loading]);
 
-    useEffect(() => {
-      loadDashboard();
-    }, [isAdmin]);
+  useEffect(() => {
+    loadDashboard();
+    loadAdminShops();
+  }, [isAdmin]);
 
   useEffect(() => {
     if (Platform.OS === "android") {

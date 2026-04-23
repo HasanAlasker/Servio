@@ -16,34 +16,24 @@ import GapContainer from "../../components/general/GapContainer";
 import SText from "../../components/text/SText";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 import { alert } from "react-native-alert-queue";
+import { useShopStore } from "../../store/admin/useShopStore";
 
 function Shops(props) {
   const [tab, setTab] = useState("1");
-  const [Verified, setVerified] = useState([]);
-  const [unverified, setUnverified] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
   const {
-    data: vShops,
-    request: fetchVshops,
-    error: errV,
-    loading: loadingV,
-  } = useApi(getVerifiedShops);
-
-  const {
-    data: uvShops,
-    request: fetchUvshops,
-    error: errUv,
-    loading: loadingUv,
-  } = useApi(getUnVerifiedShops);
-
-  let loading = loadingUv || loadingV;
+    verifiedShops: verified,
+    unVerifiedShops: unverified,
+    loadShops,
+    loading,
+    error,
+  } = useShopStore();
 
   const refresh = async () => {
     setRefreshing(true);
     try {
-      fetchVshops();
-      fetchUvshops();
+      loadShops();
     } catch (error) {
       console.log(error);
     } finally {
@@ -51,56 +41,14 @@ function Shops(props) {
     }
   };
 
-  useEffect(() => {
-    fetchVshops();
-    fetchUvshops();
-  }, []);
-
-  useEffect(() => {
-    setVerified(vShops);
-    setUnverified(uvShops);
-  }, [vShops, uvShops]);
-
   const handleTab = () => {
     if (tab === "1") setTab("2");
     else setTab("1");
   };
 
-  const handleAction = async (type, id) => {
-    console.log(type, id);
-    if (type === "delete") {
-      const confirmed = await alert.confirm();
-      if (confirmed) {
-        setVerified((p) => p.filter((shop) => shop._id !== id));
-        const res = await deleteShop(id);
-      }
-    } else if (type === "verify") {
-      setUnverified((p) => p.filter((shop) => shop._id !== id));
-      let shop = unverified.find((shop) => shop._id === id);
-      shop.isVerified = true;
-      setVerified((p) => [shop, ...p]);
-      await verifyShop(id);
-    }
-  };
-  const handleVerify = async (id) => {
-    setUnverified((p) => p.filter((shop) => shop._id !== id));
-    let shop = unverified.find((shop) => shop._id === id);
-    shop.isVerified = true;
-    setVerified((p) => [shop, ...p]);
-    await verifyShop(id);
-  };
-
-  const handleDelete = async (id) => {
-    const confirmed = await alert.confirm();
-    if (confirmed) {
-      setVerified((p) => p.filter((shop) => shop._id !== id));
-      const res = await deleteShop(id);
-    }
-  };
-
   const RenderShops =
     tab === "1"
-      ? unverified.map((shop) => (
+      ? unverified?.map((shop) => (
           <ShopCard
             key={shop._id}
             id={shop._id}
@@ -113,13 +61,10 @@ function Shops(props) {
             ratingCount={shop.ratingCount}
             services={shop.services}
             isVerified={shop.isVerified}
-            onAction={handleAction}
             isDeleted={shop.isDeleted}
-            onVerify={handleVerify}
-            onDelete={handleDelete}
           />
         ))
-      : Verified.map((shop) => (
+      : verified?.map((shop) => (
           <ShopCard
             key={shop._id}
             id={shop._id}
@@ -133,21 +78,19 @@ function Shops(props) {
             services={shop.services}
             isVerified={shop.isVerified}
             isDeleted={shop.isDeleted}
-            onAction={handleAction}
-            onDelete={handleDelete}
           />
         ));
 
   return (
     <SafeScreen>
       <ScrollScreen
-        {...(Platform.OS !== 'web' && { refreshing, onRefresh: refresh })}
+        {...(Platform.OS !== "web" && { refreshing, onRefresh: refresh })}
         stickyHeader
         stickyHeaderIndices={[0]}
       >
         <TabNav
           one={"Unverified"}
-          two={"Verified"}
+          two={"verified"}
           active={tab}
           onTabChange={handleTab}
         />
@@ -157,7 +100,7 @@ function Shops(props) {
           {loading && <LoadingSkeleton />}
           {loading && <LoadingSkeleton />}
 
-          {!loadingUv && unverified.length === 0 && tab === "1" && (
+          {!loading && unverified?.length === 0 && tab === "1" && (
             <SText
               thin
               color={"sec_text"}
@@ -167,7 +110,7 @@ function Shops(props) {
             </SText>
           )}
 
-          {!loadingV && Verified.length === 0 && tab === "2" && (
+          {!loading && verified?.length === 0 && tab === "2" && (
             <SText
               thin
               color={"sec_text"}

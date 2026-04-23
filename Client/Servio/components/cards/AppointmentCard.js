@@ -91,8 +91,8 @@ function AppointmentCard({
       <GapContainer gap={10}>
         <GapContainer gap={20}>
           <SimpleTitleText
-            text1={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
-            text2={
+            text2={capFirstLetter(car?.make) + " " + capFirstLetter(car?.name)}
+            text1={
               isUser
                 ? capFirstLetter(shop?.name)
                 : capFirstLetter(customer?.name)

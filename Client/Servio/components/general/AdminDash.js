@@ -20,6 +20,7 @@ import Animated, {
 import CardComp from "../cards/CardComp";
 import PieChartComp from "../charts/PieChartComp";
 import { useAdminStore } from "../../store/admin/useAdminStore";
+import LoadingSkeleton from "../loading/LoadingSkeleton";
 
 function AdminDash(props) {
   const { user } = UseUser();
@@ -98,6 +99,9 @@ function AdminDash(props) {
       <SText thin color={"sec_text"}>
         Metrics
       </SText>
+
+      {loading && <LoadingSkeleton />}
+      {loading && <LoadingSkeleton />}
 
       {!loading && (
         <PieChartComp data={usersData} loading={loading} total={totalUsers} />

@@ -25,12 +25,12 @@ export const useAdminStore = create((set, get) => ({
 
     // fetch from api (to refresh data)
     try {
-      set({ loading: true, error: null });
-      const data = await adminCountDocs();
-      set({ dashboard: data.data.data, loading: false });
+      set({ loading: true, error: false });
+      const dashDocs = await adminCountDocs();
+      set({ dashboard: dashDocs.data.data, loading: false });
       await AsyncStorage.setItem(
         STORAGE_KEYS.DASHBOARD,
-        JSON.stringify(data.data.data),
+        JSON.stringify(dashDocs.data.data),
       );
     } catch (error) {
       set({
@@ -45,4 +45,4 @@ export const useAdminStore = create((set, get) => ({
 
 // notes:
 // 1. you can't use a react hook inside a zustand action (ex: useApi)
-// 2. you have to make sure you get the right data (look how many times i had to nest it)
+// 2. you have to make sure you get the right data (depending on api response stucture)
