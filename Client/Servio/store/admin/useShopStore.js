@@ -79,8 +79,14 @@ export const useShopStore = create((set, get) => ({
 
   // i put A at the end to prevent clashing with api names
   verifyShopA: async (id, routeName) => {
+    const source =
+      routeName === "AdminShops" ? get().unVerifiedShops : get().deletedShops;
+
+    const shop = source.find((s) => s._id === id);
+    shop.isVerified = true;
+    shop.isDeleted = false;
+
     if (routeName === "AdminShops") {
-      const shop = get().unVerifiedShops.find((s) => s._id === id);
       set({
         unVerifiedShops: get().unVerifiedShops.filter((s) => s._id !== id),
         verifiedShops: [shop, ...get().verifiedShops],
@@ -91,8 +97,6 @@ export const useShopStore = create((set, get) => ({
         console.log(error);
       }
     } else {
-      // From DeletedShops screen - undelete it
-      const shop = get().deletedShops.find((s) => s._id === id);
       set({
         deletedShops: get().deletedShops.filter((s) => s._id !== id),
         verifiedShops: [shop, ...get().verifiedShops],
@@ -110,7 +114,10 @@ export const useShopStore = create((set, get) => ({
   deleteShopA: async (id, activeTab) => {
     const source =
       activeTab === "1" ? get().unVerifiedShops : get().verifiedShops;
+
     const shop = source.find((s) => s._id === id);
+    shop.isVerified = false;
+    shop.isDeleted = true;
 
     if (activeTab === "1") {
       set({
