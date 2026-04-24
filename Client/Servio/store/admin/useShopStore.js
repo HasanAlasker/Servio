@@ -113,17 +113,17 @@ export const useShopStore = create((set, get) => ({
 
   deleteShopA: async (id, activeTab) => {
     const source =
-      activeTab === "1" ? get().unVerifiedShops : get().verifiedShops;
+      activeTab === "1" ? get().verifiedShops : get().unVerifiedShops;
 
     const shop = source.find((s) => s._id === id);
     shop.isVerified = false;
     shop.isDeleted = true;
 
-    if (activeTab === "1") {
+    if (activeTab === "2") {
       set({
         unVerifiedShops: get().unVerifiedShops.filter((s) => s._id !== id),
       });
-    } else if (activeTab === "2") {
+    } else if (activeTab === "1") {
       set({ verifiedShops: get().verifiedShops.filter((s) => s._id !== id) });
     }
 

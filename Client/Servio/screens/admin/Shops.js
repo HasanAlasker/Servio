@@ -46,7 +46,7 @@ function Shops(props) {
     else setTab("1");
   };
 
-  const dataSource = tab === "1" ? unverified : verified;
+  const dataSource = tab === "1" ? verified : unverified;
 
   const RenderShops =
     dataSource.length > 0 ? (
@@ -87,8 +87,8 @@ function Shops(props) {
         stickyHeaderIndices={[0]}
       >
         <TabNav
-          one={"Unverified"}
-          two={"verified"}
+          one={"Verified"}
+          two={"Unverified"}
           active={tab}
           onTabChange={handleTab}
         />

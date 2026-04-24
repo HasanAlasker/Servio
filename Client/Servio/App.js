@@ -174,16 +174,18 @@ const AppNavigator = () => {
   }, []);
 
   useEffect(() => {
-    loadShops();
-  }, [isShopOwner]);
-
-  useEffect(() => {
     if (authLoaded && !loading) {
       SplashScreen.hideAsync();
     }
   }, [authLoaded, loading]);
 
   useEffect(() => {
+    if (!isShopOwner) return;
+    loadShops();
+  }, [isShopOwner]);
+
+  useEffect(() => {
+    if (!isAdmin) return;
     loadDashboard();
     loadAdminShops();
     loadReports();
