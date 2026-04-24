@@ -24,6 +24,8 @@ function ReportCard({
   shop,
   createdAt,
   updatedAt,
+  onClose,
+  onOpen,
 }) {
   const { theme } = useTheme();
 
@@ -105,9 +107,12 @@ function ReportCard({
           <>
             <SeparatorComp full color="faded" />
 
-            <RowCont>
-              <GhostBtn title={"Close"} full />
-            </RowCont>
+            {status === "open" && (
+              <GhostBtn title={"Close"} full onPress={() => onClose(id)} />
+            )}
+            {status === "closed" && (
+              <GhostBtn title={"Open"} full red onPress={() => onOpen(id)} />
+            )}
           </>
         )}
       </GapContainer>

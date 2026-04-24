@@ -1,6 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
-import { getClosedReports, getOpenReports } from "../../api/report";
+import {
+  closeReport,
+  getClosedReports,
+  getOpenReports,
+  openReport,
+} from "../../api/report";
 
 const KEY_STORAGE = {
   OPEN_REPORTS: "@servio_open_reports",
@@ -48,6 +53,32 @@ export const useReportStore = create((set, get) => ({
       );
     } catch (error) {
       set({ error: true, loading: false });
+    }
+  },
+
+  closeReport: async (id) => {
+    try {
+      const report = get().open.find((r) => (r._id = id));
+      report.status = "closed";
+      const updated = get().open.filter((r) => r._id !== id);
+      set({ open: updated, closed: [report, ...get().closed] });
+
+      const res = await closeReport(id);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  openReport: async (id) => {
+    try {
+      const report = get().closed.find((r) => (r._id = id));
+      report.status = "open";
+      const updated = get().closed.filter((r) => r._id !== id);
+      set({ closed: updated, open: [report, ...get().open] });
+
+      const res = await openReport(id);
+    } catch (error) {
+      console.log(error);
     }
   },
 }));

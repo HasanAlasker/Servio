@@ -194,4 +194,46 @@ router.patch(
   },
 );
 
+// close report
+router.patch(
+  "/open/:id",
+  [auth, admin],
+  logIP("OPEN_REPORT"),
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid resource ID",
+        });
+      }
+
+      const report = await Model.findById(id);
+
+      if (!report) {
+        return res.status(404).json({
+          success: false,
+          message: "Report not found",
+        });
+      }
+
+      const openedReport = await ReportModel.findByIdAndUpdate(
+        id,
+        { status: "open" },
+        { timestamps: true, new: true },
+      );
+
+      return res.status(200).json({ success: true, data: openedReport });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
+
 export default router;
