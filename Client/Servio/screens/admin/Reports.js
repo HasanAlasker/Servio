@@ -21,6 +21,7 @@ function Reports(props) {
   const loading = useReportStore((state) => state.loading);
   const loadReports = useReportStore((state) => state.loadReports);
   const closeReport = useReportStore((state) => state.closeReport);
+  const openReport = useReportStore((state) => state.openReport);
 
   const handleTab = () => {
     if (tab === "1") setTab("2");
@@ -54,6 +55,7 @@ function Reports(props) {
           shop={o.reportedShop}
           updatedAt={o.updatedAt}
           onClose={closeReport}
+          onOpen={openReport}
         />
       ))
     ) : (

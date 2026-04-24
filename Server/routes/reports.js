@@ -168,7 +168,7 @@ router.patch(
         });
       }
 
-      const report = await Model.findById(id);
+      const report = await ReportModel.findById(id);
 
       if (!report) {
         return res.status(404).json({
@@ -210,7 +210,7 @@ router.patch(
         });
       }
 
-      const report = await Model.findById(id);
+      const report = await ReportModel.findById(id);
 
       if (!report) {
         return res.status(404).json({
