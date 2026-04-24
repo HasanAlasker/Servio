@@ -54,6 +54,7 @@ import { AlertContainer } from "react-native-alert-queue";
 import AppText from "./config/AppText";
 import { useAdminStore } from "./store/admin/useAdminStore";
 import { useShopStore } from "./store/admin/useShopStore";
+import { useReportStore } from "./store/admin/useReportStore";
 
 export const navigationRef = createNavigationContainerRef();
 SplashScreen.preventAutoHideAsync();
@@ -160,6 +161,7 @@ const AppNavigator = () => {
   const { loadServices, loading } = UseService();
   const { loadAppointments } = UseAppointment();
   const { loadShops } = UseShop();
+  const { loadReports } = useReportStore();
   const loadDashboard = useAdminStore((state) => state.loadDashboard);
   const loadAdminShops = useShopStore((state) => state.loadShops);
 
@@ -184,6 +186,7 @@ const AppNavigator = () => {
   useEffect(() => {
     loadDashboard();
     loadAdminShops();
+    loadReports();
   }, [isAdmin]);
 
   useEffect(() => {

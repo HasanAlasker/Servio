@@ -46,42 +46,38 @@ function Shops(props) {
     else setTab("1");
   };
 
+  const dataSource = tab === "1" ? unverified : verified;
+
   const RenderShops =
-    tab === "1"
-      ? unverified?.map((shop) => (
-          <ShopCard
-            key={shop._id}
-            id={shop._id}
-            name={shop.name}
-            address={shop.address}
-            description={shop.description}
-            image={shop?.image}
-            openHours={shop.openHours}
-            rating={shop.rating}
-            ratingCount={shop.ratingCount}
-            services={shop.services}
-            isVerified={shop.isVerified}
-            isDeleted={shop.isDeleted}
-            activeTab={tab}
-          />
-        ))
-      : verified?.map((shop) => (
-          <ShopCard
-            key={shop._id}
-            id={shop._id}
-            name={shop.name}
-            address={shop.address}
-            description={shop.description}
-            image={shop?.image}
-            openHours={shop.openHours}
-            rating={shop.rating}
-            ratingCount={shop.ratingCount}
-            services={shop.services}
-            isVerified={shop.isVerified}
-            isDeleted={shop.isDeleted}
-            activeTab={tab}
-          />
-        ));
+    dataSource.length > 0 ? (
+      dataSource?.map((shop) => (
+        <ShopCard
+          key={shop._id}
+          id={shop._id}
+          name={shop.name}
+          address={shop.address}
+          description={shop.description}
+          image={shop?.image}
+          openHours={shop.openHours}
+          rating={shop.rating}
+          ratingCount={shop.ratingCount}
+          services={shop.services}
+          isVerified={shop.isVerified}
+          isDeleted={shop.isDeleted}
+          activeTab={tab}
+        />
+      ))
+    ) : (
+      <SText
+        thin
+        color={"sec_text"}
+        style={{ margin: "auto", textAlign: "center" }}
+      >
+        {dataSource === unverified
+          ? "There are no requests yet"
+          : "There are no open shops yet"}
+      </SText>
+    );
 
   return (
     <SafeScreen>
@@ -101,26 +97,6 @@ function Shops(props) {
           {loading && <LoadingSkeleton />}
           {loading && <LoadingSkeleton />}
           {loading && <LoadingSkeleton />}
-
-          {!loading && unverified?.length === 0 && tab === "1" && (
-            <SText
-              thin
-              color={"sec_text"}
-              style={{ margin: "auto", textAlign: "center" }}
-            >
-              There are no requests yet
-            </SText>
-          )}
-
-          {!loading && verified?.length === 0 && tab === "2" && (
-            <SText
-              thin
-              color={"sec_text"}
-              style={{ margin: "auto", textAlign: "center" }}
-            >
-              There are no open shops yet
-            </SText>
-          )}
         </GapContainer>
       </ScrollScreen>
       <Navbar />
