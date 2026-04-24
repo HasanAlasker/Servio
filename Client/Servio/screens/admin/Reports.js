@@ -82,10 +82,10 @@ function Reports(props) {
           active={tab}
         />
         <GapContainer>
-          {loading && <LoadingSkeleton />}
-          {loading && <LoadingSkeleton />}
-          {loading && <LoadingSkeleton />}
           {RenderReports}
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
+          {loading && <LoadingSkeleton />}
         </GapContainer>
       </ScrollScreen>
       <Navbar />

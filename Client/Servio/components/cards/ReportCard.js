@@ -60,6 +60,14 @@ function ReportCard({
           />
         </RowCont>
 
+        {status === "closed" && <SeparatorComp full color="faded" />}
+        {status === "closed" && (
+          <SimpleTitleText
+            title={"Closed in"}
+            text1={formatDateTime(updatedAt)}
+          />
+        )}
+
         <SeparatorComp full color="faded" />
         <RowCont>
           <SimpleTitleText
@@ -88,21 +96,24 @@ function ReportCard({
             onPress={() => handleCall(false)}
           />
         </RowCont>
-        <SeparatorComp full color="faded" />
-        <RowCont spaceBetween>
-          <SimpleTitleText
-            text1={
-              capFirstLetter(appointment.car.make) +
-              " " +
-              capFirstLetter(appointment.car.name)
-            }
-            title={cutYear(appointment.scheduledDate)}
-          />
-          <StatusLabel
-            status={appointment.status}
-            style={{ alignSelf: "center" }}
-          />
-        </RowCont>
+        {status === "open" && <SeparatorComp full color="faded" />}
+        {status === "open" && (
+          <RowCont spaceBetween>
+            <SimpleTitleText
+              text1={
+                capFirstLetter(appointment.car.make) +
+                " " +
+                capFirstLetter(appointment.car.name)
+              }
+              title={cutYear(appointment.scheduledDate)}
+            />
+            <StatusLabel
+              status={appointment.status}
+              style={{ alignSelf: "center" }}
+            />
+          </RowCont>
+        )}
+
         {showBtns && (
           <>
             <SeparatorComp full color="faded" />

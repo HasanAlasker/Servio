@@ -6,6 +6,7 @@ import {
   getOpenReports,
   openReport,
 } from "../../api/report";
+import { useAdminStore } from "./useAdminStore";
 
 const KEY_STORAGE = {
   OPEN_REPORTS: "@servio_open_reports",
@@ -58,12 +59,15 @@ export const useReportStore = create((set, get) => ({
 
   closeReport: async (id) => {
     try {
-      const report = get().open.find((r) => (r._id = id));
+      const report = get().open.find((r) => r._id === id);
       report.status = "closed";
+      report.updatedAt = new Date();
+
       const updated = get().open.filter((r) => r._id !== id);
       set({ open: updated, closed: [report, ...get().closed] });
 
       const res = await closeReport(id);
+      if (res.ok) useAdminStore.getState().loadDashboard();
     } catch (error) {
       console.log(error);
     }
@@ -71,12 +75,14 @@ export const useReportStore = create((set, get) => ({
 
   openReport: async (id) => {
     try {
-      const report = get().closed.find((r) => (r._id = id));
+      const report = get().closed.find((r) => r._id === id);
       report.status = "open";
+
       const updated = get().closed.filter((r) => r._id !== id);
       set({ closed: updated, open: [report, ...get().open] });
 
       const res = await openReport(id);
+      if (res.ok) useAdminStore.getState().loadDashboard();
     } catch (error) {
       console.log(error);
     }
