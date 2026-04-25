@@ -14,7 +14,7 @@
     <img src="https://img.shields.io/badge/Website-007BFF?style=for-the-badge" />
   </a>
   <img src="https://img.shields.io/badge/Status-Production-green?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
+  <img src="https://img.shields.io/badge/Platform-Android%20|%20IOS%20|%20Web-3DDC84?style=for-the-badge&logo=os&logoColor=white" />
   <img src="https://img.shields.io/badge/Built%20With-React%20Native-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
 </p>
 <p align="center">
@@ -147,6 +147,7 @@ Servio is built to grow beyond a personal tracking app into:
 Want to try Servio?
 
 👉 **[Google Play](https://play.google.com/store/apps/details?id=com.hasan_alasker.Servio)**
+👉 **[IOS / Browser](https://servio.expo.app)**
 
 You can also help the platform grow by inviting your mechanic or local service center to join. 🔧
 
