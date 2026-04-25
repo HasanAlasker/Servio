@@ -15,10 +15,18 @@ import { Platform } from "react-native";
 import { UseUser } from "../../context/UserContext";
 import useApi from "../../hooks/useApi";
 import { getCallToAction } from "../../api/appointment";
+import { useBookingStore } from "../../store/shopOwner/useBookingsStore";
 
 function CompletedAppointmets(props) {
   const { isUser, isShopOwner } = UseUser();
-  const { fetchCompleted, completed, setCompleted, loading } = UseAppointment();
+  const {
+    fetchCompleted,
+    completed,
+    setCompleted,
+    loading: loadingUserAppointments,
+  } = UseAppointment();
+  const { callTo, loadBook, loading: loadingCallTo } = useBookingStore();
+
   const [refreshing, setRefreshing] = useState(false);
   const [showRating, setShowRating] = useState(false);
   const [ratingData, setRatingData] = useState(null);
@@ -26,28 +34,13 @@ function CompletedAppointmets(props) {
   const [reportId, setReportId] = useState(null);
   const navigate = useNavigation();
 
-  const [callTo, setCallTo] = useState([]);
-
-  const {
-    data: callToAction,
-    request,
-    loading: loadingCallTo,
-  } = useApi(getCallToAction);
-
-  useEffect(() => {
-    if (!isShopOwner) return;
-    request();
-  }, []);
-
-  useEffect(() => {
-    if (!isShopOwner) return;
-    setCallTo(callToAction);
-  }, [callToAction]);
+  const loading = loadingUserAppointments || loadingCallTo;
 
   const refresh = async () => {
     try {
       setRefreshing(true);
-      await fetchCompleted();
+      if (isUser) await fetchCompleted();
+      else await loadBook();
     } catch (error) {
     } finally {
       setRefreshing(false);
@@ -76,7 +69,7 @@ function CompletedAppointmets(props) {
       serviceParts={appointment.serviceParts}
       status={appointment.status}
       scheuledAt={appointment.scheduledDate}
-      {...(isUser && showRateAndReport)}
+      {...(isUser && { showRateAndReport: true })}
       openRatingModal={handleRating}
       openReportModal={handleReport}
       isReported={appointment.isReported}

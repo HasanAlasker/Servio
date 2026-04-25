@@ -55,6 +55,7 @@ import AppText from "./config/AppText";
 import { useAdminStore } from "./store/admin/useAdminStore";
 import { useShopStore } from "./store/admin/useShopStore";
 import { useReportStore } from "./store/admin/useReportStore";
+import { useBookingStore } from "./store/shopOwner/useBookingsStore";
 
 export const navigationRef = createNavigationContainerRef();
 SplashScreen.preventAutoHideAsync();
@@ -165,7 +166,8 @@ const AppNavigator = () => {
   const { loadServices, loading } = UseService();
   const { loadAppointments } = UseAppointment();
   const { loadShops } = UseShop();
-  const { loadReports } = useReportStore();
+  const loadBook = useBookingStore((state) => state.loadBook);
+  const loadReports = useReportStore((state) => state.loadReports);
   const loadDashboard = useAdminStore((state) => state.loadDashboard);
   const loadAdminShops = useShopStore((state) => state.loadShops);
 
@@ -186,6 +188,7 @@ const AppNavigator = () => {
   useEffect(() => {
     if (!isShopOwner) return;
     loadShops();
+    loadBook();
   }, [isShopOwner]);
 
   useEffect(() => {

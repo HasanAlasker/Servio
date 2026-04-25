@@ -9,15 +9,18 @@ import { useNavigation } from "@react-navigation/native";
 import SText from "../text/SText";
 import { UseAppointment } from "../../context/AppointmentContext";
 import RedCircle from "./RedCircle";
+import { useBookingStore } from "../../store/shopOwner/useBookingsStore";
 
 function HelloUser(props) {
-  const { firstName, isUser, isAdmin } = UseUser();
+  const { firstName, isUser, isShopOwner, isAdmin } = UseUser();
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
   const { completed } = UseAppointment();
+  const callTo = useBookingStore((state) => state.callTo);
+
   const navigate = useNavigation();
 
-  const numOfNotifications = completed.length;
+  const numOfNotifications = isUser ? completed.length : callTo?.length;
 
   const welcomePhrase = () => {
     const hour = new Date().toLocaleString("en-US", {
