@@ -11,7 +11,7 @@ import { UseAppointment } from "../../context/AppointmentContext";
 import RedCircle from "./RedCircle";
 
 function HelloUser(props) {
-  const { firstName, isUser } = UseUser();
+  const { firstName, isUser, isAdmin } = UseUser();
   const styles = useThemedStyles(getStyles);
   const { theme } = useTheme();
   const { completed } = UseAppointment();
@@ -44,7 +44,7 @@ function HelloUser(props) {
       <Pressable
         style={styles.btn}
         onPress={() =>
-          isUser
+          !isAdmin
             ? navigate.navigate("CompletedAppointments")
             : navigate.navigate("Profile")
         }
@@ -52,9 +52,9 @@ function HelloUser(props) {
         <Feather
           color={theme.main_text}
           size={32}
-          name={isUser ? "bell" : "user"}
+          name={!isAdmin ? "bell" : "user"}
         />
-        {isUser && numOfNotifications > 0 && (
+        {!isAdmin && numOfNotifications > 0 && (
           <RedCircle numOfNotifications={numOfNotifications} />
         )}
       </Pressable>

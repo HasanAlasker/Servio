@@ -12,8 +12,10 @@ import SText from "../../components/text/SText";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 import ReportModal from "../../components/form/ReportModal";
 import { Platform } from "react-native";
+import { UseUser } from "../../context/UserContext";
 
 function CompletedAppointmets(props) {
+  const { isUser, isShopOwner } = UseUser();
   const { fetchCompleted, completed, setCompleted, loading } = UseAppointment();
   const [refreshing, setRefreshing] = useState(false);
   const [showRating, setShowRating] = useState(false);

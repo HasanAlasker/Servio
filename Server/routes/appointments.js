@@ -130,6 +130,44 @@ router.get("/completed", auth, logIP("GET_COMPLETED"), async (req, res) => {
   }
 });
 
+// get call to action
+router.get(
+  "/call-to-action",
+  [auth, shopOwner],
+  logIP("GET_CALL_TO_ACTION_APPOINTMENTS"),
+  async (req, res) => {
+    try {
+      const shops = await ShopModel.find({ owner: req.user._id });
+      if (!shops.length) {
+        return res
+          .status(404)
+          .json({ success: false, message: "No shops found" });
+      }
+
+      const shopIds = shops.map((s) => s._id);
+
+      const confimed = await AppointmentModel.find({
+        shop: { $in: shopIds },
+        status: "confirmed",
+        scheduledDate: { $lte: new Date() },
+      })
+        .sort("scheduledDate")
+        .populate("car", "make name model plateNumber mileage color")
+        .populate("customer", "name phone")
+        .populate("shop", "owner name services address rating ratingCount")
+        .populate("serviceParts");
+
+      return res.status(200).json({ success: true, data: confimed });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
+
 // get car history
 router.get("/history/:id", auth, logIP("GET_CAR_HISTORY"), async (req, res) => {
   try {

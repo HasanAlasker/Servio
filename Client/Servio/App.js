@@ -128,6 +128,10 @@ const ShopOwnerStack = () => {
       <Stack.Screen name="ShopAppointments" component={ShopAppointments} />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Schedule" component={Schedule} />
+      <Stack.Screen
+        name="CompletedAppointments"
+        component={CompletedAppointments}
+      />
     </Stack.Navigator>
   );
 };
