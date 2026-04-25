@@ -2,7 +2,7 @@ import SafeScreen from "../../components/general/SafeScreen";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import Navbar from "../../components/general/Navbar";
 import GapContainer from "../../components/general/GapContainer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UseAppointment } from "../../context/AppointmentContext";
 import MenuBackBtn from "../../components/general/MenuBackBtn";
 import { useNavigation } from "@react-navigation/native";
@@ -13,6 +13,8 @@ import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 import ReportModal from "../../components/form/ReportModal";
 import { Platform } from "react-native";
 import { UseUser } from "../../context/UserContext";
+import useApi from "../../hooks/useApi";
+import { getCallToAction } from "../../api/appointment";
 
 function CompletedAppointmets(props) {
   const { isUser, isShopOwner } = UseUser();
@@ -23,6 +25,24 @@ function CompletedAppointmets(props) {
   const [reportModal, setReportModal] = useState(false);
   const [reportId, setReportId] = useState(null);
   const navigate = useNavigation();
+
+  const [callTo, setCallTo] = useState([]);
+
+  const {
+    data: callToAction,
+    request,
+    loading: loadingCallTo,
+  } = useApi(getCallToAction);
+
+  useEffect(() => {
+    if (!isShopOwner) return;
+    request();
+  }, []);
+
+  useEffect(() => {
+    if (!isShopOwner) return;
+    setCallTo(callToAction);
+  }, [callToAction]);
 
   const refresh = async () => {
     try {
@@ -44,9 +64,9 @@ function CompletedAppointmets(props) {
     setReportId(appId);
   };
 
-  const removeCardFromUi = (appointmentId) => {};
+  const dataSource = isUser ? completed : callTo;
 
-  const completedList = completed.map((appointment) => (
+  const completedList = dataSource?.map((appointment) => (
     <AppointmentCard
       key={appointment._id}
       id={appointment._id}
@@ -56,12 +76,13 @@ function CompletedAppointmets(props) {
       serviceParts={appointment.serviceParts}
       status={appointment.status}
       scheuledAt={appointment.scheduledDate}
-      showRateAndReport
+      {...(isUser && showRateAndReport)}
       openRatingModal={handleRating}
       openReportModal={handleReport}
       isReported={appointment.isReported}
     />
   ));
+
   return (
     <SafeScreen>
       <ScrollScreen
@@ -69,7 +90,7 @@ function CompletedAppointmets(props) {
       >
         <MenuBackBtn onClose={() => navigate.goBack()} />
         <GapContainer>
-          {completedList.length === 0 && !loading ? (
+          {completedList?.length === 0 && !loading ? (
             <SText
               thin
               color={"sec_text"}
@@ -94,7 +115,6 @@ function CompletedAppointmets(props) {
         appointmentId={ratingData?.appointmentId}
         shopId={ratingData?.shopId}
         setRatingData={setRatingData}
-        onRate={removeCardFromUi}
       />
       <ReportModal
         visible={reportModal}
