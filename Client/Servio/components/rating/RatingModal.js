@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, View } from "react-native";
 import CardModal from "../general/CardModal";
 import RatingStars from "./RatingStars";
 import PriBtn from "../general/PriBtn";
@@ -12,7 +12,6 @@ function RatingModal({
   shopId,
   appointmentId,
   setRatingData,
-  onRate,
 }) {
   const [rating, setRating] = useState(0);
   const [submiting, setSubmiting] = useState(false);
@@ -31,13 +30,13 @@ function RatingModal({
       };
       const res = await rateShop(shopId, data);
       if (res.ok) {
-        onRate();
         toast.success("Submitted!");
       }
       if (res.data.message === "Appointment already rated!") {
         toast.error("Already rated!");
       }
     } catch (error) {
+      console.log(error);
       toast.error("Failed!");
     } finally {
       setSubmiting(false);
@@ -52,24 +51,31 @@ function RatingModal({
   };
 
   return (
-    <CardModal isVisibile={isVisible}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <RatingStars
-          onRatingChange={handleRatingChange}
-          title={"Rate Shop"}
-          subtitle="How was your experience in this appointment?"
-        />
+    <>
+      {isVisible && <View style={styles.overlay} />}
 
-        <PriBtn
-          full
-          square
-          style={[styles.btn, { opacity: isDisabled() || submiting ? 0.5 : 1 }]}
-          title={submiting ? "Submitting..." : "Submit"}
-          onPress={handleConfirm}
-          disabled={isDisabled()}
-        />
-      </ScrollView>
-    </CardModal>
+      <CardModal isVisibile={isVisible}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <RatingStars
+            onRatingChange={handleRatingChange}
+            title={"Rate Shop"}
+            subtitle="How was your experience in this appointment?"
+          />
+
+          <PriBtn
+            full
+            square
+            style={[
+              styles.btn,
+              { opacity: isDisabled() || submiting ? 0.5 : 1 },
+            ]}
+            title={submiting ? "Submitting..." : "Submit"}
+            onPress={handleConfirm}
+            disabled={isDisabled()}
+          />
+        </ScrollView>
+      </CardModal>
+    </>
   );
 }
 
@@ -77,6 +83,13 @@ const styles = StyleSheet.create({
   container: {},
   btn: {
     marginTop: 15,
+  },
+  overlay: {
+    position: "absolute",
+    inset: 0,
+    backgroundColor: "black",
+    zIndex: 110,
+    opacity: 0.5,
   },
 });
 
