@@ -24,6 +24,7 @@ import { useRoute } from "@react-navigation/native";
 import CardLeftBorder from "./CardLeftBorder";
 import { addThirtyMinutes } from "../../functions/addOneHour";
 import { alert } from "react-native-alert-queue";
+import { useBookingStore } from "../../store/shopOwner/useBookingsStore";
 
 function AppointmentCard({
   id,
@@ -52,6 +53,8 @@ function AppointmentCard({
   const { theme, isDarkMode } = useTheme();
   const [modal, setModal] = useState(false);
   const [showBtns, setShowBtns] = useState(false);
+
+  const completeApp = useBookingStore((state) => state.completeApp);
 
   const route = useRoute();
 
@@ -203,7 +206,12 @@ function AppointmentCard({
                 <GhostBtn
                   auto
                   title={"Completed"}
-                  onPress={() => onComplete(id)}
+                  // todo: complete the bookStore
+                  onPress={() =>
+                    route.name === "CompletedAppointments"
+                      ? completeApp(id, route.name)
+                      : onComplete(id)
+                  }
                 />
                 <VerticalLine />
                 <GhostBtn

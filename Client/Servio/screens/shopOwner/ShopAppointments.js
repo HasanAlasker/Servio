@@ -17,12 +17,15 @@ import AppointmentCard from "../../components/cards/AppointmentCard";
 import GapContainer from "../../components/general/GapContainer";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 import SText from "../../components/text/SText";
+import { useBookingStore } from "../../store/shopOwner/useBookingsStore";
 
 function ShopAppointments(props) {
   const [tab, setTab] = useState("1");
   const [pending, setPending] = useState([]);
   const [confirmed, setConfirmed] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+
+  const loadBook = useBookingStore((state) => state.loadBook);
 
   const route = useRoute();
   const { shopId } = route.params;
@@ -89,7 +92,8 @@ function ShopAppointments(props) {
           app._id === id ? { ...app, status: "completed" } : app,
         ),
       );
-      await markAppointmentCompleted(id);
+      const res = await markAppointmentCompleted(id);
+      if (res.ok) await loadBook();
     } catch (error) {
       console.log(error);
     }

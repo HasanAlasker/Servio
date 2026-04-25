@@ -59,22 +59,33 @@ function CompletedAppointmets(props) {
 
   const dataSource = isUser ? completed : callTo;
 
-  const completedList = dataSource?.map((appointment) => (
-    <AppointmentCard
-      key={appointment._id}
-      id={appointment._id}
-      customer={appointment?.customer}
-      car={appointment.car}
-      shop={appointment.shop}
-      serviceParts={appointment.serviceParts}
-      status={appointment.status}
-      scheuledAt={appointment.scheduledDate}
-      {...(isUser && { showRateAndReport: true })}
-      openRatingModal={handleRating}
-      openReportModal={handleReport}
-      isReported={appointment.isReported}
-    />
-  ));
+  const completedList =
+    dataSource.length > 0 ? (
+      dataSource?.map((appointment) => (
+        <AppointmentCard
+          key={appointment._id}
+          id={appointment._id}
+          customer={appointment?.customer}
+          car={appointment.car}
+          shop={appointment.shop}
+          serviceParts={appointment.serviceParts}
+          status={appointment.status}
+          scheuledAt={appointment.scheduledDate}
+          {...(isUser && { showRateAndReport: true })}
+          openRatingModal={handleRating}
+          openReportModal={handleReport}
+          isReported={appointment.isReported}
+        />
+      ))
+    ) : (
+      <SText
+        thin
+        color={"sec_text"}
+        style={{ marginHorizontal: "auto", textAlign: "center" }}
+      >
+        You're all caught up!
+      </SText>
+    );
 
   return (
     <SafeScreen>
@@ -83,17 +94,7 @@ function CompletedAppointmets(props) {
       >
         <MenuBackBtn onClose={() => navigate.goBack()} />
         <GapContainer>
-          {completedList?.length === 0 && !loading ? (
-            <SText
-              thin
-              color={"sec_text"}
-              style={{ marginHorizontal: "auto", textAlign: "center" }}
-            >
-              You're all caught up!
-            </SText>
-          ) : (
-            completedList
-          )}
+          {completedList}
           {loading && (
             <GapContainer>
               <LoadingSkeleton />
