@@ -13,6 +13,7 @@ export const useBookingStore = create((set, get) => ({
   callTo: null,
   loading: false,
   error: false,
+  // todo: complete booking types for shop owner
 
   loadBook: async () => {
     try {
