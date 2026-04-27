@@ -193,7 +193,7 @@ function MakeAppointment(props) {
         </GapContainer>
       </ScrollScreen>
       {from && (
-        <Animated.View  entering={SlideInDown}>
+        <Animated.View layout={LinearTransition} entering={SlideInDown}>
           <NavCont>
             <PriBtn
               disabled={isSubmitting}

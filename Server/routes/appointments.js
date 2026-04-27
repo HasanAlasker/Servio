@@ -239,6 +239,80 @@ router.get(
   },
 );
 
+// get comleted for all shops
+router.get(
+  "/completed",
+  [auth, shopOwner],
+  logIP("GET_COMPLETED_APPOINTMENTS"),
+  async (req, res) => {
+    try {
+      const userId = req.user._id;
+
+      const shops = await ShopModel.find({
+        owner: userId,
+        isDeleted: false,
+        isVerified: true,
+      });
+      const shopIds = shops.map((s) => s._id);
+
+      const completed = await AppointmentModel.find({
+        shop: { $in: shopIds },
+        status: "completed",
+      })
+        .sort("-createdAt")
+        .populate("car", "make name model plateNumber mileage color")
+        .populate("customer", "name phone")
+        .populate("shop", "owner name services address rating ratingCount")
+        .populate("serviceParts");
+
+      return res.status(200).json({ success: true, data: completed });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
+
+// get pending for all shops
+router.get(
+  "/pending/:id",
+  [auth, shopOwner],
+  logIP("GET_PENDING_APPOINTMENTS"),
+  async (req, res) => {
+    try {
+      const userId = req.user._id;
+
+      const shops = await ShopModel.find({
+        owner: userId,
+        isDeleted: false,
+        isVerified: true,
+      });
+      const shopIds = shops.map((s) => s._id);
+
+      const pending = await AppointmentModel.find({
+        shop: { $in: shopIds },
+        status: "pending",
+        isRejected: false,
+      })
+        .populate("car", "make name model plateNumber mileage color")
+        .populate("customer", "name phone")
+        .populate("shop", "owner name services address rating ratingCount")
+        .populate("serviceParts");
+
+      return res.status(200).json({ success: true, data: pending });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
+
 // get comleted
 router.get(
   "/completed/:id",
