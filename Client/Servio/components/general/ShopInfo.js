@@ -36,7 +36,7 @@ function ShopInfo(props) {
         {shopData.newShops > 0 && (
           <CardLeftBorder
             title={"Unverified: "}
-            titleIcon={"store-remove-outline"}
+            titleIcon={"shopping-bag"}
             data={loading ? "0" : shopData.newShops}
             style={styles.container}
           />
