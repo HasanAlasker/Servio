@@ -193,15 +193,17 @@ function MakeAppointment(props) {
         </GapContainer>
       </ScrollScreen>
       {from && (
-        <NavCont>
-          <PriBtn
-            disabled={isSubmitting}
-            square
-            full
-            title={!isSubmitting ? `Book ${from}` : "Booking..."}
-            onPress={handleRefClick}
-          />
-        </NavCont>
+        <Animated.View  entering={SlideInDown}>
+          <NavCont>
+            <PriBtn
+              disabled={isSubmitting}
+              square
+              full
+              title={!isSubmitting ? `Book ${from}` : "Booking..."}
+              onPress={handleRefClick}
+            />
+          </NavCont>
+        </Animated.View>
       )}
     </SafeScreen>
   );
