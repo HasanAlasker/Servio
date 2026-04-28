@@ -16,11 +16,13 @@ import GapContainer from "../../components/general/GapContainer";
 import SText from "../../components/text/SText";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 import { alert } from "react-native-alert-queue";
+import SearchBar from "../../components/general/SearchBar";
 
 function Users(props) {
   const [tab, setTab] = useState("1");
   const [active, setActive] = useState([]);
   const [deleted, setDeleted] = useState([]);
+  const [filter, setFilter] = useState("");
 
   const {
     data: activeUsers,
@@ -78,26 +80,28 @@ function Users(props) {
     }
   };
 
-  const RenderUsers =
-    tab === "1"
-      ? active.map((user) => (
-          <UserCard
-            key={user._id}
-            passedUser={user}
-            isDeleted={user.isDeleted}
-            handleAction={handleAction}
-            full
-          />
-        ))
-      : deleted.map((user) => (
-          <UserCard
-            key={user._id}
-            passedUser={user}
-            isDeleted={user.isDeleted}
-            handleAction={handleAction}
-            full
-          />
-        ));
+  const userData = tab === "1" ? active : deleted;
+
+  const filteredUsers = userData?.filter((u) => {
+    const q = filter.toLowerCase();
+    return (
+      u.name.toLowerCase().includes(q) ||
+      u.phone.includes(q) ||
+      u.role.toLowerCase().includes(q) ||
+      u.email.toLowerCase().includes(q) ||
+      u._id.toLowerCase().includes(q)
+    );
+  });
+
+  const RenderUsers = filteredUsers?.map((user) => (
+    <UserCard
+      key={user._id}
+      passedUser={user}
+      isDeleted={user.isDeleted}
+      handleAction={handleAction}
+      full
+    />
+  ));
 
   return (
     <SafeScreen>
@@ -108,6 +112,7 @@ function Users(props) {
           onTabChange={handleTab}
           active={tab}
         />
+        <SearchBar onChangeText={setFilter} />
         <GapContainer>
           {RenderUsers}
           {loading && <LoadingSkeleton />}
