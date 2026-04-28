@@ -1,0 +1,3317 @@
+
+> server@1.0.0 test
+> cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js
+
+(node:25649) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25649) Warning: `--localstorage-file` was provided without a valid path
+FAIL __tests__/api-suite.test.js
+  ● Console
+
+    console.log
+      [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+    console.log
+      [dotenv@17.2.3] injecting env (0) from .env -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+    console.log
+      [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+    console.log
+      Service scheduler started 📆
+
+      at index.js:64:9
+
+    console.log
+      Connected to mongoDB... ✅
+
+      at index.js:43:23
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.641Z | VERIFY_SHOP | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a323
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.651Z | REFRESH_TOKEN | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a323
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.656Z | ADD_CAR | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.664Z | ADD_PART | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.682Z | EDIT_PART | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.686Z | BOOK_APPOINTMENT | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.707Z | CONFIRM_APPOINTMENT | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a325
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.712Z | REPORT | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.731Z | SUGGESTION | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      ⚠️ No admin tokens found
+
+      at routes/suggestions.js:70:19
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.751Z | EARLY_ACCESS | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.754Z | GET_ME | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.756Z | GET_VERIFIED_SHOPS | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.761Z | GET_MY_CARS | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.764Z | GET_CAR_PARTS | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.766Z | GET_UPCOMING_SERVICES | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.769Z | GET_UPCOMING_APPOINTMENTS | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.775Z | CHECK_SLOT | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.777Z | CHECK_SLOT | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.778Z | GET_CONFIRMED_APPOINTMENTS | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a325
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.781Z | DELETE_ONE_APPOINTMENT | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a31f
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.784Z | CLOSE_REPORT | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a323
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.785Z | GET_SUGGESTIONS | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a323
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.787Z | DELETE_SUGGESTION | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a323
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.788Z | GET_PENDING_EARLY_ACCESS | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a323
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.789Z | MARK_SENT_EARLY_ACCESS | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a323
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:47.791Z | GET_SENT_EARLY_ACCESS | IP: ::ffff:127.0.0.1 | User: 69ee5347607d27ec4730a323
+
+      at middleware/logIp.js:3:11
+
+  ● API Suite (core routers) › Slots: /busy/:shopId returns booked slots for the day
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 404
+
+      312 |       .query({ date: day });
+      313 |
+    > 314 |     expect(res.statusCode).toBe(200);
+          |                            ^
+      315 |     expect(res.body.success).toBe(true);
+      316 |     expect(res.body.data.map((s) => s._id.toString())).toContain(
+      317 |       apptSlot._id.toString(),
+
+      at Object.<anonymous> (__tests__/api-suite.test.js:314:28)
+
+PASS __tests__/security.test.js
+  ● Console
+
+    console.log
+      [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+    console.log
+      [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+    console.log
+      [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+    console.log
+      Service scheduler started 📆
+
+      at index.js:64:9
+
+    console.log
+      Connected to mongoDB... ✅
+
+      at index.js:43:23
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.138Z | REGISTER | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.205Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.206Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.207Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.209Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.210Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.211Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.212Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.213Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.214Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.215Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.216Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.217Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.218Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.219Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.219Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.220Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.225Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.226Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.227Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.228Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.229Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.230Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.231Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.231Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.232Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.233Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.234Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.235Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.236Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.236Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.237Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.238Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.239Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.240Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.241Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.241Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.242Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.243Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.243Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.244Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.245Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.246Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.247Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.247Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.248Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.249Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.250Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.250Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.251Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.252Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.253Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.253Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.254Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.255Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.255Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.256Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.257Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.257Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.258Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.259Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.259Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.260Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.261Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.261Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.262Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.263Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.263Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.264Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.265Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.265Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.266Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.267Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.268Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.269Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.269Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.270Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.271Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.272Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.273Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.274Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.274Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.275Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.276Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.276Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.277Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.278Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.279Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.279Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.280Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.281Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.282Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.282Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.283Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.284Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.285Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.286Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.286Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.287Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.288Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.289Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.290Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.290Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.291Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.292Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.293Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.293Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.294Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.295Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.295Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.296Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.297Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.297Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.298Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.299Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.300Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.300Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.301Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.302Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.303Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.307Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.308Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.309Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.309Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.310Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.311Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.312Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.312Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.313Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.314Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.314Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.315Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.316Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.317Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.318Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.318Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.319Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.320Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.320Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.321Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.322Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.322Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.323Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.324Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.324Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.325Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.326Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.326Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.327Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.327Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.328Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.329Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.330Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.330Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.331Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.332Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.332Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.333Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.334Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.334Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.335Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.336Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.336Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.337Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.338Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.338Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.339Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.340Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.340Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.341Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.342Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.342Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.343Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.344Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.344Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.345Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.346Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.346Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.347Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.347Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.348Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.349Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.349Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.350Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.351Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.351Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.352Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.353Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.353Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.354Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.354Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.355Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.356Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.356Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.357Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.358Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.359Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.359Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.360Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.360Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.361Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.362Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.362Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.363Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.364Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.364Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.365Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.365Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.366Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.367Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.367Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.368Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.369Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.369Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.370Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.371Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.371Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.372Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.372Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.373Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.374Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.375Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.375Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.376Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.377Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.377Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.378Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.379Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.379Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.380Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.380Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.381Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.385Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.386Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.387Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.387Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.388Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.389Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.389Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.390Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.391Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.391Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.392Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.393Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.393Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.394Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.395Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.395Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.396Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.397Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.397Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.398Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.399Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.399Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.400Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.401Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.402Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.402Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.403Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.404Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.404Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.405Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.406Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.406Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.407Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.407Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.408Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.409Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.409Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.410Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.411Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.411Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.412Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.413Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.413Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.414Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.414Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.415Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.416Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.416Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.417Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.418Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.418Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.419Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.420Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.420Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.421Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.421Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.422Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.423Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.423Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.424Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.424Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.425Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.426Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.426Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.427Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.427Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.428Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.429Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.429Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.430Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.431Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.431Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.432Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.432Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.433Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.434Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.434Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.435Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.436Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.436Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.437Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.437Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.438Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.439Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.439Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.440Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.441Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.441Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.442Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.442Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.443Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.444Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.444Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.445Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.446Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.446Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.447Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.447Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.448Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.449Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.449Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.450Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.451Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.451Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.452Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.453Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.453Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.454Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.454Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.455Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.459Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.459Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.460Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.461Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.461Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.462Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.462Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.463Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.464Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.464Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.465Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.466Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.466Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.467Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.468Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.468Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.469Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.470Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.470Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.471Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.472Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.472Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.473Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.474Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.474Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.475Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.476Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.476Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.477Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.477Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.478Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.479Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.479Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.480Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.481Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.481Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.482Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.483Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.483Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.484Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.485Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.485Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.486Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.487Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.487Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.488Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.488Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.489Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.490Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.490Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.491Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.491Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.492Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.493Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.493Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.494Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.494Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.495Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.495Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.496Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.497Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.498Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.498Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.499Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.499Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.500Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.501Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.501Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.502Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.503Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.503Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.504Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.504Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.505Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.506Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.506Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.507Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.507Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.508Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.509Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.509Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.510Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.511Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.511Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.512Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.512Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.513Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.513Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.514Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.515Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.515Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.516Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.517Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.518Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.518Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.519Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.519Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.520Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.521Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.521Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.522Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.522Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.523Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.524Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.524Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.525Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.525Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.526Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.527Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.527Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.528Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.531Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.532Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.533Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.534Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.535Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.535Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.536Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.537Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.537Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.538Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.538Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.539Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.540Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.540Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.541Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.541Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.542Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.543Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.543Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.544Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.545Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.545Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.546Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.547Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.547Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.548Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.549Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.550Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.551Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.551Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.552Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.553Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.554Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.554Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.555Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.556Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.556Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.557Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.558Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.559Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.559Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.560Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.561Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.562Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.563Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.563Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.564Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.565Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.565Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.566Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.567Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.567Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.568Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.569Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.569Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.570Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.571Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.572Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.573Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.574Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.574Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.575Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.576Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.576Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.577Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.577Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.578Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.579Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.579Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.580Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.580Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.581Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.582Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.582Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.583Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.584Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.584Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.585Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.586Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.586Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.587Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.587Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.588Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.589Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.589Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.590Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.591Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.591Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.592Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.592Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.593Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.593Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.594Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.594Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.595Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.595Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.596Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.597Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.597Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.598Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.598Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.599Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.600Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.600Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.601Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.602Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.602Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.603Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.604Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.604Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.605Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.609Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.609Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.610Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.611Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.611Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.612Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.612Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.613Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.613Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.614Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.614Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.615Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.615Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.616Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.617Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.617Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.618Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.618Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.619Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.619Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.620Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.620Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.621Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.622Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.622Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.623Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.623Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.624Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.624Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.625Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.625Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.626Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.626Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.627Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+PASS __tests__/users.test.js
+  ● Console
+
+    console.log
+      [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+    console.log
+      [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+    console.log
+      [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+    console.log
+      Service scheduler started 📆
+
+      at index.js:64:9
+
+    console.log
+      Connected to mongoDB... ✅
+
+      at index.js:43:23
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:48.966Z | REGISTER | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:49.051Z | REGISTER | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:49.111Z | REGISTER | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:49.114Z | REGISTER | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:49.174Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:49.234Z | REGISTER | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:49.293Z | LOGIN | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+PASS __tests__/appointments.test.js
+  ● Console
+
+    console.log
+      [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+    console.log
+      [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+    console.log
+      [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+    console.log
+      Service scheduler started 📆
+
+      at index.js:64:9
+
+    console.log
+      Connected to mongoDB... ✅
+
+      at index.js:43:23
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:49.717Z | REGISTER | IP: ::ffff:127.0.0.1 | User: unauthenticated
+
+      at middleware/logIp.js:3:11
+
+    console.log
+      [IP LOG] 2026-04-26T18:02:49.976Z | GET_UPCOMING_APPOINTMENTS | IP: ::ffff:127.0.0.1 | User: 69ee5349af04c66748caf640
+
+      at middleware/logIp.js:3:11
+
+PASS __tests__/services/serviceCalculator.test.js
+PASS __tests__/services/upcomingServiceManager.test.js
+
+Test Suites: 1 failed, 5 passed, 6 total
+Tests:       1 failed, 42 passed, 43 total
+Snapshots:   0 total
+Time:        3.284 s
+Ran all test suites.
+Jest did not exit one second after the test run has completed.
+
+'This usually means that there are asynchronous operations that weren't stopped in your tests. Consider running Jest with `--detectOpenHandles` to troubleshoot this issue.
