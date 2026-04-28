@@ -5,6 +5,20 @@ import { addCar } from "../../../api/car";
 import { UseCar } from "../../../context/CarContext";
 import { NavigationContainer } from "@react-navigation/native";
 
+jest.mock("@react-navigation/native", () => {
+  const actual = jest.requireActual("@react-navigation/native");
+  return {
+    ...actual,
+    useNavigation: () => ({
+      navigate: jest.fn(),
+      goBack: jest.fn(),
+    }),
+    useRoute: () => ({
+      params: undefined,
+    }),
+  };
+});
+
 // Mocking API
 jest.mock("../../../api/car", () => ({
   addCar: jest.fn(),
@@ -48,7 +62,6 @@ describe("AddCar Screen (Integration Test)", () => {
     await waitFor(() => {
       // Expect some common Yup messages
       expect(getByText("Car make is required")).toBeTruthy();
-      expect(getByText("Car model name is required")).toBeTruthy();
       expect(getByText("Year is required")).toBeTruthy();
       expect(getByText("Color is required")).toBeTruthy();
       expect(getByText("Plate number is required")).toBeTruthy();

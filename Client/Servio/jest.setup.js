@@ -1,7 +1,36 @@
 import "@testing-library/jest-native/extend-expect";
 
 // Silence Reanimated warning in Jest environment
-jest.mock("react-native-reanimated", () => require("react-native-reanimated/mock"));
+jest.mock("react-native-reanimated", () => {
+  const reactNative = require("react-native");
+  const AnimatedComponent = jest.fn((component) => component);
+  return {
+    __esModule: true,
+    default: {
+      ...reactNative.Animated,
+      createAnimatedComponent: AnimatedComponent,
+      ScrollView: reactNative.ScrollView,
+      View: reactNative.View,
+      Text: reactNative.Text,
+      Image: reactNative.Image,
+    },
+    useSharedValue: jest.fn(() => ({ value: 0 })),
+    useAnimatedStyle: jest.fn(() => ({})),
+    useAnimatedProps: jest.fn(() => ({})),
+    useDerivedValue: jest.fn(() => ({ value: 0 })),
+    useAnimatedScrollHandler: jest.fn(() => () => {}),
+    withTiming: jest.fn((toValue) => toValue),
+    withSpring: jest.fn((toValue) => toValue),
+    withRepeat: jest.fn((toValue) => toValue),
+    withSequence: jest.fn((toValue) => toValue),
+    runOnJS: jest.fn((fn) => fn),
+    runOnUI: jest.fn((fn) => fn),
+    createAnimatedComponent: AnimatedComponent,
+    FadeIn: { duration: jest.fn().mockReturnThis() },
+    FadeOut: { duration: jest.fn().mockReturnThis() },
+    Layout: { springify: jest.fn().mockReturnThis() },
+  };
+});
 
 // AsyncStorage mock (used heavily by contexts)
 jest.mock("@react-native-async-storage/async-storage", () =>
@@ -50,7 +79,7 @@ jest.mock("@react-navigation/native", () => {
   const useRoute = jest.fn(() => ({
     key: "test-route",
     name: "TestRoute",
-    params: {},
+    params: undefined,
   }));
   return {
     ...actual,
@@ -200,6 +229,10 @@ jest.mock("./context/AppointmentContext", () => {
     UseAppointment: () => ({
       appointments: [],
       completed: [],
+      upcoming: [],
+      past: [],
+      setUpcoming: jest.fn(),
+      setPast: jest.fn(),
       loadAppointments: jest.fn(async () => true),
       isConfirmedAppointments: jest.fn(() => false),
     }),
@@ -224,7 +257,20 @@ jest.mock("./context/NotificationContext", () => {
   };
 });
 
-// Safe area (used by useAppToast and SafeScreen)
+// Network hooks / API wrappers used by some screens
+const mockData = [];
+const mockRequest = jest.fn(async () => ({ ok: true }));
+jest.mock("./hooks/useApi", () => {
+  return jest.fn(() => ({
+    data: mockData,
+    message: null,
+    request: mockRequest,
+    loading: false,
+    error: false,
+    success: true,
+    status: 200,
+  }));
+});
 jest.mock("react-native-safe-area-context", () => {
   const React = require("react");
   const actual = jest.requireActual("react-native-safe-area-context");
@@ -236,21 +282,23 @@ jest.mock("react-native-safe-area-context", () => {
   };
 });
 
-// Network hooks / API wrappers used by some screens
-jest.mock("./hooks/useApi", () => {
-  return () => ({
-    data: [],
-    message: null,
-    request: jest.fn(async () => ({ ok: true })),
-    loading: false,
-    error: false,
-    success: true,
-    status: 200,
-  });
-});
+
 
 // API call used by Login screen
 jest.mock("./api/upcomingService", () => ({
   isServerAwake: jest.fn(async () => ({ ok: true, status: 200, data: { message: "Awake" } })),
 }));
 
+
+jest.mock('expo-linear-gradient', () => ({
+  LinearGradient: require('react-native').View
+}));
+
+const originalConsoleError = console.error;
+console.error = (...args) => {
+  if (args[0] && args[0].name === 'AggregateError') {
+    originalConsoleError("AGGREGATE ERROR UNWRAPPED:", args[0].errors);
+  } else {
+    originalConsoleError(...args);
+  }
+};

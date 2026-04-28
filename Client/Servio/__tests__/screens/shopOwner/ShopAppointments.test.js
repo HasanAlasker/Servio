@@ -1,6 +1,7 @@
 import { render, waitFor, fireEvent } from "@testing-library/react-native";
 import React from "react";
 import ShopAppointments from "../../../screens/shopOwner/ShopAppointments";
+import useApi from "../../../hooks/useApi";
 import { 
   getPendingAppointments, 
   getConfirmedAppointments, 
@@ -31,16 +32,14 @@ describe("ShopAppointments Screen", () => {
     jest.clearAllMocks();
   });
 
+  const emptyData = [];
+  const mockRequest = jest.fn(async () => ({ ok: true }));
+
   it("should display 'No appointments here' if active tab is empty", async () => {
-    getConfirmedAppointments.mockResolvedValue({
-      ok: true,
-      status: 200,
-      data: { success: true, data: [] }, // Empty confirmed list
-    });
-    getPendingAppointments.mockResolvedValue({
-      ok: true,
-      status: 200,
-      data: { success: true, data: [] }, // Empty pending list
+    useApi.mockImplementation((apiFunc) => {
+      if (apiFunc === getConfirmedAppointments) return { data: emptyData, request: mockRequest, loading: false };
+      if (apiFunc === getPendingAppointments) return { data: emptyData, request: mockRequest, loading: false };
+      return { data: emptyData, request: mockRequest, loading: false };
     });
 
     const { getByText } = render(<ShopAppointments />);
@@ -56,24 +55,22 @@ describe("ShopAppointments Screen", () => {
       _id: "appt_1",
       customer: { name: "John" },
       car: { make: "Toyota", name: "Corolla", model: "2020" },
-      shop: { id: "shop_1" },
+      shop: { id: "shop_1", address: { area: "Area", street: "Street" } },
       status: "confirmed",
       scheduledDate: "2024-05-12T10:00:00Z"
     }];
 
-    getConfirmedAppointments.mockResolvedValue({
-      ok: true, status: 200, data: { success: true, data: mockConfirmed }
-    });
-    getPendingAppointments.mockResolvedValue({
-      ok: true, status: 200, data: { success: true, data: [] }
+    useApi.mockImplementation((apiFunc) => {
+      if (apiFunc === getConfirmedAppointments) return { data: mockConfirmed, request: mockRequest, loading: false };
+      if (apiFunc === getPendingAppointments) return { data: emptyData, request: mockRequest, loading: false };
+      return { data: emptyData, request: mockRequest, loading: false };
     });
 
     const { getByText } = render(<ShopAppointments />);
 
     await waitFor(() => {
       // Should find some trace of the appointment rendered via AppointmentCard
-      expect(getByText("Toyota")).toBeTruthy();
-      expect(getByText("Corolla")).toBeTruthy();
+      expect(getByText("Toyota Corolla")).toBeTruthy();
     });
   });
 
@@ -82,16 +79,15 @@ describe("ShopAppointments Screen", () => {
       _id: "appt_pending",
       customer: { name: "Jane" },
       car: { make: "Honda", name: "Civic", model: "2018" },
-      shop: { id: "shop_1" },
+      shop: { id: "shop_1", address: { area: "Area", street: "Street" } },
       status: "pending",
       scheduledDate: "2024-05-12T10:00:00Z"
     }];
 
-    getConfirmedAppointments.mockResolvedValue({
-      ok: true, status: 200, data: { success: true, data: [] }
-    });
-    getPendingAppointments.mockResolvedValue({
-      ok: true, status: 200, data: { success: true, data: mockPending }
+    useApi.mockImplementation((apiFunc) => {
+      if (apiFunc === getConfirmedAppointments) return { data: emptyData, request: mockRequest, loading: false };
+      if (apiFunc === getPendingAppointments) return { data: mockPending, request: mockRequest, loading: false };
+      return { data: emptyData, request: mockRequest, loading: false };
     });
 
     const { getByText, queryByText } = render(<ShopAppointments />);
@@ -102,7 +98,7 @@ describe("ShopAppointments Screen", () => {
     });
 
     await waitFor(() => {
-      expect(getByText("Honda")).toBeTruthy();
+      expect(getByText("Honda Civic")).toBeTruthy();
     });
     
     // Simulating Rejection
