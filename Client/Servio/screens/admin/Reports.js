@@ -11,6 +11,7 @@ import ReportCard from "../../components/cards/ReportCard";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 import { useReportStore } from "../../store/admin/useReportStore";
 import SText from "../../components/text/SText";
+import SearchBar from "../../components/general/SearchBar";
 
 function Reports(props) {
   const [tab, setTab] = useState("1");
@@ -22,6 +23,7 @@ function Reports(props) {
   const loadReports = useReportStore((state) => state.loadReports);
   const closeReport = useReportStore((state) => state.closeReport);
   const openReport = useReportStore((state) => state.openReport);
+  const [filter, setFilter] = useState("");
 
   const handleTab = () => {
     if (tab === "1") setTab("2");
@@ -41,9 +43,21 @@ function Reports(props) {
 
   const dataSource = tab === "1" ? open : closed;
 
+  const filteredReports = dataSource?.filter((r) => {
+    const q = filter.toLowerCase();
+    return (
+      r.reporter.name?.toLowerCase().includes(q) ||
+      r.reason?.toLowerCase().includes(q) ||
+      r.reportedShop.name?.toLowerCase().includes(q) ||
+      r.appointment.car.name?.toLowerCase().includes(q) ||
+      r.appointment.car.make?.toLowerCase().includes(q) ||
+      r.appointment.status?.toLowerCase().includes(q)
+    );
+  });
+
   const RenderReports =
-    dataSource.length > 0 ? (
-      dataSource?.map((o) => (
+    filteredReports.length > 0 ? (
+      filteredReports?.map((o) => (
         <ReportCard
           key={o._id}
           reason={o.reason}
@@ -64,7 +78,11 @@ function Reports(props) {
         color={"sec_text"}
         style={{ margin: "auto", textAlign: "center" }}
       >
-        No reports here yet
+        {!filter && filteredReports.length === 0
+          ? "No reports here"
+          : filter
+            ? "No results found"
+            : null}
       </SText>
     );
 
@@ -81,6 +99,7 @@ function Reports(props) {
           onTabChange={handleTab}
           active={tab}
         />
+        <SearchBar onChangeText={setFilter} />
         <GapContainer>
           {RenderReports}
           {loading && <LoadingSkeleton />}
