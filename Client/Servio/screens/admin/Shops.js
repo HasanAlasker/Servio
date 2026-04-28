@@ -17,10 +17,12 @@ import SText from "../../components/text/SText";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 import { alert } from "react-native-alert-queue";
 import { useShopStore } from "../../store/admin/useShopStore";
+import SearchBar from "../../components/general/SearchBar";
 
 function Shops(props) {
   const [tab, setTab] = useState("1");
   const [refreshing, setRefreshing] = useState(false);
+  const [filter, setFilter] = useState("");
 
   const {
     verifiedShops: verified,
@@ -48,9 +50,22 @@ function Shops(props) {
 
   const dataSource = tab === "1" ? verified : unverified;
 
+  const filteredShops = dataSource?.filter((s) => {
+    const q = filter.toLowerCase();
+    return (
+      s.name?.toLowerCase().includes(q) ||
+      s.description?.toLowerCase().includes(q) ||
+      s.rating?.toString().toLowerCase().includes(q) ||
+      s.address?.city?.toLowerCase().includes(q) ||
+      s.address?.area?.toLowerCase().includes(q) ||
+      s.address?.street?.toLowerCase().includes(q) ||
+      s.services?.some((service) => service.name?.toLowerCase().includes(q))
+    );
+  });
+
   const RenderShops =
-    dataSource.length > 0 ? (
-      dataSource?.map((shop) => (
+    filteredShops.length > 0 ? (
+      filteredShops?.map((shop) => (
         <ShopCard
           key={shop._id}
           id={shop._id}
@@ -73,9 +88,11 @@ function Shops(props) {
         color={"sec_text"}
         style={{ margin: "auto", textAlign: "center" }}
       >
-        {dataSource === unverified
+        {!filter && dataSource === unverified
           ? "There are no requests yet"
-          : "There are no open shops yet"}
+          : filter
+            ? "No results found"
+            : "There are no open shops yet"}
       </SText>
     );
 
@@ -92,6 +109,7 @@ function Shops(props) {
           active={tab}
           onTabChange={handleTab}
         />
+        <SearchBar onChangeText={setFilter} />
         <GapContainer>
           {RenderShops}
           {loading && <LoadingSkeleton />}

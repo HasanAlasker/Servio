@@ -93,15 +93,26 @@ function Users(props) {
     );
   });
 
-  const RenderUsers = filteredUsers?.map((user) => (
-    <UserCard
-      key={user._id}
-      passedUser={user}
-      isDeleted={user.isDeleted}
-      handleAction={handleAction}
-      full
-    />
-  ));
+  const RenderUsers =
+    filteredUsers.length > 0 ? (
+      filteredUsers?.map((user) => (
+        <UserCard
+          key={user._id}
+          passedUser={user}
+          isDeleted={user.isDeleted}
+          handleAction={handleAction}
+          full
+        />
+      ))
+    ) : (
+      <SText
+        thin
+        color={"sec_text"}
+        style={{ margin: "auto", textAlign: "center" }}
+      >
+        {filter ? "No results found" : !filter && !loading ? "No users here" : null}
+      </SText>
+    );
 
   return (
     <SafeScreen>
@@ -118,16 +129,6 @@ function Users(props) {
           {loading && <LoadingSkeleton />}
           {loading && <LoadingSkeleton />}
           {loading && <LoadingSkeleton />}
-
-          {!loadingD && deleted.length === 0 && tab === "2" && (
-            <SText
-              thin
-              color={"sec_text"}
-              style={{ margin: "auto", textAlign: "center" }}
-            >
-              There are no deleted accounts
-            </SText>
-          )}
         </GapContainer>
       </ScrollScreen>
       <Navbar />
