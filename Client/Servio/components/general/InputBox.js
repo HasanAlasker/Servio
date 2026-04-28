@@ -14,6 +14,9 @@ function InputBox({
   isPassword,
   isBox,
   lable = placeholder,
+  style,
+  full,
+  onChangeText,
   ...rest
 }) {
   const styles = useThemedStyles(getStyles);
@@ -26,11 +29,13 @@ function InputBox({
   };
 
   return (
-    <InputCont style={styles.whole}>
-      <TText thin color={"darker_gray"}>
-        {lable}
-      </TText>
-      <View style={[styles.container, isFocused && styles.focus]}>
+    <InputCont style={[styles.whole]} full={full}>
+      {lable && (
+        <TText thin color={"darker_gray"}>
+          {lable}
+        </TText>
+      )}
+      <View style={[styles.container, isFocused && styles.focus, style]}>
         {penOn && <Feather name="edit-3" size={24} color={theme.main_text} />}
         {icon && (
           <MaterialCommunityIcons
@@ -56,6 +61,7 @@ function InputBox({
           placeholder={placeholder}
           placeholderTextColor={theme.darker_gray}
           value={value}
+          onChangeText={onChangeText}
           secureTextEntry={isHidden}
           {...rest}
         />
@@ -88,6 +94,7 @@ const getStyles = (theme) =>
       // marginTop: 20,
       gap: 10,
       minHeight: 40,
+      maxWidth: 600,
     },
     text: {
       color: theme.darker_gray,
@@ -96,7 +103,7 @@ const getStyles = (theme) =>
       padding: 0,
       margin: 0,
       textAlignVertical: "center",
-      outlineStyle:'none'
+      outlineStyle: "none",
     },
     placeholder: {
       opacity: 0.6,

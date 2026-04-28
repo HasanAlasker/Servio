@@ -11,10 +11,13 @@ import { useRoute } from "@react-navigation/native";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 import { UseUser } from "../../context/UserContext";
 import SText from "../../components/text/SText";
+import SearchBar from "../../components/general/SearchBar";
 
 function Shops(props) {
   const { userLocation } = UseUser();
   const [shops, setShops] = useState([]);
+  const [filter, setFilter] = useState("");
+
   const route = useRoute();
   const params = route?.params;
 
@@ -33,6 +36,19 @@ function Shops(props) {
     setShops(fetchedShops);
   }, [fetchedShops]);
 
+  const filteredShops = shops?.filter((s) => {
+    const query = filter.toLowerCase();
+    return (
+      s.name?.toLowerCase().includes(query) ||
+      s.description?.toLowerCase().includes(query) ||
+      s.rating?.toString().toLowerCase().includes(query) ||
+      s.address?.city?.toLowerCase().includes(query) ||
+      s.address?.area?.toLowerCase().includes(query) ||
+      s.address?.street?.toLowerCase().includes(query) ||
+      s.services?.some((service) => service.name?.toLowerCase().includes(query))
+    );
+  });
+
   const [refreshing, setRefreshing] = useState(false);
   const refresh = async () => {
     try {
@@ -44,7 +60,7 @@ function Shops(props) {
     }
   };
 
-  const RenderShops = shops.map((shop) => (
+  const RenderShops = filteredShops?.map((shop) => (
     <ShopCard
       key={shop._id}
       id={shop._id}
@@ -64,7 +80,11 @@ function Shops(props) {
     <SafeScreen>
       <ScrollScreen
         {...(Platform.OS !== "web" && { refreshing, onRefresh: refresh })}
+        stickyHeader
+        stickyHeaderIndices={[0]}
       >
+        <SearchBar onChangeText={setFilter} />
+
         <GapContainer>
           {!userLocation && !loading && (
             <SText
