@@ -60,21 +60,38 @@ function Shops(props) {
     }
   };
 
-  const RenderShops = filteredShops?.map((shop) => (
-    <ShopCard
-      key={shop._id}
-      id={shop._id}
-      name={shop.name}
-      address={shop.address}
-      description={shop.description}
-      image={shop?.image}
-      openHours={shop.openHours}
-      rating={shop.rating}
-      ratingCount={shop.ratingCount}
-      services={shop.services}
-      serviceData={params}
-    />
-  ));
+  const RenderShops =
+    filteredShops.length > 0 ? (
+      filteredShops?.map((shop) => (
+        <ShopCard
+          key={shop._id}
+          id={shop._id}
+          name={shop.name}
+          address={shop.address}
+          description={shop.description}
+          image={shop?.image}
+          openHours={shop.openHours}
+          rating={shop.rating}
+          ratingCount={shop.ratingCount}
+          services={shop.services}
+          serviceData={params}
+        />
+      ))
+    ) : (
+      <SText
+        thin
+        color={"sec_text"}
+        style={{ margin: "auto", textAlign: "center" }}
+      >
+        {!userLocation && !loading
+          ? "Location required"
+          : !filter && !loading
+            ? "No shops registered in your city"
+            : filter && !loading
+              ? "No results found"
+              : null}
+      </SText>
+    );
 
   return (
     <SafeScreen>

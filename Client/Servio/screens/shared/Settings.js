@@ -11,6 +11,8 @@ import SafeScreen from "../../components/general/SafeScreen";
 import ScrollScreen from "../../components/general/ScrollScreen";
 import SettingsGroup from "../../components/cards/SettingsGroup";
 import SettingsOption from "../../components/general/SettingsOption";
+import { getWebOS } from "../../functions/getWebOS";
+import { useEffect, useState } from "react";
 
 function Settings(props) {
   const styles = useThemedStyles(getStyles);
@@ -18,11 +20,39 @@ function Settings(props) {
   const { logout, isUser, isAdmin, isShopOwner } = UseUser();
   const navigate = useNavigation();
 
+  const [webOS, setWebOS] = useState(null);
+
+  useEffect(() => {
+    if (Platform.OS !== "web") return;
+
+    const ua = navigator.userAgent;
+    if (/android/i.test(ua)) setWebOS("android");
+    else if (/iphone|ipad|ipod/i.test(ua)) setWebOS("ios");
+    else if (/windows/i.test(ua)) setWebOS("windows");
+    else if (/macintosh|mac os x/i.test(ua)) setWebOS("macos");
+    else if (/linux/i.test(ua)) setWebOS("linux");
+    else setWebOS("unknown");
+  }, []);
+
   return (
     <SafeScreen>
       <ScrollScreen>
         <MenuBackBtn onClose={() => navigate.goBack()} />
         <GapContainer gap={20}>
+          {Platform.OS === "web" && webOS === "android" && (
+            <SettingsGroup label={"Application"}>
+              <SettingsOption
+                icon={"download"}
+                text={"Download the app"}
+                onPress={() =>
+                  openURL(
+                    "https://play.google.com/store/apps/details?id=com.hasan_alasker.Servio",
+                  )
+                }
+              />
+            </SettingsGroup>
+          )}
+
           <SettingsGroup label={"Account"}>
             <SettingsOption
               icon={"user"}
