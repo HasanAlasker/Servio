@@ -31,6 +31,7 @@ export const lightTheme = {
   lightBlue: "#00AAFF",
   pink: "#C953FF",
   darkPink: "#FF0051",
+  trans:"rgba(255, 255, 255, 0)"
 };
 
 export const darkTheme = {

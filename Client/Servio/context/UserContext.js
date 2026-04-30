@@ -52,6 +52,7 @@ export const UserProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
   const [authLoaded, setAuthLoaded] = useState(false);
+  const [onBoarded, setOnBoarded] = useState(false);
 
   const { loadCars } = UseCar();
   const { loadServices } = UseService();
@@ -62,6 +63,12 @@ export const UserProvider = ({ children }) => {
   const STORAGE_KEYS = {
     USER: "@servio_user",
     TOKEN: "@servio_token",
+    ONBOARDED: "@servio_onboarded",
+  };
+
+  const onBoardUser = async () => {
+    setOnBoarded(true);
+    await AsyncStorage.setItem("@servio_onboarded", "true");
   };
 
   const fetchUserLocation = async () => {
@@ -155,8 +162,14 @@ export const UserProvider = ({ children }) => {
     try {
       setLoading(true);
       setAppStart(true);
+      const loadedOnBoarded = await AsyncStorage.getItem(
+        STORAGE_KEYS.ONBOARDED,
+      );
       const loadedUser = await AsyncStorage.getItem(STORAGE_KEYS.USER);
       const loadedToken = await AsyncStorage.getItem(STORAGE_KEYS.TOKEN);
+
+      if (loadedOnBoarded === "true") setOnBoarded(true);
+
       if (loadedUser && loadedToken) {
         const parsedUser = JSON.parse(loadedUser);
         setUser(parsedUser);
@@ -481,6 +494,7 @@ export const UserProvider = ({ children }) => {
     authLoaded,
     loading,
     appStart,
+    onBoarded,
     error,
     message,
     status,

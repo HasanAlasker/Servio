@@ -17,6 +17,7 @@ import { sendPushNotification } from "../utils/notifications.js";
 import { getTimeFromDate } from "../functions/formatTime.js";
 import logIP from "../middleware/logIp.js";
 import CarModel from "../models/car.js";
+import { paginate } from "../middleware/paginate.js";
 
 const router = express.Router();
 
@@ -71,6 +72,7 @@ router.get(
     }
   },
 );
+
 
 // get past
 router.get("/past", auth, logIP("GET_PAST_APPOINTMENTS"), async (req, res) => {
@@ -165,6 +167,31 @@ router.get(
         message: "Server Error",
       });
     }
+  },
+);
+
+// get upcoming (pagination)
+router.get(
+  "/v2/upcoming",
+  auth,
+  logIP("GET_UPCOMING_APPOINTMENTS"),
+  paginate((req) => ({
+    model: AppointmentModel,
+    filter: {
+      customer: req.user._id,
+      scheduledDate: { $gte: new Date() },
+      status: { $nin: ["completed", "canceled", "rejected"] },
+    },
+    sort: { scheduledDate: 1 },
+    populate: [
+      { path: "car", select: "make name model plateNumber mileage color" },
+      { path: "customer", select: "name phone" },
+      { path: "shop" },
+      { path: "serviceParts" },
+    ],
+  })),
+  (req, res) => {
+    return res.status(200).json({ success: true, data: res.paginate });
   },
 );
 

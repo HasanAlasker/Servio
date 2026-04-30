@@ -37,7 +37,9 @@ function Home(props) {
         <GapContainer gap={40} fullHeight>
           <HelloUser />
           {cars.length > 0 && <UsersDash />}
-          {cars.length === 0 && !loading && <EmptyGarage />}
+          {cars.length === 0 && !loading && (
+            <EmptyGarage text={"Track your car’s health effortlessly"} />
+          )}
         </GapContainer>
       </ScrollScreen>
       <Navbar />

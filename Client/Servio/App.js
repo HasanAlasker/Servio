@@ -56,6 +56,7 @@ import { useAdminStore } from "./store/admin/useAdminStore";
 import { useShopStore } from "./store/admin/useShopStore";
 import { useReportStore } from "./store/admin/useReportStore";
 import { useBookingStore } from "./store/shopOwner/useBookingsStore";
+import Onboard from "./screens/login/Onboard";
 
 export const navigationRef = createNavigationContainerRef();
 SplashScreen.preventAutoHideAsync();
@@ -137,6 +138,17 @@ const ShopOwnerStack = () => {
   );
 };
 
+const OnBoardingStack = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName="Onboard"
+      screenOptions={{ headerShown: false, animation: "slide_from_right" }}
+    >
+      <Stack.Screen name="Onboard" component={Onboard} />
+    </Stack.Navigator>
+  );
+};
+
 const AuthStack = () => {
   return (
     <Stack.Navigator
@@ -160,6 +172,7 @@ const AppNavigator = () => {
     loadUserData,
     fetchUserLocation,
     user,
+    onBoarded,
   } = UseUser();
   const { loadCars } = UseCar();
   const { isDarkMode, theme } = useTheme();
@@ -208,7 +221,9 @@ const AppNavigator = () => {
     <>
       <SystemBars style={isDarkMode ? "light" : "dark"} />
       <NavigationContainer ref={navigationRef}>
-        {!isAuthenticated ? (
+        {!onBoarded && !isAuthenticated ? (
+          <OnBoardingStack />
+        ) : !isAuthenticated ? (
           <AuthStack />
         ) : isUser ? (
           <CarOwnerStack />
