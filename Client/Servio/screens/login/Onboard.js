@@ -1,6 +1,7 @@
-import { View, StyleSheet, Dimensions, Animated } from "react-native";
+import { View, StyleSheet, Dimensions, Animated, Platform } from "react-native";
 import { useRef, useEffect } from "react";
-import LottieView from "lottie-react-native";
+import LottieView from "../../components/onboarding/LottieView";
+// import LottieView from "lottie-react-native";
 import Onboarding from "react-native-onboarding-swiper";
 import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from "../../context/ThemeContext";
@@ -95,12 +96,14 @@ function Onboard() {
           background: <Gradient />,
           isLight: true,
           image: (
-            <LottieView
-              style={styles.lottie}
-              source={require("../../assets/animations/car.json")}
-              autoPlay
-              loop
-            />
+            <View style={styles.imgCont}>
+              <LottieView
+                style={styles.lottie}
+                source={require("../../assets/animations/car.json")}
+                autoPlay
+                loop
+              />
+            </View>
           ),
           title: "Add your car",
           subtitle: "Takes less than 30 seconds",
@@ -109,12 +112,14 @@ function Onboard() {
           background: <Gradient />,
           isLight: true,
           image: (
-            <LottieView
-              style={styles.lottie}
-              source={require("../../assets/animations/List.json")}
-              autoPlay
-              loop
-            />
+            <View style={styles.imgCont}>
+              <LottieView
+                style={styles.lottie}
+                source={require("../../assets/animations/List.json")}
+                autoPlay
+                loop
+              />
+            </View>
           ),
           title: "Add one part",
           subtitle: "Start with engine oil, we'll track when it needs service",
@@ -123,12 +128,14 @@ function Onboard() {
           background: <Gradient />,
           isLight: true,
           image: (
-            <LottieView
-              style={styles.lottie}
-              source={require("../../assets/animations/Check.json")}
-              autoPlay
-              loop
-            />
+            <View style={styles.imgCont}>
+              <LottieView
+                style={styles.lottie}
+                source={require("../../assets/animations/Check.json")}
+                autoPlay
+                loop
+              />
+            </View>
           ),
           title: "We've got the rest",
           subtitle: "Get reminders before every service and book in seconds",
@@ -139,6 +146,7 @@ function Onboard() {
 }
 
 const styles = StyleSheet.create({
+  imgCont: { bottom: Platform.OS === "web" && 300 },
   lottie: {
     width: width * 0.8,
     height: 400,

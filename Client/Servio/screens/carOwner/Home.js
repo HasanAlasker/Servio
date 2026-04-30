@@ -38,7 +38,7 @@ function Home(props) {
           <HelloUser />
           {cars.length > 0 && <UsersDash />}
           {cars.length === 0 && !loading && (
-            <EmptyGarage text={"Track your car’s health effortlessly"} />
+            <EmptyGarage title={"Track your car’s health effortlessly"} text={"It won't take 30 seconds"} />
           )}
         </GapContainer>
       </ScrollScreen>
