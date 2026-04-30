@@ -494,6 +494,7 @@ export const UserProvider = ({ children }) => {
     authLoaded,
     loading,
     appStart,
+    onBoardUser,
     onBoarded,
     error,
     message,
