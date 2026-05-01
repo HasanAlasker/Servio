@@ -9,13 +9,18 @@ import { useNavigation } from "@react-navigation/native";
 import PriBtn from "../../components/general/PriBtn";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UseUser } from "../../context/UserContext";
+import SafeScreen from "../../components/general/SafeScreen";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const { width } = Dimensions.get("window");
 
 function Onboard() {
-  const { theme } = useTheme();
+  const { theme, isDarkMode } = useTheme();
   const navigate = useNavigation();
   const { onBoardUser } = UseUser();
+  const insets = useSafeAreaInsets();
+
+  const isLight = !isDarkMode;
 
   const handleOnDone = async () => {
     await onBoardUser();
@@ -37,7 +42,7 @@ function Onboard() {
           width: animatedWidth,
           height: 8,
           borderRadius: 4,
-          backgroundColor: selected ? theme.g7 : theme.g4,
+          backgroundColor: selected ? theme.activeDot : theme.dot,
           marginHorizontal: 3,
         }}
       />
@@ -76,7 +81,7 @@ function Onboard() {
     <Onboarding
       bottomBarColor={theme.g2}
       onDone={handleOnDone}
-      bottomBarHeight={80}
+      bottomBarHeight={80 + insets.bottom}
       showSkip={false}
       bottomBarHighlight={false}
       DotComponent={CustomDot}
@@ -94,7 +99,7 @@ function Onboard() {
       pages={[
         {
           background: <Gradient />,
-          isLight: true,
+          isLight: isLight,
           image: (
             <View style={styles.imgCont}>
               <LottieView
@@ -110,7 +115,7 @@ function Onboard() {
         },
         {
           background: <Gradient />,
-          isLight: true,
+          isLight: isLight,
           image: (
             <View style={styles.imgCont}>
               <LottieView
@@ -126,7 +131,7 @@ function Onboard() {
         },
         {
           background: <Gradient />,
-          isLight: true,
+          isLight: isLight,
           image: (
             <View style={styles.imgCont}>
               <LottieView

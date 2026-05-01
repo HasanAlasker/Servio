@@ -31,7 +31,8 @@ export const lightTheme = {
   lightBlue: "#00AAFF",
   pink: "#C953FF",
   darkPink: "#FF0051",
-  trans:"rgba(255, 255, 255, 0)"
+  activeDot: "#78b9ff",
+  dot: "#f4f6f8",
 };
 
 export const darkTheme = {
@@ -67,4 +68,6 @@ export const darkTheme = {
   lightBlue: "#00AAFF",
   pink: "#C953FF",
   darkPink: "#FF0051",
+  activeDot: "#3b8fe8",
+  dot: "#545454",
 };

@@ -103,15 +103,6 @@ function Shops(props) {
         <SearchBar onChangeText={setFilter} />
 
         <GapContainer>
-          {!userLocation && !loading && (
-            <SText
-              thin
-              color={"sec_text"}
-              style={{ margin: "auto", textAlign: "center" }}
-            >
-              location required to find nearby shops
-            </SText>
-          )}
           {RenderShops}
           {loading && <LoadingSkeleton />}
           {loading && <LoadingSkeleton />}

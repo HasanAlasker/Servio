@@ -17,6 +17,7 @@ import { unregisterPushToken } from "../functions/notificationToken";
 import { getApproximateLocation } from "../functions/getLocation";
 import useAppToast from "../hooks/useAppToast";
 import { Alert, Linking } from "react-native";
+import * as Device from "expo-device";
 
 export const UserContext = createContext();
 
@@ -60,6 +61,12 @@ export const UserProvider = ({ children }) => {
   const { loadShops } = UseShop();
   const toast = useAppToast();
 
+  const mockLocation = {
+    city: "Amman",
+    lat: 31.963158,
+    lng: 31.963158,
+  };
+
   const STORAGE_KEYS = {
     USER: "@servio_user",
     TOKEN: "@servio_token",
@@ -73,8 +80,11 @@ export const UserProvider = ({ children }) => {
 
   const fetchUserLocation = async () => {
     try {
-      const location = await getApproximateLocation();
-      // console.log("Location", location);
+      const location = Device.isDevice
+        ? await getApproximateLocation()
+        : mockLocation;
+        
+      console.log("Location", location);
 
       if (!location) {
         toast.error("Nearby shops unknown");
