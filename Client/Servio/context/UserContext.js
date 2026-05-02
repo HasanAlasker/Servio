@@ -84,7 +84,7 @@ export const UserProvider = ({ children }) => {
         ? await getApproximateLocation()
         : mockLocation;
         
-      console.log("Location", location);
+      // console.log("Location", location);
 
       if (!location) {
         toast.error("Nearby shops unknown");

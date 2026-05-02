@@ -49,6 +49,9 @@ function Shops(props) {
     );
   });
 
+  const showEmpty =
+    !loading && fetchedShops !== null && filteredShops.length === 0;
+
   const [refreshing, setRefreshing] = useState(false);
   const refresh = async () => {
     try {
@@ -85,7 +88,7 @@ function Shops(props) {
       >
         {!userLocation && !loading
           ? "Location required"
-          : !filter && !loading
+          : showEmpty
             ? "No shops registered in your city"
             : filter && !loading
               ? "No results found"

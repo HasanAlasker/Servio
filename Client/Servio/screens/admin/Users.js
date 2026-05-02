@@ -110,7 +110,11 @@ function Users(props) {
         color={"sec_text"}
         style={{ margin: "auto", textAlign: "center" }}
       >
-        {filter ? "No results found" : !filter && !loading ? "No users here" : null}
+        {filter && !loading && filteredUsers.length === 0
+          ? "No results found"
+          : !filter && !loading
+            ? "No users here"
+            : null}
       </SText>
     );
 

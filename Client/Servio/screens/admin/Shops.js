@@ -88,7 +88,7 @@ function Shops(props) {
         color={"sec_text"}
         style={{ margin: "auto", textAlign: "center" }}
       >
-        {!filter && dataSource === unverified
+        {!filter && dataSource === unverified && filteredShops.length === 0
           ? "There are no requests yet"
           : filter
             ? "No results found"
