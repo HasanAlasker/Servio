@@ -143,8 +143,17 @@ function AddCar(props) {
       }
 
       if (response.ok) {
-        addNewCar(response.data.data);
-        navigate.navigate("MyCars");
+        const newCar = response.data.data;
+        addNewCar(newCar);
+        const passCar = {
+          id: newCar._id,
+          make: newCar.make,
+          name: newCar.name,
+          mileage: newCar.mileage,
+          unit: newCar.unit,
+        };
+        navigate.navigate("CarParts", passCar);
+        toast.success("Add a part!");
       }
       if (!response.ok) toast.error("Image too big");
     } catch (error) {
