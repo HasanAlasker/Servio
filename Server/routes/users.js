@@ -232,7 +232,7 @@ router.get(
       const userId = req.params.id;
       let data = {};
 
-      const user = await UserModel.findById(userId).select('-password');
+      const user = await UserModel.findById(userId).select('-password -pushNotificationTokens');
       if (!user)
         return res.status(404).json({ success: false, message: "User not found" });
 

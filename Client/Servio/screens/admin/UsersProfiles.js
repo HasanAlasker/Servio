@@ -22,11 +22,12 @@ function UsersProfiles(props) {
   } = useApi(getUserProfile);
 
   useEffect(() => {
-    fetchUser();
+    fetchUser(userId);
   }, []);
 
   useEffect(() => {
     setUser(fetchedUser);
+    console.log(fetchedUser)
   }, [fetchedUser]);
 
   return (
