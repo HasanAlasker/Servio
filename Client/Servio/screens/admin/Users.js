@@ -101,6 +101,7 @@ function Users(props) {
           passedUser={user}
           isDeleted={user.isDeleted}
           handleAction={handleAction}
+          goToProfile={true}
           full
         />
       ))

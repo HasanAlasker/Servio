@@ -57,6 +57,7 @@ import { useShopStore } from "./store/admin/useShopStore";
 import { useReportStore } from "./store/admin/useReportStore";
 import { useBookingStore } from "./store/shopOwner/useBookingsStore";
 import Onboard from "./screens/login/Onboard";
+import UsersProfiles from "./screens/admin/UsersProfiles";
 
 export const navigationRef = createNavigationContainerRef();
 SplashScreen.preventAutoHideAsync();
@@ -76,6 +77,7 @@ const AdminStack = () => {
       <Stack.Screen name="DeletedShops" component={DeletedShops} />
       <Stack.Screen name="SeeSuggestions" component={SeeSuggestions} />
       <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="UsersProfiles" component={UsersProfiles} />
     </Stack.Navigator>
   );
 };

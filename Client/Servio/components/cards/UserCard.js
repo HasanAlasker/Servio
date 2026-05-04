@@ -5,7 +5,7 @@ import PriBtn from "../general/PriBtn";
 import StatusLabel from "../general/StatusLabel";
 import { useTheme } from "../../context/ThemeContext";
 import { UseUser } from "../../context/UserContext";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import SquareTitle from "../general/SquareTitle";
 import SeparatorComp from "../general/SeparatorComp";
 import SimpleTitleText from "../general/SimpleTitleText";
@@ -22,20 +22,26 @@ function UserCard({
   isDeleted = null,
   short,
   setIsEdit,
+  goToProfile,
 }) {
   const { theme } = useTheme();
   const { user, isAdmin } = UseUser();
   const route = useRoute();
   const [showBtns, setShowBtns] = useState(false);
+  const navigation = useNavigation();
 
   return (
     <CardComp
       style={{ marginHorizontal: "auto" }}
       short={short}
       onPress={() => {
-        setShowBtns(!showBtns);
-        if (isEdit) {
-          setIsEdit(false);
+        if (goToProfile) {
+          navigation.navigate("UsersProfiles", { userId: passedUser._id });
+        } else {
+          setShowBtns(!showBtns);
+          if (isEdit) {
+            setIsEdit(false);
+          }
         }
       }}
     >
@@ -51,7 +57,7 @@ function UserCard({
             />
           </RowCont>
           {passedUser?.role !== "user" && (
-            <StatusLabel status={passedUser?.role} style={{marginTop:10}}/>
+            <StatusLabel status={passedUser?.role} style={{ marginTop: 10 }} />
           )}
           <SeparatorComp full color="faded" />
 
