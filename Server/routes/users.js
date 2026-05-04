@@ -65,7 +65,7 @@ router.get("/me", auth, logIP("GET_ME"), async (req, res) => {
 
     const user = await UserModel.findById(id).select("-password");
     if (!user)
-      res.status(404).json({ success: false, message: "User not found" });
+      return res.status(404).json({ success: false, message: "User not found" });
 
     return res.status(200).json({ success: true, data: user });
   } catch (error) {
@@ -213,6 +213,42 @@ router.get(
       };
 
       return res.status(200).json({ success: true, data: response });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+);
+
+router.get(
+  "/profile/:id",
+  logIP(`GET_PROFILE`),
+  [auth, admin],
+  async (req, res) => {
+    try {
+      const userId = req.params.id;
+      let data = {};
+
+      const user = await UserModel.findById(userId).select('-password');
+      if (!user)
+        return res.status(404).json({ success: false, message: "User not found" });
+
+      data.user = user;
+
+      if (user.role === "shopOwner") {
+        const shops = await ShopModel.find({ owner: userId });
+        data.shops = shops;
+      }
+
+      if (user.role !== "admin") {
+        const cars = await CarModel.find({ owner: userId });
+        data.cars = cars;
+      }
+
+      return res.status(200).json({ success: true, data: data });
     } catch (error) {
       console.error(error);
       return res.status(500).json({
