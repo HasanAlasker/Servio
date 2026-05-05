@@ -107,6 +107,7 @@ function Onboard() {
                 source={require("../../assets/animations/car.json")}
                 autoPlay
                 loop
+                speed={.6}
               />
             </View>
           ),
@@ -123,6 +124,8 @@ function Onboard() {
                 source={require("../../assets/animations/List.json")}
                 autoPlay
                 loop
+                speed={.7}
+
               />
             </View>
           ),
@@ -139,6 +142,8 @@ function Onboard() {
                 source={require("../../assets/animations/Check.json")}
                 autoPlay
                 loop
+                speed={.8}
+
               />
             </View>
           ),
