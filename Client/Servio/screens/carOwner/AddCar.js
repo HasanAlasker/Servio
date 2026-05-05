@@ -36,12 +36,16 @@ export const validationSchema = Yup.object({
     .required("Year is required")
     .typeError("Year must be a number"),
 
-  color: Yup.string().trim().required("Color is required"),
+  color: Yup.string()
+    .trim()
+    .min(2, "Minimum 2 characters")
+    .max(15, "Maximum 15 characters")
+    .required("Color is required"),
 
   plateNumber: Yup.string()
     .trim()
     .min(1, "Minimum 1 character")
-    .max(15, "Maximum 15 characters")
+    .max(10, "Maximum 10 characters")
     .required("Plate number is required"),
 
   mileage: Yup.number()
