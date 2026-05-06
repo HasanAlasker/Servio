@@ -62,6 +62,7 @@ const validationSchema = Yup.object({
     .typeError("Miles must be a number"),
 
   lastChangeDate: Yup.date()
+    .min(1900, "Year must be 1900 or later")
     .max(
       new Date(new Date().setHours(23, 59, 59, 999)),
       "Last change date cannot be in the future",
@@ -78,7 +79,7 @@ const validationSchema = Yup.object({
 
   note: Yup.string()
     .trim()
-    .min(5)
+    .min(2)
     .max(100)
     .matches(
       /^[a-zA-Z0-9\s'-]+$/,
