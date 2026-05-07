@@ -10,8 +10,11 @@ import { UseService } from "../../context/ServiceContext";
 import { useState } from "react";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
 import InfoCard from "../../components/cards/InfoCard";
+import { UseUser } from "../../context/UserContext";
+
 
 function Service(props) {
+  const { showServiceNote, hideNote } = UseUser();
   const { services, setServices, loading, loadServices } = UseService();
   const [refreshing, setRefreshing] = useState(false);
   const refresh = async () => {
@@ -77,10 +80,12 @@ function Service(props) {
           )}
           {loading && <LoadingSkeleton />}
           {loading && <LoadingSkeleton />}
-          {RenderServices.length !== 0 && (
+          {RenderServices.length !== 0 && showServiceNote && (
             <InfoCard
               title={"Completed a service?"}
               text={'Press "Fixed" on the parts to recalculate.'}
+              close
+              onClose={() => hideNote("serviceNote")}
             />
           )}
           {RenderServices.length !== 0 && Platform.OS === "web" && (

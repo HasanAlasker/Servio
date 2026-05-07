@@ -27,6 +27,8 @@ function CardLeftBorder({
   noPadding,
   transparent,
   shadow,
+  close,
+  onClose
 }) {
   const { theme } = useTheme();
   const styles = useThemedStyles(getstyles);
@@ -92,25 +94,28 @@ function CardLeftBorder({
     >
       {status && (
         <GapContainer flex gap={5}>
-          <RowCont >
-            <MaterialCommunityIcons
-              name={
-                icon
-                  ? icon
-                  : text === "Dangerous"
-                    ? "alert-outline"
-                    : text === "Check Immediately"
-                      ? "car-brake-alert"
-                      : text === "Check Soon"
-                        ? "alert-circle-outline"
-                        : "toolbox-outline"
-              }
-              size={20}
-              color={theme[color]}
-            />
-            <TText thin={!customColor} color={color}>
-              {text}
-            </TText>
+          <RowCont spaceBetween>
+            <RowCont>
+              <MaterialCommunityIcons
+                name={
+                  icon
+                    ? icon
+                    : text === "Dangerous"
+                      ? "alert-outline"
+                      : text === "Check Immediately"
+                        ? "car-brake-alert"
+                        : text === "Check Soon"
+                          ? "alert-circle-outline"
+                          : "toolbox-outline"
+                }
+                size={20}
+                color={theme[color]}
+              />
+              <TText thin={!customColor} color={color}>
+                {text}
+              </TText>
+            </RowCont>
+            {close && <Feather name="x" color={theme[color]} size={18} onPress={onClose}/>}
           </RowCont>
           {!customText ? (
             <RowCont style={{ flexWrap: "wrap", columnGap: 15 }}>
@@ -122,8 +127,8 @@ function CardLeftBorder({
               style={{
                 marginTop: 5,
                 color: theme[customTextColor || "main_text"],
-                flex:1,
-                flexWrap:'wrap'
+                flex: 1,
+                flexWrap: "wrap",
               }}
             >
               {customText}

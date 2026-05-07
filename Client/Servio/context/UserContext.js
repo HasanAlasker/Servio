@@ -54,6 +54,8 @@ export const UserProvider = ({ children }) => {
   const [userLocation, setUserLocation] = useState(null);
   const [authLoaded, setAuthLoaded] = useState(false);
   const [onBoarded, setOnBoarded] = useState(false);
+  const [showPartNote, setPartNote] = useState(true);
+  const [showServiceNote, setServiceNote] = useState(true);
 
   const { loadCars } = UseCar();
   const { loadServices } = UseService();
@@ -71,6 +73,8 @@ export const UserProvider = ({ children }) => {
     USER: "@servio_user",
     TOKEN: "@servio_token",
     ONBOARDED: "@servio_onboarded",
+    PARTNOTE: "@servio_part_note",
+    SERVICENOTE: "@servio_service_note",
   };
 
   const onBoardUser = async () => {
@@ -78,12 +82,20 @@ export const UserProvider = ({ children }) => {
     await AsyncStorage.setItem("@servio_onboarded", "true");
   };
 
+  const hideNote = async (noteType) => {
+    noteType === "partNote" ? setPartNote(false) : setServiceNote(false);
+    await AsyncStorage.setItem(
+      noteType === "partNote" ? "@servio_part_note" : "@servio_service_note",
+      "false",
+    );
+  };
+
   const fetchUserLocation = async () => {
     try {
       const location = Device.isDevice
         ? await getApproximateLocation()
         : mockLocation;
-        
+
       // console.log("Location", location);
 
       if (!location) {
@@ -177,8 +189,14 @@ export const UserProvider = ({ children }) => {
       );
       const loadedUser = await AsyncStorage.getItem(STORAGE_KEYS.USER);
       const loadedToken = await AsyncStorage.getItem(STORAGE_KEYS.TOKEN);
+      const loadedPartNote = await AsyncStorage.getItem(STORAGE_KEYS.PARTNOTE);
+      const loadedServiceNote = await AsyncStorage.getItem(
+        STORAGE_KEYS.SERVICENOTE,
+      );
 
       if (loadedOnBoarded === "true") setOnBoarded(true);
+      if (loadedPartNote === "false") setPartNote(false);
+      if (loadedServiceNote === "false") setServiceNote(false);
 
       if (loadedUser && loadedToken) {
         const parsedUser = JSON.parse(loadedUser);
@@ -524,6 +542,9 @@ export const UserProvider = ({ children }) => {
     checkServerConnection,
     userLocation,
     fetchUserLocation,
+    showServiceNote,
+    showPartNote,
+    hideNote
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

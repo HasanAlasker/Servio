@@ -15,8 +15,10 @@ import InfoCard from "../../components/cards/InfoCard";
 import { UseService } from "../../context/ServiceContext";
 import useAppToast from "../../hooks/useAppToast";
 import MenuBackBtn from "../../components/general/MenuBackBtn";
+import { UseUser } from "../../context/UserContext";
 
 function CarParts(props) {
+  const { showPartNote, hideNote } = UseUser();
   const [parts, setParts] = useState([]);
   const { loadServices } = UseService();
   const toast = useAppToast();
@@ -106,12 +108,14 @@ function CarParts(props) {
             navigateTo={"AddPart"}
             params={params}
           />
-          {RenderParts.length === 0 && !loading && (
+          {showPartNote && RenderParts.length === 0 && !loading && (
             <InfoCard
               title={"How it works?"}
               text={
                 "Add your car parts and we'll automatically calculate when they're next due for service."
               }
+              close
+              onClose={() => hideNote("partNote")}
             />
           )}
         </GapContainer>
