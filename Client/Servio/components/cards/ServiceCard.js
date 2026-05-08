@@ -40,8 +40,8 @@ function ServiceCard({
   };
 
   const handlePress = async () => {
-    await fetchUserLocation();
     navigate.navigate("Shops", sendParams);
+    await fetchUserLocation();
   };
 
   return (

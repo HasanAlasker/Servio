@@ -129,7 +129,6 @@ export const UserProvider = ({ children }) => {
         STORAGE_KEYS.LOCATION,
         JSON.stringify(location),
       ); 
-      console.log(location)
 
       // console.log(location);
     } catch (e) {
