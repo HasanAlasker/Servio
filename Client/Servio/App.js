@@ -191,7 +191,7 @@ const AppNavigator = () => {
     loadCars();
     loadServices();
     loadAppointments();
-    fetchUserLocation();
+    // fetchUserLocation();
   }, []);
 
   useEffect(() => {
