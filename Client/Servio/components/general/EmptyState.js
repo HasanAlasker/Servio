@@ -25,7 +25,7 @@ function EmptyState({
   const navigation = useNavigation();
 
   const flatLottieStyle = StyleSheet.flatten([
-    { width: width * 0.9, height: animationHeight || 250 },
+    { width: width * 0.9, maxWidth: 600, height: animationHeight || 250 },
     lottieStyle,
   ]);
 
