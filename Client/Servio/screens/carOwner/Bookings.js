@@ -111,6 +111,7 @@ function Bookings(props) {
               loop
               animationHeight={150}
               moveTextUp={5}
+              lottieStyle={{left:6}}
             />
           ) : (
             RenderAppointments
