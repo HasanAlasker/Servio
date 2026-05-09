@@ -1,6 +1,14 @@
-import { View, StyleSheet, Dimensions, useWindowDimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  useWindowDimensions,
+  action,
+} from "react-native";
 import LottieView from "../onboarding/LottieView";
 import SText from "../text/SText";
+import PriBtn from "./PriBtn";
+import { useNavigation } from "@react-navigation/native";
 
 function EmptyState({
   text,
@@ -9,8 +17,12 @@ function EmptyState({
   animationHeight,
   moveTextUp,
   lottieStyle,
+  action,
+  btnText,
+  navigateTo,
 }) {
   const { width, height } = useWindowDimensions();
+  const navigation = useNavigation();
 
   const flatLottieStyle = StyleSheet.flatten([
     { width: width * 0.9, height: animationHeight || 250 },
@@ -33,6 +45,15 @@ function EmptyState({
       >
         {text}
       </SText>
+      {action && (
+        <PriBtn
+          auto
+          styleText={{ fontSize: 15 }}
+          style={{ marginTop: 40, paddingHorizontal: 16 }}
+          title={btnText || "Add Car"}
+          onPress={() => navigation.navigate(navigateTo || "AddCar")}
+        />
+      )}
     </View>
   );
 }
