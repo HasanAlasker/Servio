@@ -75,7 +75,6 @@ function ShopCard({
     onAction(type, id);
   };
 
-
   return (
     <CardComp style={styles.container} onPress={onCardPress}>
       <View style={styles.imageCont}>
@@ -104,9 +103,9 @@ function ShopCard({
       <View style={styles.textCont}>
         <GapContainer>
           <RowCont style={{ justifyContent: "space-between" }}>
-            <GapContainer gap={5}>
+            <GapContainer gap={5} flex>
               <MText>{capFirstLetter(name)}</MText>
-              <SText thin color={"sec_text"}>
+              <SText thin color={"sec_text"} >
                 {description}
               </SText>
             </GapContainer>
@@ -126,6 +125,17 @@ function ShopCard({
                 title={capFirstLetter(address.city)}
                 text1={capFirstLetter(address.area + " " + address.street)}
               />
+
+              {!mini && (
+                <CardLeftBorder
+                  noPadding
+                  miniTitle={"Services"}
+                  customColor={"sec_text"}
+                  parts={services}
+                  status={"randomText"}
+                />
+              )}
+
               {!mini && (
                 <RowCont gap={5} style={{ flexWrap: "wrap" }}>
                   {groupDays.map((group, index) => (
@@ -140,18 +150,9 @@ function ShopCard({
             </GapContainer>
           )}
 
-          {!mini && (
-            <CardLeftBorder
-              noPadding
-              miniTitle={"Services"}
-              customColor={"sec_text"}
-              parts={services}
-              status={"randomText"}
-            />
-          )}
-
           {showBtn && (
             <PriBtn
+              style={{ marginTop: 10 }}
               full
               square
               title={"Reserve"}
