@@ -40,7 +40,7 @@ function Home(props) {
           {cars.length > 0 && <UsersDash />}
           {cars.length === 0 && !loading && (
             <EmptyState
-              text={"Takes less 30 seconds to get started"}
+              text={"Takes less than 30 seconds to get started"}
               lottie={require("../../assets/animations/car.json")}
               loop
               animationHeight={170}
